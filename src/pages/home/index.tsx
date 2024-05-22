@@ -1,3 +1,10 @@
+import BackBar from '@components/back-bar'
+
 export default function HomePage() {
-  return <p>HELLO WORLD!</p>
+  return (
+    <div>
+      <BackBar />
+      <p>HELLO WORLD!</p>
+    </div>
+  )
 }
