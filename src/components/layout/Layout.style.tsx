@@ -13,6 +13,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
   height: 100vh;
   background-color: var(--color-white);
+  padding: 0 2rem;
 
   @media screen and (max-width: 767px) {
     width: 100%;
