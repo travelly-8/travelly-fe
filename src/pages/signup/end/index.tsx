@@ -1,3 +1,5 @@
+import RectangleButton from '@components/rectangle-button'
+
 import * as S from './SignupEndPage.style'
 
 export default function SignupEndPage() {
@@ -10,8 +12,7 @@ export default function SignupEndPage() {
         <S.UpperText>회원가입을 축하드려요!</S.UpperText>
         <S.LowerText>이제 함께 여행을 떠나볼까요?</S.LowerText>
       </S.TextWrapper>
-      {/* TODO: 공통 버튼 컴포넌트로 교체 */}
-      <button>이메일로 로그인</button>
+      <RectangleButton>이메일로 로그인</RectangleButton>
     </S.Wrapper>
   )
 }

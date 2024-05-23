@@ -1,5 +1,7 @@
 import { useState } from 'react'
 
+import RectangleButton from '@components/rectangle-button'
+
 import * as S from './SignupPage.style'
 import SplashPage from './splash'
 
@@ -16,8 +18,7 @@ export default function SignupPage() {
     return (
       <S.Wrapper>
         <S.Image src="src/assets/signup/signup.png" alt="signup" />
-        {/* TODO: 공통 버튼 컴포넌트로 교체 */}
-        <p>이메일로 가입하기</p>
+        <RectangleButton size="medium">이메일로 가입하기</RectangleButton>
         <S.StartSNS>
           <S.Bubble src="src/assets/signup/bubble.png" alt="간편하게 시작" />
           <S.Sns src="src/assets/signup/naver.svg" alt="네이버" />
