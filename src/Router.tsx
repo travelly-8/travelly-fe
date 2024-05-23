@@ -3,6 +3,7 @@ import GlobalStyles from '@/styles/GlobalStyles'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import HomePage from './pages/home'
+import SignupPage from './pages/signup'
 import StartPage from './pages/start'
 
 export default function AppRouter() {
@@ -12,6 +13,7 @@ export default function AppRouter() {
       <Routes>
         <Route path="/start" element={<StartPage />} />
         <Route path="/" element={<HomePage />} />
+        <Route path="/signup" element={<SignupPage />} />
       </Routes>
     </BrowserRouter>
   )
