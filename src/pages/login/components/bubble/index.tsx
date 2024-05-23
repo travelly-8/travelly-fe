@@ -1,19 +1,8 @@
 import * as S from './Bubble.style.tsx'
-
-interface BubbleInfo {
-  title: string
-  text: JSX.Element
-  icon: string
-  bubbleDirection: 'left' | 'right'
-}
-
-interface BubbleMap {
-  traveller: BubbleInfo
-  travellee: BubbleInfo
-}
+import { IBubbleMap } from './Bubble.type.ts'
 
 const Bubble = ({ bubbleType }: { bubbleType: 'traveller' | 'travellee' }) => {
-  const BubbleMap: BubbleMap = {
+  const BubbleMap: IBubbleMap = {
     traveller: {
       title: '트래블러란?',
       text: (

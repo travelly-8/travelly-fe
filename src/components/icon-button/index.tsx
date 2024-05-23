@@ -1,23 +1,7 @@
-import { ReactNode } from 'react'
-
 import * as S from './IconButton.style'
+import { IIconButton } from './IconButton.type'
 
-export type ButtonType = 'default' | 'selected' | 'unselected'
-
-//TODO: 인터페이스 파일 분리
-interface IconButtonProps {
-  imgSrc: string
-  children: ReactNode
-  onClick?: () => void
-  buttonType: ButtonType
-}
-
-const IconButton = ({
-  imgSrc,
-  children,
-  onClick,
-  buttonType,
-}: IconButtonProps) => {
+const IconButton = ({ imgSrc, children, onClick, buttonType }: IIconButton) => {
   const text = buttonType === 'selected' ? `${children} >` : children
   return (
     <S.Wrapper buttonType={buttonType} onClick={onClick}>
