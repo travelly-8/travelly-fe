@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components'
-import { Color, Size } from './Button.type'
+
+import { Color, Size } from './RectangleButton.type'
 
 const font = css`
   font-weight: 700;
