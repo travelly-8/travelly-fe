@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyledButton } from './Button.style'
+import * as S from './Button.style'
 import { Props } from './Button.type'
 
 const Button: React.FC<Props> = ({
@@ -7,14 +7,15 @@ const Button: React.FC<Props> = ({
   size = 'medium',
   color = 'primary',
   className = '',
+  disabled = false, // 별도의 boolean 값으로 변경
   onKeyDown,
   onClick,
   children,
 }: Props) => {
   return (
-    <StyledButton
+    <S.Button
       type={type === 'button' ? 'button' : 'submit'}
-      disabled={color === 'gray'}
+      disabled={disabled} // 별도의 boolean 값 사용
       onClick={onClick}
       onKeyDown={onKeyDown}
       className={className}
@@ -22,7 +23,7 @@ const Button: React.FC<Props> = ({
       size={size}
     >
       {children}
-    </StyledButton>
+    </S.Button>
   )
 }
 
