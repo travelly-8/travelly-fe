@@ -31,6 +31,10 @@ const GlobalStyles = createGlobalStyle`
         text-decoration: none;
         color: inherit;
     }
+
+    button{
+        cursor: pointer;
+    }
 `
 
 export default GlobalStyles
