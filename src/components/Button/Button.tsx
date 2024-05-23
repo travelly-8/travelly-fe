@@ -2,12 +2,12 @@ import React from 'react'
 import * as S from './Button.style'
 import { Props } from './Button.type'
 
-const Button: React.FC<Props> = ({
+const RectangleButton: React.FC<Props> = ({
   type = 'button',
   size = 'medium',
   color = 'primary',
   className = '',
-  disabled = false, // 별도의 boolean 값으로 변경
+  disabled = false,
   onKeyDown,
   onClick,
   children,
@@ -15,7 +15,7 @@ const Button: React.FC<Props> = ({
   return (
     <S.Button
       type={type === 'button' ? 'button' : 'submit'}
-      disabled={disabled} // 별도의 boolean 값 사용
+      disabled={disabled}
       onClick={onClick}
       onKeyDown={onKeyDown}
       className={className}
@@ -27,4 +27,4 @@ const Button: React.FC<Props> = ({
   )
 }
 
-export default Button
+export default RectangleButton
