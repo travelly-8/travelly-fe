@@ -24,6 +24,7 @@ const GlobalStyles = createGlobalStyle`
 
   body{
     font-family: "Pretendard", sans-serif;
+    cursor: default;
   }
 
   a {
