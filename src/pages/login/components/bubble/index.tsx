@@ -1,5 +1,6 @@
 import * as S from './Bubble.style.tsx'
-import { IBubbleMap } from './Bubble.type.ts'
+
+import type { IBubbleMap } from './Bubble.type.ts'
 
 const Bubble = ({ bubbleType }: { bubbleType: 'traveller' | 'travellee' }) => {
   const BubbleMap: IBubbleMap = {

@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { ButtonType } from './IconButton.type'
+import type { ButtonType } from './IconButton.type'
 
 function textColor(buttonType: ButtonType) {
   switch (buttonType) {
