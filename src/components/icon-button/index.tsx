@@ -1,5 +1,6 @@
 import * as S from './IconButton.style'
-import { IIconButton } from './IconButton.type'
+
+import type { IIconButton } from './IconButton.type'
 
 /**
  *

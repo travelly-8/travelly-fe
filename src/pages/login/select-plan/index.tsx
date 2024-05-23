@@ -4,12 +4,13 @@ import BackBar from '@/components/back-bar'
 import IconButton from '@/components/icon-button'
 import { ModalSliceState, modal } from '@/store/modal'
 
-import { ButtonType } from '@components/icon-button/IconButton.type'
 import { useDispatch, useSelector } from 'react-redux'
 
 import Bubble from '../components/bubble'
 // eslint-disable-next-line import/order
 import * as S from './SelectPlanPage.style'
+// eslint-disable-next-line import/order
+import type { ButtonType } from '@components/icon-button/IconButton.type'
 // eslint-disable-next-line import/order
 import ConfirmPage from '../components/confirm-page'
 
