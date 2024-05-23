@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 
 export const Wrapper = styled.div`
   margin: 0 -2rem;
@@ -9,6 +9,21 @@ export const Wrapper = styled.div`
   align-items: center;
   flex-direction: column;
 `
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`
+
+export const TextWrapper = styled.div`
+  animation: ${fadeIn} 300ms ease-in-out;
+  opacity: 0;
+  animation-fill-mode: forwards;
+`
+
 export const UpperText = styled.p`
   color: var(--color-white);
   font-size: 1.8rem;
