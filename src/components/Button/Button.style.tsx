@@ -5,7 +5,6 @@ const font = css`
   font-weight: 700;
   font-size: 1.4rem;
   line-height: 2.38rem;
-  font-family: 'pretendard';
 `
 
 function colorCssString(color: Color) {
