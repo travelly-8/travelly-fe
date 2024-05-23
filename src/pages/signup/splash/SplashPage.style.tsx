@@ -22,6 +22,7 @@ export const TextWrapper = styled.div`
   animation: ${fadeIn} 300ms ease-in-out;
   opacity: 0;
   animation-fill-mode: forwards;
+  cursor: default;
 `
 
 export const UpperText = styled.p`

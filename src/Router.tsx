@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import HomePage from './pages/home'
 import SignupPage from './pages/signup'
+import SignupEndPage from './pages/signup/end'
 
 export default function AppRouter() {
   return (
@@ -12,6 +13,7 @@ export default function AppRouter() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path="/signup/end" element={<SignupEndPage />} />
       </Routes>
     </BrowserRouter>
   )
