@@ -15,9 +15,6 @@ export default function Test() {
       <Button size="large" color="primary" onClick={handleClick}>
         로그인
       </Button>
-      <Button size="medium" color="primary" onClick={handleClick}>
-        계정 생성
-      </Button>
     </div>
   )
 }
