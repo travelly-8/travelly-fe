@@ -1,11 +1,11 @@
-export type Color = 'primary' | 'gray'
+export type ColorType = 'primary' | 'gray'
 
-export type Size = 'full' | 'large' | 'medium' | 'small'
+export type SizeType = 'full' | 'large' | 'medium' | 'small'
 
-export type Props = {
+export interface IRectangleButton {
   type?: string
-  size: Size
-  color: Color
+  size?: SizeType
+  color?: ColorType
   disabled?: boolean
   className?: string
   onKeyDown?: React.KeyboardEventHandler<HTMLButtonElement>
