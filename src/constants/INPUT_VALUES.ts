@@ -1,4 +1,4 @@
-import { InputValuesType } from './Input.type'
+import { InputValuesType } from '@components/input'
 
 export const INPUT_LABELS: InputValuesType = {
   default: '기본 라벨',
