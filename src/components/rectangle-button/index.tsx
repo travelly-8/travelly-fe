@@ -1,6 +1,7 @@
 import React from 'react'
-import * as S from './Button.style'
-import { Props } from './Button.type'
+
+import * as S from './RectangleButton.style'
+import { Props } from './RectangleButton.type'
 
 const RectangleButton: React.FC<Props> = ({
   type = 'button',
