@@ -4,8 +4,8 @@ export type Size = 'full' | 'large' | 'medium' | 'small'
 
 export type Props = {
   type?: string
-  size: Size
-  color: Color
+  size?: Size
+  color?: Color
   disabled?: boolean
   className?: string
   onKeyDown?: React.KeyboardEventHandler<HTMLButtonElement>
