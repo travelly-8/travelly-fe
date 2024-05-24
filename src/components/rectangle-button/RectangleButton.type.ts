@@ -1,6 +1,6 @@
-export type ColorType = 'primary' | 'gray'
+export type ColorType = 'primary' | 'disabled'
 
-export type SizeType = 'full' | 'large' | 'medium' | 'small'
+export type SizeType = 'large' | 'medium' | 'small'
 
 export interface IRectangleButton {
   type?: string

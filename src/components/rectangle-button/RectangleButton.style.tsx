@@ -6,9 +6,10 @@ const font = css`
   font-weight: 700;
   font-size: 1.4rem;
   line-height: 2.38rem;
+  font-family: 'pretendard';
 `
 
-function colorCssString(color: ColorType) {
+function colorCssString(color: ColorType, size: SizeType) {
   let colorCss
   switch (color) {
     case 'primary':
@@ -17,7 +18,20 @@ function colorCssString(color: ColorType) {
         color: white;
       `
       break
-
+    case 'disabled':
+      if (size === 'medium') {
+        colorCss = css`
+          background-color: #dfdfdf;
+          color: white;
+        `
+      }
+      if (size === 'large') {
+        colorCss = css`
+          background-color: #ededed;
+          color: #787878;
+        `
+      }
+      break
     default:
       colorCss = css`
         background-color: #5849ff;
@@ -31,10 +45,6 @@ function colorCssString(color: ColorType) {
 function sizeCssString(size: SizeType) {
   let sizeCss
   switch (size) {
-    case 'full':
-      sizeCss = css``
-      break
-
     case 'large':
       sizeCss = css`
         padding: 1.1rem 2rem;
@@ -76,7 +86,7 @@ function sizeCssString(size: SizeType) {
 }
 
 export const Button = styled.button<{ color: ColorType; size: SizeType }>`
-  ${({ color }) => colorCssString(color)}
+  ${({ color, size }) => colorCssString(color, size)}
   ${({ size }) => sizeCssString(size)}
   ${font}
   display: flex;
