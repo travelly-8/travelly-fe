@@ -21,14 +21,14 @@ function colorCssString(color: ColorType, size: SizeType) {
     case 'disabled':
       if (size === 'medium') {
         colorCss = css`
-          background-color: var(--color-grey-light);
+          background-color: var(--color-gray-light);
           color: var(--color-white);
         `
       }
       if (size === 'large') {
         colorCss = css`
-          background-color: var(--color-grey-bright);
-          color: var(--color-grey-middle);
+          background-color: var(--color-gray-bright);
+          color: var(--color-gray-middle);
         `
       }
       break
