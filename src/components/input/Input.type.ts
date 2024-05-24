@@ -14,7 +14,7 @@ export interface IInput {
   placeholder?: string
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void
   onFocus?: (event: FocusEvent<HTMLInputElement>) => void
-  blurEvent?: () => void
+  onBlur?: () => void
 }
 
 interface IValidationRule {

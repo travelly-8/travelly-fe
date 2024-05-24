@@ -15,7 +15,7 @@ const Input: React.FunctionComponent<IInput> = ({
   inputAccessedFor,
   inputType = 'default',
   inputRef,
-  blurEvent = () => console.log('blurred'),
+  onBlur = () => console.log('blurred'),
   value = '',
   placeholder = '',
   onChange,
@@ -91,7 +91,7 @@ const Input: React.FunctionComponent<IInput> = ({
           }
           onBlur={() => {
             setFocused(false)
-            blurEvent()
+            onBlur && onBlur()
           }}
           onFocus={(e) => {
             setFocused(true)
