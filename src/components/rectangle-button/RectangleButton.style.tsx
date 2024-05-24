@@ -14,28 +14,28 @@ function colorCssString(color: ColorType, size: SizeType) {
   switch (color) {
     case 'primary':
       colorCss = css`
-        background-color: #5849ff;
-        color: white;
+        background-color: var(--color-main);
+        color: var(--color-white);
       `
       break
     case 'disabled':
       if (size === 'medium') {
         colorCss = css`
-          background-color: #dfdfdf;
-          color: white;
+          background-color: var(--color-grey-light);
+          color: var(--color-white);
         `
       }
       if (size === 'large') {
         colorCss = css`
-          background-color: #ededed;
-          color: #787878;
+          background-color: var(--color-grey-bright);
+          color: var(--color-grey-middle);
         `
       }
       break
     default:
       colorCss = css`
-        background-color: #5849ff;
-        color: white;
+        background-color: var(--color-main);
+        color: var(--color-white);
       `
       break
   }
