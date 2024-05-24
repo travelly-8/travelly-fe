@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 
-import { Color, Size } from './RectangleButton.type'
+import { ColorType, SizeType } from './RectangleButton.type'
 
 const font = css`
   font-weight: 700;
@@ -9,7 +9,7 @@ const font = css`
   font-family: 'pretendard';
 `
 
-function colorCssString(color: Color) {
+function colorCssString(color: ColorType) {
   let colorCss
   switch (color) {
     case 'primary':
@@ -29,7 +29,7 @@ function colorCssString(color: Color) {
   return colorCss
 }
 
-function sizeCssString(size: Size) {
+function sizeCssString(size: SizeType) {
   let sizeCss
   switch (size) {
     case 'full':
@@ -76,7 +76,7 @@ function sizeCssString(size: Size) {
   return sizeCss
 }
 
-export const Button = styled.button<{ color: Color; size: Size }>`
+export const Button = styled.button<{ color: ColorType; size: SizeType }>`
   ${({ color }) => colorCssString(color)}
   ${({ size }) => sizeCssString(size)}
   ${font}

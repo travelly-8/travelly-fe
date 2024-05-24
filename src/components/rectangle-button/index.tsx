@@ -1,9 +1,10 @@
 import React from 'react'
 
 import * as S from './RectangleButton.style'
-import { Props } from './RectangleButton.type'
 
-const RectangleButton: React.FC<Props> = ({
+import type { IRectangleButton } from './RectangleButton.type'
+
+const RectangleButton: React.FC<IRectangleButton> = ({
   type = 'button',
   size = 'medium',
   color = 'primary',
@@ -12,7 +13,7 @@ const RectangleButton: React.FC<Props> = ({
   onKeyDown,
   onClick,
   children,
-}: Props) => {
+}: IRectangleButton) => {
   return (
     <S.Button
       type={type === 'button' ? 'button' : 'submit'}
