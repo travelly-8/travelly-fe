@@ -11,7 +11,7 @@ import type { IInput } from './Input.type'
 import eyeOffIcon from '/src/assets/common/eye-off.svg'
 import eyeOnIcon from '/src/assets/common/eye-on.svg'
 
-const Input: React.FunctionComponent<IInput> = ({
+const Input = ({
   inputAccessedFor,
   inputType = 'default',
   inputRef,
@@ -20,7 +20,7 @@ const Input: React.FunctionComponent<IInput> = ({
   placeholder = '',
   onChange,
   onFocus,
-}) => {
+}: IInput) => {
   const [focused, setFocused] = useState(false)
   const [inputValue, setInputValue] = useState(value)
   const [showPassword, setShowPassword] = useState(false)
