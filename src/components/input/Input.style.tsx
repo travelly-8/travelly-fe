@@ -8,7 +8,7 @@ export const StyledInputContainer = styled.div`
 `
 
 export const StyledLabel = styled.label<IInput>`
-  color: ${({ errorType }) => (errorType ? '#ff0000' : '#5849ff')};
+  color: ${({ errorType }) => (errorType ? '#ff0000' : 'var(--color-main)')};
   font-weight: 400;
   font-size: 1.2rem;
   line-height: 1.432rem;
@@ -24,11 +24,13 @@ export const StyledInputWrapper = styled.div<IInput>`
   border-style: solid;
   margin-top: 0.1rem;
   padding: 1.1rem 1.6rem;
-  border-color: ${({ errorType }) => (errorType ? '#ff0000' : '#dfdfdf')};
+  border-color: ${({ errorType }) =>
+    errorType ? '#ff0000' : 'var(--color-gray-light)'};
   ${({ focused }) =>
     focused &&
     css<IInput>`
-      border-color: ${({ errorType }) => (errorType ? '#ff0000' : '#5849ff')};
+      border-color: ${({ errorType }) =>
+        errorType ? '#ff0000' : 'var(--color-main)'};
     `}
   padding: 1rem 1.25rem;
   ${({ inputType }) =>
@@ -36,10 +38,11 @@ export const StyledInputWrapper = styled.div<IInput>`
     css`
       cursor: text;
     `}
-  background-color: white;
+  background-color: var(--color-white);
 
   &:focus-within {
-    border-color: ${({ errorType }) => (errorType ? '#ff0000' : '#5849ff')};
+    border-color: ${({ errorType }) =>
+      errorType ? '#ff0000' : 'var(--color-main)'};
   }
 `
 
@@ -50,13 +53,14 @@ export const StyledInput = styled.input`
   outline: none;
   gap: 1rem;
   &::placeholder {
-    color: #dfdfdf;
+    color: var(--color-gray-light);
   }
 `
+
 export const ToggleButton = styled.button`
   border: none;
   cursor: pointer;
-  color: #787878;
+  color: var(--color-gray-middle);
   img {
     width: 1.6rem;
     height: 1.382rem;
