@@ -4,7 +4,7 @@ export const Container = styled.div<{ isKeyboardOpen: boolean }>`
   display: flex;
   flex-direction: column;
   margin-top: 2rem;
-  background-color: white;
+  background-color: var(--color-white);
   ${(props) => props.isKeyboardOpen && 'margin-top: -10rem;'}
 `
 
@@ -49,7 +49,7 @@ export const LinkContainer = styled.div`
 
 export const LinkText = styled.span`
   font-size: 1.2rem;
-  color: #787878;
+  color: var(--color-gray-middle);
   cursor: pointer;
   font-weight: 400;
   line-height: 1.8rem;
