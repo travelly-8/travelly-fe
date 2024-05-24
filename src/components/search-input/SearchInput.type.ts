@@ -1,3 +1,3 @@
-export interface FormData {
+export interface IFormData {
   search: string
 }

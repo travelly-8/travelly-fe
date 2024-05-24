@@ -1,11 +1,11 @@
 import searchIcon from '@/assets/common/search.svg'
 import { useForm } from 'react-hook-form'
 import { Input, InputWrapper, SearchIcon } from './SearchInput.style'
-import type { FormData } from './SearchInput.type'
+import type { IFormData } from './SearchInput.type'
 
 const SearchInput = () => {
-  const { register, handleSubmit } = useForm<FormData>()
-  const onSubmit = (data: FormData) => {
+  const { register, handleSubmit } = useForm<IFormData>()
+  const onSubmit = (data: IFormData) => {
     console.log(data)
   }
 
