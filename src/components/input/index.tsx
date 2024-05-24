@@ -15,6 +15,7 @@ const Input = ({
   inputAccessedFor,
   inputType = 'default',
   inputRef,
+  passwordValue,
   onBlur = () => console.log('blurred'),
   value = '',
   placeholder = '',
@@ -47,10 +48,7 @@ const Input = ({
         }
         break
       case 'password_check':
-        const passwordCheckError = validatePasswordCheck(
-          value,
-          inputRef?.current?.value,
-        )
+        const passwordCheckError = validatePasswordCheck(value, passwordValue)
         if (passwordCheckError) {
           return passwordCheckError
         }
