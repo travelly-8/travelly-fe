@@ -37,7 +37,7 @@ export const CategoryContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(2, 1fr);
-  grid-column-gap: 3.8rem;
+  grid-column-gap: 3.5rem;
   grid-row-gap: 2.4rem;
   padding: 1.6rem 3.2rem;
   position: absolute;
@@ -48,23 +48,4 @@ export const CategoryContainer = styled.div`
   border-radius: 0rem 0rem 1rem 1rem;
   background: #fff;
   box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.1);
-`
-export const Category = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 4.5rem;
-  height: 4.6rem;
-  gap: 0.4rem;
-  cursor: pointer;
-  span {
-    color: #333;
-    font-family: Pretendard;
-    font-size: 1.2rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 1.8rem;
-    white-space: nowrap;
-  }
 `

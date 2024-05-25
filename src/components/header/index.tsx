@@ -10,26 +10,11 @@ import leisure from '@/assets/header/leisure.svg'
 import shop from '@/assets/header/shop.svg'
 import travelcourse from '@/assets/header/travelcourse.svg'
 import travelspot from '@/assets/header/travelspot.svg'
+import NavigatetButton from '@components/naviagte-button'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import * as S from './Header.style'
-import { ICategoryProps, IHeaderProps } from './Header.type'
-const CategoryButton: React.FC<ICategoryProps> = ({
-  img,
-  description,
-  type,
-}) => {
-  const navigate = useNavigate()
-  const handleCategoryClick = () => {
-    navigate(`/result?type=${type}`)
-  }
-  return (
-    <S.Category onClick={handleCategoryClick}>
-      <S.Icon src={img} alt={description} />
-      <span>{description}</span>
-    </S.Category>
-  )
-}
+import { IHeaderProps } from './Header.type'
 
 const CategorySection = () => {
   const categoryList = [
@@ -46,7 +31,7 @@ const CategorySection = () => {
   return (
     <S.CategoryContainer>
       {categoryList.map((category) => (
-        <CategoryButton
+        <NavigatetButton
           key={category.description}
           img={category.img}
           description={category.description}
