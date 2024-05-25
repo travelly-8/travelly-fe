@@ -10,7 +10,7 @@ export default function RangeSlider({
   min,
   max,
   step,
-  priceCap,
+  minGap,
   measure,
 }: IRangeSlider) {
   const [minValue, setMinValue] = useState(initMin)
@@ -19,14 +19,14 @@ export default function RangeSlider({
 
   // Range Handler
   const handleMinRange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (Number(event.target.value) <= maxValue - priceCap) {
+    if (Number(event.target.value) <= maxValue - minGap) {
       setMinValue(Number(event.target.value))
     }
   }
 
   // Range Handler
   const handleMaxRange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (Number(event.target.value) >= minValue + priceCap) {
+    if (Number(event.target.value) >= minValue + minGap) {
       setMaxValue(Number(event.target.value))
     }
   }

@@ -4,6 +4,6 @@ export interface IRangeSlider {
   min: number
   max: number
   step: number
-  priceCap: number
+  minGap: number
   measure: string
 }
