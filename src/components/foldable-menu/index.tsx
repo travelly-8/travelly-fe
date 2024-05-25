@@ -16,7 +16,7 @@ const FoldableMenu = ({ attribute, children }: IFoldableMenu) => {
         <S.Text $selected={!isFolded}>{attribute}</S.Text>
         <S.Icon src={isFolded ? unfoldIcon : foldIcon} $selected={!isFolded} />
       </S.Attribute>
-      {isFolded ? <></> : <S.Value>{children}</S.Value>}
+      {isFolded ? <></> : <div>{children}</div>}
     </S.Wrapper>
   )
 }

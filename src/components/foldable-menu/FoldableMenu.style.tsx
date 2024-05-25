@@ -30,6 +30,3 @@ export const Icon = styled.img<{
 
   filter: ${({ $selected }) => ($selected ? 'none' : 'opacity(0.5)')};
 `
-export const Value = styled.div`
-  padding: 1rem;
-`
