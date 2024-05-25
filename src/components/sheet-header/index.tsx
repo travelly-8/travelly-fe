@@ -13,7 +13,7 @@ const SheetHeader = ({ children }: ISheetHeader) => {
     <S.Wrapper>
       <S.Icon
         src={backIcon}
-        alt="뒤로 가기"
+        alt="창 닫기"
         onClick={() =>
           dispatch(sheet({ name: 'browsing-sheet', status: false }))
         }
