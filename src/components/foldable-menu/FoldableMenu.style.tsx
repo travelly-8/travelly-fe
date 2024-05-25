@@ -13,7 +13,7 @@ export const Attribute = styled.div`
   padding: 1.5rem 0;
 
   border-bottom: solid 1px var(--color-gray-bright);
-  font-size: 14px;
+  font-size: 1.4rem;
   color: var(--color-black);
 `
 export const Text = styled.div<{

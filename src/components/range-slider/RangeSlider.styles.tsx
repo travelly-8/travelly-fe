@@ -53,7 +53,7 @@ export const RangeInput = styled.div`
 
 export const MinInput = styled.input`
   outline: 2px solid transparent;
-  outline-offset: 2px;
+  outline-offset: 0.2rem;
   height: 0.25rem;
   top: -0.25rem;
   pointer-events: none;
