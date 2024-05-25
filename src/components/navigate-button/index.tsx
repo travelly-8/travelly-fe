@@ -1,15 +1,17 @@
 import { useNavigate } from 'react-router-dom'
+
 import * as S from './NavigateButton.style'
+
 import type { INavigateProps } from './NavigateButton.type'
 
-const NavigatetButton: React.FC<INavigateProps> = ({
+const NavigateButton: React.FC<INavigateProps> = ({
   img,
   description,
-  type,
+  url,
 }) => {
   const navigate = useNavigate()
   const handleCategoryClick = () => {
-    navigate(`/result?type=${type}`)
+    navigate(url)
   }
   return (
     <S.Navigate onClick={handleCategoryClick}>
@@ -19,4 +21,4 @@ const NavigatetButton: React.FC<INavigateProps> = ({
   )
 }
 
-export default NavigatetButton
+export default NavigateButton
