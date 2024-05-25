@@ -33,7 +33,7 @@ export const Label = styled.div`
 
 export const Slider = styled.div`
   position: relative;
-  border-radius: 50%;
+  border-radius: 999rem;
   height: 0.25rem;
   --tw-bg-opacity: 1;
   background-color: rgb(203 213 225 / var(--tw-bg-opacity));
