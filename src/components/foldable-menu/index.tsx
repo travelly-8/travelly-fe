@@ -11,8 +11,8 @@ const FoldableMenu = ({ attribute, children }: IFoldableMenu) => {
   const [isFolded, setIsFolded] = useState(true)
 
   return (
-    <S.Wrapper onClick={() => setIsFolded((prev) => !prev)}>
-      <S.Attribute>
+    <S.Wrapper>
+      <S.Attribute onClick={() => setIsFolded((prev) => !prev)}>
         <S.Text $selected={!isFolded}>{attribute}</S.Text>
         <S.Icon src={isFolded ? unfoldIcon : foldIcon} $selected={!isFolded} />
       </S.Attribute>
