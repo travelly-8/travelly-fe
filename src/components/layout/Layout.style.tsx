@@ -11,12 +11,13 @@ export const BackgroundWrapper = styled.div`
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  height: 100vh;
   background-color: var(--color-white);
+  position: relative;
 
   @media screen and (max-width: 767px) {
     width: 100%;
   }
-
   @media screen and (min-width: 768px) {
     width: 360px;
   }
