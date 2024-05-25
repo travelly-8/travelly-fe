@@ -12,6 +12,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   background-color: var(--color-white);
+  position: relative;
 
   @media screen and (max-width: 767px) {
     width: 100%;

@@ -1,7 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 
+import { sheetSlice } from './sheet-slice'
+
 const store = configureStore({
-  reducer: {},
+  reducer: {
+    sheet: sheetSlice.reducer,
+  },
 })
 
 export type RootState = ReturnType<typeof store.getState>

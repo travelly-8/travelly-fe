@@ -24,11 +24,17 @@ const GlobalStyles = createGlobalStyle`
 
   body{
     font-family: "Pretendard", sans-serif;
+    cursor: default;
   }
 
   a {
         text-decoration: none;
         color: inherit;
+    }
+
+    button{
+        cursor: pointer;
+        border: none;
     }
 `
 
