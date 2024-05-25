@@ -12,14 +12,12 @@ export const Input = styled.input`
   width: 100%;
   padding: 1.1rem 1.6rem;
   border-radius: 1.6rem;
-  background: #ededed;
+  background: var(--color-gray-bright);
   border: none;
   outline: none;
   &::placeholder {
-    color: #787878;
-    font-family: Pretendard;
+    color: var(----color-gray-middle);
     font-size: 1.4rem;
-    font-style: normal;
     font-weight: 400;
     line-height: normal;
   }
