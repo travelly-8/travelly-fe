@@ -34,7 +34,7 @@ export const Label = styled.div`
 export const Slider = styled.div`
   position: relative;
   border-radius: 999rem;
-  height: 0.25rem;
+  height: 0.4rem;
   --tw-bg-opacity: 1;
   background-color: rgb(203 213 225 / var(--tw-bg-opacity));
 `
@@ -44,7 +44,7 @@ export const Progress = styled.div`
   --tw-bg-opacity: 1;
   background-color: rgb(100 116 139 / var(--tw-bg-opacity));
   border-radius: 0.375rem;
-  height: 0.25rem;
+  height: 0.4rem;
 `
 
 export const RangeInput = styled.div`
