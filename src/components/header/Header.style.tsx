@@ -9,19 +9,17 @@ export const HeaderContainer = styled.div`
   padding: 1.6rem 2rem;
   position: fixed;
   top: 0;
-  background-color: #fff;
-  border-bottom: 1px solid #ededed;
+  background-color: var(--color-white);
+  border-bottom: 1px solid var(--color-gray-bright);
   z-index: 1000;
 `
 
 export const Label = styled.span`
-  color: #333;
+  color: var(--color-black);
   text-align: center;
-  font-family: Pretendard;
   font-size: 1.8rem;
-  font-style: normal;
-  font-weight: 700;
   line-height: 3.06rem;
+  font-weight: 700;
 `
 export const IconContainer = styled.div`
   display: flex;
@@ -46,6 +44,6 @@ export const CategoryContainer = styled.div`
   width: 36rem;
   height: 14.8rem;
   border-radius: 0rem 0rem 1rem 1rem;
-  background: #fff;
+  background: var(--color-white);
   box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.1);
 `

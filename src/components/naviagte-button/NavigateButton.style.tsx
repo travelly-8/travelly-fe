@@ -9,11 +9,8 @@ export const Navigate = styled.div`
   gap: 0.4rem;
   cursor: pointer;
   span {
-    color: #333;
-    font-family: Pretendard;
+    color: var(--color-black);
     font-size: 1.2rem;
-    font-style: normal;
-    font-weight: 400;
     line-height: 1.8rem;
     white-space: nowrap;
   }
