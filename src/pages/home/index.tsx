@@ -1,3 +1,7 @@
 export default function HomePage() {
-  return <p>HELLO WORLD!</p>
+  return (
+    <div>
+      <p>HELLO WORLD!</p>
+    </div>
+  )
 }
