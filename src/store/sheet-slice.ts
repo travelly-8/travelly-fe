@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-export interface ModalSliceState {
-  modal: {
+export interface SheetSliceState {
+  sheet: {
     value: {
       status: boolean
       text: string
@@ -9,14 +9,14 @@ export interface ModalSliceState {
   }
 }
 
-export const modalSlice = createSlice({
-  name: 'modal',
+export const sheetSlice = createSlice({
+  name: 'sheet',
   initialState: { value: { name: '', status: false, text: '' } },
   reducers: {
-    modal: (state, action) => {
+    sheet: (state, action) => {
       state.value = action.payload
     },
   },
 })
 
-export const { modal } = modalSlice.actions
+export const { sheet } = sheetSlice.actions
