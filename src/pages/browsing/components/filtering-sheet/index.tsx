@@ -5,6 +5,7 @@ import RangeSlider from '@components/range-slider'
 import RoundButton from '@components/round-button'
 import SheetHeader from '@components/sheet-header'
 
+import CalendarInput from '@components/calendar-input'
 import * as S from './FilteringSheet.styles.tsx'
 
 const FilteringSheet = () => {
@@ -37,7 +38,7 @@ const FilteringSheet = () => {
           />
         </FoldableMenu>
         <FoldableMenu attribute="날짜">
-          <input type="date" />
+          <CalendarInput />
         </FoldableMenu>
         <FoldableMenu attribute="지역">
           <input placeholder="가격을 선택하시오" />
