@@ -1,4 +1,4 @@
-import { mockData } from '@/constants/MOCK_DATA'
+import { mockData1, mockData2 } from '@/constants/MOCK_DATA'
 
 import FooterNavigation from '@components/footer-navigation'
 import Header from '@components/header'
@@ -8,13 +8,45 @@ import * as S from './BrowsingPage.style'
 
 function BrowsingPage() {
   return (
-    <S.Container>
+    <S.PageContainer>
       <Header />
-      {mockData.map((cardData) => (
-        <ProductCard key={cardData.name} cardData={cardData} size="sm" />
-      ))}
+      <S.ContentsWrapper>
+        <S.ProductsSection>
+          <S.SectionTitleWrapper>
+            <S.SectionTitleIcon src="src/assets/browsing/trophy.svg" />
+            <S.SectionTitle>인기 상품</S.SectionTitle>
+          </S.SectionTitleWrapper>
+          <S.CardWrapper>
+            {mockData1.map((cardData) => (
+              <ProductCard key={cardData.name} cardData={cardData} size="sm" />
+            ))}
+          </S.CardWrapper>
+        </S.ProductsSection>
+        <S.ProductsSection>
+          <S.SectionTitleWrapper>
+            <S.SectionTitleIcon src="src/assets/browsing/star2.svg" />
+            <S.SectionTitle>추천 상품</S.SectionTitle>
+          </S.SectionTitleWrapper>
+          <S.CardWrapper>
+            {mockData1.map((cardData) => (
+              <ProductCard key={cardData.name} cardData={cardData} size="sm" />
+            ))}
+          </S.CardWrapper>
+        </S.ProductsSection>
+        <S.AllProductsSection>
+          <S.ALLTitleWrapper>
+            <S.SectionTitle>전체 상품</S.SectionTitle>
+            <S.ShowAllProducts>더보기</S.ShowAllProducts>
+          </S.ALLTitleWrapper>
+          <S.AllCardWrapper>
+            {mockData2.map((cardData) => (
+              <ProductCard key={cardData.name} cardData={cardData} size="bg" />
+            ))}
+          </S.AllCardWrapper>
+        </S.AllProductsSection>
+      </S.ContentsWrapper>
       <FooterNavigation />
-    </S.Container>
+    </S.PageContainer>
   )
 }
 

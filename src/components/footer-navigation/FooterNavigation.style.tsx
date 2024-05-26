@@ -10,5 +10,5 @@ export const Container = styled.footer`
   width: 100%;
   background-color: var(--color-white);
   border-radius: 1rem 1rem 0 0;
-  border-top: 0.1rem solid var(--color-white);
+  border-top: 0.1rem solid var(--color-gray-light);
 `
