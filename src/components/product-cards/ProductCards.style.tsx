@@ -4,9 +4,13 @@ interface SizeProps {
   size: 'sm' | 'bg'
 }
 
-export const Container = styled.div`
+export const Container = styled.div<SizeProps>`
+  position: relative;
   display: flex;
   flex-direction: column;
+  ${({ size }) => `
+    width: ${size === 'sm' ? '10.2rem' : '15.2rem'};
+  `}
 `
 
 export const CardImage = styled.img<SizeProps>`
@@ -28,6 +32,10 @@ export const Title = styled.h2`
   font-size: 1.4rem;
   font-weight: 500;
   line-height: 2.38rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  word-break: break-all;
 `
 
 export const Location = styled.p<SizeProps>`

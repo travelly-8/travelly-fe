@@ -6,7 +6,7 @@ function BrowsingPage() {
   return (
     <>
       {mockData.map((cardData) => (
-        <ProductCards key={cardData.name} cardData={cardData} size="bg" />
+        <ProductCards key={cardData.name} cardData={cardData} size="sm" />
       ))}
     </>
   )
