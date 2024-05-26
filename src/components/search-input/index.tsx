@@ -1,12 +1,19 @@
 import searchIcon from '@/assets/common/search.svg'
+import { registerRecentSearches } from '@/utils/registerLocalStorage'
+
 import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
+
 import { Input, InputWrapper, SearchIcon } from './SearchInput.style'
+
 import type { IFormData } from './SearchInput.type'
 
 const SearchInput = () => {
   const { register, handleSubmit } = useForm<IFormData>()
+  const navigate = useNavigate()
   const onSubmit = (data: IFormData) => {
-    console.log(data)
+    registerRecentSearches(data.search)
+    navigate(`/result/?input=${data.search}`)
   }
 
   return (
@@ -17,7 +24,11 @@ const SearchInput = () => {
           placeholder="검색어를 입력해주세요."
           {...register('search')}
         />
-        <SearchIcon src={searchIcon} alt="searchIcon" />
+        <SearchIcon
+          onClick={handleSubmit(onSubmit)}
+          src={searchIcon}
+          alt="searchIcon"
+        />
       </InputWrapper>
     </form>
   )
