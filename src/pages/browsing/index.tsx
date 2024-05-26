@@ -1,5 +1,7 @@
+import ProductCards from '@components/product-cards'
+
 function BrowsingPage() {
-  return <div>BrowsingPage</div>
+  return <ProductCards />
 }
 
 export default BrowsingPage
