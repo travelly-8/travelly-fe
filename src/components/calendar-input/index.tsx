@@ -6,17 +6,12 @@ import { format, getDay } from 'date-fns'
 
 import * as S from './CalendarInput.styles.tsx'
 
-import type {
-  dayType,
-  Value,
-} from '@components/calendar-input/CalendarInput.type.ts'
+import type { dayType } from '@components/calendar-input/CalendarInput.type.ts'
 
 import 'react-calendar/dist/Calendar.css'
 
 const CalendarInput = () => {
-  // TODO: Date 관련 타입 에러 수정
-  // @ts-ignore
-  const [value, onChange] = useState<Value>(new Date())
+  const [value, onChange] = useState(new Date())
 
   return (
     <S.Wrapper>
@@ -25,6 +20,7 @@ const CalendarInput = () => {
           {format(value, 'yyyy.MM.dd')}
           {`(${DAY_TO_STRING[getDay(value) as dayType]})`}
         </S.DateText>
+        {/*TODO: 추후 타입에러 수정*/}
         <S.StyleCalendar
           onChange={onChange}
           value={value}
