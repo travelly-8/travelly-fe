@@ -15,6 +15,8 @@ export const Buttons = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 2rem;
+  white-space: nowrap;
 `
 export const Icon = styled.img`
   width: 1.6rem;
