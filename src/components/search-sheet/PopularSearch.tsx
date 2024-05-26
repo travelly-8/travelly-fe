@@ -1,5 +1,8 @@
 import down from '@/assets/searchsheet/down.svg'
 import up from '@/assets/searchsheet/up.svg'
+import { registerRecentSearches } from '@/utils/registerLocalStorage'
+
+import { useNavigate } from 'react-router-dom'
 
 import * as S from './SearchSheet.style'
 import { IPopularSearchProps } from './SearchSheet.type'
@@ -7,6 +10,12 @@ import { IPopularSearchProps } from './SearchSheet.type'
 const PopularSearch: React.FC<IPopularSearchProps> = ({ popularData }) => {
   const topData = popularData.items.slice(0, 5)
   const bottomData = popularData.items.slice(5, 10)
+  const navigate = useNavigate()
+
+  const handleClickPopular = (search: string) => {
+    registerRecentSearches(search)
+    navigate(`/result/?input=${search}`)
+  }
 
   return (
     <S.PopularSearch>
@@ -17,7 +26,10 @@ const PopularSearch: React.FC<IPopularSearchProps> = ({ popularData }) => {
       <S.PopularItem>
         <S.RankContainer>
           {topData.map((item) => (
-            <S.Rank key={item.search}>
+            <S.Rank
+              key={item.search}
+              onClick={() => handleClickPopular(item.search)}
+            >
               <S.RankTopNumber>
                 <span>{item.rank}</span>
                 <span>{item.search}</span>
@@ -34,7 +46,10 @@ const PopularSearch: React.FC<IPopularSearchProps> = ({ popularData }) => {
         </S.RankContainer>
         <S.RankContainer>
           {bottomData.map((item) => (
-            <S.Rank key={item.search}>
+            <S.Rank
+              key={item.search}
+              onClick={() => handleClickPopular(item.search)}
+            >
               <S.RankBottomNumber>
                 <span>{item.rank}</span>
                 <span>{item.search}</span>

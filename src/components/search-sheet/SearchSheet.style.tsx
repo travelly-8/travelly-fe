@@ -71,6 +71,7 @@ export const Rank = styled.div`
   width: 100%;
   justify-content: space-between;
   align-items: center;
+  cursor: pointer;
 `
 export const RankTopNumber = styled.div`
   display: flex;
