@@ -26,6 +26,7 @@ module.exports = {
     'react/self-closing-comp': 'warn',
     'react/jsx-curly-brace-presence': 'warn',
     'react-hooks/exhaustive-deps': 'off',
+    'react/prop-types': 'off',
     'prettier/prettier': [
       'error',
       {
