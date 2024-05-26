@@ -2,10 +2,10 @@ import { useState } from 'react'
 
 import BookmarkButton from '@components/bookmark-button'
 
-import * as S from './ProductCards.style'
-import { IProductCardsData, IProductCardsProps } from './ProductCards.type'
+import * as S from './ProductCard.style'
+import { IProductCardData, IProductCardProps } from './ProductCard.type'
 
-function ProductCards({ cardData, size }: IProductCardsProps) {
+function ProductCard({ cardData, size }: IProductCardProps) {
   const {
     image,
     name,
@@ -15,10 +15,11 @@ function ProductCards({ cardData, size }: IProductCardsProps) {
     price,
     reviewPoint,
     reviewCount,
-  }: IProductCardsData = cardData
+  }: IProductCardData = cardData
   const [isBookmarked, setIsBookmarked] = useState(false)
   //TODO: 클릭했을 시 찜 목록에 나타나도록 기능 추가 필요
   //TODO: 유저 아이디를 판별해서, 아이디를 가진 사람이 클릭한 적이 있다면 클릭한 state 그대로 가지고 있도록 기능 추가 필요
+  //TODO: BookmarkButton 기능 추가 후, 클릭했을 시 버블링 고려해야함
 
   return (
     <S.Container size={size}>
@@ -46,4 +47,4 @@ function ProductCards({ cardData, size }: IProductCardsProps) {
   )
 }
 
-export default ProductCards
+export default ProductCard

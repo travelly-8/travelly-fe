@@ -6,4 +6,5 @@ export const Button = styled.img`
   right: 0.5rem;
   width: 1.8rem;
   height: 1.8rem;
+  cursor: pointer;
 `

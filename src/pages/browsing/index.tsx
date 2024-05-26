@@ -1,12 +1,12 @@
 import { mockData } from '@/constants/MOCK_DATA'
 
-import ProductCards from '@components/product-cards'
+import ProductCard from '@components/product-card'
 
 function BrowsingPage() {
   return (
     <>
       {mockData.map((cardData) => (
-        <ProductCards key={cardData.name} cardData={cardData} size="sm" />
+        <ProductCard key={cardData.name} cardData={cardData} size="sm" />
       ))}
     </>
   )
