@@ -15,7 +15,8 @@ const Input = ({
   inputAccessedFor,
   inputType = 'default',
   inputRef,
-  onBlur = () => console.log('blurred'),
+  passwordValue = '',
+  onBlur,
   value = '',
   placeholder = '',
   onChange,
@@ -29,36 +30,16 @@ const Input = ({
   const validate = (value: string): string | null => {
     switch (inputType) {
       case 'name':
-        const nameError = validateNickname(value, inputAccessedFor)
-        if (nameError) {
-          return nameError
-        }
-        break
+        return validateNickname(value, inputAccessedFor)
       case 'email':
-        const emailError = validateEmail(value, inputAccessedFor)
-        if (emailError) {
-          return emailError
-        }
-        break
+        return validateEmail(value, inputAccessedFor)
       case 'password':
-        const passwordError = validatePassword(value, inputAccessedFor)
-        if (passwordError) {
-          return passwordError
-        }
-        break
+        return validatePassword(value, inputAccessedFor)
       case 'password_check':
-        const passwordCheckError = validatePasswordCheck(
-          value,
-          inputRef?.current?.value,
-        )
-        if (passwordCheckError) {
-          return passwordCheckError
-        }
-        break
+        return validatePasswordCheck(value, passwordValue)
       default:
         return null
     }
-    return null
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -7,6 +7,7 @@ export type InputValuesType = {
 export interface IInput {
   inputType?: string
   inputRef?: RefObject<HTMLInputElement>
+  passwordValue?: any
   errorType?: string | null
   inputAccessedFor?: 'login' | 'signup'
   focused?: boolean
