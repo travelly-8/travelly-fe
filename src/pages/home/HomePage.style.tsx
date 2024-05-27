@@ -1,11 +1,16 @@
 import styled from 'styled-components'
 
-export const PageContainer = styled.main`
+export const PageContainer = styled.main<{
+  $isKebabClicked: boolean
+  $isSheet: boolean
+}>`
   position: relative;
+  width: 100%;
   height: 100vh;
-  overflow-x: hidden;
-  overflow-y: scroll;
+  background-color: ${({ $isKebabClicked }) =>
+    $isKebabClicked ? 'rgba(0, 0, 0, 0.50)' : 'var(--color-white)'};
 
+  overflow-y: scroll;
   scrollbar-width: none;
   -ms-overflow-style: none;
 
@@ -14,15 +19,15 @@ export const PageContainer = styled.main`
   }
 `
 
-export const ContentsWrapper = styled.div`
-  padding: 2.4rem 2rem 2rem;
-`
-
 export const ProductsSection = styled.section`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  width: 100%;
   margin-bottom: 3.2rem;
+  padding-top: 2.4rem;
+
+  overflow-x: hidden;
 `
 
 export const AllProductsSection = styled.section`
@@ -30,12 +35,14 @@ export const AllProductsSection = styled.section`
   flex-direction: column;
   gap: 1rem;
   margin-top: 4rem;
+  padding: 0 2rem 2rem 2rem;
 `
 
 export const SectionTitleWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 0.4rem;
+  padding: 0 2rem;
 `
 
 export const SectionTitleIcon = styled.img`
@@ -48,6 +55,19 @@ export const SectionTitle = styled.h2`
   font-size: 1.8rem;
   font-weight: 500;
   line-height: 3.06rem;
+`
+
+export const SectionContentsWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  overflow-x: auto;
+
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `
 
 export const ALLTitleWrapper = styled.div`
@@ -69,17 +89,10 @@ export const ShowAllProducts = styled.p`
 `
 
 export const CardWrapper = styled.div`
-  width: 100%;
+  position: relative;
   display: flex;
   gap: 1.6rem;
-
-  overflow-x: scroll;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  padding: 0 2rem;
 `
 
 export const AllCardWrapper = styled.div`

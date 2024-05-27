@@ -1,34 +1,80 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
+import { mockData1, mockData2 } from '@/constants/MOCK_DATA'
+import useHorizontalScroll from '@/hooks/useHorizontalScroll'
 import { SheetSliceState } from '@/store/sheet-slice.ts'
 
+import FooterNavigation from '@components/footer-navigation'
 import Header from '@components/header'
+import ProductCard from '@components/product-card'
 import { useSelector } from 'react-redux'
-import styled from 'styled-components'
-const Main = styled.div<{
-  $isKebabClicked: boolean
-  $isSheet: boolean
-}>`
-  display: ${({ $isSheet }) => ($isSheet ? 'none' : 'flex')};
-  justify-content: center;
-  align-items: center;
-  background-color: ${({ $isKebabClicked }) =>
-    $isKebabClicked ? 'rgba(0, 0, 0, 0.50)' : 'aqua'};
-  width: 100%;
-  height: 1080px;
-`
-export default function HomePage() {
+
+import * as S from './HomePage.style'
+
+function HomePage() {
   const [isKebabClicked, setIsKebabClicked] = useState(false)
+  const cardWrapper = useRef<HTMLDivElement>(null)
+  const { handleMouseDown, handleMouseLeave, handleMouseUp, handleMouseMove } =
+    useHorizontalScroll()
   const sheetReducer = useSelector(
     (state: SheetSliceState) => state.sheet.value,
   )
 
   return (
-    <>
+    <S.PageContainer
+      $isKebabClicked={isKebabClicked}
+      $isSheet={sheetReducer.status}
+    >
       <Header kebabClick={() => setIsKebabClicked(!isKebabClicked)} />
-      <Main $isKebabClicked={isKebabClicked} $isSheet={sheetReducer.status}>
-        안녕
-      </Main>
-    </>
+      <S.ProductsSection>
+        <S.SectionTitleWrapper>
+          <S.SectionTitleIcon src="src/assets/home/trophy.svg" />
+          <S.SectionTitle>인기 상품</S.SectionTitle>
+        </S.SectionTitleWrapper>
+        <S.SectionContentsWrapper>
+          <S.CardWrapper
+            ref={cardWrapper}
+            onMouseDown={handleMouseDown(cardWrapper)}
+            onMouseLeave={handleMouseLeave}
+            onMouseUp={handleMouseUp}
+            onMouseMove={handleMouseMove(cardWrapper)}
+            onTouchStart={handleMouseDown(cardWrapper)}
+            onTouchEnd={handleMouseUp}
+            onTouchMove={handleMouseMove(cardWrapper)}
+          >
+            {mockData1.map((cardData) => (
+              <ProductCard key={cardData.name} cardData={cardData} size="sm" />
+            ))}
+          </S.CardWrapper>
+        </S.SectionContentsWrapper>
+      </S.ProductsSection>
+      <S.ProductsSection>
+        <S.SectionTitleWrapper>
+          <S.SectionTitleIcon src="src/assets/home/star2.svg" />
+          <S.SectionTitle>추천 상품</S.SectionTitle>
+        </S.SectionTitleWrapper>
+        <S.SectionContentsWrapper>
+          <S.CardWrapper>
+            {mockData1.map((cardData) => (
+              <ProductCard key={cardData.name} cardData={cardData} size="sm" />
+            ))}
+          </S.CardWrapper>
+        </S.SectionContentsWrapper>
+      </S.ProductsSection>
+      <S.AllProductsSection>
+        <S.ALLTitleWrapper>
+          <S.SectionTitle>전체 상품</S.SectionTitle>
+          <S.ShowAllProducts>더보기</S.ShowAllProducts>
+        </S.ALLTitleWrapper>
+        <S.AllCardWrapper>
+          {mockData2.map((cardData) => (
+            <ProductCard key={cardData.name} cardData={cardData} size="bg" />
+          ))}
+        </S.AllCardWrapper>
+      </S.AllProductsSection>
+      <FooterNavigation />
+    </S.PageContainer>
   )
 }
+
+export default HomePage

@@ -38,7 +38,7 @@ function ProductCard({ cardData, size }: IProductCardProps) {
           <S.Price>{price}원</S.Price>
         </S.DiscountPrice>
         <S.Review size={size}>
-          <S.Star src="src/assets/browsing/empty-star.svg" />
+          <S.Star src="src/assets/home/empty-star.svg" />
           <S.ReviewPoint>{reviewPoint}</S.ReviewPoint>
           <S.ReviewCount>({reviewCount})</S.ReviewCount>
         </S.Review>
