@@ -1,4 +1,4 @@
-import refreshIcon from '@/assets/browsing/refresh.svg'
+import refreshIcon from '@/assets/home/refresh.svg'
 
 import CalendarInput from '@components/calendar-input'
 import FoldableMenu from '@components/foldable-menu'

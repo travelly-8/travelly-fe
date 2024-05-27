@@ -58,11 +58,11 @@ const Header: React.FC<IHeaderProps> = ({ kebabClick }) => {
   )
 
   useEffect(() => {
-    dispatch(sheet({ name: 'browsing-sheet', status: false, text: '' }))
+    dispatch(sheet({ name: 'home-sheet', status: false, text: '' }))
   }, [])
 
   const handleSearchClick = () => {
-    dispatch(sheet({ name: 'browsing-sheet', status: true, text: '' }))
+    dispatch(sheet({ name: 'home-sheet', status: true, text: '' }))
 
     return
   }

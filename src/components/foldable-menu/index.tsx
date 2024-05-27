@@ -5,8 +5,8 @@ import * as S from './FoldableMenu.style.tsx'
 import type { IFoldableMenu } from './FoldableMenu.type.ts'
 
 const FoldableMenu = ({ attribute, children }: IFoldableMenu) => {
-  const foldIcon = '/src/assets/browsing/arrow-up.svg'
-  const unfoldIcon = '/src/assets/browsing/arrow-down.svg'
+  const foldIcon = '/src/assets/home/arrow-up.svg'
+  const unfoldIcon = '/src/assets/home/arrow-down.svg'
 
   const [isFolded, setIsFolded] = useState(true)
 
