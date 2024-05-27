@@ -6,6 +6,8 @@ import ProductCard from '@components/product-card'
 
 import * as S from './BrowsingPage.style'
 
+//TODO: 더보기 버튼에 페이지 연결 필요
+
 function BrowsingPage() {
   return (
     <S.PageContainer>
