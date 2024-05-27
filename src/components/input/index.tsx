@@ -1,5 +1,7 @@
 import { INPUT_LABELS, INPUT_PLACEHOLDER } from '@/constants/INPUT_VALUES'
+
 import { useState } from 'react'
+
 import {
   validateEmail,
   validateNickname,
@@ -7,9 +9,10 @@ import {
   validatePasswordCheck,
 } from '../../utils/validate'
 import * as S from './Input.style'
+
 import type { IInput } from './Input.type'
+
 import eyeOffIcon from '/src/assets/common/eye-off.svg'
-import eyeOnIcon from '/src/assets/common/eye-on.svg'
 
 const Input = ({
   inputAccessedFor,
@@ -88,7 +91,7 @@ const Input = ({
         {isPasswordType && (
           <S.ToggleButton onClick={toggleShowPassword}>
             <img
-              src={showPassword ? eyeOnIcon : eyeOffIcon}
+              src={eyeOffIcon}
               alt={showPassword ? 'Hide password' : 'Show password'}
             />
           </S.ToggleButton>
