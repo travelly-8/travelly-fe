@@ -31,6 +31,7 @@ const CalendarInput = () => {
           calendarType="gregory"
           next2Label={null}
           prev2Label={null}
+          showNeighboringMonth={false}
         />
       </S.Content>
     </S.Wrapper>
