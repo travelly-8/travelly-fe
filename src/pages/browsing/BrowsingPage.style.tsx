@@ -23,14 +23,6 @@ export const ProductsSection = styled.section`
   flex-direction: column;
   gap: 1rem;
   margin-bottom: 3.2rem;
-
-  overflow-x: scroll;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
 `
 
 export const AllProductsSection = styled.section`
@@ -77,8 +69,17 @@ export const ShowAllProducts = styled.p`
 `
 
 export const CardWrapper = styled.div`
+  width: 100%;
   display: flex;
   gap: 1.6rem;
+
+  overflow-x: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `
 
 export const AllCardWrapper = styled.div`
@@ -86,4 +87,5 @@ export const AllCardWrapper = styled.div`
   grid-template-columns: repeat(2, 1fr);
   row-gap: 2.4rem;
   column-gap: 1.6rem;
+  width: 100%;
 `
