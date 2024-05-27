@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import Login from './pages/login/login'
 import SelectPlanPage from './pages/login/select-plan'
-import { default as SignupStartPage } from './pages/signup'
+import SignupStartPage from './pages/signup'
 import SignupEndPage from './pages/signup/end'
 import SignupPage from './pages/signup/signup'
 
