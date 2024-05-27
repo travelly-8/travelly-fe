@@ -1,0 +1,14 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="travel-map--navigation-map-maps-gps" clip-path="url(#clip0_242_535)">
+<g id="Group">
+<path id="Vector" d="M8.27997 21.1737C8.27997 21.4065 8.11931 21.6085 7.89249 21.6609L1.46963 23.1443C1.1563 23.2166 0.857117 22.9787 0.857117 22.6571V3.11197C0.857117 2.87918 1.01778 2.67718 1.2446 2.6248L7.66746 1.14146C7.98079 1.0691 8.27997 1.30706 8.27997 1.62863V21.1737Z" stroke="#333333" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_2" d="M23.1428 21.1737C23.1428 21.4065 22.9822 21.6085 22.7553 21.6609L16.3325 23.1443C16.0192 23.2166 15.72 22.9787 15.72 22.6571V3.11197C15.72 2.87918 15.8806 2.67718 16.1075 2.6248L22.5303 1.14146C22.8436 1.0691 23.1428 1.30706 23.1428 1.62863V21.1737Z" stroke="#333333" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_3" d="M8.27997 21.1735C8.27997 21.4064 8.44076 21.6085 8.6677 21.6608L15.1077 23.1446C15.421 23.2168 15.72 22.9789 15.72 22.6574V3.11218C15.72 2.87929 15.5592 2.67724 15.3322 2.62495L8.89223 1.14107C8.57897 1.06889 8.27997 1.30684 8.27997 1.62831V21.1735Z" stroke="#5849FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<defs>
+<clipPath id="clip0_242_535">
+<rect width="24" height="24" fill="white"/>
+</clipPath>
+</defs>
+</svg>
