@@ -9,6 +9,7 @@ export const PageContainer = styled.main<{
   height: 100vh;
   background-color: ${({ $isKebabClicked }) =>
     $isKebabClicked ? 'rgba(0, 0, 0, 0.50)' : 'var(--color-white)'};
+  display: ${({ $isSheet }) => ($isSheet ? 'none' : 'block')};
 
   overflow-y: scroll;
   scrollbar-width: none;
@@ -26,8 +27,6 @@ export const ProductsSection = styled.section`
   width: 100%;
   margin-bottom: 3.2rem;
   padding-top: 2.4rem;
-
-  overflow-x: hidden;
 `
 
 export const AllProductsSection = styled.section`
