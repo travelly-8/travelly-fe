@@ -32,6 +32,7 @@ export const InputContainer = styled.div`
   flex-direction: column;
   gap: 1.5rem;
   margin-bottom: 2rem;
+  padding: 0 2rem;
 `
 
 export const ButtonContainer = styled.div`

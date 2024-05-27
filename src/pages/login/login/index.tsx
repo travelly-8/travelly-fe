@@ -1,5 +1,6 @@
 import * as S from '@/styles/authStyles'
 import useKeyboardDetection from '@/utils/useKeyboardDetection'
+import BackBar from '@components/back-bar'
 import Input from '@components/input'
 import RectangleButton from '@components/rectangle-button'
 import { useEffect, useState } from 'react'
@@ -12,58 +13,48 @@ export default function Login() {
 
   useEffect(() => {
     const checkInputs = () => {
-      const filled: any = email && password && !document.querySelector('p')
+      const filled: boolean =
+        !!email && !!password && !document.querySelector('p')
       setAllInputsFilled(filled)
     }
+
     checkInputs()
-
-    setEmail((prevEmail) => {
-      checkInputs()
-      return prevEmail
-    })
-    setPassword((prevPassword) => {
-      checkInputs()
-      return prevPassword
-    })
-
-    const listener = () => {
-      checkInputs()
-    }
-    document.addEventListener('input', listener)
-
-    return () => {
-      document.removeEventListener('input', listener)
-    }
   }, [email, password])
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+  }
 
   return (
     <S.Container isKeyboardOpen={isKeyboardOpen}>
-      <S.Header>
-        <S.ArrowIcon src="/src/assets/common/arrow-left.svg" alt="Back" />
-      </S.Header>
+      <BackBar />
       <S.Title>이메일로 로그인</S.Title>
-      <S.InputContainer>
-        <Input
-          inputType="email"
-          placeholder="email"
-          inputAccessedFor="login"
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <Input
-          inputType="password"
-          placeholder="password"
-          inputAccessedFor="login"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </S.InputContainer>
-      <S.ButtonContainer>
-        <RectangleButton
-          color={allInputsFilled ? 'primary' : 'disabled'}
-          size="large"
-        >
-          로그인
-        </RectangleButton>
-      </S.ButtonContainer>
+      <form onSubmit={handleSubmit}>
+        <S.InputContainer>
+          <Input
+            inputType="email"
+            placeholder="email"
+            inputAccessedFor="login"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Input
+            inputType="password"
+            placeholder="password"
+            inputAccessedFor="login"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </S.InputContainer>
+        <S.ButtonContainer>
+          <RectangleButton
+            type="submit"
+            color={allInputsFilled ? 'primary' : 'disabled'}
+            size="large"
+            disabled={!allInputsFilled}
+          >
+            로그인
+          </RectangleButton>
+        </S.ButtonContainer>
+      </form>
       <S.LinkContainer>
         <S.LinkText>아이디 | 비밀번호 찾기</S.LinkText>
       </S.LinkContainer>
