@@ -6,6 +6,7 @@ export const Container = styled.div<{ isKeyboardOpen: boolean }>`
   margin-top: 2rem;
   background-color: var(--color-white);
   ${(props) => props.isKeyboardOpen && 'margin-top: -10rem;'}
+  padding: 0 2rem;
 `
 
 export const Header = styled.div`
@@ -32,7 +33,6 @@ export const InputContainer = styled.div`
   flex-direction: column;
   gap: 1.5rem;
   margin-bottom: 2rem;
-  padding: 0 2rem;
 `
 
 export const ButtonContainer = styled.div`
