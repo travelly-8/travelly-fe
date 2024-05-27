@@ -36,7 +36,6 @@ function HomePage() {
       $isSheet={sheetReducer.status}
     >
       <Header kebabClick={() => setIsKebabClicked(!isKebabClicked)} />
-
       <S.ProductsSection>
         <S.SectionTitleWrapper>
           <S.SectionTitleIcon src="src/assets/home/trophy.svg" />
@@ -54,7 +53,6 @@ function HomePage() {
           </S.CardWrapper>
         </S.SectionContentsWrapper>
       </S.ProductsSection>
-
       <S.ProductsSection>
         <S.SectionTitleWrapper>
           <S.SectionTitleIcon src="src/assets/home/star2.svg" />
@@ -72,7 +70,6 @@ function HomePage() {
           </S.CardWrapper>
         </S.SectionContentsWrapper>
       </S.ProductsSection>
-
       <S.AllProductsSection>
         <S.ALLTitleWrapper>
           <S.SectionTitle>전체 상품</S.SectionTitle>
@@ -84,7 +81,6 @@ function HomePage() {
           ))}
         </S.AllCardWrapper>
       </S.AllProductsSection>
-
       <FooterNavigation />
     </S.PageContainer>
   )
