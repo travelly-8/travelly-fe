@@ -8,7 +8,8 @@ export const StyledInputContainer = styled.div`
 `
 
 export const StyledLabel = styled.label<IInput>`
-  color: ${({ errorType }) => (errorType ? '#ff0000' : 'var(--color-main)')};
+  color: ${({ errorType }) =>
+    errorType ? 'var(--color-caution)' : 'var(--color-main)'};
   font-weight: 400;
   font-size: 1.2rem;
   line-height: 1.432rem;
@@ -25,12 +26,12 @@ export const StyledInputWrapper = styled.div<IInput>`
   margin-top: 0.1rem;
   padding: 1.1rem 1.6rem;
   border-color: ${({ errorType }) =>
-    errorType ? '#ff0000' : 'var(--color-gray-light)'};
+    errorType ? 'var(--color-caution)' : 'var(--color-gray-light)'};
   ${({ focused }) =>
     focused &&
     css<IInput>`
       border-color: ${({ errorType }) =>
-        errorType ? '#ff0000' : 'var(--color-main)'};
+        errorType ? 'var(--color-caution)' : 'var(--color-main)'};
     `}
   padding: 1rem 1.25rem;
   ${({ inputType }) =>
@@ -42,7 +43,7 @@ export const StyledInputWrapper = styled.div<IInput>`
 
   &:focus-within {
     border-color: ${({ errorType }) =>
-      errorType ? '#ff0000' : 'var(--color-main)'};
+      errorType ? 'var(--color-caution)' : 'var(--color-main)'};
   }
 `
 
@@ -72,5 +73,5 @@ export const StyledError = styled.p`
   font-size: 1.2rem;
   line-height: 1.432rem;
   margin: 0.3rem 0;
-  color: #ff0000;
+  color: var(--color-caution);
 `
