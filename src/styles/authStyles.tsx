@@ -25,7 +25,6 @@ export const Title = styled.h1`
   font-weight: bold;
   margin-bottom: 1rem;
   line-height: 3.06rem;
-  margin-left: 2rem;
 `
 
 export const InputContainer = styled.div`
