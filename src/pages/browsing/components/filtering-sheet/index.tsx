@@ -1,5 +1,6 @@
 import refreshIcon from '@/assets/browsing/refresh.svg'
 
+import CalendarInput from '@components/calendar-input'
 import FoldableMenu from '@components/foldable-menu'
 import RangeSlider from '@components/range-slider'
 import RoundButton from '@components/round-button'
@@ -37,7 +38,7 @@ const FilteringSheet = () => {
           />
         </FoldableMenu>
         <FoldableMenu attribute="날짜">
-          <input type="date" />
+          <CalendarInput />
         </FoldableMenu>
         <FoldableMenu attribute="지역">
           <input placeholder="가격을 선택하시오" />
