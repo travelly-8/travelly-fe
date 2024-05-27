@@ -6,9 +6,12 @@ import RangeSlider from '@components/range-slider'
 import RoundButton from '@components/round-button'
 import SheetHeader from '@components/sheet-header'
 
+import { LOCALE_LIST } from '@/constants/FILTERING_BROWSING.ts'
+import { useState } from 'react'
 import * as S from './FilteringSheet.styles.tsx'
 
 const FilteringSheet = () => {
+  const [selectedLocale, setSelectedLocale] = useState(0)
   return (
     <>
       <SheetHeader>
@@ -41,7 +44,17 @@ const FilteringSheet = () => {
           <CalendarInput />
         </FoldableMenu>
         <FoldableMenu attribute="지역">
-          <input placeholder="가격을 선택하시오" />
+          <S.LocaleList>
+            {LOCALE_LIST.map((locale, idx) => (
+              <RoundButton.Gray
+                size={'small'}
+                selected={selectedLocale === idx}
+                onClick={() => setSelectedLocale(idx)}
+              >
+                {locale}
+              </RoundButton.Gray>
+            ))}
+          </S.LocaleList>
         </FoldableMenu>
         <S.Buttons>
           <S.RefreshButton>
