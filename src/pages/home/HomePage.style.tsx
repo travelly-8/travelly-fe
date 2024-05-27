@@ -88,17 +88,29 @@ export const ShowAllProducts = styled.p`
   }
 `
 
-export const CardWrapper = styled.div`
+export const CardWrapper = styled.div<{
+  $isKebabClicked: boolean
+}>`
   position: relative;
   display: flex;
   gap: 1.6rem;
   padding: 0 2rem;
+
+  img {
+    opacity: ${({ $isKebabClicked }) => ($isKebabClicked ? 0.5 : 1)};
+  }
 `
 
-export const AllCardWrapper = styled.div`
+export const AllCardWrapper = styled.div<{
+  $isKebabClicked: boolean
+}>`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   row-gap: 2.4rem;
   column-gap: 1.6rem;
   width: 100%;
+
+  img {
+    opacity: ${({ $isKebabClicked }) => ($isKebabClicked ? 0.5 : 1)};
+  }
 `
