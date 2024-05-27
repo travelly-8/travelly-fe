@@ -49,12 +49,12 @@ export const StyleCalendar = styled(Calendar)`
   }
 
   .react-calendar__navigation__prev-button {
-    background: url('/src/assets/browsing/previous.svg') no-repeat center;
+    background: url('/src/assets/home/previous.svg') no-repeat center;
     color: transparent;
   }
 
   .react-calendar__navigation__next-button {
-    background: url('/src/assets/browsing/next.svg') no-repeat center;
+    background: url('/src/assets/home/next.svg') no-repeat center;
     color: transparent;
   }
 
