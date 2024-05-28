@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 
-export const Navigate = styled.div<{ $isActive: boolean }>`
+export const Navigate = styled.div<{
+  $isActive: boolean | undefined
+}>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -18,7 +20,7 @@ export const Navigate = styled.div<{ $isActive: boolean }>`
 `
 
 export const Icon = styled.img<{
-  $isActive: boolean
+  $isActive: boolean | undefined
 }>`
   width: 2.4rem;
   height: 2.4rem;

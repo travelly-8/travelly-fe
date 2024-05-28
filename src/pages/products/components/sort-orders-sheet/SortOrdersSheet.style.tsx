@@ -8,6 +8,7 @@ export const SheetBackground = styled.div`
   background-color: var(--color-black);
   opacity: 0.5;
   z-index: 999;
+  cursor: pointer;
 `
 
 export const Container = styled.div`

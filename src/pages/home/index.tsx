@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { RefObject, useRef, useState } from 'react'
 
 import { mockData1, mockData2 } from '@/constants/MOCK_DATA'
 import useHorizontalScroll from '@/hooks/useHorizontalScroll'
@@ -12,25 +12,33 @@ import { useNavigate } from 'react-router-dom'
 
 import * as S from './HomePage.style'
 
+function useScrollHandlers(ref: RefObject<HTMLDivElement>) {
+  const { handleMouseDown, handleMouseLeave, handleMouseUp, handleMouseMove } =
+    useHorizontalScroll()
+
+  return {
+    onMouseDown: handleMouseDown(ref),
+    onMouseLeave: handleMouseLeave,
+    onMouseUp: handleMouseUp,
+    onMouseMove: handleMouseMove(ref),
+    onTouchStart: handleMouseDown(ref),
+    onTouchEnd: handleMouseUp,
+    onTouchMove: handleMouseMove(ref),
+  }
+}
+
 function HomePage() {
   const navigate = useNavigate()
   const [isKebabClicked, setIsKebabClicked] = useState(false)
-  const cardWrapper = useRef<HTMLDivElement>(null)
-  const { handleMouseDown, handleMouseLeave, handleMouseUp, handleMouseMove } =
-    useHorizontalScroll()
   const sheetReducer = useSelector(
     (state: SheetSliceState) => state.sheet.value,
   )
 
-  const scrollHandlers = {
-    onMouseDown: handleMouseDown(cardWrapper),
-    onMouseLeave: handleMouseLeave,
-    onMouseUp: handleMouseUp,
-    onMouseMove: handleMouseMove(cardWrapper),
-    onTouchStart: handleMouseDown(cardWrapper),
-    onTouchEnd: handleMouseUp,
-    onTouchMove: handleMouseMove(cardWrapper),
-  }
+  const popularProductRef = useRef<HTMLDivElement>(null)
+  const recommendProductRef = useRef<HTMLDivElement>(null)
+
+  const scrollPopularHandlers = useScrollHandlers(popularProductRef)
+  const scrollRecommendHandlers = useScrollHandlers(recommendProductRef)
 
   return (
     <>
@@ -46,7 +54,7 @@ function HomePage() {
             <S.SectionTitle>인기 상품</S.SectionTitle>
           </S.SectionTitleWrapper>
           <S.SectionContentsWrapper>
-            <S.CardWrapper ref={cardWrapper} {...scrollHandlers}>
+            <S.CardWrapper ref={popularProductRef} {...scrollPopularHandlers}>
               {mockData1.map((cardData) => (
                 <ProductCard
                   key={cardData.name}
@@ -63,7 +71,10 @@ function HomePage() {
             <S.SectionTitle>추천 상품</S.SectionTitle>
           </S.SectionTitleWrapper>
           <S.SectionContentsWrapper>
-            <S.CardWrapper ref={cardWrapper} {...scrollHandlers}>
+            <S.CardWrapper
+              ref={recommendProductRef}
+              {...scrollRecommendHandlers}
+            >
               {mockData1.map((cardData) => (
                 <ProductCard
                   key={cardData.name}

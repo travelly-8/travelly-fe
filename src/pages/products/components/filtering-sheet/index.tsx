@@ -1,4 +1,7 @@
+import { useState } from 'react'
+
 import refreshIcon from '@/assets/home/refresh.svg'
+import { LOCALE_LIST } from '@/constants/FILTERING_BROWSING.ts'
 
 import CalendarInput from '@components/calendar-input'
 import FoldableMenu from '@components/foldable-menu'
@@ -6,8 +9,6 @@ import RangeSlider from '@components/range-slider'
 import RoundButton from '@components/round-button'
 import SheetHeader from '@components/sheet-header'
 
-import { LOCALE_LIST } from '@/constants/FILTERING_BROWSING.ts'
-import { useState } from 'react'
 import * as S from './FilteringSheet.styles.tsx'
 
 const FilteringSheet = () => {
@@ -47,7 +48,8 @@ const FilteringSheet = () => {
           <S.LocaleList>
             {LOCALE_LIST.map((locale, idx) => (
               <RoundButton.Gray
-                size={'small'}
+                key={locale}
+                size="small"
                 selected={selectedLocale === idx}
                 onClick={() => setSelectedLocale(idx)}
               >
