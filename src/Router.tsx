@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import HomePage from './pages/home'
 import SelectPlanPage from './pages/login/select-plan'
+import ProductsPage from './pages/products'
 import SignupPage from './pages/signup'
 import SignupEndPage from './pages/signup/end'
 
@@ -13,7 +14,7 @@ export default function AppRouter() {
       <GlobalStyles />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/result" element={<div>result page</div>} />
+        <Route path="/products" element={<ProductsPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/signup/end" element={<SignupEndPage />} />
         <Route path="/select-plan" element={<SelectPlanPage />} />

@@ -7,8 +7,8 @@ export const PageContainer = styled.main<{
   position: relative;
   width: 100%;
   height: 100vh;
-  background-color: ${({ $isKebabClicked }) =>
-    $isKebabClicked ? 'rgba(0, 0, 0, 0.50)' : 'var(--color-white)'};
+  background-color: var(--color-white);
+  display: ${({ $isSheet }) => ($isSheet ? 'none' : 'block')};
 
   overflow-y: scroll;
   scrollbar-width: none;
@@ -19,6 +19,21 @@ export const PageContainer = styled.main<{
   }
 `
 
+export const BackDrop = styled.div`
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 36rem;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+
+  @media (max-width: 767px) {
+    width: 100%;
+  }
+`
+
 export const ProductsSection = styled.section`
   display: flex;
   flex-direction: column;
@@ -26,8 +41,6 @@ export const ProductsSection = styled.section`
   width: 100%;
   margin-bottom: 3.2rem;
   padding-top: 2.4rem;
-
-  overflow-x: hidden;
 `
 
 export const AllProductsSection = styled.section`
@@ -88,29 +101,17 @@ export const ShowAllProducts = styled.p`
   }
 `
 
-export const CardWrapper = styled.div<{
-  $isKebabClicked: boolean
-}>`
+export const CardWrapper = styled.div`
   position: relative;
   display: flex;
   gap: 1.6rem;
   padding: 0 2rem;
-
-  img {
-    opacity: ${({ $isKebabClicked }) => ($isKebabClicked ? 0.5 : 1)};
-  }
 `
 
-export const AllCardWrapper = styled.div<{
-  $isKebabClicked: boolean
-}>`
+export const AllCardWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   row-gap: 2.4rem;
   column-gap: 1.6rem;
   width: 100%;
-
-  img {
-    opacity: ${({ $isKebabClicked }) => ($isKebabClicked ? 0.5 : 1)};
-  }
 `
