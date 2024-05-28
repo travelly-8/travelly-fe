@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import refreshIcon from '@/assets/home/refresh.svg'
 import { LOCALE_LIST } from '@/constants/FILTERING_BROWSING.ts'
@@ -14,21 +14,13 @@ import * as S from './FilteringSheet.styles.tsx'
 
 const FilteringSheet = () => {
   const [selectedLocale, setSelectedLocale] = useState(0)
-  const { control, watch } = useForm()
+  const { control, watch, reset } = useForm()
 
-  const minPriceValue = watch('min-price')
-  const maxPriceValue = watch('max-price')
-  const startTimeValue = watch('start-time')
-  const endTimeValue = watch('end-time')
-  const dateValue = watch('date')
+  const minPriceValue = watch('min-price') || 50000
+  const maxPriceValue = watch('max-price') || 100000
+  const startTimeValue = watch('start-time') || 11
+  const endTimeValue = watch('end-time') || 17
 
-  useEffect(() => {}, [
-    minPriceValue,
-    maxPriceValue,
-    dateValue,
-    startTimeValue,
-    endTimeValue,
-  ])
   return (
     <>
       <SheetHeader>
@@ -37,8 +29,8 @@ const FilteringSheet = () => {
       <S.Content>
         <FoldableMenu attribute="가격대">
           <RangeSlider
-            initMin={50000}
-            initMax={100000}
+            initMin={minPriceValue}
+            initMax={maxPriceValue}
             min={0}
             max={300000}
             step={1000}
@@ -51,8 +43,8 @@ const FilteringSheet = () => {
         </FoldableMenu>
         <FoldableMenu attribute="시간대">
           <RangeSlider
-            initMin={11}
-            initMax={17}
+            initMin={startTimeValue}
+            initMax={endTimeValue}
             min={0}
             max={24}
             step={1}
@@ -81,7 +73,12 @@ const FilteringSheet = () => {
           </S.LocaleList>
         </FoldableMenu>
         <S.Buttons>
-          <S.RefreshButton>
+          <S.RefreshButton
+            onClick={() => {
+              reset()
+              setSelectedLocale(0)
+            }}
+          >
             <S.Icon src={refreshIcon} /> 초기화
           </S.RefreshButton>
           <RoundButton.Primary>필터 적용</RoundButton.Primary>

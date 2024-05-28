@@ -39,16 +39,16 @@ export default function RangeSlider({
   useEffect(() => {
     //? [aria-label="progress"]의 width를 조절하는 방식으로 progress bar를 구현
     if (!progressRef.current) return
-    progressRef.current.style.left = (minValue / max) * 100 + '%'
-    progressRef.current.style.right = 100 - (maxValue / max) * 100 + '%'
-  }, [minValue, maxValue, max])
+    progressRef.current.style.left = (initMin / max) * 100 + '%'
+    progressRef.current.style.right = 100 - (initMax / max) * 100 + '%'
+  }, [initMax, initMin, max])
 
   return (
     <S.Wrapper>
       <S.Content>
         <S.Label>
-          {minValue}
-          {measure} ~ {maxValue}
+          {initMin}
+          {measure} ~ {initMax}
           {measure}
         </S.Label>
 
