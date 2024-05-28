@@ -1,11 +1,11 @@
 import styled from 'styled-components'
 
-export const Container = styled.div<{ isKeyboardOpen: boolean }>`
+export const Container = styled.div<{ $isKeyboardOpen: boolean }>`
   display: flex;
   flex-direction: column;
   margin-top: 2rem;
   background-color: var(--color-white);
-  ${(props) => props.isKeyboardOpen && 'margin-top: -10rem;'}
+  ${({ $isKeyboardOpen }) => $isKeyboardOpen && 'margin-top: -10rem;'}
   padding: 0 2rem;
 `
 

@@ -1,5 +1,5 @@
+import isPropValid from '@emotion/is-prop-valid'
 import styled, { css } from 'styled-components'
-
 import { IInput } from './Input.type'
 
 export const StyledInputContainer = styled.div`
@@ -17,7 +17,10 @@ export const StyledLabel = styled.label<IInput>`
   margin: 0.3rem 0;
 `
 
-export const StyledInputWrapper = styled.div<IInput>`
+export const StyledInputWrapper = styled.div.withConfig({
+  shouldForwardProp: (prop) =>
+    isPropValid(prop) && prop !== 'focused' && prop !== 'errorType',
+})<IInput>`
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -35,11 +38,7 @@ export const StyledInputWrapper = styled.div<IInput>`
         errorType ? 'var(--color-caution)' : 'var(--color-main)'};
     `}
   padding: 1rem 1.25rem;
-  ${({ inputType }) =>
-    inputType !== 'date' &&
-    css`
-      cursor: text;
-    `}
+  cursor: text;
   background-color: var(--color-white);
 
   &:focus-within {

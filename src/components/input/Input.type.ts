@@ -5,11 +5,10 @@ export type InputValuesType = {
 }
 
 export interface IInput {
-  inputType?: string
+  inputType?: 'name' | 'email' | 'password' | 'passwordCheck'
   inputRef?: RefObject<HTMLInputElement>
-  passwordValue?: any
+  passwordValue?: string
   errorType?: string | null
-  inputAccessedFor?: 'login' | 'signup'
   focused?: boolean
   value?: string
   placeholder?: string
