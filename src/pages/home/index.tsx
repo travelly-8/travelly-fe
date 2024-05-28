@@ -8,10 +8,12 @@ import FooterNavigation from '@components/footer-navigation'
 import Header from '@components/header'
 import ProductCard from '@components/product-card'
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 import * as S from './HomePage.style'
 
 function HomePage() {
+  const navigate = useNavigate()
   const [isKebabClicked, setIsKebabClicked] = useState(false)
   const cardWrapper = useRef<HTMLDivElement>(null)
   const { handleMouseDown, handleMouseLeave, handleMouseUp, handleMouseMove } =
@@ -82,7 +84,9 @@ function HomePage() {
         <S.AllProductsSection>
           <S.ALLTitleWrapper>
             <S.SectionTitle>전체 상품</S.SectionTitle>
-            <S.ShowAllProducts>더보기</S.ShowAllProducts>
+            <S.ShowAllProducts onClick={() => navigate('/products')}>
+              더보기
+            </S.ShowAllProducts>
           </S.ALLTitleWrapper>
           <S.AllCardWrapper $isKebabClicked={isKebabClicked}>
             {mockData2.map((cardData) => (
