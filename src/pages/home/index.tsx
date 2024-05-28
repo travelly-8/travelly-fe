@@ -90,8 +90,8 @@ function HomePage() {
             ))}
           </S.AllCardWrapper>
         </S.AllProductsSection>
-        <FooterNavigation />
       </S.PageContainer>
+      <FooterNavigation />
     </>
   )
 }
