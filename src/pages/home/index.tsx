@@ -39,17 +39,14 @@ function HomePage() {
         $isKebabClicked={isKebabClicked}
         $isSheet={sheetReducer.status}
       >
+        {isKebabClicked && <S.BackDrop />}
         <S.ProductsSection>
           <S.SectionTitleWrapper>
             <S.SectionTitleIcon src="src/assets/home/trophy.svg" />
             <S.SectionTitle>인기 상품</S.SectionTitle>
           </S.SectionTitleWrapper>
           <S.SectionContentsWrapper>
-            <S.CardWrapper
-              ref={cardWrapper}
-              {...scrollHandlers}
-              $isKebabClicked={isKebabClicked}
-            >
+            <S.CardWrapper ref={cardWrapper} {...scrollHandlers}>
               {mockData1.map((cardData) => (
                 <ProductCard
                   key={cardData.name}
@@ -66,11 +63,7 @@ function HomePage() {
             <S.SectionTitle>추천 상품</S.SectionTitle>
           </S.SectionTitleWrapper>
           <S.SectionContentsWrapper>
-            <S.CardWrapper
-              ref={cardWrapper}
-              {...scrollHandlers}
-              $isKebabClicked={isKebabClicked}
-            >
+            <S.CardWrapper ref={cardWrapper} {...scrollHandlers}>
               {mockData1.map((cardData) => (
                 <ProductCard
                   key={cardData.name}
@@ -84,18 +77,18 @@ function HomePage() {
         <S.AllProductsSection>
           <S.ALLTitleWrapper>
             <S.SectionTitle>전체 상품</S.SectionTitle>
-            <S.ShowAllProducts onClick={() => navigate('/products')}>
+            <S.ShowAllProducts onClick={() => navigate('/products?type=0')}>
               더보기
             </S.ShowAllProducts>
           </S.ALLTitleWrapper>
-          <S.AllCardWrapper $isKebabClicked={isKebabClicked}>
+          <S.AllCardWrapper>
             {mockData2.map((cardData) => (
               <ProductCard key={cardData.name} cardData={cardData} size="bg" />
             ))}
           </S.AllCardWrapper>
         </S.AllProductsSection>
+        <FooterNavigation />
       </S.PageContainer>
-      <FooterNavigation />
     </>
   )
 }

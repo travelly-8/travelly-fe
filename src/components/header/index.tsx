@@ -24,14 +24,14 @@ import { IHeaderProps } from './Header.type'
 
 const CategorySection = () => {
   const categoryList = [
-    { img: entire, description: '전체', url: `/result?type=0` },
-    { img: travelspot, description: '관광지', url: `/result?type=12` },
-    { img: culture, description: '문화시설', url: `/result?type=14` },
-    { img: concert, description: '공연/행사', url: `/result?type=15` },
-    { img: travelcourse, description: '여행 코스', url: `/result?type=25` },
-    { img: leisure, description: '레포츠', url: `/result?type=28` },
-    { img: shop, description: '쇼핑', url: `/result?type=38` },
-    { img: food, description: '음식', url: `/result?type=39` },
+    { img: entire, description: '전체', url: `/products?type=0` },
+    { img: travelspot, description: '관광지', url: `/products?type=12` },
+    { img: culture, description: '문화시설', url: `/products?type=14` },
+    { img: concert, description: '공연/행사', url: `/products?type=15` },
+    { img: travelcourse, description: '여행 코스', url: `/products?type=25` },
+    { img: leisure, description: '레포츠', url: `/products?type=28` },
+    { img: shop, description: '쇼핑', url: `/products?type=38` },
+    { img: food, description: '음식', url: `/products?type=39` },
   ]
 
   return (

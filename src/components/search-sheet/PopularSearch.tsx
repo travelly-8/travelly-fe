@@ -14,7 +14,7 @@ const PopularSearch: React.FC<IPopularSearchProps> = ({ popularData }) => {
 
   const handleClickPopular = (search: string) => {
     registerRecentSearches(search)
-    navigate(`/result/?input=${search}`)
+    navigate(`/products/?input=${search}`)
   }
 
   return (

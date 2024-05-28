@@ -56,7 +56,7 @@ const SearchSheet = () => {
   }
   const handleBtnClick = (data: string) => {
     registerRecentSearches(data)
-    navigate(`/result/?input=${data}`)
+    navigate(`/products/?input=${data}`)
   }
 
   const recentSearchRef = useRef<HTMLDivElement>(null)
