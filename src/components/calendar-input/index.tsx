@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { DAY_TO_STRING } from '@/constants/DAY_TO_STRING.ts'
+import { DAY_TO_STRING } from '@/constants/FILTERING_BROWSING.ts'
 
 import { format, getDay } from 'date-fns'
 
@@ -31,6 +31,7 @@ const CalendarInput = () => {
           calendarType="gregory"
           next2Label={null}
           prev2Label={null}
+          showNeighboringMonth={false}
         />
       </S.Content>
     </S.Wrapper>

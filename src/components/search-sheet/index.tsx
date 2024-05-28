@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 
+import { mockData1 } from '@/constants/MOCK_DATA'
 import useHorizontalScroll from '@/hooks/useHorizontalScroll'
 import { registerRecentSearches } from '@/utils/registerLocalStorage'
 
+import ProductCard from '@components/product-card'
 import RoundButton from '@components/round-button'
 import SearchInput from '@components/search-input'
 import SheetHeader from '@components/sheet-header'
@@ -126,8 +128,10 @@ const SearchSheet = () => {
         </S.SearchWordWrapper>
         <PopularSearch popularData={popularData} />
         <S.RecentWatchProductWrapper>
-          <S.Label>최근 본 상품</S.Label>
-          <S.RecentWatchProduct // 제품 카드로 나중에 변경
+          <S.RecentContentWrapper>
+            <S.Label>최근 본 상품</S.Label>
+          </S.RecentContentWrapper>
+          <S.RecentWatchProduct
             ref={recentProductRef}
             onMouseDown={handleMouseDown(recentProductRef)}
             onMouseLeave={handleMouseLeave}
@@ -137,11 +141,9 @@ const SearchSheet = () => {
             onTouchEnd={handleMouseUp}
             onTouchMove={handleMouseMove(recentProductRef)}
           >
-            <S.Product style={{ backgroundColor: 'green' }} />
-            <S.Product style={{ backgroundColor: 'yellow' }} />
-            <S.Product style={{ backgroundColor: 'green' }} />
-            <S.Product style={{ backgroundColor: 'red' }} />
-            <S.Product style={{ backgroundColor: 'purple' }} />
+            {mockData1.map((cardData) => (
+              <ProductCard key={cardData.name} cardData={cardData} size="sm" />
+            ))}
           </S.RecentWatchProduct>
         </S.RecentWatchProductWrapper>
       </S.SheetWrapper>

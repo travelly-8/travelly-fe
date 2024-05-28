@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const SheetWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 2.4rem 0rem 2.4rem 2rem;
+  padding: 2.4rem 0rem 2.4rem 0;
   background-color: var(--color-white);
   gap: 3.6rem;
   width: 100%;
@@ -17,23 +17,23 @@ export const DeleteButton = styled.span`
   color: var(--color-black);
   font-size: 1.2rem;
   line-height: 1.8rem;
-  margin-right: 2rem;
   cursor: pointer;
 `
 export const SearchWordWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: 0.8rem;
+  gap: 1.2rem;
 `
 export const RecentContentWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  padding: 0 2rem;
 `
 export const SearchWord = styled.div`
   display: flex;
-  align-items: flex-start;
   gap: 0.8rem;
+  padding: 0 2rem;
   overflow-x: hidden;
 `
 export const PopularSearch = styled.div`
@@ -42,7 +42,7 @@ export const PopularSearch = styled.div`
   gap: 1.6rem;
   flex-wrap: wrap;
   width: 100%;
-  padding-right: 2rem;
+  padding: 0 2rem;
 `
 
 export const PopularLabelWrapper = styled.div`
@@ -105,19 +105,12 @@ export const Icon = styled.img`
 export const RecentWatchProductWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 1.2rem;
 `
 
 export const RecentWatchProduct = styled.div`
   display: flex;
-  align-items: flex-start;
   gap: 1.6rem;
+  padding: 0 2rem;
   overflow-x: hidden;
 `
-
-export const Product = styled.div`
-  display: flex;
-  width: 10.2rem;
-  min-width: 10.2rem;
-  height: 19.2rem;
-` // 나중에 카드로 변경
