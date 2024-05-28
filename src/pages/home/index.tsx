@@ -1,7 +1,7 @@
-import { RefObject, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 
 import { mockData1, mockData2 } from '@/constants/MOCK_DATA'
-import useHorizontalScroll from '@/hooks/useHorizontalScroll'
+import useScrollHandlers from '@/hooks/useScrollHandlers'
 import { SheetSliceState } from '@/store/sheet-slice.ts'
 
 import FooterNavigation from '@components/footer-navigation'
@@ -11,21 +11,6 @@ import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import * as S from './HomePage.style'
-
-function useScrollHandlers(ref: RefObject<HTMLDivElement>) {
-  const { handleMouseDown, handleMouseLeave, handleMouseUp, handleMouseMove } =
-    useHorizontalScroll()
-
-  return {
-    onMouseDown: handleMouseDown(ref),
-    onMouseLeave: handleMouseLeave,
-    onMouseUp: handleMouseUp,
-    onMouseMove: handleMouseMove(ref),
-    onTouchStart: handleMouseDown(ref),
-    onTouchEnd: handleMouseUp,
-    onTouchMove: handleMouseMove(ref),
-  }
-}
 
 function HomePage() {
   const navigate = useNavigate()
