@@ -73,7 +73,6 @@ export const SectionTitle = styled.h2`
 export const SectionContentsWrapper = styled.div`
   display: flex;
   width: 100%;
-  overflow-x: auto;
 
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -106,6 +105,8 @@ export const CardWrapper = styled.div`
   display: flex;
   gap: 1.6rem;
   padding: 0 2rem;
+  overflow-x: hidden;
+  cursor: pointer;
 `
 
 export const AllCardWrapper = styled.div`
