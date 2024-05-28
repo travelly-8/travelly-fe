@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 
+import { Controller } from 'react-hook-form'
+
 import * as S from './RangeSlider.styles.tsx'
 
 import { IRangeSlider } from '@components/range-slider/RangeSlider.type.ts'
@@ -12,6 +14,9 @@ export default function RangeSlider({
   step,
   minGap,
   measure,
+  minLabel,
+  maxLabel,
+  control,
 }: IRangeSlider) {
   const [minValue, setMinValue] = useState(initMin)
   const [maxValue, setMaxValue] = useState(initMax)
@@ -52,23 +57,41 @@ export default function RangeSlider({
             <S.Progress aria-label="progress" ref={progressRef} />
           </S.Slider>
           <S.RangeInput aria-label="range-input">
-            <S.MinInput
-              aria-label="min-price"
-              type="range"
-              min={min}
-              step={step}
-              max={max}
-              value={minValue}
-              onChange={handleMinRange}
+            <Controller
+              name={minLabel}
+              control={control}
+              defaultValue={initMin}
+              render={({ field }) => (
+                <S.MinInput
+                  type="range"
+                  min={min}
+                  step={step}
+                  max={max}
+                  value={field.value}
+                  onChange={(e) => {
+                    field.onChange(e)
+                    handleMinRange(e)
+                  }}
+                />
+              )}
             />
-            <S.MinInput
-              aria-label="max-price"
-              type="range"
-              min={min}
-              step={step}
-              max={max}
-              value={maxValue}
-              onChange={handleMaxRange}
+            <Controller
+              name={maxLabel}
+              control={control}
+              defaultValue={initMax}
+              render={({ field }) => (
+                <S.MinInput
+                  type="range"
+                  min={min}
+                  step={step}
+                  max={max}
+                  value={field.value}
+                  onChange={(e) => {
+                    field.onChange(e)
+                    handleMaxRange(e)
+                  }}
+                />
+              )}
             />
           </S.RangeInput>
         </div>
