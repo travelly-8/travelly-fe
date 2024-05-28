@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components'
+
 import { IInput } from './Input.type'
 
 export const StyledInputContainer = styled.div`
@@ -62,6 +63,7 @@ export const ToggleButton = styled.button`
   border: none;
   cursor: pointer;
   color: var(--color-gray-middle);
+  background-color: transparent;
   img {
     width: 1.6rem;
     height: 1.382rem;
