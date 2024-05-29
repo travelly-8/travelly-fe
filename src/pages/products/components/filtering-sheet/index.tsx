@@ -1,25 +1,39 @@
 import { useState } from 'react'
 
 import refreshIcon from '@/assets/home/refresh.svg'
-import { LOCALE_LIST } from '@/constants/FILTERING_BROWSING.ts'
+import { LOCALE_CODE_LIST } from '@/constants/FILTERING_BROWSING.ts'
+import { sheet } from '@/store/sheet-slice.ts'
 
 import CalendarInput from '@components/calendar-input'
 import FoldableMenu from '@components/foldable-menu'
 import RangeSlider from '@components/range-slider'
 import RoundButton from '@components/round-button'
 import SheetHeader from '@components/sheet-header'
+import { format } from 'date-fns'
 import { useForm } from 'react-hook-form'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 import * as S from './FilteringSheet.styles.tsx'
 
 const FilteringSheet = () => {
-  const [selectedLocale, setSelectedLocale] = useState(0)
+  const [selectedLocale, setSelectedLocale] = useState('0')
   const { control, watch, reset } = useForm()
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const minPriceValue = watch('min-price') || 50000
   const maxPriceValue = watch('max-price') || 100000
   const startTimeValue = watch('start-time') || 11
   const endTimeValue = watch('end-time') || 17
+  const dateValue = watch('date') || new Date()
+
+  function handleSubmit() {
+    navigate(
+      `/products?minPrice=${minPriceValue}&maxPrice=${maxPriceValue}&startTime=${startTimeValue}&endTime=${endTimeValue}&date=${format(dateValue, 'yyyy-MM-dd')}&city=${selectedLocale}`,
+    )
+    dispatch(sheet({ name: 'filter-sheet', status: false }))
+  }
 
   return (
     <>
@@ -60,28 +74,32 @@ const FilteringSheet = () => {
         </FoldableMenu>
         <FoldableMenu attribute="지역">
           <S.LocaleList>
-            {LOCALE_LIST.map((locale, idx) => (
-              <RoundButton.Gray
-                key={locale}
-                size="small"
-                selected={selectedLocale === idx}
-                onClick={() => setSelectedLocale(idx)}
-              >
-                {locale}
-              </RoundButton.Gray>
-            ))}
+            {Object.entries(LOCALE_CODE_LIST).map(
+              ([localeCode, localeName]) => (
+                <RoundButton.Gray
+                  key={localeCode}
+                  size="small"
+                  selected={selectedLocale === localeCode}
+                  onClick={() => setSelectedLocale(localeCode)}
+                >
+                  {localeName}
+                </RoundButton.Gray>
+              ),
+            )}
           </S.LocaleList>
         </FoldableMenu>
         <S.Buttons>
           <S.RefreshButton
             onClick={() => {
               reset()
-              setSelectedLocale(0)
+              setSelectedLocale('0')
             }}
           >
             <S.Icon src={refreshIcon} /> 초기화
           </S.RefreshButton>
-          <RoundButton.Primary>필터 적용</RoundButton.Primary>
+          <RoundButton.Primary onClick={handleSubmit}>
+            필터 적용
+          </RoundButton.Primary>
         </S.Buttons>
       </S.Content>
     </>
