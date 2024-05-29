@@ -4,27 +4,7 @@ import walletIcon from '@/assets/mypage/wallet.svg'
 import { formatWithCommas } from '@/utils/formatWIthCommas'
 
 import * as S from './Dashboard.style'
-
-interface IReviews {
-  content: string
-  rating: number
-  likeCount: number
-  imageUrl: string
-}
-
-interface IDashboardProps {
-  data: {
-    role: string
-    coin: number
-    reviews: IReviews[]
-  }
-}
-
-interface IDashboard {
-  icon: string
-  title: string
-  value: number
-}
+import { IDashboard, IDashboardProps } from './Dashboard.type'
 
 const Dashboard = ({ data }: IDashboardProps) => {
   const { role, coin, reviews } = data
