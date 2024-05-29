@@ -6,11 +6,9 @@ import BrowsingPage from './pages/browsing'
 import HomePage from './pages/home'
 import LoginPage from './pages/login/login'
 import SelectPlanPage from './pages/login/select-plan'
-import {
-  default as SignupPage,
-  default as SignupStartPage,
-} from './pages/signup'
+import SignupStartPage from './pages/signup'
 import SignupEndPage from './pages/signup/end'
+import SignupPage from './pages/signup/signup'
 
 export default function AppRouter() {
   return (
