@@ -2,12 +2,14 @@ import { useEffect, useRef, useState } from 'react'
 
 import { mockData1 } from '@/constants/MOCK_DATA'
 import useHorizontalScroll from '@/hooks/useHorizontalScroll'
+import { sheet } from '@/store/sheet-slice.ts'
 import { registerRecentSearches } from '@/utils/registerLocalStorage'
 
 import ProductCard from '@components/product-card'
 import RoundButton from '@components/round-button'
 import SearchInput from '@components/search-input'
 import SheetHeader from '@components/sheet-header'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import PopularSearch from './PopularSearch'
@@ -42,6 +44,7 @@ const SearchSheet = () => {
   const [recentSearches, setRecentSearches] = useState<string[]>([])
   const [deleteBtnClicked, setDeleteBtnClicked] = useState(false)
 
+  const dispatch = useDispatch()
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -59,6 +62,7 @@ const SearchSheet = () => {
   const handleBtnClick = (data: string) => {
     registerRecentSearches(data)
     navigate(`/products/?input=${data}`)
+    dispatch(sheet({ name: 'search-sheet', status: false, text: '' }))
   }
 
   const recentSearchRef = useRef<HTMLDivElement>(null)
