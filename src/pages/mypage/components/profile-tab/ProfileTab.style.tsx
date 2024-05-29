@@ -18,6 +18,8 @@ export const ProfileWrapper = styled.div`
 export const ProfileImg = styled.img`
   width: 6.4rem;
   height: 6.4rem;
+  object-fit: cover;
+  border-radius: 50%;
 `
 export const TextWrapper = styled.div`
   display: flex;

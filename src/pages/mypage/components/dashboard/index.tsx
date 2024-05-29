@@ -5,33 +5,48 @@ import { formatWithCommas } from '@/utils/formatWIthCommas'
 
 import * as S from './Dashboard.style'
 
+interface IReviews {
+  content: string
+  rating: number
+  likeCount: number
+  imageUrl: string
+}
+
+interface IDashboardProps {
+  data: {
+    role: string
+    coin: number
+    reviews: IReviews[]
+  }
+}
+
 interface IDashboard {
   icon: string
   title: string
   value: number
 }
 
-const Dashboard = () => {
-  const currUser = 'Traveler' // TODO: 로그인한 유저 유형에 따라 변경
-  const USER_MAP = {
-    Traveler: ['point', 'writeReview', 'booking'],
-    Travelly: ['point', 'getReview', 'getReservation'],
+const Dashboard = ({ data }: IDashboardProps) => {
+  const { role, coin, reviews } = data
+  const USER_MAP: Record<string, string[]> = {
+    traveler: ['point', 'writeReview', 'booking'],
+    travelly: ['point', 'getReview', 'getReservation'],
   }
   const MENU_MAP: Record<string, IDashboard> = {
     point: {
       icon: walletIcon,
       title: '포인트',
-      value: 1000,
+      value: coin,
     },
     getReview: {
       icon: reviewIcon,
       title: '받은 리뷰',
-      value: 1000,
+      value: reviews.length,
     },
     writeReview: {
       icon: reviewIcon,
       title: '리뷰',
-      value: 1000,
+      value: reviews.length,
     },
     getReservation: {
       icon: calendarIcon,
@@ -48,7 +63,7 @@ const Dashboard = () => {
   return (
     <S.Background>
       <S.Wrapper>
-        {USER_MAP[currUser].map((menu) => {
+        {USER_MAP[role].map((menu) => {
           return (
             <S.MenuWrapper key={menu}>
               <S.Icon src={MENU_MAP[menu].icon} alt="포인트" />
