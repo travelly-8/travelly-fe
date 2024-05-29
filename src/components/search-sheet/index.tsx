@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
 
-import { mockData1 } from '@/constants/MOCK_DATA'
 import useHorizontalScroll from '@/hooks/useHorizontalScroll'
 import { sheet } from '@/store/sheet-slice.ts'
 import { registerRecentSearches } from '@/utils/registerLocalStorage'
@@ -14,6 +13,8 @@ import { useNavigate } from 'react-router-dom'
 
 import PopularSearch from './PopularSearch'
 import * as S from './SearchSheet.style'
+
+import type { IProductCardData } from '@components/product-card/ProductCard.type'
 
 const recommendData = [
   '부산',
@@ -55,13 +56,17 @@ const SearchSheet = () => {
     setDeleteBtnClicked(false)
   }, [deleteBtnClicked])
 
+  const recentProductData = JSON.parse(
+    localStorage.getItem('recentProducts') || '[]',
+  )
+
   const handleClickDelete = () => {
     localStorage.removeItem('recentSearches')
     setDeleteBtnClicked(true)
   }
   const handleBtnClick = (data: string) => {
     registerRecentSearches(data)
-    navigate(`/products/?input=${data}`)
+    navigate(`/products?input=${data}`)
     dispatch(sheet({ name: 'search-sheet', status: false, text: '' }))
   }
 
@@ -145,7 +150,7 @@ const SearchSheet = () => {
             onTouchEnd={handleMouseUp}
             onTouchMove={handleMouseMove(recentProductRef)}
           >
-            {mockData1.map((cardData) => (
+            {recentProductData.map((cardData: IProductCardData) => (
               <ProductCard key={cardData.name} cardData={cardData} size="sm" />
             ))}
           </S.RecentWatchProduct>
@@ -156,96 +161,3 @@ const SearchSheet = () => {
 }
 
 export default SearchSheet
-
-// const recentSearchRef = useRef<HTMLDivElement>(null)
-//   const recommendedSearchRef = useRef<HTMLDivElement>(null)
-//   const recentProductRef = useRef<HTMLDivElement>(null)
-
-// const handleRecentMouseDown = (e: React.MouseEvent | React.TouchEvent) => {
-//   recentIsDown = true
-//   const touchX = 'touches' in e ? e.touches[0].pageX : e.pageX
-//   recentStartX = touchX - (recentSearchRef.current?.offsetLeft || 0)
-//   recentScrollLeft = recentSearchRef.current?.scrollLeft || 0
-// }
-
-// const handleRecentMouseLeave = () => {
-//   recentIsDown = false
-// }
-
-// const handleRecentMouseUp = () => {
-//   recentIsDown = false
-// }
-
-// const handleRecentMouseMove = (e: React.MouseEvent | React.TouchEvent) => {
-//   if (!recentIsDown || !recentSearchRef.current) return
-//   const touchX = 'touches' in e ? e.touches[0].pageX : e.pageX
-//   const x = touchX - (recentSearchRef.current.offsetLeft || 0)
-//   const walk = (x - recentStartX) * 1
-//   requestAnimationFrame(() => {
-//     if (recentSearchRef.current) {
-//       recentSearchRef.current.scrollLeft = recentScrollLeft - walk
-//     }
-//   })
-// }
-
-// const handleRecommendedMouseDown = (
-//   e: React.MouseEvent | React.TouchEvent,
-// ) => {
-//   recommendedIsDown = true
-//   const touchX = 'touches' in e ? e.touches[0].pageX : e.pageX
-//   recommendedStartX = touchX - (recommendedSearchRef.current?.offsetLeft || 0)
-//   recommendedScrollLeft = recommendedSearchRef.current?.scrollLeft || 0
-// }
-
-// const handleRecommendedMouseLeave = () => {
-//   recommendedIsDown = false
-// }
-
-// const handleRecommendedMouseUp = () => {
-//   recommendedIsDown = false
-// }
-
-// const handleRecommendedMouseMove = (
-//   e: React.MouseEvent | React.TouchEvent,
-// ) => {
-//   if (!recommendedIsDown || !recommendedSearchRef.current) return
-//   const touchX = 'touches' in e ? e.touches[0].pageX : e.pageX
-//   const x = touchX - (recommendedSearchRef.current.offsetLeft || 0)
-//   const walk = (x - recommendedStartX) * 1
-//   requestAnimationFrame(() => {
-//     if (recommendedSearchRef.current) {
-//       recommendedSearchRef.current.scrollLeft = recommendedScrollLeft - walk
-//     }
-//   })
-// }
-
-// const handleRecentProductMouseDown = (
-//   e: React.MouseEvent | React.TouchEvent,
-// ) => {
-//   recentProductIsDown = true
-//   const touchX = 'touches' in e ? e.touches[0].pageX : e.pageX
-//   recentProductStartX = touchX - (recentProductRef.current?.offsetLeft || 0)
-//   recentProductScrollLeft = recentProductRef.current?.scrollLeft || 0
-// }
-
-// const handleRecentProductMouseLeave = () => {
-//   recentProductIsDown = false
-// }
-
-// const handleRecentProductMouseUp = () => {
-//   recentProductIsDown = false
-// }
-
-// const handleRecentProductMouseMove = (
-//   e: React.MouseEvent | React.TouchEvent,
-// ) => {
-//   if (!recentProductIsDown || !recentProductRef.current) return
-//   const touchX = 'touches' in e ? e.touches[0].pageX : e.pageX
-//   const x = touchX - (recentProductRef.current.offsetLeft || 0)
-//   const walk = (x - recentProductStartX) * 1
-//   requestAnimationFrame(() => {
-//     if (recentProductRef.current) {
-//       recentProductRef.current.scrollLeft = recentProductScrollLeft - walk
-//     }
-//   })
-// }

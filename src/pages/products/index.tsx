@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { mockData2 } from '@/constants/MOCK_DATA'
 import FilteringSheet from '@/pages/products/components/filtering-sheet'
 import SortOrdersSheet from '@/pages/products/components/sort-orders-sheet'
-import { sheet, SheetSliceState } from '@/store/sheet-slice.ts'
+import { SheetSliceState, sheet } from '@/store/sheet-slice.ts'
 
 import ProductCard from '@components/product-card'
 import ProductHeader from '@components/product-header'
