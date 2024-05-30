@@ -39,10 +39,12 @@ export const DashTitle = styled.p`
   color: var(--color-black);
   font-size: 1.2rem;
   font-weight: 400;
+  line-height: 1.8rem;
 `
 
 export const DashNumber = styled.p`
   color: var(--color-main);
   font-size: 1.2rem;
   font-weight: 700;
+  line-height: 1.8rem;
 `
