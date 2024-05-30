@@ -14,9 +14,7 @@ const SheetHeader = ({ children }: ISheetHeader) => {
       <S.Icon
         src={backIcon}
         alt="창 닫기"
-        onClick={() =>
-          dispatch(sheet({ name: 'browsing-sheet', status: false }))
-        }
+        onClick={() => dispatch(sheet({ name: 'filter-sheet', status: false }))}
       />
       <S.Content>{children}</S.Content>
     </S.Wrapper>

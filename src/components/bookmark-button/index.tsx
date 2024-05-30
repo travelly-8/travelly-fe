@@ -1,5 +1,5 @@
-import bookmarked from '@/assets/browsing/bookmark-clicked.svg'
-import unbookmarked from '@/assets/browsing/bookmark-unclicked.svg'
+import bookmarked from '@/assets/home/bookmark-clicked.svg'
+import unbookmarked from '@/assets/home/bookmark-unclicked.svg'
 
 import * as S from './BookmarkButton.style'
 import { IBookmarkButtonProps } from './BookmarkButton.type'

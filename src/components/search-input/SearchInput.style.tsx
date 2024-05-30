@@ -16,9 +16,8 @@ export const Input = styled.input`
   border: none;
   outline: none;
   &::placeholder {
-    color: var(----color-gray-middle);
-    font-size: 1.4rem;
-    font-weight: 400;
+    color: var(--color-gray-middle);
+    font-size: 1.2rem;
     line-height: normal;
   }
 `
@@ -27,4 +26,5 @@ export const SearchIcon = styled.img`
   width: 1.6rem;
   height: 1.6rem;
   right: 1.6rem;
+  cursor: pointer;
 `
