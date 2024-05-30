@@ -2,6 +2,12 @@ import styled from 'styled-components'
 
 export const Wrapper = styled.div`
   overflow-x: hidden;
+  overflow-y: scroll;
+  height: 100%;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `
 
 export const CardListWrapper = styled.div`
@@ -12,6 +18,9 @@ export const CardListWrapper = styled.div`
   position: relative;
   top: -1.3rem;
   padding: 2.4rem 0rem 0rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
 `
 
 export const FooterWrapper = styled.div`
