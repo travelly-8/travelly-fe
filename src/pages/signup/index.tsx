@@ -1,12 +1,14 @@
 import { useState } from 'react'
 
 import RectangleButton from '@components/rectangle-button'
+import { useNavigate } from 'react-router-dom'
 
-import * as S from './SignupPage.style'
+import * as S from './SignupStartPage.style'
 import SplashPage from './splash'
 
-export default function SignupPage() {
+export default function SignupStartPage() {
   const [isSplashOn, setIsSplashOn] = useState(true)
+  const navigate = useNavigate()
 
   setTimeout(() => {
     setIsSplashOn(false)
@@ -17,12 +19,14 @@ export default function SignupPage() {
   } else {
     return (
       <S.Wrapper>
-        <S.Image src="src/assets/signup/signup.png" alt="signup" />
-        <RectangleButton size="medium">이메일로 가입하기</RectangleButton>
+        <S.Image src="/src/assets/signup/signup.png" alt="signup" />
+        <RectangleButton size="medium" onClick={() => navigate('/signup')}>
+          이메일로 가입하기
+        </RectangleButton>
         <S.StartSNS>
-          <S.Bubble src="src/assets/signup/bubble.png" alt="간편하게 시작" />
-          <S.Sns src="src/assets/signup/naver.svg" alt="네이버" />
-          <S.Sns src="src/assets/signup/google.png" alt="구글" />
+          <S.Bubble src="/src/assets/signup/bubble.png" alt="간편하게 시작" />
+          <S.Sns src="/src/assets/signup/naver.svg" alt="네이버" />
+          <S.Sns src="/src/assets/signup/google.png" alt="구글" />
         </S.StartSNS>
         <S.OtherWay>
           <S.Find>
