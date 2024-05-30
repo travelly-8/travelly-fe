@@ -1,10 +1,11 @@
 import { useState } from 'react'
 
+import { registerRecentProducts } from '@/utils/registerLocalStorage'
+
 import BookmarkButton from '@components/bookmark-button'
 
 import * as S from './ProductCard.style'
 import { IProductCardData, IProductCardProps } from './ProductCard.type'
-
 function ProductCard({ cardData, size }: IProductCardProps) {
   const {
     image,
@@ -22,7 +23,7 @@ function ProductCard({ cardData, size }: IProductCardProps) {
   //TODO: BookmarkButton 기능 추가 후, 클릭했을 시 버블링 고려해야함
 
   return (
-    <S.Container size={size}>
+    <S.Container size={size} onClick={() => registerRecentProducts(cardData)}>
       <S.CardImage src={image} alt={name} size={size} />
       <BookmarkButton
         onClick={() => setIsBookmarked(!isBookmarked)}

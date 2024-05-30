@@ -1,12 +1,27 @@
 import styled from 'styled-components'
 
-export const PageContainer = styled.div`
+export const PageContainer = styled.div<{ $isSearchSheet: boolean }>`
+  display: ${({ $isSearchSheet }) => ($isSearchSheet ? 'none' : 'block')};
   overflow-y: scroll;
   scrollbar-width: none;
   -ms-overflow-style: none;
 
   &::-webkit-scrollbar {
     display: none;
+  }
+`
+export const BackDrop = styled.div`
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 36rem;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+
+  @media (max-width: 767px) {
+    width: 100%;
   }
 `
 
