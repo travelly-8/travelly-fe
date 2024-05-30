@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 
+import { getAllProducts } from '@/api/browsing/api'
 import { mockData1, mockData2 } from '@/constants/MOCK_DATA'
 import useScrollHandlers from '@/hooks/useScrollHandlers'
 import { SheetSliceState } from '@/store/sheet-slice.ts'
@@ -7,10 +8,12 @@ import { SheetSliceState } from '@/store/sheet-slice.ts'
 import FooterNavigation from '@components/footer-navigation'
 import Header from '@components/header'
 import ProductCard from '@components/product-card'
+import { QueryFunctionContext, useQuery } from '@tanstack/react-query'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import * as S from './HomePage.style'
+import { IProductsQueryParams } from './HomePage.type'
 
 function HomePage() {
   const navigate = useNavigate()
@@ -24,6 +27,20 @@ function HomePage() {
 
   const scrollPopularHandlers = useScrollHandlers(popularProductRef)
   const scrollRecommendHandlers = useScrollHandlers(recommendProductRef)
+
+  const fetchProducts = ({
+    queryKey,
+  }: QueryFunctionContext<IProductsQueryParams['queryKey']>) => {
+    const [, page, size] = queryKey
+    return getAllProducts(page, size)
+  }
+
+  const { data, error, isLoading } = useQuery({
+    queryKey: ['products', 1, 10],
+    queryFn: fetchProducts,
+  })
+
+  console.log(data, error, isLoading)
 
   return (
     <>

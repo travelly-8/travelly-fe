@@ -16,13 +16,10 @@ export default function AppRouter() {
       <GlobalStyles />
       <Routes>
         <Route path="/" element={<HomePage />} />
-
         <Route path="/products" element={<ProductsPage />} />
-
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup/start" element={<SignupStartPage />} />
         {/* <Route path="/search" element={<SearchPage />} /> */}
-
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/signup/end" element={<SignupEndPage />} />
         <Route path="/select-plan" element={<SelectPlanPage />} />
