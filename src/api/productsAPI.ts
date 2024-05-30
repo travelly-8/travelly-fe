@@ -1,8 +1,5 @@
 import { API_PRODUCTS } from '@/constants/API'
-import type {
-  IPostProduct,
-  IPutProductDetail,
-} from '@/types/postProductData.type'
+import type { IPostProduct } from '@/types/postProductData.type'
 
 import instance from './instance'
 
@@ -39,7 +36,7 @@ export const getProductDetail = (productId: number) => {
   })
 }
 
-export const putProductDetail = ({ productId, data }: IPutProductDetail) => {
+export const putProductDetail = (productId: number, data: IPostProduct) => {
   return instance({
     method: 'PUT',
     url: API_PRODUCTS.PRODUCTS_DETAIL(productId),

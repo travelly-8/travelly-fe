@@ -4,11 +4,6 @@ export interface ISignup {
   nickname: string
 }
 
-export interface ISocialLogin {
-  registrationId: string
-  data: DataType
-}
-
 export type DataType = {
   code: string
 }

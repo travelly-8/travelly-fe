@@ -1,9 +1,5 @@
 import { API_AUTH } from '@/constants/API'
-import type {
-  ISignup,
-  ISocialLogin,
-  ReissueType,
-} from '@/types/postAuthData.type'
+import type { DataType, ISignup, ReissueType } from '@/types/postAuthData.type'
 
 import instance from './instance'
 export const putRole = (role: string) => {
@@ -29,7 +25,7 @@ export const postLogin = (data: Omit<ISignup, 'nickname'>) => {
   })
 }
 
-export const postSocialLogin = ({ registrationId, data }: ISocialLogin) => {
+export const postSocialLogin = (registrationId: string, data: DataType) => {
   return instance({
     method: 'POST',
     url: API_AUTH.SOCIALLOGIN(registrationId),
