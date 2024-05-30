@@ -4,7 +4,11 @@ interface SizeProps {
   size: 'sm' | 'bg'
 }
 
-export const Container = styled.div<SizeProps>`
+interface IContainerProps extends SizeProps {
+  onClick: () => void
+}
+
+export const Container = styled.div<IContainerProps>`
   position: relative;
   display: flex;
   flex-direction: column;
