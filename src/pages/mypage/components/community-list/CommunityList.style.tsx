@@ -15,6 +15,7 @@ export const Title = styled.h1`
   color: var(--color-black);
   font-size: 1.4rem;
   font-weight: 500;
+  line-height: 2.38rem;
 `
 export const More = styled.span`
   color: var(--color-gray-middle);
