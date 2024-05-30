@@ -1,11 +1,37 @@
 import { INPUT_ERROR_TYPE } from '@/constants/INPUT_VALUES'
 
-export const validateNickname = (
-  value: string,
-  inputAccessedFor: 'login' | 'signup' | undefined,
-): string | null => {
-  if (inputAccessedFor === 'signup' && value === '이미 가입된 닉네임') {
-    return INPUT_ERROR_TYPE.name_duplicated
+const validateHelper = (validateFn: (value: string) => string | true) => {
+  return (value: string) => {
+    if (!value) {
+      return true
+    }
+    return validateFn(value)
+  }
+}
+
+const loginEmailValidateFn = (value: string) => {
+  if (value === '가입된 이메일') {
+    return INPUT_ERROR_TYPE.emailNotMatch
+  }
+  if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value)) {
+    return INPUT_ERROR_TYPE.emailInvalidRegex
+  }
+  return true
+}
+
+const loginPasswordValidateFn = (value: string) => {
+  if (value === '잘못된 비밀번호') {
+    return INPUT_ERROR_TYPE.passwordNotMatch
+  }
+  if (value.length < 8 && value.length > 64) {
+    return INPUT_ERROR_TYPE.passwordInvalidLength
+  }
+  return true
+}
+
+const signupNameValidateFn = (value: string) => {
+  if (value === '이미 가입된 닉네임') {
+    return INPUT_ERROR_TYPE.nameDuplicated
   }
   const totalLength = [...value].reduce((acc, char) => {
     const charCode = char.charCodeAt(0)
@@ -23,57 +49,58 @@ export const validateNickname = (
     }
     return acc
   }, 0)
-
   if (totalLength < 3 || totalLength > 16) {
-    return INPUT_ERROR_TYPE.name_invalid_regex
+    return INPUT_ERROR_TYPE.nameInvalidRegex
   }
-  return null
+  return true
 }
 
-export const validateEmail = (
-  value: string,
-  inputAccessedFor: 'login' | 'signup' | undefined,
-): string | null => {
-  if (!value.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)) {
-    return INPUT_ERROR_TYPE.email_invalid_regex
+const signupEmailValidateFn = (value: string) => {
+  if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value)) {
+    return INPUT_ERROR_TYPE.emailInvalidRegex
   }
-  if (inputAccessedFor === 'signup' && value === '이미 가입된 이메일') {
-    return INPUT_ERROR_TYPE.email_duplicated
+  if (value === '이미 가입된 이메일') {
+    return INPUT_ERROR_TYPE.emailDuplicated
   }
-  if (inputAccessedFor === 'login' && value === '잘못된 이메일') {
-    return INPUT_ERROR_TYPE.email_not_match
-  }
-  return null
+  return true
 }
 
-export const validatePassword = (
-  value: string,
-  inputAccessedFor: 'login' | 'signup' | undefined,
-): string | null => {
+const signupPasswordValidateFn = (value: string) => {
   if (value.length < 8 || value.length > 64) {
-    return INPUT_ERROR_TYPE.password_invalid_length
+    return INPUT_ERROR_TYPE.passwordInvalidLength
   }
-
   if (
-    inputAccessedFor === 'signup' &&
     !value.match(
       /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,64}$/,
     )
   ) {
-    return INPUT_ERROR_TYPE.password_invalid_regex
+    return INPUT_ERROR_TYPE.passwordInvalidRegex
   }
-  if (inputAccessedFor === 'login' && value === '잘못된 비밀번호') {
-    return INPUT_ERROR_TYPE.password_not_match
-  }
-  return null
+  return true
 }
 
-export const validatePasswordCheck = (
+const signupPasswordCheckValidateFn = (
   value: string,
-  inputRefValue: string | undefined,
-): string | null => {
-  if (value !== inputRefValue) {
-    return INPUT_ERROR_TYPE.password_check_not_matched
+  formValues: { password: string },
+) => {
+  if (value !== formValues.password) {
+    return INPUT_ERROR_TYPE.passwordCheckNotMatched
   }
-  return null
+  return true
+}
+
+export const loginEmailValidate = validateHelper(loginEmailValidateFn)
+export const loginPasswordValidate = validateHelper(loginPasswordValidateFn)
+export const signupNameValidate = validateHelper(signupNameValidateFn)
+export const signupEmailValidate = validateHelper(signupEmailValidateFn)
+export const signupPasswordValidate = validateHelper(signupPasswordValidateFn)
+
+export const signupPasswordCheckValidate = (
+  value: string,
+  formValues: { password: string },
+) => {
+  if (!value) {
+    return true
+  }
+  return signupPasswordCheckValidateFn(value, formValues)
 }
