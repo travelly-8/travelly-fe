@@ -1,6 +1,9 @@
+import { useEffect, useState } from 'react'
+
 import Input from '@components/input'
 import PageHeader from '@components/page-header'
 import RectangleButton from '@components/rectangle-button'
+import { ColorType } from '@components/rectangle-button/RectangleButton.type'
 import { Controller, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
@@ -16,13 +19,39 @@ export default function ExitVerificationPage() {
     handleSubmit,
     control,
     setValue,
+    watch,
     formState: { errors },
   } = useForm<FormData>()
 
+  //TODO: RectangleButton 리팩터링 후 코드 수정
+  const passwordCheck = watch('passwordCheck')
+  interface IDisabled {
+    color: ColorType
+    disabled: boolean
+  }
+  const [isDisabled, setIsdisabled] = useState<IDisabled>({
+    color: 'disabled',
+    disabled: false,
+  })
+
+  useEffect(() => {
+    if (passwordCheck?.length > 0) {
+      setIsdisabled({ color: 'primary', disabled: false })
+    } else {
+      setIsdisabled({ color: 'disabled', disabled: true })
+    }
+  }, [passwordCheck])
+
   const onSubmit = (data: FormData) => {
     console.log(data)
+    setIsdisabled({ color: 'primary', disabled: true })
     //TODO: 비밀번호 확인 후, 일치하면 탈퇴하기
-    navigate('/goodbye')
+    checkValidate() && navigate('/goodbye')
+  }
+
+  //TODO: 기존 비밀번호와 비교하는 validate 함수 만들기
+  const checkValidate = () => {
+    return true
   }
   return (
     <S.Wrapper>
@@ -36,15 +65,14 @@ export default function ExitVerificationPage() {
             name="passwordCheck"
             control={control}
             defaultValue=""
-            //TODO: 기존 비밀번호와 비교하는 validate 함수 만들기
-            // rules={{
-            //   validate: loginPasswordValidate,
-            // }}
+            rules={{
+              validate: checkValidate,
+            }}
             render={({ field }) => (
               <Input
                 {...field}
-                inputType="password"
-                placeholder="password"
+                inputType="passwordConfirm"
+                placeholder="passwordConfirm"
                 errorType={
                   errors.passwordCheck
                     ? errors.passwordCheck.message
@@ -53,14 +81,19 @@ export default function ExitVerificationPage() {
                 onChange={(e) => {
                   field.onChange(e)
                   setValue('passwordCheck', e.target.value, {
-                    shouldValidate: true,
+                    shouldValidate: false,
                   })
                 }}
               />
             )}
           />
-          <RectangleButton size="large" disabled={false}>
-            <S.ButtonText>탈퇴하기</S.ButtonText>
+          <RectangleButton
+            type="submit"
+            size="large"
+            color={isDisabled.color}
+            disabled={isDisabled.disabled}
+          >
+            탈퇴하기
           </RectangleButton>
         </S.InputForm>
       </S.Content>

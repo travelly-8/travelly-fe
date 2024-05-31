@@ -5,6 +5,7 @@ export const INPUT_LABELS: InputValuesType = {
   email: '이메일',
   password: '비밀번호',
   passwordCheck: '비밀번호 확인',
+  passwordConfirm: '비밀번호 확인',
 }
 
 export const INPUT_ERROR_TYPE: InputValuesType = {
@@ -17,6 +18,7 @@ export const INPUT_ERROR_TYPE: InputValuesType = {
   passwordInvalidLength: '8자 이상 입력해주세요.',
   passwordInvalidRegex: '잘못된 비밀번호 형식입니다.',
   passwordCheckNotMatched: '비밀번호가 일치하지 않습니다.',
+  passwordConfirmNotMatched: '비밀번호가 일치하지 않습니다.',
 }
 
 export const INPUT_PLACEHOLDER: InputValuesType = {
@@ -24,4 +26,5 @@ export const INPUT_PLACEHOLDER: InputValuesType = {
   email: '이메일을 입력해 주세요.',
   password: '비밀번호를 입력해 주세요.',
   passwordCheck: '비밀번호를 동일하게 입력해 주세요.',
+  passwordConfirm: '비밀번호를  입력해주세요.',
 }

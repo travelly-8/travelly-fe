@@ -38,14 +38,6 @@ export const InputForm = styled.form`
   gap: 2.4rem;
 `
 
-export const ButtonText = styled.span`
-  color: var(--color-white);
-  font-size: 1.4rem;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 2.38rem; /* 170% */
-`
-
 export const UpperText = styled.span`
   color: var(--color-black);
   font-size: 1.8rem;
