@@ -16,7 +16,8 @@ export const sheetSlice = createSlice({
     sheet: (state, action) => {
       state.value = action.payload
     },
+    reset: () => {},
   },
 })
 
-export const { sheet } = sheetSlice.actions
+export const { sheet, reset } = sheetSlice.actions
