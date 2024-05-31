@@ -29,7 +29,9 @@ const Input = forwardRef<HTMLInputElement, IInput>(
     }
 
     const isPasswordType =
-      inputType === 'password' || inputType === 'passwordCheck'
+      inputType === 'password' ||
+      inputType === 'passwordCheck' ||
+      inputType === 'passwordConfirm'
 
     return (
       <S.StyledInputContainer>
@@ -56,7 +58,7 @@ const Input = forwardRef<HTMLInputElement, IInput>(
             onChange={onChange}
           />
           {isPasswordType && (
-            <S.ToggleButton onClick={toggleShowPassword}>
+            <S.ToggleButton type="button" onClick={toggleShowPassword}>
               <img
                 src={eyeOffIcon}
                 alt={showPassword ? 'Hide password' : 'Show password'}
