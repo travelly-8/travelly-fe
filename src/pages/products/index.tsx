@@ -15,6 +15,13 @@ import { useLocation } from 'react-router-dom'
 
 import * as S from './ProductsPage.style'
 
+const sortField: { [key: string]: string } = {
+  최신순: 'modifiedDate',
+  '리뷰 많은 순': 'reviewCount',
+  평점순: 'rating',
+  '낮은 가격순': 'price',
+}
+
 function ProductsPage() {
   const [isKebabClicked, setIsKebabClicked] = useState(false)
 
@@ -35,10 +42,10 @@ function ProductsPage() {
   const queryData: ISearchProductsData = {
     page: 1,
     size: 10,
-    sortField: sort || undefined,
+    sortField: sort ? sortField[sort] : undefined,
     sortType: undefined,
     keyword: input || undefined,
-    cityCode: city || undefined,
+    cityCode: city === '0' ? undefined : (city as string),
     contentType:
       type === '0' || type === undefined ? undefined : (type as string),
     startDate: date || undefined,
