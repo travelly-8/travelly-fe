@@ -21,7 +21,7 @@ export const Container = styled.div<IContainerProps>`
 
 export const CardImage = styled.img<SizeProps>`
   ${({ size }) => `
-    width: ${size === 'sm' ? '10.2rem' : '15.2rem'};
+    width: ${size === 'sm' ? '10.2rem' : '100%'};
     height: ${size === 'sm' ? '10.2rem' : '15.2rem'};
   `}
 `
