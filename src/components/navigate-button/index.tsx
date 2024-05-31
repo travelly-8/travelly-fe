@@ -8,14 +8,15 @@ const NavigateButton: React.FC<INavigateProps> = ({
   img,
   description,
   url,
+  isButtonActive,
 }) => {
   const navigate = useNavigate()
   const handleCategoryClick = () => {
     navigate(url)
   }
   return (
-    <S.Navigate onClick={handleCategoryClick}>
-      <S.Icon src={img} alt={description} />
+    <S.Navigate onClick={handleCategoryClick} $isActive={isButtonActive}>
+      <S.Icon src={img} alt={description} $isActive={isButtonActive} />
       <span>{description}</span>
     </S.Navigate>
   )
