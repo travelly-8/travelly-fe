@@ -1,10 +1,12 @@
+import { useEffect, useState } from 'react'
+
 import * as S from '@/styles/authStyles'
 import useKeyboardDetection from '@/utils/useKeyboardDetection'
 import { loginEmailValidate, loginPasswordValidate } from '@/utils/validate'
+
 import BackBar from '@components/back-bar'
 import Input from '@components/input'
 import RectangleButton from '@components/rectangle-button'
-import { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 
 interface FormData {

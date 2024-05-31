@@ -6,6 +6,7 @@ import BrowsingPage from './pages/browsing'
 import HomePage from './pages/home'
 import LoginPage from './pages/login/login'
 import SelectPlanPage from './pages/login/select-plan'
+import MyPage from './pages/mypage'
 import SignupStartPage from './pages/signup'
 import SignupEndPage from './pages/signup/end'
 import SignupPage from './pages/signup/signup'
@@ -24,6 +25,7 @@ export default function AppRouter() {
         <Route path="/signup/end" element={<SignupEndPage />} />
         <Route path="/select-plan" element={<SelectPlanPage />} />
         <Route path="/browsing" element={<BrowsingPage />} />
+        <Route path="/mypage" element={<MyPage />} />
       </Routes>
     </BrowserRouter>
   )
