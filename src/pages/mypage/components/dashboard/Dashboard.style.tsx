@@ -3,7 +3,6 @@ import styled from 'styled-components'
 export const Background = styled.div`
   display: flex;
   justify-content: center;
-  width: 36rem;
   height: 14.2rem;
   background-color: var(--color-gray-bright);
   box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.1) inset;
