@@ -81,7 +81,7 @@ export default function ExitVerificationPage() {
                 onChange={(e) => {
                   field.onChange(e)
                   setValue('passwordCheck', e.target.value, {
-                    shouldValidate: false,
+                    shouldValidate: true,
                   })
                 }}
               />

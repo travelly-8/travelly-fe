@@ -13,6 +13,7 @@ import PageHeader from '@components/page-header'
 import { useDispatch, useSelector } from 'react-redux'
 /* eslint-disable import/order */
 import { useNavigate } from 'react-router-dom'
+import EditPasswordPage from '../components/edit-password'
 import * as S from './MyPageEditPage.style'
 
 export default function MyPageEditPage() {
@@ -21,18 +22,25 @@ export default function MyPageEditPage() {
   const sheetReducer = useSelector(
     (state: SheetSliceState) => state.sheet.value,
   )
+  const controlSheet = (sheetType: string, status: boolean) => {
+    dispatch(sheet({ name: sheetType, status: status, text: sheetType }))
+    return
+  }
   const MENU_MAP = [
-    { id: 1, icon: keySvg, text: '비밀번호 변경', onClick: () => {} },
+    {
+      id: 1,
+      icon: keySvg,
+      text: '비밀번호 변경',
+      onClick: () => {
+        controlSheet('password', true)
+      },
+    },
     { id: 2, icon: logoutSvg, text: '로그아웃', onClick: () => {} },
   ]
 
   //TODO: 유저 기존 닉네임 BlurSheet에 placeholder로 넣기
   //TODO: 소셜 로그인한 유저에게는 비밀번호 변경 메뉴 띄우지 않기
   //TODO: 프로필 이미지 버튼 클릭 시 파일 불러오기
-  const controlSheet = (sheetType: string, status: boolean) => {
-    dispatch(sheet({ name: sheetType, status: status, text: sheetType }))
-    return
-  }
 
   return (
     <S.Wrapper>
@@ -93,6 +101,9 @@ export default function MyPageEditPage() {
             <S.NewNicknameInput placeholder="닉네임" />
           </S.BlurSheetWrapper>
         </BlurSheet>
+      )}
+      {sheetReducer.status && sheetReducer.text === 'password' && (
+        <EditPasswordPage onClick={() => controlSheet('password', false)} />
       )}
     </S.Wrapper>
   )

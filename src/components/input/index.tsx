@@ -31,7 +31,10 @@ const Input = forwardRef<HTMLInputElement, IInput>(
     const isPasswordType =
       inputType === 'password' ||
       inputType === 'passwordCheck' ||
-      inputType === 'passwordConfirm'
+      inputType === 'passwordConfirm' ||
+      inputType === 'prevPassword' ||
+      inputType === 'newPassword' ||
+      inputType === 'newPasswordCheck'
 
     return (
       <S.StyledInputContainer>

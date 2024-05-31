@@ -6,6 +6,9 @@ export const INPUT_LABELS: InputValuesType = {
   password: '비밀번호',
   passwordCheck: '비밀번호 확인',
   passwordConfirm: '비밀번호 확인',
+  prevPassword: '비밀번호 확인',
+  newPassword: '비밀번호 재설정',
+  newPasswordCheck: '재설정 비밀번호 확인',
 }
 
 export const INPUT_ERROR_TYPE: InputValuesType = {
@@ -27,4 +30,7 @@ export const INPUT_PLACEHOLDER: InputValuesType = {
   password: '비밀번호를 입력해 주세요.',
   passwordCheck: '비밀번호를 동일하게 입력해 주세요.',
   passwordConfirm: '비밀번호를  입력해주세요.',
+  prevPassword: '비밀번호를  입력해주세요.',
+  newPassword: '재설정 비밀번호를 입력해주세요.',
+  newPasswordCheck: '비밀번호를 다시 입력해주세요.',
 }

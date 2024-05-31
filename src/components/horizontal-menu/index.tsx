@@ -9,9 +9,9 @@ interface IHorizonalMenu {
 
 const HorizontalMenu = ({ icon, text, onClick }: IHorizonalMenu) => {
   return (
-    <S.Wrapper>
+    <S.Wrapper onClick={onClick}>
       <S.IconTextWrapper>
-        <S.Icon src={icon} alt={text} onClick={onClick} />
+        <S.Icon src={icon} alt={text} />
         <S.Text>{text}</S.Text>
       </S.IconTextWrapper>
       <S.Arrow src={arrowIcon} alt="이동" />
