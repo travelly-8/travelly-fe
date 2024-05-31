@@ -1,5 +1,7 @@
 import arrowRightIcon from '@/assets/common/arrow-right.svg'
 
+import { useNavigate } from 'react-router-dom'
+
 import * as S from './ProfileTab.style'
 
 interface IProfileTab {
@@ -12,6 +14,7 @@ interface IProfileTab {
 
 const ProfileTab = ({ data }: IProfileTab) => {
   const { email, nickname, imageUrl } = data
+  const navigate = useNavigate()
 
   return (
     <S.Wrapper>
@@ -22,7 +25,11 @@ const ProfileTab = ({ data }: IProfileTab) => {
           <S.Email>{email}</S.Email>
         </S.TextWrapper>
       </S.ProfileWrapper>
-      <S.ArrowIcon src={arrowRightIcon} alt="프로필 이미지" />
+      <S.ArrowIcon
+        src={arrowRightIcon}
+        alt="프로필 이미지"
+        onClick={() => navigate('/mypage/edit')}
+      />
     </S.Wrapper>
   )
 }

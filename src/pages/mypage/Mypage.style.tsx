@@ -28,3 +28,22 @@ export const FooterWrapper = styled.div`
   position: fixed;
   bottom: 0%;
 `
+
+export const Content = styled.div`
+  margin-left: 3rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`
+
+export const Title = styled.h1`
+  color: var(--color-black);
+  font-size: 1.8rem;
+  font-weight: 700;
+`
+
+export const Bell = styled.img`
+  width: 2.4rem;
+  height: 2.4rem;
+  cursor: pointer;
+`

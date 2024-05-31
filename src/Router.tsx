@@ -7,6 +7,7 @@ import HomePage from './pages/home'
 import LoginPage from './pages/login/login'
 import SelectPlanPage from './pages/login/select-plan'
 import MyPage from './pages/mypage'
+import MyPageEditPage from './pages/mypage/edit'
 import SignupStartPage from './pages/signup'
 import SignupEndPage from './pages/signup/end'
 import SignupPage from './pages/signup/signup'
@@ -26,6 +27,7 @@ export default function AppRouter() {
         <Route path="/select-plan" element={<SelectPlanPage />} />
         <Route path="/browsing" element={<BrowsingPage />} />
         <Route path="/mypage" element={<MyPage />} />
+        <Route path="/mypage/edit" element={<MyPageEditPage />} />
       </Routes>
     </BrowserRouter>
   )
