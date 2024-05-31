@@ -8,6 +8,8 @@ import LoginPage from './pages/login/login'
 import SelectPlanPage from './pages/login/select-plan'
 import MyPage from './pages/mypage'
 import MyPageEditPage from './pages/mypage/edit'
+import ExitPage from './pages/mypage/exit'
+import GoodbyePage from './pages/mypage/good-bye'
 import SignupStartPage from './pages/signup'
 import SignupEndPage from './pages/signup/end'
 import SignupPage from './pages/signup/signup'
@@ -28,6 +30,8 @@ export default function AppRouter() {
         <Route path="/browsing" element={<BrowsingPage />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/mypage/edit" element={<MyPageEditPage />} />
+        <Route path="/exit" element={<ExitPage />} />
+        <Route path="/goodbye" element={<GoodbyePage />} />
       </Routes>
     </BrowserRouter>
   )
