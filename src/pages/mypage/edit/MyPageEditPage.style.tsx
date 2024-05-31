@@ -82,3 +82,37 @@ export const FooterWrapper = styled.div`
   position: fixed;
   bottom: 0%;
 `
+
+export const MenuWrapper = styled.div`
+  margin-top: 5.6rem;
+  margin: 5.6rem 2rem 0 2rem;
+`
+interface MenuProps {
+  idx: number
+}
+
+export const Menu = styled.div<MenuProps>`
+  width: 100%;
+  border-bottom: ${(props) =>
+    props.idx === 1 ? '0' : '0.1rem solid var(--color-gray-light)'};
+  border-top: ${(props) =>
+    props.idx >= 1 ? '0.1rem solid var(--color-gray-light)' : '0'};
+`
+export const ExitWrapper = styled.div`
+  margin-top: 1.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+`
+export const ExitText = styled.span`
+  color: var(--color-gray-middle);
+  font-size: 1.4rem;
+  font-weight: 400;
+  line-height: 2.38rem; /* 170% */
+`
+export const ExitIcon = styled.img`
+  width: 1.0844rem;
+  height: 1.4rem;
+`

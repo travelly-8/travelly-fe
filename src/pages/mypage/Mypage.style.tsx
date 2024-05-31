@@ -24,7 +24,7 @@ export const CardListWrapper = styled.div`
 
 export const FooterWrapper = styled.div`
   position: fixed;
-  bottom: 0%;
+  bottom: 0;
 
   @media screen and (max-width: 767px) {
     width: 100%;
