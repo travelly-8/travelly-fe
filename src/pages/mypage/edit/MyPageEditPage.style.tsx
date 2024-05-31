@@ -49,6 +49,7 @@ export const PenImg = styled.img`
 export const NicknameWrapper = styled.div`
   margin-top: 0.8rem;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
@@ -65,8 +66,10 @@ export const Edit = styled.span`
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.8rem; /* 180% */
-  position: absolute;
-  right: 14rem;
+  position: relative;
+  left: 4rem;
+  top: -2.1rem;
+  margin-bottom: -2rem;
   cursor: pointer;
 `
 
@@ -87,11 +90,11 @@ export const MenuWrapper = styled.div`
   margin-top: 5.6rem;
   margin: 5.6rem 2rem 0 2rem;
 `
-interface MenuProps {
+interface IMenu {
   idx: number
 }
 
-export const Menu = styled.div<MenuProps>`
+export const Menu = styled.div<IMenu>`
   width: 100%;
   border-bottom: ${(props) =>
     props.idx === 1 ? '0' : '0.1rem solid var(--color-gray-light)'};
@@ -115,4 +118,22 @@ export const ExitText = styled.span`
 export const ExitIcon = styled.img`
   width: 1.0844rem;
   height: 1.4rem;
+`
+
+interface ISheet {
+  idx: number
+}
+export const SheetTextWraeppr = styled.div<ISheet>`
+  display: flex;
+  padding: 1.2rem 0.25rem;
+  border-top: ${(props) =>
+    props.idx > 1 ? '0.1rem solid var(--color-gray-light)' : '0'};
+  width: 100%;
+  cursor: pointer;
+`
+export const SheetText = styled.span`
+  color: var(--colro-black);
+  font-size: 1.4rem;
+  font-weight: 400;
+  line-height: 2.38rem; /* 170% */
 `

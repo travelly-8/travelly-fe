@@ -1,16 +1,30 @@
+import { useEffect } from 'react'
+
 import defaultProfileImg from '@/assets/mypage/default-profile.svg'
 import exitSvg from '@/assets/mypage/exit.svg'
 import keySvg from '@/assets/mypage/key.svg'
 import logoutSvg from '@/assets/mypage/logout.svg'
 import purplePenSvg from '@/assets/mypage/purple-pen.svg'
+import { SheetSliceState, sheet } from '@/store/sheet-slice'
 
+import BottomSheet from '@components/bottom-sheet'
 import FooterNavigation from '@components/footer-navigation'
 import HorizontalMenu from '@components/horizontal-menu'
 import PageHeader from '@components/page-header'
+import { useDispatch, useSelector } from 'react-redux'
 
 import * as S from './MyPageEditPage.style'
 
 export default function MyPageEditPage() {
+  const dispatch = useDispatch()
+  const sheetReducer = useSelector(
+    (state: SheetSliceState) => state.sheet.value,
+  )
+
+  useEffect(() => {
+    dispatch(sheet({ name: 'edit-profile-img', status: false, text: '' }))
+  }, [])
+
   const MENU_MAP = [
     { id: 1, icon: keySvg, text: '비밀번호 변경', onClick: () => {} },
     { id: 2, icon: logoutSvg, text: '로그아웃', onClick: () => {} },
@@ -18,6 +32,11 @@ export default function MyPageEditPage() {
 
   //TODO: 소셜 로그인한 유저에게는 비밀번호 변경 메뉴 띄우지 않기
   //TODO: 프로필 이미지 버튼 클릭 시 파일 불러오기
+
+  const controlSheet = (status: boolean) => {
+    dispatch(sheet({ name: 'edit-profile-img', status: status, text: '' }))
+    return
+  }
   return (
     <S.Wrapper>
       <PageHeader>
@@ -26,7 +45,7 @@ export default function MyPageEditPage() {
         </S.Content>
       </PageHeader>
       <S.ProfileWrapper>
-        <S.ImgWrapper>
+        <S.ImgWrapper onClick={() => controlSheet(true)}>
           <S.ProfileImg src={defaultProfileImg} alt="프로필" />
           <S.PenImg src={purplePenSvg} alt="프로필 수정" />
         </S.ImgWrapper>
@@ -53,9 +72,20 @@ export default function MyPageEditPage() {
         <S.ExitText>회원 탈퇴</S.ExitText>
         <S.ExitIcon src={exitSvg} alt="회원 탈퇴" />
       </S.ExitWrapper>
-      <S.FooterWrapper>
-        <FooterNavigation />
-      </S.FooterWrapper>
+      {sheetReducer.status ? (
+        <BottomSheet onClick={() => controlSheet(false)}>
+          <S.SheetTextWraeppr idx={1}>
+            <S.SheetText>갤러리에서 사진 선택</S.SheetText>
+          </S.SheetTextWraeppr>
+          <S.SheetTextWraeppr idx={2}>
+            <S.SheetText>기본 이미지로 변경</S.SheetText>
+          </S.SheetTextWraeppr>
+        </BottomSheet>
+      ) : (
+        <S.FooterWrapper>
+          <FooterNavigation />
+        </S.FooterWrapper>
+      )}
     </S.Wrapper>
   )
 }
