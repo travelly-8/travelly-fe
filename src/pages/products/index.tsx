@@ -1,6 +1,8 @@
 import { useState } from 'react'
 
-import { mockData2 } from '@/constants/MOCK_DATA'
+import { getAllProducts } from '@/api/productsAPI'
+import { API_PRODUCTS } from '@/constants/API'
+import useGetAllProducts from '@/hooks/api/productsAPI/useGetAllProducts'
 import FilteringSheet from '@/pages/products/components/filtering-sheet'
 import SortOrdersSheet from '@/pages/products/components/sort-orders-sheet'
 import { SheetSliceState, sheet } from '@/store/sheet-slice.ts'
@@ -13,6 +15,11 @@ import * as S from './ProductsPage.style'
 
 function ProductsPage() {
   const [isKebabClicked, setIsKebabClicked] = useState(false)
+
+  const { data } = useGetAllProducts(API_PRODUCTS.PRODUCTS, () =>
+    getAllProducts(0, 10),
+  )
+  const cardsContents = data?.content
 
   const dispatch = useDispatch()
   const sheetReducer = useSelector(
@@ -53,7 +60,7 @@ function ProductsPage() {
         </S.AppBarWrapper>
         <S.AllProductsSection>
           <S.AllCardWrapper>
-            {mockData2.map((cardData) => (
+            {cardsContents?.map((cardData) => (
               <ProductCard key={cardData.name} cardData={cardData} size="bg" />
             ))}
           </S.AllCardWrapper>
