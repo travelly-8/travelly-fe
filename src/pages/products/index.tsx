@@ -39,11 +39,11 @@ function ProductsPage() {
   }
   const isSearchSheet =
     sheetReducer.status && sheetReducer.name === 'search-sheet'
+
   return (
     <>
       <ProductHeader kebabClick={() => setIsKebabClicked(!isKebabClicked)} />
       <S.PageContainer $isSearchSheet={isSearchSheet}>
-        {isKebabClicked && <S.BackDrop />}
         <S.AppBarWrapper>
           <S.AppBar>
             <S.ProductInfo>

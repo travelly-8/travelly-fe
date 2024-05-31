@@ -10,20 +10,6 @@ export const PageContainer = styled.div<{ $isSearchSheet: boolean }>`
     display: none;
   }
 `
-export const BackDrop = styled.div`
-  position: fixed;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 36rem;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 999;
-
-  @media (max-width: 767px) {
-    width: 100%;
-  }
-`
 
 export const AppBarWrapper = styled.div`
   padding: 1.2rem 2rem;

@@ -39,7 +39,6 @@ function HomePage() {
         $isKebabClicked={isKebabClicked}
         $isSheet={sheetReducer.status}
       >
-        {isKebabClicked && <S.BackDrop />}
         <S.ProductsSection>
           <S.SectionTitleWrapper>
             <S.SectionTitleIcon src="src/assets/home/trophy.svg" />
