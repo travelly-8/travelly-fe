@@ -1,7 +1,9 @@
 import { useRef, useState } from 'react'
 
-import { getAllProducts } from '@/api/browsing/api'
-import { mockData1, mockData2 } from '@/constants/MOCK_DATA'
+import { getAllProducts } from '@/api/productsAPI'
+import { API_PRODUCTS } from '@/constants/API'
+import { mockData1 } from '@/constants/MOCK_DATA'
+import useGetAllProducts from '@/hooks/api/productsAPI/useGetAllProducts'
 import useScrollHandlers from '@/hooks/useScrollHandlers'
 import { SheetSliceState } from '@/store/sheet-slice.ts'
 
@@ -28,19 +30,12 @@ function HomePage() {
   const scrollPopularHandlers = useScrollHandlers(popularProductRef)
   const scrollRecommendHandlers = useScrollHandlers(recommendProductRef)
 
-  const fetchProducts = ({
-    queryKey,
-  }: QueryFunctionContext<IProductsQueryParams['queryKey']>) => {
-    const [, page, size] = queryKey
-    return getAllProducts(page, size)
-  }
+  // react-query 사용 예시
 
-  const { data, error, isLoading } = useQuery({
-    queryKey: ['products', 1, 10],
-    queryFn: fetchProducts,
-  })
-
-  console.log(data, error, isLoading)
+  const { data } = useGetAllProducts(API_PRODUCTS.PRODUCTS, () =>
+    getAllProducts(0, 10),
+  )
+  const responseData = data?.content
 
   return (
     <>
@@ -95,9 +90,20 @@ function HomePage() {
             </S.ShowAllProducts>
           </S.ALLTitleWrapper>
           <S.AllCardWrapper>
-            {mockData2.map((cardData) => (
-              <ProductCard key={cardData.name} cardData={cardData} size="bg" />
-            ))}
+            {responseData?.map((data, i) => {
+              const cardData = {
+                image: data.imageUrl,
+                name: data.name,
+                city: '서울시',
+                district: '서초구', //상의해야할 부분
+                discount: 10,
+                price: data.ticketPrice[Object.keys(data.ticketPrice)[0]],
+                reviewPoint: data.rating,
+                reviewCount: data.reviewCount,
+              }
+
+              return <ProductCard key={i} cardData={cardData} size="bg" />
+            })}
           </S.AllCardWrapper>
         </S.AllProductsSection>
         <FooterNavigation />
