@@ -24,7 +24,7 @@ function ProductCard({ cardData, size }: IProductCardProps) {
   //TODO: 유저 아이디를 판별해서, 아이디를 가진 사람이 클릭한 적이 있다면 클릭한 state 그대로 가지고 있도록 기능 추가 필요
   //TODO: BookmarkButton 기능 추가 후, 클릭했을 시 버블링 고려해야함
   const city = LOCALE_CODE_LIST[cityCode]
-  const district = address.split(' ')[1]
+  const district = address?.split(' ')[1]
 
   return (
     <S.Container size={size} onClick={() => registerRecentProducts(cardData)}>
@@ -40,7 +40,7 @@ function ProductCard({ cardData, size }: IProductCardProps) {
         </S.Location>
         <S.DiscountPrice size={size}>
           <S.Discount>{discount}%</S.Discount>
-          <S.Price>{ticketPrice['티켓0']}원</S.Price>
+          <S.Price>{ticketPrice?.티켓0}원</S.Price>
         </S.DiscountPrice>
         <S.Review size={size}>
           <S.Star src="src/assets/home/empty-star.svg" />

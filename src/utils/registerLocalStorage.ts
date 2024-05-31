@@ -27,6 +27,7 @@ export function registerRecentProducts(cardData: IProductCardData) {
   const isExist = index !== -1
 
   const recentProductData: IProductCardData = {
+    id: cardData.id,
     imageUrl: cardData.imageUrl,
     name: cardData.name,
     cityCode: cardData.cityCode,

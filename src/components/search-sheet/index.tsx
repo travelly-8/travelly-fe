@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-import useHorizontalScroll from '@/hooks/useHorizontalScroll'
+import useScrollHandlers from '@/hooks/useScrollHandlers'
 import { sheet } from '@/store/sheet-slice.ts'
 import { registerRecentSearches } from '@/utils/registerLocalStorage'
 
@@ -73,8 +73,10 @@ const SearchSheet = () => {
   const recentSearchRef = useRef<HTMLDivElement>(null)
   const recommendedSearchRef = useRef<HTMLDivElement>(null)
   const recentProductRef = useRef<HTMLDivElement>(null)
-  const { handleMouseDown, handleMouseLeave, handleMouseUp, handleMouseMove } =
-    useHorizontalScroll()
+
+  const scrollRecentSearchHandler = useScrollHandlers(recentSearchRef)
+  const scrollRecommendedSearchHandler = useScrollHandlers(recommendedSearchRef)
+  const scrollRecentProductHandler = useScrollHandlers(recentProductRef)
 
   return (
     <>
@@ -89,16 +91,7 @@ const SearchSheet = () => {
               전체 삭제
             </S.DeleteButton>
           </S.RecentContentWrapper>
-          <S.SearchWord
-            ref={recentSearchRef}
-            onMouseDown={handleMouseDown(recentSearchRef)}
-            onMouseLeave={handleMouseLeave}
-            onMouseUp={handleMouseUp}
-            onMouseMove={handleMouseMove(recentSearchRef)}
-            onTouchStart={handleMouseDown(recentSearchRef)}
-            onTouchEnd={handleMouseUp}
-            onTouchMove={handleMouseMove(recentSearchRef)}
-          >
+          <S.SearchWord ref={recentSearchRef} {...scrollRecentSearchHandler}>
             {recentSearches.map((data) => (
               <RoundButton.Gray
                 key={data}
@@ -116,13 +109,7 @@ const SearchSheet = () => {
           </S.RecentContentWrapper>
           <S.SearchWord
             ref={recommendedSearchRef}
-            onMouseDown={handleMouseDown(recommendedSearchRef)}
-            onMouseLeave={handleMouseLeave}
-            onMouseUp={handleMouseUp}
-            onMouseMove={handleMouseMove(recommendedSearchRef)}
-            onTouchStart={handleMouseDown(recommendedSearchRef)}
-            onTouchEnd={handleMouseUp}
-            onTouchMove={handleMouseMove(recommendedSearchRef)}
+            {...scrollRecommendedSearchHandler}
           >
             {recommendData.map((data) => (
               <RoundButton.Gray
@@ -142,16 +129,10 @@ const SearchSheet = () => {
           </S.RecentContentWrapper>
           <S.RecentWatchProduct
             ref={recentProductRef}
-            onMouseDown={handleMouseDown(recentProductRef)}
-            onMouseLeave={handleMouseLeave}
-            onMouseUp={handleMouseUp}
-            onMouseMove={handleMouseMove(recentProductRef)}
-            onTouchStart={handleMouseDown(recentProductRef)}
-            onTouchEnd={handleMouseUp}
-            onTouchMove={handleMouseMove(recentProductRef)}
+            {...scrollRecentProductHandler}
           >
             {recentProductData.map((cardData: IProductCardData) => (
-              <ProductCard key={cardData.name} cardData={cardData} size="sm" />
+              <ProductCard key={cardData.id} cardData={cardData} size="sm" />
             ))}
           </S.RecentWatchProduct>
         </S.RecentWatchProductWrapper>

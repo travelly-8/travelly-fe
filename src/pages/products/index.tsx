@@ -61,7 +61,7 @@ function ProductsPage() {
         <S.AllProductsSection>
           <S.AllCardWrapper>
             {cardsContents?.map((cardData) => (
-              <ProductCard key={cardData.name} cardData={cardData} size="bg" />
+              <ProductCard key={cardData.id} cardData={cardData} size="bg" />
             ))}
           </S.AllCardWrapper>
         </S.AllProductsSection>
