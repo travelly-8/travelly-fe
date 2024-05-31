@@ -137,3 +137,24 @@ export const SheetText = styled.span`
   font-weight: 400;
   line-height: 2.38rem; /* 170% */
 `
+export const BlurSheetWrapper = styled.div`
+  border-bottom: 0.2rem solid var(--color-white);
+  padding: 0.8rem;
+`
+export const NewNicknameInput = styled.input`
+  background-color: transparent;
+  border: none;
+  color: var(--color-white);
+  font-size: 1.4rem;
+  font-weight: 400;
+  line-height: 2.38rem; /* 170% */
+  &::placeholder {
+    color: var(--color-white);
+    font-size: 1.4rem;
+    font-weight: 400;
+    line-height: 2.38rem; /* 170% */
+  }
+  &:focus {
+    outline: none;
+  }
+`

@@ -1,5 +1,3 @@
-import { useEffect } from 'react'
-
 import defaultProfileImg from '@/assets/mypage/default-profile.svg'
 import exitSvg from '@/assets/mypage/exit.svg'
 import keySvg from '@/assets/mypage/key.svg'
@@ -7,6 +5,7 @@ import logoutSvg from '@/assets/mypage/logout.svg'
 import purplePenSvg from '@/assets/mypage/purple-pen.svg'
 import { SheetSliceState, sheet } from '@/store/sheet-slice'
 
+import BlurSheet from '@components/blur-sheet'
 import BottomSheet from '@components/bottom-sheet'
 import FooterNavigation from '@components/footer-navigation'
 import HorizontalMenu from '@components/horizontal-menu'
@@ -20,21 +19,23 @@ export default function MyPageEditPage() {
   const sheetReducer = useSelector(
     (state: SheetSliceState) => state.sheet.value,
   )
-
-  useEffect(() => {
-    dispatch(sheet({ name: 'edit-profile-img', status: false, text: '' }))
-  }, [])
-
   const MENU_MAP = [
     { id: 1, icon: keySvg, text: '비밀번호 변경', onClick: () => {} },
     { id: 2, icon: logoutSvg, text: '로그아웃', onClick: () => {} },
   ]
 
+  //TODO: 유저 기존 닉네임 BlurSheet에 placeholder로 넣기
   //TODO: 소셜 로그인한 유저에게는 비밀번호 변경 메뉴 띄우지 않기
   //TODO: 프로필 이미지 버튼 클릭 시 파일 불러오기
+  const controlBottomSheet = (status: boolean) => {
+    dispatch(
+      sheet({ name: 'edit-profile-img', status: status, text: 'profile' }),
+    )
+    return
+  }
 
-  const controlSheet = (status: boolean) => {
-    dispatch(sheet({ name: 'edit-profile-img', status: status, text: '' }))
+  const controlBlurSheet = (status: boolean) => {
+    dispatch(sheet({ name: 'edit-nickname', status: status, text: 'nickname' }))
     return
   }
   return (
@@ -45,13 +46,13 @@ export default function MyPageEditPage() {
         </S.Content>
       </PageHeader>
       <S.ProfileWrapper>
-        <S.ImgWrapper onClick={() => controlSheet(true)}>
+        <S.ImgWrapper onClick={() => controlBottomSheet(true)}>
           <S.ProfileImg src={defaultProfileImg} alt="프로필" />
           <S.PenImg src={purplePenSvg} alt="프로필 수정" />
         </S.ImgWrapper>
         <S.NicknameWrapper>
           <S.Nickname>닉네임</S.Nickname>
-          <S.Edit>수정</S.Edit>
+          <S.Edit onClick={() => controlBlurSheet(true)}>수정</S.Edit>
         </S.NicknameWrapper>
         <S.Email>travelly@gmail.com</S.Email>
       </S.ProfileWrapper>
@@ -72,8 +73,8 @@ export default function MyPageEditPage() {
         <S.ExitText>회원 탈퇴</S.ExitText>
         <S.ExitIcon src={exitSvg} alt="회원 탈퇴" />
       </S.ExitWrapper>
-      {sheetReducer.status ? (
-        <BottomSheet onClick={() => controlSheet(false)}>
+      {sheetReducer.status && sheetReducer.text === 'profile' ? (
+        <BottomSheet onClick={() => controlBottomSheet(false)}>
           <S.SheetTextWraeppr idx={1}>
             <S.SheetText>갤러리에서 사진 선택</S.SheetText>
           </S.SheetTextWraeppr>
@@ -85,6 +86,17 @@ export default function MyPageEditPage() {
         <S.FooterWrapper>
           <FooterNavigation />
         </S.FooterWrapper>
+      )}
+      {sheetReducer.status && sheetReducer.text === 'nickname' && (
+        <BlurSheet
+          title="내 정보 수정"
+          button="저장"
+          buttonClick={() => controlBlurSheet(false)}
+        >
+          <S.BlurSheetWrapper>
+            <S.NewNicknameInput placeholder="닉네임" />
+          </S.BlurSheetWrapper>
+        </BlurSheet>
       )}
     </S.Wrapper>
   )
