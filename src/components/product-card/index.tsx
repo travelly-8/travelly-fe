@@ -25,7 +25,7 @@ function ProductCard({ cardData, size }: IProductCardProps) {
   //TODO: BookmarkButton 기능 추가 후, 클릭했을 시 버블링 고려해야함
   const city = LOCALE_CODE_LIST[cityCode]
   const district = address?.split(' ')[1]
-  const price = ticketPrice ? Object.values(ticketPrice)[0] : 0
+  const price = Object.values(ticketPrice)[0]
   const formattedPrice = price.toLocaleString()
 
   return (
