@@ -1,6 +1,7 @@
 export const API_PRODUCTS = Object.freeze({
   PRODUCTS: '/products/',
   PRODUCTS_DETAIL: (productId: number) => `/products/${productId}`,
+  PRODUCTS_SEARCH: '/products/search',
 })
 
 export const API_MEMBER = Object.freeze({
