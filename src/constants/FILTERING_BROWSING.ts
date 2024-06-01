@@ -6,9 +6,9 @@ export const DAY_TO_STRING = {
   4: '목',
   5: '금',
   6: '토',
-}
+} as const
 
-export const LOCALE_CODE_LIST = {
+export const LOCALE_CODE_LIST: { [key: string]: string } = {
   0: '전체',
   1: '서울',
   9: '경기도',
@@ -27,4 +27,4 @@ export const LOCALE_CODE_LIST = {
   15: '전북',
   5: '광주',
   17: '제주도',
-}
+} as const

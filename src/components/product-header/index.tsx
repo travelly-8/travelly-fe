@@ -46,17 +46,26 @@ const ProductHeader: React.FC<IProductHeaderProps> = ({ kebabClick }) => {
 
   const kebabImg = isKebabClicked ? kebabClickedIcon : kebabIcon
   return (
-    <S.ProductHeaderContainer>
-      <S.BackBarContainer>
-        <BackBar />
-        <S.Category>{category}</S.Category>
-      </S.BackBarContainer>
-      <S.IconWrapper>
-        <S.Icon src={searchIcon} alt="search" onClick={handleSearchClick} />
-        <S.Icon src={kebabImg} alt="kebab" onClick={handleKebabClick} />
-      </S.IconWrapper>
-      {isKebabClicked && <CategorySection />}
-    </S.ProductHeaderContainer>
+    <>
+      {isKebabClicked && (
+        <S.ProductHeaderBackground
+          onClick={() => {
+            setIsKebabClicked(false)
+          }}
+        />
+      )}
+      <S.ProductHeaderContainer>
+        <S.BackBarContainer>
+          <BackBar />
+          <S.Category>{category}</S.Category>
+        </S.BackBarContainer>
+        <S.IconWrapper>
+          <S.Icon src={searchIcon} alt="search" onClick={handleSearchClick} />
+          <S.Icon src={kebabImg} alt="kebab" onClick={handleKebabClick} />
+        </S.IconWrapper>
+        {isKebabClicked && <CategorySection />}
+      </S.ProductHeaderContainer>
+    </>
   )
 }
 

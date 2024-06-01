@@ -19,21 +19,6 @@ export const PageContainer = styled.main<{
   }
 `
 
-export const BackDrop = styled.div`
-  position: fixed;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 36rem;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 999;
-
-  @media (max-width: 767px) {
-    width: 100%;
-  }
-`
-
 export const ProductsSection = styled.section`
   display: flex;
   flex-direction: column;

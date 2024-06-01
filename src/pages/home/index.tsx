@@ -1,6 +1,8 @@
 import { useRef, useState } from 'react'
 
-import { mockData1, mockData2 } from '@/constants/MOCK_DATA'
+import { getAllProducts } from '@/api/productsAPI'
+import { API_PRODUCTS } from '@/constants/API'
+import useGetAllProducts from '@/hooks/api/productsAPI/useGetAllProducts'
 import useScrollHandlers from '@/hooks/useScrollHandlers'
 import { SheetSliceState } from '@/store/sheet-slice.ts'
 
@@ -25,6 +27,11 @@ function HomePage() {
   const scrollPopularHandlers = useScrollHandlers(popularProductRef)
   const scrollRecommendHandlers = useScrollHandlers(recommendProductRef)
 
+  const { data } = useGetAllProducts(API_PRODUCTS.PRODUCTS, () =>
+    getAllProducts(0, 6),
+  )
+  const cardsContents = data?.content
+
   return (
     <>
       <Header kebabClick={() => setIsKebabClicked(!isKebabClicked)} />
@@ -32,7 +39,6 @@ function HomePage() {
         $isKebabClicked={isKebabClicked}
         $isSheet={sheetReducer.status}
       >
-        {isKebabClicked && <S.BackDrop />}
         <S.ProductsSection>
           <S.SectionTitleWrapper>
             <S.SectionTitleIcon src="src/assets/home/trophy.svg" />
@@ -40,13 +46,13 @@ function HomePage() {
           </S.SectionTitleWrapper>
           <S.SectionContentsWrapper>
             <S.CardWrapper ref={popularProductRef} {...scrollPopularHandlers}>
-              {mockData1.map((cardData) => (
+              {/* {mockData1.map((cardData) => (
                 <ProductCard
                   key={cardData.name}
                   cardData={cardData}
                   size="sm"
                 />
-              ))}
+              ))} */}
             </S.CardWrapper>
           </S.SectionContentsWrapper>
         </S.ProductsSection>
@@ -60,13 +66,13 @@ function HomePage() {
               ref={recommendProductRef}
               {...scrollRecommendHandlers}
             >
-              {mockData1.map((cardData) => (
+              {/* {mockData1.map((cardData) => (
                 <ProductCard
                   key={cardData.name}
                   cardData={cardData}
                   size="sm"
                 />
-              ))}
+              ))} */}
             </S.CardWrapper>
           </S.SectionContentsWrapper>
         </S.ProductsSection>
@@ -78,8 +84,8 @@ function HomePage() {
             </S.ShowAllProducts>
           </S.ALLTitleWrapper>
           <S.AllCardWrapper>
-            {mockData2.map((cardData) => (
-              <ProductCard key={cardData.name} cardData={cardData} size="bg" />
+            {cardsContents?.map((cardData) => (
+              <ProductCard key={cardData.id} cardData={cardData} size="bg" />
             ))}
           </S.AllCardWrapper>
         </S.AllProductsSection>
