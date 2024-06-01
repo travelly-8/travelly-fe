@@ -2,15 +2,13 @@ import { getAllProducts } from '@/api/productsAPI'
 
 import { useInfiniteQuery } from '@tanstack/react-query'
 
-const SIZE_COUNT = 6
-
-const useInfiniteCardsQuery = () => {
+const useInfiniteCardsQuery = (size: number) => {
   const { data, hasNextPage, isFetchingNextPage, fetchNextPage } =
     useInfiniteQuery({
       queryKey: ['products'],
       initialPageParam: 0,
       queryFn: async ({ pageParam = 0 }) => {
-        const response = await getAllProducts(pageParam, SIZE_COUNT)
+        const response = await getAllProducts(pageParam, size)
         return response.data
       },
       getNextPageParam: (lastPage) => {

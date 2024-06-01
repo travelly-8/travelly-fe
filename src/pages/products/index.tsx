@@ -13,8 +13,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import * as S from './ProductsPage.style'
 
 function ProductsPage() {
+  const SIZE = 6
   const [isKebabClicked, setIsKebabClicked] = useState(false)
-  const { data: cardData, hasNextPage, fetchNextPage } = useInfiniteCardsQuery()
+  const {
+    data: cardData,
+    hasNextPage,
+    fetchNextPage,
+  } = useInfiniteCardsQuery(SIZE)
 
   const cardsContents = useMemo(
     () => (cardData ? cardData.pages.flatMap((page) => page.content) : []),
