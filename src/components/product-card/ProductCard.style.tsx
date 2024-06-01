@@ -8,7 +8,7 @@ interface IContainerProps extends SizeProps {
   onClick: () => void
 }
 
-export const Container = styled.div<IContainerProps>`
+export const Container = styled.li<IContainerProps>`
   position: relative;
   display: flex;
   flex-direction: column;

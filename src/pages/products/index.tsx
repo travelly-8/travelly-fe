@@ -1,8 +1,7 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 
-import { getAllProducts } from '@/api/productsAPI'
-import { API_PRODUCTS } from '@/constants/API'
-import useGetAllProducts from '@/hooks/api/productsAPI/useGetAllProducts'
+import useInfiniteCardsQuery from '@/hooks/api/productsAPI/useInfiniteCardsQuery'
+import useIntersectionObserver from '@/hooks/useIntersectionObserver'
 import FilteringSheet from '@/pages/products/components/filtering-sheet'
 import SortOrdersSheet from '@/pages/products/components/sort-orders-sheet'
 import { SheetSliceState, sheet } from '@/store/sheet-slice.ts'
@@ -15,11 +14,19 @@ import * as S from './ProductsPage.style'
 
 function ProductsPage() {
   const [isKebabClicked, setIsKebabClicked] = useState(false)
+  const { data, hasNextPage, fetchNextPage } = useInfiniteCardsQuery()
 
-  const { data } = useGetAllProducts(API_PRODUCTS.PRODUCTS, () =>
-    getAllProducts(0, 10),
+  const cardsContents = useMemo(
+    () => (data ? data.pages.flatMap((page) => page.content) : []),
+    [data],
   )
-  const cardsContents = data?.content
+
+  const ref = useIntersectionObserver(async (entry, observer) => {
+    observer.unobserve(entry.target)
+    if (hasNextPage) {
+      await fetchNextPage()
+    }
+  })
 
   const dispatch = useDispatch()
   const sheetReducer = useSelector(
@@ -65,6 +72,9 @@ function ProductsPage() {
             ))}
           </S.AllCardWrapper>
         </S.AllProductsSection>
+        {hasNextPage && (
+          <div ref={ref} style={{ height: '1px', background: 'transparent' }} />
+        )}
         {sheetReducer.status && sheetReducer.name === 'order-sheet' && (
           <SortOrdersSheet />
         )}

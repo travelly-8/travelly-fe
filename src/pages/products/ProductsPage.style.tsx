@@ -92,10 +92,12 @@ export const AllProductsSection = styled.section`
   padding: 0 2rem 2rem 2rem;
 `
 
-export const AllCardWrapper = styled.div`
+export const AllCardWrapper = styled.ul`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   row-gap: 2.4rem;
   column-gap: 1.6rem;
   width: 100%;
 `
+
+export const Target = styled.div``
