@@ -1,7 +1,6 @@
 import { useState } from 'react'
 
 import { getSearchProducts } from '@/api/productsAPI'
-import { mockData2 } from '@/constants/MOCK_DATA'
 import useGetSearchProducts from '@/hooks/api/productsAPI/useGetSearchProducts'
 import FilteringSheet from '@/pages/products/components/filtering-sheet'
 import SortOrdersSheet from '@/pages/products/components/sort-orders-sheet'
@@ -57,7 +56,7 @@ function ProductsPage() {
   }
 
   const { data } = useGetSearchProducts(queryData, getSearchProducts, queryData)
-  console.log(data?.content)
+  const cardsContents = data?.content
 
   const sheetReducer = useSelector(
     (state: SheetSliceState) => state.sheet.value,
@@ -97,8 +96,8 @@ function ProductsPage() {
         </S.AppBarWrapper>
         <S.AllProductsSection>
           <S.AllCardWrapper>
-            {mockData2.map((cardData) => (
-              <ProductCard key={cardData.name} cardData={cardData} size="bg" />
+            {cardsContents?.map((cardData) => (
+              <ProductCard key={cardData.id} cardData={cardData} size="bg" />
             ))}
           </S.AllCardWrapper>
         </S.AllProductsSection>
