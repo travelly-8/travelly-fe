@@ -2,7 +2,7 @@ import { getAllProducts } from '@/api/productsAPI'
 
 import { useInfiniteQuery } from '@tanstack/react-query'
 
-const SIZE_COUNT = 5
+const SIZE_COUNT = 6
 
 const useInfiniteCardsQuery = () => {
   const { data, hasNextPage, isFetchingNextPage, fetchNextPage } =

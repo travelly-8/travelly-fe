@@ -14,12 +14,13 @@ import * as S from './ProductsPage.style'
 
 function ProductsPage() {
   const [isKebabClicked, setIsKebabClicked] = useState(false)
-  const { data, hasNextPage, fetchNextPage } = useInfiniteCardsQuery()
+  const { data: cardData, hasNextPage, fetchNextPage } = useInfiniteCardsQuery()
 
   const cardsContents = useMemo(
-    () => (data ? data.pages.flatMap((page) => page.content) : []),
-    [data],
+    () => (cardData ? cardData.pages.flatMap((page) => page.content) : []),
+    [cardData],
   )
+  const totalElements = cardData?.pages[0]?.totalElements
 
   const ref = useIntersectionObserver(async (entry, observer) => {
     observer.unobserve(entry.target)
@@ -55,7 +56,7 @@ function ProductsPage() {
           <S.AppBar>
             <S.ProductInfo>
               <S.ProductType>상품</S.ProductType>
-              <S.ProductCount>(00,000개)</S.ProductCount>
+              <S.ProductCount>({totalElements}개)</S.ProductCount>
             </S.ProductInfo>
             <S.OrderFilterWrapper>
               <S.Order onClick={handleOrderClick}>정렬</S.Order>
@@ -72,9 +73,7 @@ function ProductsPage() {
             ))}
           </S.AllCardWrapper>
         </S.AllProductsSection>
-        {hasNextPage && (
-          <div ref={ref} style={{ height: '1px', background: 'transparent' }} />
-        )}
+        {hasNextPage && <S.Target ref={ref} />}
         {sheetReducer.status && sheetReducer.name === 'order-sheet' && (
           <SortOrdersSheet />
         )}

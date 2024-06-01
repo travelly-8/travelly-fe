@@ -100,4 +100,6 @@ export const AllCardWrapper = styled.ul`
   width: 100%;
 `
 
-export const Target = styled.div``
+export const Target = styled.div`
+  height: 10rem;
+`
