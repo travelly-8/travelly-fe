@@ -39,7 +39,7 @@ function ProductsPage() {
   const sort = queryParams.get('sort')
 
   const queryData: ISearchProductsData = {
-    page: 1,
+    page: 0,
     size: 10,
     sortField: sort ? sortField[sort] : undefined,
     sortType: undefined,
