@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 
-import { getSearchProducts } from '@/api/productsAPI'
-import useGetSearchProducts from '@/hooks/api/productsAPI/useGetSearchProducts'
+import useInfiniteCardsQuery from '@/hooks/api/productsAPI/useInfiniteCardsQuery'
+import useIntersectionObserver from '@/hooks/useIntersectionObserver'
 import FilteringSheet from '@/pages/products/components/filtering-sheet'
 import SortOrdersSheet from '@/pages/products/components/sort-orders-sheet'
 import { SheetSliceState, sheet } from '@/store/sheet-slice.ts'
@@ -14,16 +14,14 @@ import { useLocation } from 'react-router-dom'
 
 import * as S from './ProductsPage.style'
 
-const sortField: { [key: string]: string } = {
+const SORT_FIELD: { [key: string]: string } = {
   최신순: 'modifiedDate',
   '리뷰 많은 순': 'reviewCount',
   평점순: 'rating',
   '낮은 가격순': 'price',
 }
 
-function ProductsPage() {
-  const [isKebabClicked, setIsKebabClicked] = useState(false)
-
+const ProductsPage = () => {
   const dispatch = useDispatch()
   const location = useLocation()
   const queryParams = new URLSearchParams(location.search)
@@ -38,25 +36,45 @@ function ProductsPage() {
   const city = queryParams.get('city')
   const sort = queryParams.get('sort')
 
-  const queryData: ISearchProductsData = {
-    page: 0,
-    size: 10,
-    sortField: sort ? sortField[sort] : undefined,
-    sortType: undefined,
-    keyword: input || undefined,
-    cityCode: city === '0' ? undefined : (city as string),
-    contentType:
-      type === '0' || type === undefined ? undefined : (type as string),
-    startDate: date || undefined,
-    endDate: date || undefined,
-    startTime: undefined,
-    endTime: undefined,
-    minPrice: Number(minPrice) || undefined,
-    maxPrice: Number(maxPrice) || undefined,
-  }
+  const queryData: ISearchProductsData = useMemo(
+    () => ({
+      page: 0,
+      size: 6,
+      sortField: sort ? SORT_FIELD[sort] : undefined,
+      sortType: undefined,
+      keyword: input || undefined,
+      cityCode: city === '0' ? undefined : (city as string),
+      contentType:
+        type === '0' || type === undefined ? undefined : (type as string),
+      startDate: date || undefined,
+      endDate: date || undefined,
+      startTime: undefined,
+      endTime: undefined,
+      minPrice: Number(minPrice) || undefined,
+      maxPrice: Number(maxPrice) || undefined,
+    }),
+    [input, type, minPrice, maxPrice, date, city, sort],
+  )
 
-  const { data } = useGetSearchProducts(queryData, getSearchProducts, queryData)
-  const cardsContents = data?.content
+  const [isKebabClicked, setIsKebabClicked] = useState(false)
+  const {
+    data: cardData,
+    hasNextPage,
+    fetchNextPage,
+  } = useInfiniteCardsQuery(queryData)
+
+  const cardsContents = useMemo(
+    () => (cardData ? cardData.pages.flatMap((page) => page.content) : []),
+    [cardData],
+  )
+  const totalElements = cardData?.pages[0]?.totalElements
+
+  const ref = useIntersectionObserver(async (entry, observer) => {
+    observer.unobserve(entry.target)
+    if (hasNextPage) {
+      await fetchNextPage()
+    }
+  })
 
   const sheetReducer = useSelector(
     (state: SheetSliceState) => state.sheet.value,
@@ -84,7 +102,7 @@ function ProductsPage() {
           <S.AppBar>
             <S.ProductInfo>
               <S.ProductType>상품</S.ProductType>
-              <S.ProductCount>(00,000개)</S.ProductCount>
+              <S.ProductCount>({totalElements}개)</S.ProductCount>
             </S.ProductInfo>
             <S.OrderFilterWrapper>
               <S.Order onClick={handleOrderClick}>정렬</S.Order>
@@ -101,6 +119,7 @@ function ProductsPage() {
             ))}
           </S.AllCardWrapper>
         </S.AllProductsSection>
+        {hasNextPage && <S.Target ref={ref} />}
         {sheetReducer.status && sheetReducer.name === 'order-sheet' && (
           <SortOrdersSheet />
         )}

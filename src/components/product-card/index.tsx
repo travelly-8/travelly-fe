@@ -25,6 +25,8 @@ function ProductCard({ cardData, size }: IProductCardProps) {
   //TODO: BookmarkButton 기능 추가 후, 클릭했을 시 버블링 고려해야함
   const city = LOCALE_CODE_LIST[cityCode]
   const district = address?.split(' ')[1]
+  const price = ticketDto[0]?.price
+  const formattedPrice = price.toLocaleString()
 
   return (
     <S.Container size={size} onClick={() => registerRecentProducts(cardData)}>
@@ -40,7 +42,7 @@ function ProductCard({ cardData, size }: IProductCardProps) {
         </S.Location>
         <S.DiscountPrice size={size}>
           <S.Discount>{discount}%</S.Discount>
-          <S.Price>{ticketDto[0]?.price}원</S.Price>
+          <S.Price>{formattedPrice}원</S.Price>
         </S.DiscountPrice>
         <S.Review size={size}>
           <S.Star src="src/assets/home/empty-star.svg" />

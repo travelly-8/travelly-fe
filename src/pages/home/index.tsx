@@ -79,7 +79,7 @@ function HomePage() {
         <S.AllProductsSection>
           <S.ALLTitleWrapper>
             <S.SectionTitle>전체 상품</S.SectionTitle>
-            <S.ShowAllProducts onClick={() => navigate('/products?type=0')}>
+            <S.ShowAllProducts onClick={() => navigate('/products')}>
               더보기
             </S.ShowAllProducts>
           </S.ALLTitleWrapper>
