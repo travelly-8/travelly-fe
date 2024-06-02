@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
-
+import { postSignup } from '@/api/authAPI'
 import * as S from '@/styles/authStyles'
+import isAxiosError from '@/utils/isAxiosError'
 import useKeyboardDetection from '@/utils/useKeyboardDetection'
 import {
   signupEmailValidate,
@@ -8,11 +8,12 @@ import {
   signupPasswordCheckValidate,
   signupPasswordValidate,
 } from '@/utils/validate'
-
 import BackBar from '@components/back-bar'
 import Input from '@components/input'
 import RectangleButton from '@components/rectangle-button'
+import { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 
 interface FormData {
   name: string
@@ -36,9 +37,27 @@ export default function SignupPage() {
   const password = watch('password')
   const passwordCheck = watch('passwordCheck')
   const [allInputsFilled, setAllInputsFilled] = useState(false)
+  const navigate = useNavigate()
 
-  const onSubmit = (data: FormData) => {
-    console.log(data)
+  const onSubmit = async (data: FormData) => {
+    console.log(
+      `nickname: ${data.name} email: ${data.email} password: ${data.password}`,
+    )
+    try {
+      const response = await postSignup({
+        nickname: data.name,
+        email: data.email,
+        password: data.password,
+      })
+      console.log('Signup successful:', response.data)
+      navigate('/login')
+    } catch (error) {
+      if (isAxiosError(error)) {
+        console.error('Signup failed:', error.response?.data)
+      } else {
+        console.error('Signup failed:', (error as Error).message)
+      }
+    }
   }
 
   useEffect(() => {
