@@ -25,7 +25,6 @@ const ProductsPage = () => {
   const dispatch = useDispatch()
   const location = useLocation()
   const queryParams = new URLSearchParams(location.search)
-
   const input = queryParams.get('input')
   const type = queryParams.get('type')
   const minPrice = queryParams.get('minPrice')
@@ -79,21 +78,17 @@ const ProductsPage = () => {
   const sheetReducer = useSelector(
     (state: SheetSliceState) => state.sheet.value,
   )
-
   const handleOrderClick = () => {
     dispatch(sheet({ name: 'order-sheet', status: true, text: '' }))
   }
-
   const handleFilterClick = () => {
     dispatch(sheet({ name: 'filter-sheet', status: true, text: '' }))
   }
-
   if (sheetReducer.status && sheetReducer.name === 'filter-sheet') {
     return <FilteringSheet />
   }
   const isSearchSheet =
     sheetReducer.status && sheetReducer.name === 'search-sheet'
-
   return (
     <>
       <ProductHeader kebabClick={() => setIsKebabClicked(!isKebabClicked)} />
@@ -127,5 +122,4 @@ const ProductsPage = () => {
     </>
   )
 }
-
 export default ProductsPage
