@@ -16,7 +16,7 @@ export interface IProduct {
   homepage: string
   cityCode: string
   quantity: number
-  ticketPrice: ITicketPrice
+  ticketDto: ITicketPrice[]
   rating: number
   operationDays: IOperationDays[]
   reviewCount: number
@@ -25,7 +25,9 @@ export interface IProduct {
 }
 
 interface ITicketPrice {
-  [ticketName: string]: string
+  name: string
+  price: number
+  description: string
 }
 
 interface IOperationDays {

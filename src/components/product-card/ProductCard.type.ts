@@ -10,9 +10,13 @@ export interface IProductCardData {
   cityCode: string
   address: string
   discount?: number
-  ticketPrice: {
-    [key: string]: string
-  }
+  ticketDto: ITicketDto[]
   rating: number
   reviewCount: number
 } //TODO: 임시 타입. api 연결 후 수정 필요
+
+interface ITicketDto {
+  name: string
+  price: number
+  description: string
+}
