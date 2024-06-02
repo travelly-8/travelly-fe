@@ -14,7 +14,7 @@ function ProductCard({ cardData, size }: IProductCardProps) {
     cityCode,
     address,
     discount = 10,
-    ticketPrice,
+    ticketDto,
     rating,
     reviewCount,
   }: IProductCardData = cardData
@@ -40,7 +40,7 @@ function ProductCard({ cardData, size }: IProductCardProps) {
         </S.Location>
         <S.DiscountPrice size={size}>
           <S.Discount>{discount}%</S.Discount>
-          <S.Price>{ticketPrice?.티켓0}원</S.Price>
+          <S.Price>{ticketDto[0]?.price}원</S.Price>
         </S.DiscountPrice>
         <S.Review size={size}>
           <S.Star src="src/assets/home/empty-star.svg" />

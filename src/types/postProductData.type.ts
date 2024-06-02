@@ -29,3 +29,19 @@ interface IOperationDayHours {
   startTime: string
   endTime: string
 }
+
+export interface ISearchProductsData {
+  page: number
+  size: number
+  sortType?: string | undefined
+  sortField?: string | undefined
+  keyword?: string | undefined
+  cityCode?: string | undefined
+  contentType?: string | undefined
+  startDate?: string | undefined
+  endDate?: string | undefined
+  startTime?: string | undefined
+  endTime?: string | undefined
+  minPrice?: number | undefined
+  maxPrice?: number | undefined
+}

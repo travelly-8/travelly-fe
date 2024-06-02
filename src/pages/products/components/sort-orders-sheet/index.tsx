@@ -1,6 +1,7 @@
 import { sheet } from '@/store/sheet-slice'
 
 import { useDispatch } from 'react-redux'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import * as S from './SortOrdersSheet.style'
 
@@ -11,6 +12,16 @@ const ORDER = ['최신순', '리뷰 많은 순', '평점순', '낮은 가격순'
 
 function SortOrdersSheet() {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const location = useLocation()
+  const currentPath = location.pathname
+  const searchParams = new URLSearchParams(location.search)
+
+  const handleClickOrder = (order: string) => {
+    searchParams.set('sort', order)
+    navigate(`${currentPath}?${searchParams.toString()}`)
+    dispatch(sheet({ name: 'order-sheet', status: false }))
+  }
 
   return (
     <>
@@ -20,7 +31,7 @@ function SortOrdersSheet() {
       <S.Container>
         <S.GrabHandle />
         {ORDER.map((order, idx) => (
-          <S.OrderWrapper key={order}>
+          <S.OrderWrapper onClick={() => handleClickOrder(order)} key={order}>
             <S.Order>{order}</S.Order>
             {idx !== ORDER.length - 1 && <S.Divider />}
           </S.OrderWrapper>

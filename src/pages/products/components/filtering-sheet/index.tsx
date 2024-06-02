@@ -12,7 +12,7 @@ import SheetHeader from '@components/sheet-header'
 import { format } from 'date-fns'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import * as S from './FilteringSheet.styles.tsx'
 
@@ -21,6 +21,11 @@ const FilteringSheet = () => {
   const { control, watch, reset } = useForm()
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const location = useLocation()
+  const queryParams = new URLSearchParams(location.search)
+
+  const input = queryParams.get('input')
+  const type = queryParams.get('type')
 
   const minPriceValue = watch('min-price') || 50000
   const maxPriceValue = watch('max-price') || 100000
@@ -29,9 +34,16 @@ const FilteringSheet = () => {
   const dateValue = watch('date') || new Date()
 
   function handleSubmit() {
-    navigate(
-      `/products?minPrice=${minPriceValue}&maxPrice=${maxPriceValue}&startTime=${startTimeValue}&endTime=${endTimeValue}&date=${format(dateValue, 'yyyy-MM-dd')}&city=${selectedLocale}`,
-    )
+    if (input) {
+      navigate(
+        `/products?input=${input}&minPrice=${minPriceValue}&maxPrice=${maxPriceValue}&startTime=${startTimeValue}&endTime=${endTimeValue}&date=${format(dateValue, 'yyyy-MM-dd')}&city=${selectedLocale}`,
+      )
+    }
+    if (type) {
+      navigate(
+        `/products?type=${type}&minPrice=${minPriceValue}&maxPrice=${maxPriceValue}&startTime=${startTimeValue}&endTime=${endTimeValue}&date=${format(dateValue, 'yyyy-MM-dd')}&city=${selectedLocale}`,
+      )
+    }
     dispatch(sheet({ name: 'filter-sheet', status: false }))
   }
 
