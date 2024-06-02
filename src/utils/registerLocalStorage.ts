@@ -33,7 +33,7 @@ export function registerRecentProducts(cardData: IProductCardData) {
     cityCode: cardData.cityCode,
     address: cardData.address,
     discount: cardData.discount,
-    ticketPrice: cardData.ticketPrice,
+    ticketDto: cardData.ticketDto,
     rating: cardData.rating,
     reviewCount: cardData.reviewCount,
   }

@@ -1,16 +1,51 @@
-import { getAllProducts } from '@/api/productsAPI'
+import { getSearchProducts } from '@/api/productsAPI'
+import { ISearchProductsData } from '@/types/postProductData.type'
 
 import { useInfiniteQuery } from '@tanstack/react-query'
 
-const useInfiniteCardsQuery = (size: number) => {
+const useInfiniteCardsQuery = (params: ISearchProductsData) => {
+  const {
+    size,
+    sortField,
+    sortType,
+    keyword,
+    cityCode,
+    contentType,
+    startDate,
+    endDate,
+    startTime,
+    endTime,
+    minPrice,
+    maxPrice,
+  } = params
+
+  const searchQueryFn = async ({ pageParam = 0 }) => {
+    const data: ISearchProductsData = {
+      page: pageParam,
+      size,
+      sortField,
+      sortType,
+      keyword,
+      cityCode,
+      contentType,
+      startDate,
+      endDate,
+      startTime,
+      endTime,
+      minPrice,
+      maxPrice,
+    }
+    const response = await getSearchProducts(data)
+    return response.data
+  }
+
+  const queryFn = searchQueryFn
+
   const { data, hasNextPage, isFetchingNextPage, fetchNextPage } =
     useInfiniteQuery({
-      queryKey: ['products'],
+      queryKey: ['products', params],
       initialPageParam: 0,
-      queryFn: async ({ pageParam = 0 }) => {
-        const response = await getAllProducts(pageParam, size)
-        return response.data
-      },
+      queryFn,
       getNextPageParam: (lastPage) => {
         const isLastPage = lastPage.last
         const nextPage = lastPage.pageable.pageNumber + 1

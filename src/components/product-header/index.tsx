@@ -3,7 +3,7 @@ import { useState } from 'react'
 import kebabClickedIcon from '@/assets/common/kebab-click.svg'
 import kebabIcon from '@/assets/common/kebab.svg'
 import searchIcon from '@/assets/common/search.svg'
-import PRODUCTTYPE from '@/constants/PRODUCTTYPE'
+import PRODUCT_TYPE from '@/constants/PRODUCT_TYPE'
 import { sheet, SheetSliceState } from '@/store/sheet-slice.ts'
 
 import BackBar from '@components/back-bar'
@@ -27,7 +27,7 @@ const ProductHeader: React.FC<IProductHeaderProps> = ({ kebabClick }) => {
     ? (Number(contentType) as ProductType)
     : undefined
   const category =
-    contentTypeIndex !== undefined ? PRODUCTTYPE[contentTypeIndex] : input
+    contentTypeIndex !== undefined ? PRODUCT_TYPE[contentTypeIndex] : input
   const handleKebabClick = () => {
     setIsKebabClicked(!isKebabClicked)
     kebabClick()
