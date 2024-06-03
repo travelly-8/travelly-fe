@@ -50,7 +50,7 @@ export default function SignupPage() {
         password: data.password,
       })
       console.log('Signup successful:', response.data)
-      navigate('/login')
+      navigate('/signup/end')
     } catch (error) {
       if (isAxiosError(error)) {
         console.error('Signup failed:', error.response?.data)
