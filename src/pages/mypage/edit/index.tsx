@@ -13,7 +13,6 @@ import PageHeader from '@components/page-header'
 import { useDispatch, useSelector } from 'react-redux'
 
 /* eslint-disable import/order */
-import axios from '@/api/axios'
 import { getMemberProfile } from '@/api/myAPI'
 import { API_MEMBER } from '@/constants/API'
 import useGetMemberProfile from '@/hooks/api/memberAPI/useGetMemberProfile'
@@ -47,10 +46,6 @@ export default function MyPageEditPage() {
     getMemberProfile(),
   )
 
-  axios.get('http://3.36.62.116:8080/my/profile').then((res) => {
-    console.log(res)
-  })
-
   console.log(data)
 
   //TODO: 유저 기존 닉네임 BlurSheet에 placeholder로 넣기
@@ -70,10 +65,10 @@ export default function MyPageEditPage() {
           <S.PenImg src={purplePenSvg} alt="프로필 수정" />
         </S.ImgWrapper>
         <S.NicknameWrapper>
-          <S.Nickname>닉네임</S.Nickname>
+          <S.Nickname>{data?.nickname}</S.Nickname>
           <S.Edit onClick={() => controlSheet('nickname', true)}>수정</S.Edit>
         </S.NicknameWrapper>
-        <S.Email>travelly@gmail.com</S.Email>
+        <S.Email>{data?.email}</S.Email>
       </S.ProfileWrapper>
       <S.MenuWrapper>
         {MENU_MAP.map((menu) => {
