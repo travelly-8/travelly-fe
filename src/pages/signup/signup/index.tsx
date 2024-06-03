@@ -1,6 +1,6 @@
 import { postSignup } from '@/api/authAPI'
+import { useFormValidation } from '@/hooks/useFormValidation'
 import isAxiosError from '@/utils/isAxiosError'
-
 import useKeyboardDetection from '@/utils/useKeyboardDetection'
 import {
   signupEmailValidate,
@@ -8,12 +8,12 @@ import {
   signupPasswordCheckValidate,
   signupPasswordValidate,
 } from '@/utils/validate'
+
+import FormContainer from '@components/form-container'
 import Input from '@components/input'
 import { Controller, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
-import { useFormValidation } from '@/hooks/useFormValidation'
-import FormContainer from '@components/form-container'
 import { useState } from 'react'
 import { IErrorResponse, IFormData } from './Signup.type'
 

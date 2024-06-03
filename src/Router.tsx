@@ -1,5 +1,7 @@
 import GlobalStyles from '@/styles/GlobalStyles'
+
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+
 import AuthCallback from './pages/auth'
 import HomePage from './pages/home'
 import LoginPage from './pages/login/login'
