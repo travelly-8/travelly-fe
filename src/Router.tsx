@@ -1,7 +1,6 @@
 import GlobalStyles from '@/styles/GlobalStyles'
-
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-
+import AuthCallback from './pages/auth'
 import HomePage from './pages/home'
 import LoginPage from './pages/login/login'
 import SelectPlanPage from './pages/login/select-plan'
@@ -33,6 +32,7 @@ export default function AppRouter() {
         <Route path="/mypage/edit" element={<MyPageEditPage />} />
         <Route path="/exit" element={<ExitPage />} />
         <Route path="/goodbye" element={<GoodbyePage />} />
+        <Route path="/auth/callback/:platform" element={<AuthCallback />} />
       </Routes>
     </BrowserRouter>
   )

@@ -7,14 +7,12 @@ import BackBar from '@components/back-bar'
 import type { ButtonType } from '@components/icon-button/IconButton.type'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
 import Bubble from '../components/bubble'
 import ConfirmPage from '../components/confirm-page'
 import * as S from './SelectPlanPage.style'
 
 export default function SelectPlanPage() {
   const dispatch = useDispatch()
-  const navigate = useNavigate()
   const sheetReducer = useSelector(
     (state: SheetSliceState) => state.sheet.value,
   )
@@ -43,16 +41,15 @@ export default function SelectPlanPage() {
       if (!token) {
         token = await refreshAccessToken()
       }
-      console.log(`Updating user type to: ${userType} with token: ${token}`)
+      // console.log(`Updating user type to: ${userType} with token: ${token}`)
       await putRole(userType)
-      console.log('success')
+      // console.log('success')
       openSheet(userType === 'traveller' ? 'traveller' : 'travelly')
-      navigate('/browsing')
     } catch (error) {
       if (isAxiosError(error)) {
-        console.error('Login failed:', error.response?.data)
+        // console.error('Login failed:', error.response?.data)
       } else {
-        console.error('Login failed:', (error as Error).message)
+        // console.error('Login failed:', (error as Error).message)
       }
     }
   }

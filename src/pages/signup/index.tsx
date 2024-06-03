@@ -1,6 +1,5 @@
-import { useState } from 'react'
-
 import RectangleButton from '@components/rectangle-button'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import * as S from './SignupStartPage.style'
@@ -10,9 +9,32 @@ export default function SignupStartPage() {
   const [isSplashOn, setIsSplashOn] = useState(true)
   const navigate = useNavigate()
 
-  setTimeout(() => {
-    setIsSplashOn(false)
-  }, 1000)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsSplashOn(false)
+    }, 1000)
+    return () => clearTimeout(timer)
+  }, [])
+
+  const handleNaverLogin = () => {
+    const clientId = 'Ka9kJLyk9psbYa8p1OGf'
+    const redirectURI = encodeURIComponent(
+      'http://localhost:5173/auth/callback/naver',
+    )
+    const state = Math.random().toString(36).substring(7)
+    const naverAuthUrl = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectURI}&state=${state}`
+    window.location.href = naverAuthUrl
+  }
+
+  const handleGoogleLogin = () => {
+    const clientId =
+      '730247200859-fmkmnba4hr4hjk5vf52358ps6p2elv41.apps.googleusercontent.com'
+    const redirectURI = encodeURIComponent(
+      'http://localhost:5173/auth/callback/google',
+    )
+    const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=${clientId}&redirect_uri=${redirectURI}&scope=profile email`
+    window.location.href = googleAuthUrl
+  }
 
   if (isSplashOn) {
     return <SplashPage />
@@ -25,8 +47,16 @@ export default function SignupStartPage() {
         </RectangleButton>
         <S.StartSNS>
           <S.Bubble src="/src/assets/signup/bubble.png" alt="간편하게 시작" />
-          <S.Sns src="/src/assets/signup/naver.svg" alt="네이버" />
-          <S.Sns src="/src/assets/signup/google.png" alt="구글" />
+          <S.Sns
+            src="/src/assets/signup/naver.svg"
+            alt="네이버"
+            onClick={handleNaverLogin}
+          />
+          <S.Sns
+            src="/src/assets/signup/google.png"
+            alt="구글"
+            onClick={handleGoogleLogin}
+          />
         </S.StartSNS>
         <S.OtherWay>
           <S.Find>
