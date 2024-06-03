@@ -49,7 +49,6 @@ export default function MyPageEditPage() {
   console.log(data)
 
   //TODO: 유저 기존 닉네임 BlurSheet에 placeholder로 넣기
-  //TODO: 소셜 로그인한 유저에게는 비밀번호 변경 메뉴 띄우지 않기
   //TODO: 프로필 이미지 버튼 클릭 시 파일 불러오기
 
   return (
@@ -71,7 +70,13 @@ export default function MyPageEditPage() {
         <S.Email>{data?.email}</S.Email>
       </S.ProfileWrapper>
       <S.MenuWrapper>
-        {MENU_MAP.map((menu) => {
+        {MENU_MAP.filter((menu) => {
+          if (data?.type === 'social' && menu.text === '비밀번호 변경') {
+            return false
+          } else {
+            return true
+          }
+        }).map((menu) => {
           return (
             <S.Menu key={menu.id} idx={menu.id}>
               <HorizontalMenu
