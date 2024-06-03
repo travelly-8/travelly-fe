@@ -43,12 +43,9 @@ export default function MyPageEditPage() {
     { id: 2, icon: logoutSvg, text: '로그아웃', onClick: () => {} },
   ]
 
-  //TODO: 닉네임 수정하면 화면 자동 업데이트 (stale time 설정? )
-  const { data } = useGetMemberProfile(API_MEMBER.MY_PROFILE, () =>
+  const { data, refetch } = useGetMemberProfile(API_MEMBER.MY_PROFILE, () =>
     getMemberProfile(),
   )
-
-  console.log(data)
 
   const [newNickname, setNewNickname] = useState<string>('')
 
@@ -56,6 +53,7 @@ export default function MyPageEditPage() {
     putMemberNickname({ nickname: newNickname })
       .then(() => {
         controlSheet('nickname', false)
+        refetch()
       })
       .catch((err) => {
         console.error(err)
