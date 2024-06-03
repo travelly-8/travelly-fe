@@ -30,6 +30,7 @@ function HomePage() {
   const { data } = useGetAllProducts(API_PRODUCTS.PRODUCTS, () =>
     getAllProducts(0, 6),
   )
+  //TODO: 인기상품, 추천상품 논의 후 나중에 적용
   const cardsContents = data?.content
 
   return (
@@ -46,13 +47,13 @@ function HomePage() {
           </S.SectionTitleWrapper>
           <S.SectionContentsWrapper>
             <S.CardWrapper ref={popularProductRef} {...scrollPopularHandlers}>
-              {/* {mockData1.map((cardData) => (
+              {cardsContents?.map((cardData) => (
                 <ProductCard
                   key={cardData.name}
                   cardData={cardData}
                   size="sm"
                 />
-              ))} */}
+              ))}
             </S.CardWrapper>
           </S.SectionContentsWrapper>
         </S.ProductsSection>
@@ -66,13 +67,13 @@ function HomePage() {
               ref={recommendProductRef}
               {...scrollRecommendHandlers}
             >
-              {/* {mockData1.map((cardData) => (
+              {cardsContents?.map((cardData) => (
                 <ProductCard
                   key={cardData.name}
                   cardData={cardData}
                   size="sm"
                 />
-              ))} */}
+              ))}
             </S.CardWrapper>
           </S.SectionContentsWrapper>
         </S.ProductsSection>

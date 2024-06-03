@@ -1,7 +1,9 @@
 import { useMemo, useState } from 'react'
 
+import { SORT_FIELD } from '@/constants/FILTERING_BROWSING'
 import useInfiniteCardsQuery from '@/hooks/api/productsAPI/useInfiniteCardsQuery'
 import useIntersectionObserver from '@/hooks/useIntersectionObserver'
+import AppBar from '@/pages/products/components/app-bar'
 import FilteringSheet from '@/pages/products/components/filtering-sheet'
 import SortOrdersSheet from '@/pages/products/components/sort-orders-sheet'
 import { SheetSliceState, sheet } from '@/store/sheet-slice.ts'
@@ -14,13 +16,6 @@ import { useLocation } from 'react-router-dom'
 
 import * as S from './ProductsPage.style'
 
-const SORT_FIELD: { [key: string]: string } = {
-  최신순: 'modifiedDate',
-  '리뷰 많은 순': 'reviewCount',
-  평점순: 'rating',
-  '낮은 가격순': 'price',
-}
-
 const ProductsPage = () => {
   const dispatch = useDispatch()
   const location = useLocation()
@@ -29,8 +24,8 @@ const ProductsPage = () => {
   const type = queryParams.get('type')
   const minPrice = queryParams.get('minPrice')
   const maxPrice = queryParams.get('maxPrice')
-  // const startTime = queryParams.get('startTime')
-  // const endTime = queryParams.get('endTime')
+  const startTime = queryParams.get('startTime')
+  const endTime = queryParams.get('endTime')
   const date = queryParams.get('date')
   const city = queryParams.get('city')
   const sort = queryParams.get('sort')
@@ -47,8 +42,8 @@ const ProductsPage = () => {
         type === '0' || type === undefined ? undefined : (type as string),
       startDate: date || undefined,
       endDate: date || undefined,
-      startTime: undefined,
-      endTime: undefined,
+      startTime: startTime || undefined,
+      endTime: endTime || undefined,
       minPrice: Number(minPrice) || undefined,
       maxPrice: Number(maxPrice) || undefined,
     }),
@@ -93,20 +88,11 @@ const ProductsPage = () => {
     <>
       <ProductHeader kebabClick={() => setIsKebabClicked(!isKebabClicked)} />
       <S.PageContainer $isSearchSheet={isSearchSheet}>
-        <S.AppBarWrapper>
-          <S.AppBar>
-            <S.ProductInfo>
-              <S.ProductType>상품</S.ProductType>
-              <S.ProductCount>({totalElements}개)</S.ProductCount>
-            </S.ProductInfo>
-            <S.OrderFilterWrapper>
-              <S.Order onClick={handleOrderClick}>정렬</S.Order>
-              <S.Filter onClick={handleFilterClick}>
-                <img src="/src/assets/products/filter.svg" alt="필터" />
-              </S.Filter>
-            </S.OrderFilterWrapper>
-          </S.AppBar>
-        </S.AppBarWrapper>
+        <AppBar
+          totalElements={totalElements}
+          onOrderClick={handleOrderClick}
+          onFilterClick={handleFilterClick}
+        />
         <S.AllProductsSection>
           <S.AllCardWrapper>
             {cardsContents?.map((cardData) => (
