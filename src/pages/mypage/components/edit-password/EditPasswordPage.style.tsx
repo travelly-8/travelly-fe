@@ -32,3 +32,11 @@ export const Form = styled.form`
   width: 100%;
   gap: 2.4rem;
 `
+export const Error = styled.p`
+  font-weight: 400;
+  font-size: 1.2rem;
+  line-height: 1.432rem;
+  margin: 0.3rem 0;
+  color: var(--color-caution);
+  margin-top: -1.8rem;
+`
