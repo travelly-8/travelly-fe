@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { postMemberNewPassword } from '@/api/myAPI'
+import { putMemberNewPassword } from '@/api/myAPI'
 import {
   signupPasswordCheckValidate,
   signupPasswordValidate,
@@ -67,7 +67,7 @@ export default function EditPasswordPage({ onClick }: { onClick: () => void }) {
   const onSubmit = (data: FormData) => {
     setIsdisabled({ color: 'primary', disabled: true })
 
-    postMemberNewPassword({
+    putMemberNewPassword({
       password: data.prevPassword,
       newPassword: data.newPassword,
     })

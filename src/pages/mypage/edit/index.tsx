@@ -13,9 +13,10 @@ import PageHeader from '@components/page-header'
 import { useDispatch, useSelector } from 'react-redux'
 
 /* eslint-disable import/order */
-import { getMemberProfile } from '@/api/myAPI'
+import { getMemberProfile, putMemberNickname } from '@/api/myAPI'
 import { API_MEMBER } from '@/constants/API'
 import useGetMemberProfile from '@/hooks/api/memberAPI/useGetMemberProfile'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import EditPasswordPage from '../components/edit-password'
 import * as S from './MyPageEditPage.style'
@@ -42,14 +43,26 @@ export default function MyPageEditPage() {
     { id: 2, icon: logoutSvg, text: '로그아웃', onClick: () => {} },
   ]
 
+  //TODO: 닉네임 수정하면 화면 자동 업데이트 (stale time 설정? )
   const { data } = useGetMemberProfile(API_MEMBER.MY_PROFILE, () =>
     getMemberProfile(),
   )
 
   console.log(data)
 
-  //TODO: 유저 기존 닉네임 BlurSheet에 placeholder로 넣기
-  //TODO: 프로필 이미지 버튼 클릭 시 파일 불러오기
+  const [newNickname, setNewNickname] = useState<string>('')
+
+  const saveNewNickname = () => {
+    putMemberNickname({ nickname: newNickname })
+      .then(() => {
+        controlSheet('nickname', false)
+      })
+      .catch((err) => {
+        console.error(err)
+      })
+  }
+
+  //TODO: 프로필 이미지 변경 API 연결
 
   return (
     <S.Wrapper>
@@ -110,10 +123,16 @@ export default function MyPageEditPage() {
         <BlurSheet
           title="내 정보 수정"
           button="저장"
-          buttonClick={() => controlSheet('nickname', false)}
+          buttonClick={() => {
+            saveNewNickname()
+            //
+          }}
         >
           <S.BlurSheetWrapper>
-            <S.NewNicknameInput placeholder="닉네임" />
+            <S.NewNicknameInput
+              placeholder={data?.nickname}
+              onChange={(e) => setNewNickname(e.target.value)}
+            />
           </S.BlurSheetWrapper>
         </BlurSheet>
       )}

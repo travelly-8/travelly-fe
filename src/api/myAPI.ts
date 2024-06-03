@@ -1,5 +1,8 @@
 import { API_MEMBER } from '@/constants/API'
-import { IPostMemberNewPassword } from '@/types/postMemberData.type'
+import {
+  IPutMemberNewNickname,
+  IPutMemberNewPassword,
+} from '@/types/putMemberData.type'
 
 import instance from './instance'
 
@@ -17,10 +20,17 @@ export const getMemberProfile = () => {
   })
 }
 
-export const postMemberNewPassword = (data: IPostMemberNewPassword) => {
+export const putMemberNewPassword = (data: IPutMemberNewPassword) => {
   return instance({
     method: 'PUT',
     url: API_MEMBER.MY_PASSWORD,
     data: data,
+  })
+}
+
+export const putMemberNickname = (data: IPutMemberNewNickname) => {
+  return instance({
+    method: 'PUT',
+    url: API_MEMBER.MY_NICKNAME(data.nickname),
   })
 }
