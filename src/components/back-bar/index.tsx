@@ -8,16 +8,10 @@ const BackBar = () => {
 
   const handleClick = () => {
     const isProductsPage = location.pathname === '/products'
-    const params = new URLSearchParams(location.search)
-    const type = params.get('type')
     //TODO: 임시 경로 처리. 나중에 페이지가 더 늘어나면 다시 로직 짜야할 거 같습니다.
 
     if (isProductsPage) {
-      if (type) {
-        navigate(-1)
-      } else {
-        navigate('/products?type=0')
-      }
+      navigate('/')
     } else {
       navigate(-1)
     }
