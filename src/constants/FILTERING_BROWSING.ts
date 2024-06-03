@@ -28,3 +28,10 @@ export const LOCALE_CODE_LIST: { [key: string]: string } = {
   5: '광주',
   17: '제주도',
 } as const
+
+export const SORT_FIELD: { [key: string]: string } = {
+  최신순: 'modifiedDate',
+  '리뷰 많은 순': 'reviewCount',
+  평점순: 'rating',
+  '낮은 가격순': 'price',
+} as const

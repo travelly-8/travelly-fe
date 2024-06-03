@@ -1,8 +1,9 @@
 import { useRef, useState } from 'react'
 
-import { getAllProducts } from '@/api/productsAPI'
+import { getSearchProducts } from '@/api/productsAPI'
 import { API_PRODUCTS } from '@/constants/API'
 import useGetAllProducts from '@/hooks/api/productsAPI/useGetAllProducts'
+import useProductCardsParams from '@/hooks/api/productsAPI/useProductCardsParams'
 import useScrollHandlers from '@/hooks/useScrollHandlers'
 import { SheetSliceState } from '@/store/sheet-slice.ts'
 
@@ -16,6 +17,7 @@ import * as S from './HomePage.style'
 
 function HomePage() {
   const navigate = useNavigate()
+  const cardsQueryData = useProductCardsParams()
   const [isKebabClicked, setIsKebabClicked] = useState(false)
   const sheetReducer = useSelector(
     (state: SheetSliceState) => state.sheet.value,
@@ -28,8 +30,9 @@ function HomePage() {
   const scrollRecommendHandlers = useScrollHandlers(recommendProductRef)
 
   const { data } = useGetAllProducts(API_PRODUCTS.PRODUCTS, () =>
-    getAllProducts(0, 6),
+    getSearchProducts(cardsQueryData),
   )
+  //TODO: 인기상품, 추천상품 논의 후 나중에 적용
   const cardsContents = data?.content
 
   return (
@@ -46,13 +49,9 @@ function HomePage() {
           </S.SectionTitleWrapper>
           <S.SectionContentsWrapper>
             <S.CardWrapper ref={popularProductRef} {...scrollPopularHandlers}>
-              {/* {mockData1.map((cardData) => (
-                <ProductCard
-                  key={cardData.name}
-                  cardData={cardData}
-                  size="sm"
-                />
-              ))} */}
+              {cardsContents?.map((cardData) => (
+                <ProductCard key={cardData.id} cardData={cardData} size="sm" />
+              ))}
             </S.CardWrapper>
           </S.SectionContentsWrapper>
         </S.ProductsSection>
@@ -66,20 +65,16 @@ function HomePage() {
               ref={recommendProductRef}
               {...scrollRecommendHandlers}
             >
-              {/* {mockData1.map((cardData) => (
-                <ProductCard
-                  key={cardData.name}
-                  cardData={cardData}
-                  size="sm"
-                />
-              ))} */}
+              {cardsContents?.map((cardData) => (
+                <ProductCard key={cardData.id} cardData={cardData} size="sm" />
+              ))}
             </S.CardWrapper>
           </S.SectionContentsWrapper>
         </S.ProductsSection>
         <S.AllProductsSection>
           <S.ALLTitleWrapper>
             <S.SectionTitle>전체 상품</S.SectionTitle>
-            <S.ShowAllProducts onClick={() => navigate('/products')}>
+            <S.ShowAllProducts onClick={() => navigate('/products?type=0')}>
               더보기
             </S.ShowAllProducts>
           </S.ALLTitleWrapper>

@@ -1,5 +1,6 @@
 import isPropValid from '@emotion/is-prop-valid'
 import styled, { css } from 'styled-components'
+
 import { IInput } from './Input.type'
 
 export const StyledInputContainer = styled.div`
