@@ -27,7 +27,6 @@ function sizeCssString(size: SizeType) {
 
     case 'small':
       sizeCss = css`
-        width: 4.4rem;
         height: 2.4rem;
         font-size: 12px;
         font-weight: 300;
@@ -80,4 +79,5 @@ export const GrayButton = styled(BasicButton)<{
   ${({ $size }) => sizeCssString($size)}
   ${({ $selected }) => selectedCssString($selected)}
   padding: 1rem;
+  white-space: nowrap;
 `

@@ -1,44 +1,59 @@
-/* eslint-disable import/order */
-import { useEffect, useState } from 'react'
-
+import { putRole } from '@/api/authAPI'
 import IconButton from '@/components/icon-button'
 import { SheetSliceState, sheet } from '@/store/sheet-slice'
-
+import isAxiosError from '@/utils/isAxiosError'
+import { getAccessToken, refreshAccessToken } from '@/utils/tokenStorage'
 import BackBar from '@components/back-bar'
+import type { ButtonType } from '@components/icon-button/IconButton.type'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-
+import { useNavigate } from 'react-router-dom'
 import Bubble from '../components/bubble'
 import ConfirmPage from '../components/confirm-page'
 import * as S from './SelectPlanPage.style'
 
-import type { ButtonType } from '@components/icon-button/IconButton.type'
-
 export default function SelectPlanPage() {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const sheetReducer = useSelector(
     (state: SheetSliceState) => state.sheet.value,
   )
-  const [TravellerStatus, setTravellerStatus] = useState<ButtonType>('default')
-  const [TravelleeStatus, setTravelleeStatus] = useState<ButtonType>('default')
+  const [travellerStatus, setTravellerStatus] = useState<ButtonType>('default')
+  const [travellyStatus, setTravellyStatus] = useState<ButtonType>('default')
 
   useEffect(() => {
     dispatch(sheet({ name: 'select-plan-confirm', status: false, text: '' }))
-  }, [])
+  }, [dispatch])
 
   const openSheet = (text: string) => {
     dispatch(sheet({ name: 'select-plan-confirm', status: true, text: text }))
-    return
   }
 
-  const handleButtonClick = (userType: 'traveller' | 'travellee') => {
+  const handleButtonClick = async (userType: 'traveller' | 'travelly') => {
     if (userType === 'traveller') {
-      if (TravellerStatus === 'selected') openSheet('트래블러(구매자)')
       setTravellerStatus('selected')
-      setTravelleeStatus('unselected')
+      setTravellyStatus('unselected')
     } else {
-      if (TravelleeStatus === 'selected') openSheet('트래블리(판매자)')
       setTravellerStatus('unselected')
-      setTravelleeStatus('selected')
+      setTravellyStatus('selected')
+    }
+
+    try {
+      let token = getAccessToken()
+      if (!token) {
+        token = await refreshAccessToken()
+      }
+      console.log(`Updating user type to: ${userType} with token: ${token}`)
+      await putRole(userType)
+      console.log('success')
+      openSheet(userType === 'traveller' ? 'traveller' : 'travelly')
+      // navigate('/browsing')
+    } catch (error) {
+      if (isAxiosError(error)) {
+        console.error('Login failed:', error.response?.data)
+      } else {
+        console.error('Login failed:', (error as Error).message)
+      }
     }
   }
 
@@ -52,7 +67,7 @@ export default function SelectPlanPage() {
         <S.ButtonWrapper>
           <IconButton
             imgSrc="/src/assets/login/passport.png"
-            buttonType={TravellerStatus}
+            buttonType={travellerStatus}
             onClick={() => handleButtonClick('traveller')}
           >
             트래블러
@@ -60,14 +75,14 @@ export default function SelectPlanPage() {
 
           <IconButton
             imgSrc="/src/assets/login/location.png"
-            buttonType={TravelleeStatus}
-            onClick={() => handleButtonClick('travellee')}
+            buttonType={travellyStatus}
+            onClick={() => handleButtonClick('travelly')}
           >
             트래블리
           </IconButton>
         </S.ButtonWrapper>
-        {TravellerStatus === 'selected' && <Bubble bubbleType="traveller" />}
-        {TravelleeStatus === 'selected' && <Bubble bubbleType="travellee" />}
+        {travellerStatus === 'selected' && <Bubble bubbleType="traveller" />}
+        {travellyStatus === 'selected' && <Bubble bubbleType="travelly" />}
       </S.Wrapper>
     )
   }

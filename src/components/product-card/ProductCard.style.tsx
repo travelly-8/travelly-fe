@@ -4,18 +4,24 @@ interface SizeProps {
   size: 'sm' | 'bg'
 }
 
-export const Container = styled.div<SizeProps>`
+interface IContainerProps extends SizeProps {
+  onClick: () => void
+}
+
+export const Container = styled.div<IContainerProps>`
   position: relative;
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
   ${({ size }) => `
-    width: ${size === 'sm' ? '10.2rem' : '15.2rem'};
+    width: ${size === 'sm' ? '10.2rem' : '100%'};
   `}
+  overflow: hidden;
 `
 
 export const CardImage = styled.img<SizeProps>`
   ${({ size }) => `
-    width: ${size === 'sm' ? '10.2rem' : '15.2rem'};
+    width: ${size === 'sm' ? '10.2rem' : '100%'};
     height: ${size === 'sm' ? '10.2rem' : '15.2rem'};
   `}
 `
