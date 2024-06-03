@@ -1,3 +1,5 @@
+import { ReactNode } from 'react'
+
 export interface IFormContainerProps {
   isKeyboardOpen: boolean
   title: string
