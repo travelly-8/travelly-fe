@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
   justify-content: flex-start;
   align-items: center;
   padding: 1.6rem 2rem;
-
+  background-color: var(--color-white);
   border-bottom: 1px solid var(--color-gray-bright);
 `
 export const Icon = styled.img`
@@ -17,4 +17,5 @@ export const Icon = styled.img`
 
 export const Content = styled.div`
   margin-left: 3rem;
+  width: 100%;
 `
