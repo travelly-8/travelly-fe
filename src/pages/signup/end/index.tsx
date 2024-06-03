@@ -1,5 +1,6 @@
 import RectangleButton from '@components/rectangle-button'
 import { useNavigate } from 'react-router-dom'
+
 import * as S from './SignupEndPage.style'
 
 export default function SignupEndPage() {

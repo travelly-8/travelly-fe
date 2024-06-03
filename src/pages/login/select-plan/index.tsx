@@ -3,11 +3,14 @@ import IconButton from '@/components/icon-button'
 import { SheetSliceState, sheet } from '@/store/sheet-slice'
 import isAxiosError from '@/utils/isAxiosError'
 import { getAccessToken, refreshAccessToken } from '@/utils/tokenStorage'
+
 import BackBar from '@components/back-bar'
+import { useDispatch, useSelector } from 'react-redux'
+
+import Bubble from '../components/bubble'
+
 import type { ButtonType } from '@components/icon-button/IconButton.type'
 import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import Bubble from '../components/bubble'
 import ConfirmPage from '../components/confirm-page'
 import * as S from './SelectPlanPage.style'
 
