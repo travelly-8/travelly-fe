@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 
+import { putMemberNewPassword } from '@/api/myAPI'
 import {
   signupPasswordCheckValidate,
   signupPasswordValidate,
@@ -28,12 +29,6 @@ export default function EditPasswordPage({ onClick }: { onClick: () => void }) {
     formState: { errors },
     trigger,
   } = useForm<FormData>()
-
-  const onSubmit = (data: FormData) => {
-    console.log(data)
-    setIsdisabled({ color: 'primary', disabled: true })
-    onClick()
-  }
 
   //TODO: RectangleButton 리팩터링 후 코드 수정
   interface IDisabled {
@@ -68,9 +63,21 @@ export default function EditPasswordPage({ onClick }: { onClick: () => void }) {
     })
   }, [prevPassword, newPassword, newPasswordCheck, trigger, errors])
 
-  //TODO: 기존 비밀번호와 비교하는 validate 함수 만들기
-  const checkPrevPassword = () => {
-    return true
+  const [errorMessage, setErrorMessage] = useState<string>('')
+  const onSubmit = (data: FormData) => {
+    setIsdisabled({ color: 'primary', disabled: true })
+
+    putMemberNewPassword({
+      password: data.prevPassword,
+      newPassword: data.newPassword,
+    })
+      .then(() => {
+        onClick()
+      })
+      .catch((err) => {
+        setErrorMessage(err.response.data.message)
+        console.error(err)
+      })
   }
 
   return (
@@ -84,26 +91,21 @@ export default function EditPasswordPage({ onClick }: { onClick: () => void }) {
             name="prevPassword"
             control={control}
             defaultValue=""
-            rules={{
-              validate: checkPrevPassword,
-            }}
             render={({ field }) => (
               <Input
                 {...field}
                 inputType="prevPassword"
                 placeholder="prevPassword"
-                errorType={
-                  errors.prevPassword ? errors.prevPassword.message : undefined
-                }
                 onChange={(e) => {
                   field.onChange(e)
                   setValue('prevPassword', e.target.value, {
-                    shouldValidate: true,
+                    shouldValidate: false,
                   })
                 }}
               />
             )}
           />
+          {errorMessage && <S.Error>*{errorMessage}</S.Error>}
           <Controller
             name="newPassword"
             control={control}

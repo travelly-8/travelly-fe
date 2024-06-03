@@ -1,10 +1,15 @@
 export const API_PRODUCTS = Object.freeze({
   PRODUCTS: '/products/',
   PRODUCTS_DETAIL: (productId: number) => `/products/${productId}`,
+  PRODUCTS_SEARCH: '/products/search',
 })
 
 export const API_MEMBER = Object.freeze({
   MY: '/my',
+  MY_PROFILE: '/my/profile',
+  MY_NICKNAME: (nickname: string) => `/my/profile?nickname=${nickname}`,
+  MY_PROFILE_IMG: '/my/profile/image',
+  MY_PASSWORD: '/my/profile/password',
 })
 
 export const API_AUTH = Object.freeze({

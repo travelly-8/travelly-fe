@@ -11,7 +11,12 @@ import FooterNavigation from '@components/footer-navigation'
 import HorizontalMenu from '@components/horizontal-menu'
 import PageHeader from '@components/page-header'
 import { useDispatch, useSelector } from 'react-redux'
+
 /* eslint-disable import/order */
+import { getMemberProfile, putMemberNickname } from '@/api/myAPI'
+import { API_MEMBER } from '@/constants/API'
+import useGetMemberProfile from '@/hooks/api/memberAPI/useGetMemberProfile'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import EditPasswordPage from '../components/edit-password'
 import * as S from './MyPageEditPage.style'
@@ -38,9 +43,24 @@ export default function MyPageEditPage() {
     { id: 2, icon: logoutSvg, text: '로그아웃', onClick: () => {} },
   ]
 
-  //TODO: 유저 기존 닉네임 BlurSheet에 placeholder로 넣기
-  //TODO: 소셜 로그인한 유저에게는 비밀번호 변경 메뉴 띄우지 않기
-  //TODO: 프로필 이미지 버튼 클릭 시 파일 불러오기
+  const { data, refetch } = useGetMemberProfile(API_MEMBER.MY_PROFILE, () =>
+    getMemberProfile(),
+  )
+
+  const [newNickname, setNewNickname] = useState<string>('')
+
+  const saveNewNickname = () => {
+    putMemberNickname({ nickname: newNickname })
+      .then(() => {
+        controlSheet('nickname', false)
+        refetch()
+      })
+      .catch((err) => {
+        console.error(err)
+      })
+  }
+
+  //TODO: 프로필 이미지 변경 API 연결
 
   return (
     <S.Wrapper>
@@ -55,13 +75,19 @@ export default function MyPageEditPage() {
           <S.PenImg src={purplePenSvg} alt="프로필 수정" />
         </S.ImgWrapper>
         <S.NicknameWrapper>
-          <S.Nickname>닉네임</S.Nickname>
+          <S.Nickname>{data?.nickname}</S.Nickname>
           <S.Edit onClick={() => controlSheet('nickname', true)}>수정</S.Edit>
         </S.NicknameWrapper>
-        <S.Email>travelly@gmail.com</S.Email>
+        <S.Email>{data?.email}</S.Email>
       </S.ProfileWrapper>
       <S.MenuWrapper>
-        {MENU_MAP.map((menu) => {
+        {MENU_MAP.filter((menu) => {
+          if (data?.type === 'social' && menu.text === '비밀번호 변경') {
+            return false
+          } else {
+            return true
+          }
+        }).map((menu) => {
           return (
             <S.Menu key={menu.id} idx={menu.id}>
               <HorizontalMenu
@@ -95,10 +121,16 @@ export default function MyPageEditPage() {
         <BlurSheet
           title="내 정보 수정"
           button="저장"
-          buttonClick={() => controlSheet('nickname', false)}
+          buttonClick={() => {
+            saveNewNickname()
+            //
+          }}
         >
           <S.BlurSheetWrapper>
-            <S.NewNicknameInput placeholder="닉네임" />
+            <S.NewNicknameInput
+              placeholder={data?.nickname}
+              onChange={(e) => setNewNickname(e.target.value)}
+            />
           </S.BlurSheetWrapper>
         </BlurSheet>
       )}
