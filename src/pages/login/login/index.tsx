@@ -1,20 +1,15 @@
 import { postLogin } from '@/api/authAPI'
-import * as S from '@/styles/authStyles'
+import { useFormValidation } from '@/hooks/useFormValidation'
 import isAxiosError from '@/utils/isAxiosError'
 import { saveTokens } from '@/utils/tokenStorage'
 import useKeyboardDetection from '@/utils/useKeyboardDetection'
 import { loginEmailValidate, loginPasswordValidate } from '@/utils/validate'
-import BackBar from '@components/back-bar'
+import FormContainer from '@components/form-container'
 import Input from '@components/input'
-import RectangleButton from '@components/rectangle-button'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-
-interface FormData {
-  email: string
-  password: string
-}
+import type { IErrorResponse, IFormData } from './Login.type'
 
 export default function LoginPage() {
   const isKeyboardOpen = useKeyboardDetection()
@@ -24,112 +19,104 @@ export default function LoginPage() {
     control,
     watch,
     setValue,
-    formState: { errors },
-  } = useForm<FormData>()
+    formState: { errors, isValid },
+  } = useForm<IFormData>({
+    mode: 'onChange',
+  })
   const email = watch('email')
   const password = watch('password')
-  const [allInputsFilled, setAllInputsFilled] = useState(false)
+  const [emailError, setEmailError] = useState<string | undefined>(undefined)
+  const [passwordError, setPasswordError] = useState<string | undefined>(
+    undefined,
+  )
 
-  const onSubmit = async (data: FormData) => {
+  const allInputsFilled = useFormValidation(
+    { email, password },
+    errors,
+    isValid,
+    [!emailError, !passwordError],
+  )
+
+  const onSubmit = async (data: IFormData) => {
     try {
       const response = await postLogin(data)
       const { accessToken, refreshToken } = response.data.token
       const { newUser } = response.data
       saveTokens(accessToken, refreshToken)
-      console.log('Login successful:', response.data)
-      console.log('newUser:', newUser)
       if (newUser) {
-        console.log('Navigating to /select-plan')
         navigate('/select-plan')
       } else {
-        console.log('Navigating to /browsing')
         navigate('/browsing')
       }
     } catch (error) {
       if (isAxiosError(error)) {
-        console.error('Login failed:', error.response?.data)
+        const responseData = error.response?.data as IErrorResponse
+        if (responseData.code === 'M002') {
+          setEmailError(responseData.message)
+        } else if (responseData.code === 'M003') {
+          setPasswordError(responseData.message)
+        }
       } else {
-        console.error('Login failed:', (error as Error).message)
+        // console.error('Login failed:', (error as Error).message)
       }
     }
   }
 
-  useEffect(() => {
-    const checkInputs = () => {
-      const filled = !!email && !!password && Object.keys(errors).length === 0
-      setAllInputsFilled(filled)
-    }
-
-    checkInputs()
-  }, [email, password, errors])
-
   return (
-    <>
-      <BackBar />
-      <S.Container $isKeyboardOpen={isKeyboardOpen}>
-        <S.Title>이메일로 로그인</S.Title>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <S.InputContainer>
-            <Controller
-              name="email"
-              control={control}
-              defaultValue=""
-              rules={{
-                validate: loginEmailValidate,
-              }}
-              render={({ field }) => (
-                <Input
-                  {...field}
-                  inputType="email"
-                  placeholder="email"
-                  errorType={errors.email ? errors.email.message : undefined}
-                  onChange={(e) => {
-                    field.onChange(e)
-                    setValue('email', e.target.value, { shouldValidate: true })
-                  }}
-                />
-              )}
-            />
-            <Controller
-              name="password"
-              control={control}
-              defaultValue=""
-              rules={{
-                validate: loginPasswordValidate,
-              }}
-              render={({ field }) => (
-                <Input
-                  {...field}
-                  inputType="password"
-                  placeholder="password"
-                  errorType={
-                    errors.password ? errors.password.message : undefined
-                  }
-                  onChange={(e) => {
-                    field.onChange(e)
-                    setValue('password', e.target.value, {
-                      shouldValidate: true,
-                    })
-                  }}
-                />
-              )}
-            />
-          </S.InputContainer>
-          <S.ButtonContainer>
-            <RectangleButton
-              type="submit"
-              color={allInputsFilled ? 'primary' : 'disabled'}
-              size="large"
-              disabled={!allInputsFilled}
-            >
-              로그인
-            </RectangleButton>
-          </S.ButtonContainer>
-        </form>
-        <S.LinkContainer>
-          <S.LinkText>아이디 | 비밀번호 찾기</S.LinkText>
-        </S.LinkContainer>
-      </S.Container>
-    </>
+    <FormContainer
+      isKeyboardOpen={isKeyboardOpen}
+      title="이메일로 로그인"
+      onSubmit={handleSubmit(onSubmit)}
+      allInputsFilled={allInputsFilled}
+      buttonText="로그인"
+    >
+      <Controller
+        name="email"
+        control={control}
+        defaultValue=""
+        rules={{
+          validate: loginEmailValidate,
+        }}
+        render={({ field }) => (
+          <Input
+            {...field}
+            inputType="email"
+            placeholder="email"
+            errorType={
+              emailError || (errors.email ? errors.email.message : undefined)
+            }
+            onChange={(e) => {
+              setEmailError(undefined)
+              field.onChange(e)
+              setValue('email', e.target.value, { shouldValidate: true })
+            }}
+          />
+        )}
+      />
+      <Controller
+        name="password"
+        control={control}
+        defaultValue=""
+        rules={{
+          validate: loginPasswordValidate,
+        }}
+        render={({ field }) => (
+          <Input
+            {...field}
+            inputType="password"
+            placeholder="password"
+            errorType={
+              passwordError ||
+              (errors.password ? errors.password.message : undefined)
+            }
+            onChange={(e) => {
+              setPasswordError(undefined)
+              field.onChange(e)
+              setValue('password', e.target.value, { shouldValidate: true })
+            }}
+          />
+        )}
+      />
+    </FormContainer>
   )
 }

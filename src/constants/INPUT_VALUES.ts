@@ -12,16 +12,13 @@ export const INPUT_LABELS: InputValuesType = {
 }
 
 export const INPUT_ERROR_TYPE: InputValuesType = {
-  nameInvalidRegex: '잘못된 닉네임 형식입니다.',
-  nameDuplicated: '이미 사용중인 닉네임 입니다.',
+  nameInvalidRegex: '2자 이상 16자 미만으로 입력해 주세요.',
   emailInvalidRegex: '잘못된 이메일 형식입니다.',
-  emailDuplicated: '이미 사용중인 이메일 입니다.',
   emailNotMatch: '이메일을 확인해주세요.',
   passwordNotMatch: '비밀번호를 확인해주세요.',
-  passwordInvalidLength: '8자 이상 입력해주세요.',
-  passwordInvalidRegex: '잘못된 비밀번호 형식입니다.',
+  passwordInvalidRegex:
+    '영문, 숫자, 특수문자를 포함한 8자리 이상 입력해 주세요.',
   passwordCheckNotMatched: '비밀번호가 일치하지 않습니다.',
-  passwordConfirmNotMatched: '비밀번호가 일치하지 않습니다.',
 }
 
 export const INPUT_PLACEHOLDER: InputValuesType = {
