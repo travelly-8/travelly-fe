@@ -47,7 +47,7 @@ export default function SelectPlanPage() {
       await putRole(userType)
       console.log('success')
       openSheet(userType === 'traveller' ? 'traveller' : 'travelly')
-      // navigate('/browsing')
+      navigate('/browsing')
     } catch (error) {
       if (isAxiosError(error)) {
         console.error('Login failed:', error.response?.data)
