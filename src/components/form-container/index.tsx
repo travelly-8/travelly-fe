@@ -1,7 +1,7 @@
 import * as S from '@/styles/authStyles'
 import BackBar from '@components/back-bar'
 import RectangleButton from '@components/rectangle-button'
-import type { IFormContainerProps } from './formContainer.type'
+import { IFormContainerProps } from './FormContainer.type'
 
 const FormContainer = ({
   isKeyboardOpen,
