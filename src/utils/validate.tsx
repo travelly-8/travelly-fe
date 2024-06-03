@@ -10,7 +10,7 @@ const validateHelper = (validateFn: (value: string) => string | true) => {
 }
 
 const loginEmailValidateFn = (value: string) => {
-  if (value === '가입된 이메일') {
+  if (value === '가입되지 않은 이메일') {
     return INPUT_ERROR_TYPE.emailNotMatch
   }
   if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value)) {
