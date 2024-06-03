@@ -5,7 +5,15 @@ export type InputValuesType = {
 }
 
 export interface IInput {
-  inputType?: 'name' | 'email' | 'password' | 'passwordCheck'
+  inputType?:
+    | 'name'
+    | 'email'
+    | 'password'
+    | 'passwordCheck'
+    | 'passwordConfirm'
+    | 'prevPassword'
+    | 'newPassword'
+    | 'newPasswordCheck'
   inputRef?: RefObject<HTMLInputElement>
   passwordValue?: string
   errorType?: string | null

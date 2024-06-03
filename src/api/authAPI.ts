@@ -1,7 +1,7 @@
 import { API_AUTH } from '@/constants/API'
 import type { DataType, ISignup, ReissueType } from '@/types/postAuthData.type'
-
 import instance from './instance'
+
 export const putRole = (role: string) => {
   return instance({
     method: 'PUT',

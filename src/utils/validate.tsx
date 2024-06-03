@@ -10,9 +10,6 @@ const validateHelper = (validateFn: (value: string) => string | true) => {
 }
 
 const loginEmailValidateFn = (value: string) => {
-  if (value === '가입된 이메일') {
-    return INPUT_ERROR_TYPE.emailNotMatch
-  }
   if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value)) {
     return INPUT_ERROR_TYPE.emailInvalidRegex
   }
@@ -20,9 +17,6 @@ const loginEmailValidateFn = (value: string) => {
 }
 
 const loginPasswordValidateFn = (value: string) => {
-  if (value === '잘못된 비밀번호') {
-    return INPUT_ERROR_TYPE.passwordNotMatch
-  }
   if (value.length < 8 && value.length > 64) {
     return INPUT_ERROR_TYPE.passwordInvalidLength
   }
@@ -30,9 +24,6 @@ const loginPasswordValidateFn = (value: string) => {
 }
 
 const signupNameValidateFn = (value: string) => {
-  if (value === '이미 가입된 닉네임') {
-    return INPUT_ERROR_TYPE.nameDuplicated
-  }
   const totalLength = [...value].reduce((acc, char) => {
     const charCode = char.charCodeAt(0)
     if (charCode >= 44032 && charCode <= 55199) {
@@ -59,17 +50,13 @@ const signupEmailValidateFn = (value: string) => {
   if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value)) {
     return INPUT_ERROR_TYPE.emailInvalidRegex
   }
-  if (value === '이미 가입된 이메일') {
-    return INPUT_ERROR_TYPE.emailDuplicated
-  }
   return true
 }
 
 const signupPasswordValidateFn = (value: string) => {
-  if (value.length < 8 || value.length > 64) {
-    return INPUT_ERROR_TYPE.passwordInvalidLength
-  }
   if (
+    value.length < 8 ||
+    value.length > 64 ||
     !value.match(
       /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,64}$/,
     )

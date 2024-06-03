@@ -2,7 +2,7 @@ import * as S from './Bubble.style.tsx'
 
 import type { IBubbleMap } from './Bubble.type.ts'
 
-const Bubble = ({ bubbleType }: { bubbleType: 'traveller' | 'travellee' }) => {
+const Bubble = ({ bubbleType }: { bubbleType: 'traveller' | 'travelly' }) => {
   const BubbleMap: IBubbleMap = {
     traveller: {
       title: '트래블러란?',
@@ -14,7 +14,7 @@ const Bubble = ({ bubbleType }: { bubbleType: 'traveller' | 'travellee' }) => {
       icon: 'passport',
       bubbleDirection: 'left',
     },
-    travellee: {
+    travelly: {
       title: '트래블리란?',
       text: (
         <p>
