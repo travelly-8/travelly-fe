@@ -46,7 +46,7 @@ export default function LoginPage() {
       if (newUser) {
         navigate('/select-plan')
       } else {
-        navigate('/browsing')
+        navigate('/')
       }
     } catch (error) {
       if (isAxiosError(error)) {

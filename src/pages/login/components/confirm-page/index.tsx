@@ -12,7 +12,7 @@ const ConfirmPage = () => {
   )
 
   const handleCreateAccount = () => {
-    navigate('/browsing')
+    navigate('/')
   }
 
   return (
