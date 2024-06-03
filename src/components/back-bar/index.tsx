@@ -13,7 +13,7 @@ const BackBar = () => {
     //TODO: 임시 경로 처리. 나중에 페이지가 더 늘어나면 다시 로직 짜야할 거 같습니다.
 
     if (isProductsPage) {
-      if (type === '0') {
+      if (type) {
         navigate(-1)
       } else {
         navigate('/products?type=0')
