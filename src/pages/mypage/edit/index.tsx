@@ -11,7 +11,12 @@ import FooterNavigation from '@components/footer-navigation'
 import HorizontalMenu from '@components/horizontal-menu'
 import PageHeader from '@components/page-header'
 import { useDispatch, useSelector } from 'react-redux'
+
 /* eslint-disable import/order */
+import axios from '@/api/axios'
+import { getMemberProfile } from '@/api/myAPI'
+import { API_MEMBER } from '@/constants/API'
+import useGetMemberProfile from '@/hooks/api/memberAPI/useGetMemberProfile'
 import { useNavigate } from 'react-router-dom'
 import EditPasswordPage from '../components/edit-password'
 import * as S from './MyPageEditPage.style'
@@ -37,6 +42,16 @@ export default function MyPageEditPage() {
     },
     { id: 2, icon: logoutSvg, text: '로그아웃', onClick: () => {} },
   ]
+
+  const { data } = useGetMemberProfile(API_MEMBER.MY_PROFILE, () =>
+    getMemberProfile(),
+  )
+
+  axios.get('http://3.36.62.116:8080/my/profile').then((res) => {
+    console.log(res)
+  })
+
+  console.log(data)
 
   //TODO: 유저 기존 닉네임 BlurSheet에 placeholder로 넣기
   //TODO: 소셜 로그인한 유저에게는 비밀번호 변경 메뉴 띄우지 않기

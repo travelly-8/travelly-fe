@@ -6,6 +6,10 @@ export const API_PRODUCTS = Object.freeze({
 
 export const API_MEMBER = Object.freeze({
   MY: '/my',
+  MY_PROFILE: '/my/profile',
+  MY_NICKNAME: (nickname: string) => `/my/profile/nickname=${nickname}`,
+  MY_PROFILE_IMG: '/my/profile/image',
+  MY_PASSWORD: '/my/profile/password',
 })
 
 export const API_AUTH = Object.freeze({

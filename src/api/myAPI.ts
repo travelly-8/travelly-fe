@@ -8,3 +8,10 @@ export const getMember = () => {
     url: API_MEMBER.MY,
   })
 }
+
+export const getMemberProfile = () => {
+  return instance({
+    method: 'GET',
+    url: API_MEMBER.MY_PROFILE,
+  })
+}
