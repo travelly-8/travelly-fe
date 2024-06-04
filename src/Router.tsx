@@ -1,5 +1,7 @@
 import GlobalStyles from '@/styles/GlobalStyles'
+
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+
 import AuthCallback from './pages/auth'
 import HomePage from './pages/home'
 import LoginPage from './pages/login/login'
@@ -9,6 +11,7 @@ import MyPageEditPage from './pages/mypage/edit'
 import ExitPage from './pages/mypage/exit'
 import GoodbyePage from './pages/mypage/good-bye'
 import ProductsPage from './pages/products'
+import ProductsDetail from './pages/productsdetail'
 import Result from './pages/result'
 import SignupStartPage from './pages/signup'
 import SignupEndPage from './pages/signup/end'
@@ -33,6 +36,7 @@ export default function AppRouter() {
         <Route path="/exit" element={<ExitPage />} />
         <Route path="/goodbye" element={<GoodbyePage />} />
         <Route path="/auth/callback/:platform" element={<AuthCallback />} />
+        <Route path="/productsdetail" element={<ProductsDetail />} />
       </Routes>
     </BrowserRouter>
   )
