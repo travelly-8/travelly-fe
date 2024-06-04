@@ -4,6 +4,7 @@ import {
   IPutMemberNewPassword,
 } from '@/types/putMemberData.type'
 
+import fileInstance from './fileInstance'
 import instance from './instance'
 
 export const getMember = () => {
@@ -24,7 +25,7 @@ export const putMemberNewPassword = (data: IPutMemberNewPassword) => {
   return instance({
     method: 'PUT',
     url: API_MEMBER.MY_PASSWORD,
-    data: data,
+    data,
   })
 }
 
@@ -32,5 +33,13 @@ export const putMemberNickname = (data: IPutMemberNewNickname) => {
   return instance({
     method: 'PUT',
     url: API_MEMBER.MY_NICKNAME(data.nickname),
+  })
+}
+
+export const putMemberProfileImage = (data: FormData) => {
+  return fileInstance({
+    method: 'PUT',
+    url: API_MEMBER.MY_PROFILE_IMG,
+    data,
   })
 }
