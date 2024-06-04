@@ -1,75 +1,52 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 
-import { getSearchProducts } from '@/api/productsAPI'
-import useGetSearchProducts from '@/hooks/api/productsAPI/useGetSearchProducts'
+import useInfiniteCardsQuery from '@/hooks/api/productsAPI/useInfiniteCardsQuery'
+import useProductCardsParams from '@/hooks/api/productsAPI/useProductCardsParams'
+import useIntersectionObserver from '@/hooks/useIntersectionObserver'
+import AppBar from '@/pages/products/components/app-bar'
 import FilteringSheet from '@/pages/products/components/filtering-sheet'
 import SortOrdersSheet from '@/pages/products/components/sort-orders-sheet'
 import { SheetSliceState, sheet } from '@/store/sheet-slice.ts'
-import { ISearchProductsData } from '@/types/postProductData.type'
 
 import ProductCard from '@components/product-card'
 import ProductHeader from '@components/product-header'
 import { useDispatch, useSelector } from 'react-redux'
-import { useLocation } from 'react-router-dom'
 
 import * as S from './ProductsPage.style'
 
-const sortField: { [key: string]: string } = {
-  최신순: 'modifiedDate',
-  '리뷰 많은 순': 'reviewCount',
-  평점순: 'rating',
-  '낮은 가격순': 'price',
-}
-
-function ProductsPage() {
-  const [isKebabClicked, setIsKebabClicked] = useState(false)
-
+const ProductsPage = () => {
   const dispatch = useDispatch()
-  const location = useLocation()
-  const queryParams = new URLSearchParams(location.search)
+  const cardsQueryData = useProductCardsParams()
 
-  const input = queryParams.get('input')
-  const type = queryParams.get('type')
-  const minPrice = queryParams.get('minPrice')
-  const maxPrice = queryParams.get('maxPrice')
-  // const startTime = queryParams.get('startTime')
-  // const endTime = queryParams.get('endTime')
-  const date = queryParams.get('date')
-  const city = queryParams.get('city')
-  const sort = queryParams.get('sort')
+  const [isKebabClicked, setIsKebabClicked] = useState(false)
+  const {
+    data: cardData,
+    hasNextPage,
+    fetchNextPage,
+  } = useInfiniteCardsQuery(cardsQueryData)
 
-  const queryData: ISearchProductsData = {
-    page: 1,
-    size: 10,
-    sortField: sort ? sortField[sort] : undefined,
-    sortType: undefined,
-    keyword: input || undefined,
-    cityCode: city === '0' ? undefined : (city as string),
-    contentType:
-      type === '0' || type === undefined ? undefined : (type as string),
-    startDate: date || undefined,
-    endDate: date || undefined,
-    startTime: undefined,
-    endTime: undefined,
-    minPrice: Number(minPrice) || undefined,
-    maxPrice: Number(maxPrice) || undefined,
-  }
+  const cardsContents = useMemo(
+    () => (cardData ? cardData.pages.flatMap((page) => page.content) : []),
+    [cardData],
+  )
+  const totalElements = cardData?.pages[0]?.totalElements
 
-  const { data } = useGetSearchProducts(queryData, getSearchProducts, queryData)
-  const cardsContents = data?.content
+  const ref = useIntersectionObserver(async (entry, observer) => {
+    observer.unobserve(entry.target)
+    if (hasNextPage) {
+      await fetchNextPage()
+    }
+  })
 
   const sheetReducer = useSelector(
     (state: SheetSliceState) => state.sheet.value,
   )
-
   const handleOrderClick = () => {
     dispatch(sheet({ name: 'order-sheet', status: true, text: '' }))
   }
-
   const handleFilterClick = () => {
     dispatch(sheet({ name: 'filter-sheet', status: true, text: '' }))
   }
-
   if (sheetReducer.status && sheetReducer.name === 'filter-sheet') {
     return <FilteringSheet />
   }
@@ -79,21 +56,11 @@ function ProductsPage() {
     <>
       <ProductHeader kebabClick={() => setIsKebabClicked(!isKebabClicked)} />
       <S.PageContainer $isSearchSheet={isSearchSheet}>
-        {isKebabClicked && <S.BackDrop />}
-        <S.AppBarWrapper>
-          <S.AppBar>
-            <S.ProductInfo>
-              <S.ProductType>상품</S.ProductType>
-              <S.ProductCount>(00,000개)</S.ProductCount>
-            </S.ProductInfo>
-            <S.OrderFilterWrapper>
-              <S.Order onClick={handleOrderClick}>정렬</S.Order>
-              <S.Filter onClick={handleFilterClick}>
-                <img src="/src/assets/products/filter.svg" alt="필터" />
-              </S.Filter>
-            </S.OrderFilterWrapper>
-          </S.AppBar>
-        </S.AppBarWrapper>
+        <AppBar
+          totalElements={totalElements}
+          onOrderClick={handleOrderClick}
+          onFilterClick={handleFilterClick}
+        />
         <S.AllProductsSection>
           <S.AllCardWrapper>
             {cardsContents?.map((cardData) => (
@@ -101,6 +68,7 @@ function ProductsPage() {
             ))}
           </S.AllCardWrapper>
         </S.AllProductsSection>
+        {hasNextPage && <S.Target ref={ref} />}
         {sheetReducer.status && sheetReducer.name === 'order-sheet' && (
           <SortOrdersSheet />
         )}
@@ -108,5 +76,4 @@ function ProductsPage() {
     </>
   )
 }
-
 export default ProductsPage

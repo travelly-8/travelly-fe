@@ -22,7 +22,6 @@ export default function AppRouter() {
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup/start" element={<SignupStartPage />} />
-        {/* <Route path="/search" element={<SearchPage />} /> */}
         <Route path="/result" element={<div>result page</div>} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/signup/end" element={<SignupEndPage />} />

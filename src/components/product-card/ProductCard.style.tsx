@@ -8,7 +8,7 @@ interface IContainerProps extends SizeProps {
   onClick: () => void
 }
 
-export const Container = styled.div<IContainerProps>`
+export const Container = styled.li<IContainerProps>`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -58,7 +58,7 @@ export const District = styled.span``
 
 export const DiscountPrice = styled.div<SizeProps>`
   display: flex;
-  gap: 0.1rem;
+  gap: 0.3rem;
   ${({ size }) => `
     font-size: ${size === 'sm' ? '1.2rem' : '1.4rem'};
   `}

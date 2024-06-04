@@ -27,10 +27,10 @@ const FilteringSheet = () => {
   const input = queryParams.get('input')
   const type = queryParams.get('type')
 
-  const minPriceValue = watch('min-price') || 50000
+  const minPriceValue = watch('min-price') || 0
   const maxPriceValue = watch('max-price') || 100000
-  const startTimeValue = watch('start-time') || 11
-  const endTimeValue = watch('end-time') || 17
+  const startTimeValue = watch('start-time') || 0
+  const endTimeValue = watch('end-time') || 23
   const dateValue = watch('date') || new Date()
 
   function handleSubmit() {

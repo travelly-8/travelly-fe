@@ -6,9 +6,9 @@ export const DAY_TO_STRING = {
   4: '목',
   5: '금',
   6: '토',
-}
+} as const
 
-export const LOCALE_CODE_LIST = {
+export const LOCALE_CODE_LIST: { [key: string]: string } = {
   0: '전체',
   1: '서울',
   9: '경기도',
@@ -27,4 +27,11 @@ export const LOCALE_CODE_LIST = {
   15: '전북',
   5: '광주',
   17: '제주도',
-}
+} as const
+
+export const SORT_FIELD: { [key: string]: string } = {
+  최신순: 'modifiedDate',
+  '리뷰 많은 순': 'reviewCount',
+  평점순: 'rating',
+  '낮은 가격순': 'price',
+} as const
