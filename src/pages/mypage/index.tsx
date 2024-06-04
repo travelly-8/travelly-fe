@@ -5,19 +5,17 @@ import PageHeader from '@components/page-header'
 
 import CommunityList from './components/community-list'
 import Dashboard from './components/dashboard'
-import MyProductList from './components/my-product-list'
 import ProfileTab from './components/profile-tab'
-import RecentViewList from './components/recent-view-list'
 import data from './dummyData.json'
 import * as S from './Mypage.style'
 
 export default function MyPage() {
-  const { email, nickname, coin, imageUrl, role, reviews, recentViews } = data
+  const { email, nickname, coin, imageUrl, role, reviews } = data
 
-  const PRODUCT_MENU: Record<string, JSX.Element> = {
-    traveler: <MyProductList data={recentViews} />,
-    travelly: <RecentViewList data={recentViews} />,
-  }
+  // const PRODUCT_MENU: Record<string, JSX.Element> = {
+  //   traveler: <MyProductList data={recentViews} />,
+  //   travelly: <RecentViewList data={recentViews} />,
+  // }
   return (
     <S.Wrapper>
       <PageHeader>
@@ -29,7 +27,7 @@ export default function MyPage() {
       <ProfileTab data={{ email, nickname, imageUrl }} />
       <Dashboard data={{ role, coin, reviews }} />
       <S.CardListWrapper>
-        {PRODUCT_MENU[role]}
+        {/* {PRODUCT_MENU[role]} */}
         <CommunityList />
       </S.CardListWrapper>
       <S.FooterWrapper>
