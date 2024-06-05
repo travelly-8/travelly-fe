@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { Fragment, useState } from 'react'
 
 import { LOCALE_CODE_LIST } from '@/constants/FILTERING_BROWSING'
 import { registerRecentProducts } from '@/utils/registerLocalStorage'
@@ -40,15 +40,19 @@ function ProductCard({ cardData, size }: IProductCardProps) {
         <S.Location size={size}>
           <S.City>{city}</S.City>·<S.District>{district}</S.District>
         </S.Location>
-        <S.DiscountPrice size={size}>
-          <S.Discount>{discount}%</S.Discount>
-          <S.Price>{formattedPrice}원</S.Price>
-        </S.DiscountPrice>
-        <S.Review size={size}>
-          <S.Star src="src/assets/home/empty-star.svg" />
-          <S.ReviewPoint>{rating}</S.ReviewPoint>
-          <S.ReviewCount>({reviewCount})</S.ReviewCount>
-        </S.Review>
+        {size !== 'summary' && (
+          <Fragment>
+            <S.DiscountPrice size={size}>
+              <S.Discount>{discount}%</S.Discount>
+              <S.Price>{formattedPrice}원</S.Price>
+            </S.DiscountPrice>
+            <S.Review size={size}>
+              <S.Star src="src/assets/home/empty-star.svg" />
+              <S.ReviewPoint>{rating}</S.ReviewPoint>
+              <S.ReviewCount>({reviewCount})</S.ReviewCount>
+            </S.Review>
+          </Fragment>
+        )}
       </S.ContentsWrapper>
     </S.Container>
   )
