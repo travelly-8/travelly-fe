@@ -34,7 +34,7 @@ const PrimaryRoundButton = ({
       className={className}
       onClick={onClick}
       onKeyDown={onKeyDown}
-      disabled={disabled}
+      $disabled={disabled}
       $size={size}
     >
       {children}
