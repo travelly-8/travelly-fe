@@ -2,6 +2,9 @@ import { getSearchProducts } from '@/api/productsAPI'
 import { API_PRODUCTS } from '@/constants/API'
 import useGetAllProducts from '@/hooks/api/productsAPI/useGetAllProducts'
 import useProductCardsParams from '@/hooks/api/productsAPI/useProductCardsParams'
+import { sheet, SheetSliceState } from '@/store/sheet-slice'
+import { useDispatch, useSelector } from 'react-redux'
+import EditSheet from './components/edit-sheet'
 import Footer from './components/footer'
 import RecommendCard from './components/recommend-card'
 
@@ -28,10 +31,23 @@ const Result = () => {
   )
   const cards = data?.content ?? mockCard
 
+  const dispatch = useDispatch()
+  const sheetReducer = useSelector(
+    (state: SheetSliceState) => state.sheet.value,
+  )
+
   return (
     <div>
       'result page'
+      <button
+        onClick={() => dispatch(sheet({ name: 'edit-sheet', status: true }))}
+      >
+        open edit sheet
+      </button>
       <RecommendCard cards={cards} />
+      {sheetReducer.status && sheetReducer.name === 'edit-sheet' && (
+        <EditSheet />
+      )}
       {/* 이후 api에서 받아오는 데이터에 따라 isBookmarked에 넣어주세요 */}
       <Footer
         isBookmarked={true}
