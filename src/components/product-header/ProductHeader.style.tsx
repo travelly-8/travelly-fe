@@ -1,5 +1,16 @@
 import styled from 'styled-components'
 
+export const ProductHeaderBackground = styled.div`
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-black);
+  opacity: 0.5;
+  z-index: 999;
+  cursor: pointer;
+`
+
 export const ProductHeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;

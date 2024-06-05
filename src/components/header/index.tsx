@@ -44,19 +44,28 @@ const Header: React.FC<IHeaderProps> = ({ kebabClick }) => {
   }
   const kebabImg = isKebabClicked ? kebabClickedIcon : kebabIcon
   return (
-    <S.HeaderContainer>
-      <S.Label onClick={handleLabelClick}>Travelly</S.Label>
-      <S.IconContainer>
-        <S.Icon
-          src={searchIcon}
-          alt="search"
-          onClick={() => handleSearchClick()}
+    <>
+      {isKebabClicked && (
+        <S.HeaderBackground
+          onClick={() => {
+            setIsKebabClicked(false)
+          }}
         />
-        <S.Icon src={alarmIcon} alt="alarm" />
-        <S.Icon src={kebabImg} alt="kebab" onClick={handleKebabClick} />
-      </S.IconContainer>
-      {isKebabClicked && <CategorySection />}
-    </S.HeaderContainer>
+      )}
+      <S.HeaderContainer>
+        <S.Label onClick={handleLabelClick}>Travelly</S.Label>
+        <S.IconContainer>
+          <S.Icon
+            src={searchIcon}
+            alt="search"
+            onClick={() => handleSearchClick()}
+          />
+          <S.Icon src={alarmIcon} alt="alarm" />
+          <S.Icon src={kebabImg} alt="kebab" onClick={handleKebabClick} />
+        </S.IconContainer>
+        {isKebabClicked && <CategorySection />}
+      </S.HeaderContainer>
+    </>
   )
 }
 

@@ -130,13 +130,28 @@ export const SheetTextWraeppr = styled.div<ISheet>`
     props.idx > 1 ? '0.1rem solid var(--color-gray-light)' : '0'};
   width: 100%;
   cursor: pointer;
+  position: relative;
 `
 export const SheetText = styled.span`
   color: var(--colro-black);
   font-size: 1.4rem;
   font-weight: 400;
   line-height: 2.38rem; /* 170% */
+  white-space: nowrap;
 `
+
+export const FileInput = styled.input`
+  position: absolute;
+  left: 0;
+  z-index: 2;
+  color: transparent;
+  cursor: pointer;
+  &::file-selector-button {
+    display: none;
+    background-color: yellow;
+  }
+`
+
 export const BlurSheetWrapper = styled.div`
   border-bottom: 0.2rem solid var(--color-white);
   padding: 0.8rem;

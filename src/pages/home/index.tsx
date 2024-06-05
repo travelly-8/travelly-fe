@@ -1,9 +1,9 @@
 import { useRef, useState } from 'react'
 
-import { getAllProducts } from '@/api/productsAPI'
+import { getSearchProducts } from '@/api/productsAPI'
 import { API_PRODUCTS } from '@/constants/API'
-import { mockData1 } from '@/constants/MOCK_DATA'
 import useGetAllProducts from '@/hooks/api/productsAPI/useGetAllProducts'
+import useProductCardsParams from '@/hooks/api/productsAPI/useProductCardsParams'
 import useScrollHandlers from '@/hooks/useScrollHandlers'
 import { SheetSliceState } from '@/store/sheet-slice.ts'
 
@@ -17,6 +17,7 @@ import * as S from './HomePage.style'
 
 function HomePage() {
   const navigate = useNavigate()
+  const cardsQueryData = useProductCardsParams()
   const [isKebabClicked, setIsKebabClicked] = useState(false)
   const sheetReducer = useSelector(
     (state: SheetSliceState) => state.sheet.value,
@@ -28,12 +29,11 @@ function HomePage() {
   const scrollPopularHandlers = useScrollHandlers(popularProductRef)
   const scrollRecommendHandlers = useScrollHandlers(recommendProductRef)
 
-  // react-query 사용 예시
-
   const { data } = useGetAllProducts(API_PRODUCTS.PRODUCTS, () =>
-    getAllProducts(0, 10),
+    getSearchProducts(cardsQueryData),
   )
-  const responseData = data?.content
+  //TODO: 인기상품, 추천상품 논의 후 나중에 적용
+  const cardsContents = data?.content
 
   return (
     <>
@@ -42,7 +42,6 @@ function HomePage() {
         $isKebabClicked={isKebabClicked}
         $isSheet={sheetReducer.status}
       >
-        {isKebabClicked && <S.BackDrop />}
         <S.ProductsSection>
           <S.SectionTitleWrapper>
             <S.SectionTitleIcon src="src/assets/home/trophy.svg" />
@@ -50,12 +49,8 @@ function HomePage() {
           </S.SectionTitleWrapper>
           <S.SectionContentsWrapper>
             <S.CardWrapper ref={popularProductRef} {...scrollPopularHandlers}>
-              {mockData1.map((cardData) => (
-                <ProductCard
-                  key={cardData.name}
-                  cardData={cardData}
-                  size="sm"
-                />
+              {cardsContents?.map((cardData) => (
+                <ProductCard key={cardData.id} cardData={cardData} size="sm" />
               ))}
             </S.CardWrapper>
           </S.SectionContentsWrapper>
@@ -70,12 +65,8 @@ function HomePage() {
               ref={recommendProductRef}
               {...scrollRecommendHandlers}
             >
-              {mockData1.map((cardData) => (
-                <ProductCard
-                  key={cardData.name}
-                  cardData={cardData}
-                  size="sm"
-                />
+              {cardsContents?.map((cardData) => (
+                <ProductCard key={cardData.id} cardData={cardData} size="sm" />
               ))}
             </S.CardWrapper>
           </S.SectionContentsWrapper>
@@ -88,20 +79,9 @@ function HomePage() {
             </S.ShowAllProducts>
           </S.ALLTitleWrapper>
           <S.AllCardWrapper>
-            {responseData?.map((data, i) => {
-              const cardData = {
-                image: data.imageUrl,
-                name: data.name,
-                city: '서울시',
-                district: '서초구', //상의해야할 부분
-                discount: 10,
-                price: data.ticketPrice[Object.keys(data.ticketPrice)[0]],
-                reviewPoint: data.rating,
-                reviewCount: data.reviewCount,
-              }
-
-              return <ProductCard key={i} cardData={cardData} size="bg" />
-            })}
+            {cardsContents?.map((cardData) => (
+              <ProductCard key={cardData.id} cardData={cardData} size="bg" />
+            ))}
           </S.AllCardWrapper>
         </S.AllProductsSection>
         <FooterNavigation />
