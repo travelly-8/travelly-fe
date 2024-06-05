@@ -97,20 +97,10 @@ export default function MyPageEditPage() {
     }
   }
 
-  //TODO: 프사 리셋 api
+  //TODO: 프사 리셋 api 연결 필요
   const resetProfileImage = () => {
     setProfileImage(defaultProfileImg)
-    // const formData = new FormData()
-    // formData.append('file', undefined)
-    // putMemberProfileImage(formData)
-    //   .then((res) => {
-    //     console.log(res)
-    //     refetch()
-    //     controlSheet('profile', false)
-    //   })
-    //   .catch((err) => {
-    //     console.error(err)
-    //   })
+    controlSheet('profile', false)
   }
 
   return (
