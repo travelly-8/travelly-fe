@@ -13,10 +13,7 @@ export default function GoodbyePage() {
         <S.UpperText>안녕히가세요!</S.UpperText>
         <S.LowerText>다음에 또 만나길 기다리고 있을게요.</S.LowerText>
       </S.TextWrapper>
-      <RectangleButton onClick={() => navigate('/signup/start')}>
-        처음으로
-      </RectangleButton>
-      <S.CloseButton>종료</S.CloseButton>
+      <RectangleButton onClick={() => navigate('/')}>처음으로</RectangleButton>
     </S.Wrapper>
   )
 }
