@@ -32,27 +32,44 @@ export default function SelectPlanPage() {
 
   const handleButtonClick = async (userType: 'traveller' | 'travelly') => {
     if (userType === 'traveller') {
-      setTravellerStatus('selected')
-      setTravellyStatus('unselected')
-    } else {
-      setTravellerStatus('unselected')
-      setTravellyStatus('selected')
-    }
-
-    try {
-      let token = getAccessToken()
-      if (!token) {
-        token = await refreshAccessToken()
-      }
-      // console.log(`Updating user type to: ${userType} with token: ${token}`)
-      await putRole(userType)
-      // console.log('success')
-      openSheet(userType === 'traveller' ? 'traveller' : 'travelly')
-    } catch (error) {
-      if (isAxiosError(error)) {
-        // console.error('Login failed:', error.response?.data)
+      if (travellerStatus === 'selected') {
+        try {
+          let token = getAccessToken()
+          if (!token) {
+            token = await refreshAccessToken()
+          }
+          await putRole(userType)
+          openSheet('traveller')
+        } catch (error) {
+          if (isAxiosError(error)) {
+            // Handle error
+          } else {
+            // Handle error
+          }
+        }
       } else {
-        // console.error('Login failed:', (error as Error).message)
+        setTravellerStatus('selected')
+        setTravellyStatus('unselected')
+      }
+    } else {
+      if (travellyStatus === 'selected') {
+        try {
+          let token = getAccessToken()
+          if (!token) {
+            token = await refreshAccessToken()
+          }
+          await putRole(userType)
+          openSheet('travelly')
+        } catch (error) {
+          if (isAxiosError(error)) {
+            // Handle error
+          } else {
+            // Handle error
+          }
+        }
+      } else {
+        setTravellerStatus('unselected')
+        setTravellyStatus('selected')
       }
     }
   }
