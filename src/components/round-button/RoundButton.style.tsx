@@ -62,6 +62,7 @@ export const BasicButton = styled.button`
 
 export const PrimaryButton = styled(BasicButton)<{
   $size: SizeType
+  $disabled: boolean
 }>`
   ${({ $size }) => sizeCssString($size)}
 
@@ -69,6 +70,8 @@ export const PrimaryButton = styled(BasicButton)<{
   padding-left: 2rem;
 
   background-color: var(--color-main);
+  opacity: ${({ $disabled }) => $disabled && 0.5};
+  cursor: ${({ $disabled }) => $disabled && 'default'};
   color: var(--color-white);
 `
 
