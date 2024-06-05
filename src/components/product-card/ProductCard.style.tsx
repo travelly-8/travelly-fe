@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 interface SizeProps {
-  size: 'sm' | 'bg'
+  size: 'sm' | 'bg' | 'summary'
 }
 
 interface IContainerProps extends SizeProps {
@@ -14,15 +14,15 @@ export const Container = styled.li<IContainerProps>`
   flex-direction: column;
   flex-shrink: 0;
   ${({ size }) => `
-    width: ${size === 'sm' ? '10.2rem' : '100%'};
+    width: ${size === 'sm' || size === 'summary' ? '10.2rem' : '100%'};
   `}
   overflow: hidden;
 `
 
 export const CardImage = styled.img<SizeProps>`
   ${({ size }) => `
-    width: ${size === 'sm' ? '10.2rem' : '100%'};
-    height: ${size === 'sm' ? '10.2rem' : '15.2rem'};
+    width: ${size === 'sm' || size === 'summary' ? '10.2rem' : '100%'};
+    height: ${size === 'sm' || size === 'summary' ? '10.2rem' : '15.2rem'};
   `}
 `
 
@@ -48,7 +48,7 @@ export const Location = styled.p<SizeProps>`
   display: flex;
   gap: 0.2rem;
   ${({ size }) => `
-    font-size: ${size === 'sm' ? '1rem' : '1.2rem'};
+    font-size: ${size === 'sm' || size === 'summary' ? '1rem' : '1.2rem'};
   `}
 `
 
@@ -60,7 +60,7 @@ export const DiscountPrice = styled.div<SizeProps>`
   display: flex;
   gap: 0.3rem;
   ${({ size }) => `
-    font-size: ${size === 'sm' ? '1.2rem' : '1.4rem'};
+    font-size: ${size === 'sm' || size === 'summary' ? '1.2rem' : '1.4rem'};
   `}
 `
 
@@ -80,7 +80,7 @@ export const Review = styled.div<SizeProps>`
   align-items: center;
   color: var(--color-gray-middle);
   ${({ size }) => `
-    font-size: ${size === 'sm' ? '1rem' : '1.2rem'};
+    font-size: ${size === 'sm' || size === 'summary' ? '1rem' : '1.2rem'};
   `}
 `
 

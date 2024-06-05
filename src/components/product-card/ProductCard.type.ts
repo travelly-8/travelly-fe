@@ -1,6 +1,6 @@
 export interface IProductCardProps {
   cardData: IProductCardData
-  size: 'sm' | 'bg'
+  size: 'sm' | 'bg' | 'summary'
 } //TODO: 'sm' 아니면 'bg'로 받거나 true, false값을 주어도 될 것 같습니다. 향후 수정 필요
 
 export interface IProductCardData {
