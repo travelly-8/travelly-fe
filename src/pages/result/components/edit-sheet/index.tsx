@@ -2,7 +2,7 @@ import { sheet } from '@/store/sheet-slice'
 
 import { useDispatch } from 'react-redux'
 
-import * as S from './SortOrdersSheet.style'
+import * as S from './EditSheet.styles'
 
 const ACTION = ['수정', '삭제'] as const
 
