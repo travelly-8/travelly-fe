@@ -4,7 +4,7 @@ export const BackgroundWrapper = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background-color: var(--color-gray-bright);
 `
 

@@ -26,6 +26,7 @@ export const Label = styled.div`
   img {
     width: 2.4rem;
     height: 2.4rem;
+    cursor: pointer;
   }
 `
 
@@ -68,6 +69,7 @@ export const GrayText = styled.span`
   font-family: Pretendard;
   font-size: 1.2rem;
   line-height: 1.8rem;
+  cursor: pointer;
 `
 
 export const BlueText = styled.span`
