@@ -7,8 +7,13 @@ import { useSelector } from 'react-redux'
 
 import BasicInfo from './components/basicinfo'
 import Description from './components/description'
+import Footer from './components/footer'
 import Info from './components/info'
+import RecommendCard from './components/recommend-card'
+import Review from './components/review'
+import { mockCard, mockData3, reviewData } from './mockdata'
 import * as S from './ProductsDetail.style'
+
 const ProductsDetail = () => {
   const [isKebabClicked, setIsKebabClicked] = useState(false)
   const sheetReducer = useSelector(
@@ -36,7 +41,15 @@ const ProductsDetail = () => {
           website="www.naver.com"
         />
         <Description />
+        <RecommendCard cards={mockCard} />
+        <Review reviewCnt={111} reviewImg={mockData3} reviewData={reviewData} />
       </S.PageContainer>
+      <Footer
+        isBookmarked={true}
+        isReservationProduct={true}
+        discount={20}
+        price={20000}
+      />
     </>
   )
 }
