@@ -1,6 +1,6 @@
-import comment from '@/assets/productsdetail/comment.svg'
-import like from '@/assets/productsdetail/like.svg'
-import star from '@/assets/productsdetail/starex.svg'
+import comment from '@/assets/products-detail/comment.svg'
+import like from '@/assets/products-detail/like.svg'
+import star from '@/assets/products-detail/starex.svg'
 
 import * as S from './Review.style'
 

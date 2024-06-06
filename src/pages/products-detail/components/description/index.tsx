@@ -1,4 +1,4 @@
-import ex1 from '@/assets/productsdetail/ex1.png'
+import ex1 from '@/assets/products-detail/ex1.png'
 
 import * as S from './Description.style'
 const Description = () => {

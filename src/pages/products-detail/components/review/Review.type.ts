@@ -2,6 +2,7 @@ export interface IReviewProps {
   reviewCnt: number
   reviewImg: string[]
   reviewData: IReviewData[]
+  onOrderClick: () => void
 }
 
 export interface IReviewPageProps {

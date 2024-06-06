@@ -1,5 +1,5 @@
-import edit from '@/assets/productsdetail/edit.svg'
-import sort from '@/assets/productsdetail/sort.svg'
+import edit from '@/assets/products-detail/edit.svg'
+import sort from '@/assets/products-detail/sort.svg'
 
 import * as S from './Review.style'
 import ReviewPage from './ReviewPage'
@@ -10,6 +10,7 @@ const Review: React.FC<IReviewProps> = ({
   reviewCnt,
   reviewImg,
   reviewData,
+  onOrderClick,
 }) => {
   const reviewImgCnt = reviewImg.length
 
@@ -34,7 +35,7 @@ const Review: React.FC<IReviewProps> = ({
               <S.BlackText>사진/동영상</S.BlackText>
             </S.CheckBoxWrapper>
           </S.CheckBox>
-          <S.SortWrapper>
+          <S.SortWrapper onClick={onOrderClick}>
             <S.GrayText>정렬</S.GrayText>
             <S.IconSort src={sort} alt="정렬" />
           </S.SortWrapper>

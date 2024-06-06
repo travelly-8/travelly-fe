@@ -1,14 +1,10 @@
 import styled from 'styled-components'
 
 export const PageContainer = styled.main<{
-  $isKebabClicked: boolean
-  $isSheet: boolean
+  $isSearchSheet: boolean
 }>`
-  position: relative;
-  width: 100%;
-  height: 100vh;
   background-color: var(--color-white);
-  display: ${({ $isSheet }) => ($isSheet ? 'none' : 'block')};
+  display: ${({ $isSearchSheet }) => ($isSearchSheet ? 'none' : 'block')};
 
   overflow-y: scroll;
   scrollbar-width: none;
