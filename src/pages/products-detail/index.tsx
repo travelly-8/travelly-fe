@@ -1,9 +1,9 @@
 import { useState } from 'react'
 
-import { SheetSliceState } from '@/store/sheet-slice.ts'
+import { sheet, SheetSliceState } from '@/store/sheet-slice.ts'
 
 import ProductHeader from '@components/product-header'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import BasicInfo from './components/basic-info'
 import Description from './components/description'
@@ -11,21 +11,27 @@ import Footer from './components/footer'
 import Info from './components/info'
 import RecommendCard from './components/recommend-card'
 import Review from './components/review'
+import ReviewOrderSheet from './components/review-order-sheet'
 import { mockCard, mockData3, reviewData } from './mockData'
 import * as S from './ProductsDetail.style'
 
 const ProductsDetail = () => {
-  const [isKebabClicked, setIsKebabClicked] = useState(false)
+  const dispatch = useDispatch()
   const sheetReducer = useSelector(
     (state: SheetSliceState) => state.sheet.value,
   )
+  const isSearchSheet =
+    sheetReducer.status && sheetReducer.name === 'search-sheet'
+  const [isKebabClicked, setIsKebabClicked] = useState(false)
+
+  const handleOrderClick = () => {
+    dispatch(sheet({ name: 'review-order-sheet', status: true, text: '' }))
+  }
+
   return (
     <>
       <ProductHeader kebabClick={() => setIsKebabClicked(!isKebabClicked)} />
-      <S.PageContainer
-        $isKebabClicked={isKebabClicked}
-        $isSheet={sheetReducer.status}
-      >
+      <S.PageContainer $isSearchSheet={isSearchSheet}>
         <Info
           productName="상품명"
           sellingDate="2024.00.00~00.00"
@@ -42,14 +48,22 @@ const ProductsDetail = () => {
         />
         <Description />
         <RecommendCard cards={mockCard} />
-        <Review reviewCnt={111} reviewImg={mockData3} reviewData={reviewData} />
+        <Review
+          reviewCnt={111}
+          reviewImg={mockData3}
+          reviewData={reviewData}
+          onOrderClick={handleOrderClick}
+        />
+        {sheetReducer.status && sheetReducer.name === 'review-order-sheet' && (
+          <ReviewOrderSheet />
+        )}
+        <Footer
+          isBookmarked={true}
+          isReservationProduct={true}
+          discount={20}
+          price={20000}
+        />
       </S.PageContainer>
-      <Footer
-        isBookmarked={true}
-        isReservationProduct={true}
-        discount={20}
-        price={20000}
-      />
     </>
   )
 }
