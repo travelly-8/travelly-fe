@@ -1,4 +1,5 @@
 import { SheetSliceState, sheet } from '@/store/sheet-slice'
+import { user } from '@/store/user-slice'
 
 import RectangleButton from '@components/rectangle-button'
 import { useDispatch, useSelector } from 'react-redux'
@@ -15,6 +16,7 @@ const ConfirmPage = () => {
 
   const handleCreateAccount = () => {
     navigate('/')
+    dispatch(user({ newUser: false }))
   }
 
   return (
