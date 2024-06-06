@@ -5,13 +5,13 @@ import { SheetSliceState } from '@/store/sheet-slice.ts'
 import ProductHeader from '@components/product-header'
 import { useSelector } from 'react-redux'
 
-import BasicInfo from './components/basicinfo'
+import BasicInfo from './components/basic-info'
 import Description from './components/description'
 import Footer from './components/footer'
 import Info from './components/info'
 import RecommendCard from './components/recommend-card'
 import Review from './components/review'
-import { mockCard, mockData3, reviewData } from './mockdata'
+import { mockCard, mockData3, reviewData } from './mockData'
 import * as S from './ProductsDetail.style'
 
 const ProductsDetail = () => {
@@ -35,7 +35,7 @@ const ProductsDetail = () => {
         />
         <BasicInfo
           address="서울시 강남구"
-          detailAddress="개포동 개포로117"
+          detailAddress="개포동 117"
           companyName="트래블리"
           phoneNumber="02-1234-1234"
           website="www.naver.com"

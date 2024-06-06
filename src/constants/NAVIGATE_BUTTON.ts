@@ -15,7 +15,6 @@ export const FNB_TRAVELLER = [
 
 export const FNB_TRAVELLY = [
   { img: chat, description: '챗', url: '/' },
-  { img: bookmark, description: '찜', url: '/' },
   { img: home, description: '홈', url: '/' },
   { img: register, description: '등록', url: '/' },
   { img: myPage, description: 'my', url: '/' },

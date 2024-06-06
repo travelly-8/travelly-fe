@@ -12,7 +12,7 @@ export const mockCard = [
     reviewCount: 100,
   },
   {
-    id: 1,
+    id: 2,
     imageUrl:
       'https://gongu.copyright.or.kr/gongu/wrt/cmmn/wrtFileImageView.do?wrtSn=9046601&filePath=L2Rpc2sxL25ld2RhdGEvMjAxNC8yMS9DTFM2L2FzYWRhbFBob3RvXzI0MTRfMjAxNDA0MTY=&thumbAt=Y&thumbSe=b_tbumb&wrtTy=10004',
     name: '테스트',
@@ -24,7 +24,7 @@ export const mockCard = [
     reviewCount: 100,
   },
   {
-    id: 1,
+    id: 3,
     imageUrl:
       'https://gongu.copyright.or.kr/gongu/wrt/cmmn/wrtFileImageView.do?wrtSn=9046601&filePath=L2Rpc2sxL25ld2RhdGEvMjAxNC8yMS9DTFM2L2FzYWRhbFBob3RvXzI0MTRfMjAxNDA0MTY=&thumbAt=Y&thumbSe=b_tbumb&wrtTy=10004',
     name: '테스트',
@@ -36,7 +36,7 @@ export const mockCard = [
     reviewCount: 100,
   },
   {
-    id: 1,
+    id: 4,
     imageUrl:
       'https://gongu.copyright.or.kr/gongu/wrt/cmmn/wrtFileImageView.do?wrtSn=9046601&filePath=L2Rpc2sxL25ld2RhdGEvMjAxNC8yMS9DTFM2L2FzYWRhbFBob3RvXzI0MTRfMjAxNDA0MTY=&thumbAt=Y&thumbSe=b_tbumb&wrtTy=10004',
     name: '테스트',

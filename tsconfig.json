@@ -25,7 +25,9 @@
     "paths": {
       "@components/*": ["src/components/*"],
       "@/*": ["src/*"]
-    }
+    },
+
+    "types": ["kakao.maps.d.ts"]
   },
   "include": ["src", "**/*.ts", "**/*.tsx"], // 추가
   "references": [{ "path": "./tsconfig.node.json" }]

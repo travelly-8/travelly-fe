@@ -1,6 +1,9 @@
+import useKakaoMap from '@/hooks/useKakaoMap'
+
 import * as S from './BasicInfo.style'
 
 import type { IBasicInfoProps } from './BasicInfo.type'
+
 const BasicInfo: React.FC<IBasicInfoProps> = ({
   address,
   detailAddress,
@@ -8,11 +11,12 @@ const BasicInfo: React.FC<IBasicInfoProps> = ({
   phoneNumber,
   website,
 }) => {
+  const mapRef = useKakaoMap({ address, detailAddress })
   return (
     <S.BasicInfoContainer>
       <S.MapContainer>
         <S.LabelL>기본 정보</S.LabelL>
-        <S.Map />
+        <S.Map ref={mapRef} />
       </S.MapContainer>
       <S.DescriptionWrapper>
         <S.Description>
