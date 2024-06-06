@@ -1,17 +1,17 @@
 import isPropValid from '@emotion/is-prop-valid'
 import styled, { css } from 'styled-components'
 
-import { IInput } from './Input.type'
-
 export const StyledInputContainer = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
 `
 
-export const StyledLabel = styled.label<IInput>`
-  color: ${({ errorType }) =>
-    errorType ? 'var(--color-caution)' : 'var(--color-main)'};
+export const StyledLabel = styled.label.withConfig({
+  shouldForwardProp: (prop) => isPropValid(prop) && prop !== '$errorType',
+})<{ $errorType?: string | null }>`
+  color: ${({ $errorType }) =>
+    $errorType ? 'var(--color-caution)' : 'var(--color-main)'};
   font-weight: 400;
   font-size: 1.2rem;
   line-height: 1.432rem;
@@ -20,8 +20,8 @@ export const StyledLabel = styled.label<IInput>`
 
 export const StyledInputWrapper = styled.div.withConfig({
   shouldForwardProp: (prop) =>
-    isPropValid(prop) && prop !== 'focused' && prop !== 'errorType',
-})<IInput>`
+    isPropValid(prop) && prop !== 'focused' && prop !== '$errorType',
+})<{ focused?: boolean; $errorType?: string | null }>`
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -30,21 +30,22 @@ export const StyledInputWrapper = styled.div.withConfig({
   border-style: solid;
   margin-top: 0.1rem;
   padding: 1.1rem 1.6rem;
-  border-color: ${({ errorType }) =>
-    errorType ? 'var(--color-caution)' : 'var(--color-gray-light)'};
-  ${({ focused }) =>
+  border-color: ${({ $errorType }) =>
+    $errorType ? 'var(--color-caution)' : 'var(--color-gray-light)'};
+  ${({ focused, $errorType }) =>
     focused &&
-    css<IInput>`
-      border-color: ${({ errorType }) =>
-        errorType ? 'var(--color-caution)' : 'var(--color-main)'};
+    css`
+      border-color: ${$errorType
+        ? 'var(--color-caution)'
+        : 'var(--color-main)'};
     `}
   padding: 1rem 1.25rem;
   cursor: text;
   background-color: var(--color-white);
 
   &:focus-within {
-    border-color: ${({ errorType }) =>
-      errorType ? 'var(--color-caution)' : 'var(--color-main)'};
+    border-color: ${({ $errorType }) =>
+      $errorType ? 'var(--color-caution)' : 'var(--color-main)'};
   }
 `
 
