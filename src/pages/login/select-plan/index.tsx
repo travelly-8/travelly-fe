@@ -42,9 +42,9 @@ export default function SelectPlanPage() {
           openSheet('traveller')
         } catch (error) {
           if (isAxiosError(error)) {
-            // Handle error
+            // console.error('Login failed:', error.response?.data)
           } else {
-            // Handle error
+            // console.error('Login failed:', (error as Error).message)
           }
         }
       } else {
@@ -62,9 +62,9 @@ export default function SelectPlanPage() {
           openSheet('travelly')
         } catch (error) {
           if (isAxiosError(error)) {
-            // Handle error
+            // console.error('Login failed:', error.response?.data)
           } else {
-            // Handle error
+            // console.error('Login failed:', (error as Error).message)
           }
         }
       } else {

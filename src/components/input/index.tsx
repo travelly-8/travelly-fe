@@ -1,11 +1,7 @@
 import { INPUT_LABELS, INPUT_PLACEHOLDER } from '@/constants/INPUT_VALUES'
-
 import { forwardRef, useState } from 'react'
-
 import * as S from './Input.style'
-
 import type { IInput } from './Input.type'
-
 import eyeOffIcon from '/src/assets/common/eye-off.svg'
 
 const Input = forwardRef<HTMLInputElement, IInput>(
@@ -38,10 +34,10 @@ const Input = forwardRef<HTMLInputElement, IInput>(
 
     return (
       <S.StyledInputContainer>
-        <S.StyledLabel htmlFor={inputType} errorType={errorType}>
+        <S.StyledLabel htmlFor={inputType} $errorType={errorType}>
           {INPUT_LABELS[inputType]}
         </S.StyledLabel>
-        <S.StyledInputWrapper focused={focused} errorType={errorType}>
+        <S.StyledInputWrapper focused={focused} $errorType={errorType}>
           <S.StyledInput
             id={inputType}
             type={
