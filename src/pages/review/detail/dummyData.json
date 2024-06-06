@@ -1,0 +1,25 @@
+[
+  {
+    "commentId": 1,
+    "profileImg": "https://i.namu.wiki/i/SDZQDZhTSBiFe5YY75PNfHXAIaj3Stka8iV2e5Kr3fgBqlEZX-k9nQC1GD7KqG_2m48bEgodsyNtNTO3zNvVnsk-Eqq-i2vrRsyIJz1u7-JYuR99ONrVkD15iZ1dXxzqUapuTQwwHI0lpU8CtftgMg.webp",
+    "nickname": "닉네임",
+    "date": "2021.09.01",
+    "content": "댓글 내용입니다.",
+    "reply": [
+      {
+        "commentId": 1,
+        "profileImg": "https://i.namu.wiki/i/SDZQDZhTSBiFe5YY75PNfHXAIaj3Stka8iV2e5Kr3fgBqlEZX-k9nQC1GD7KqG_2m48bEgodsyNtNTO3zNvVnsk-Eqq-i2vrRsyIJz1u7-JYuR99ONrVkD15iZ1dXxzqUapuTQwwHI0lpU8CtftgMg.webp",
+        "nickname": "닉네임",
+        "date": "2021.09.01",
+        "content": "답댓글 내용입니다."
+      }
+    ]
+  },
+  {
+    "commentId": 2,
+    "profileImg": "https://i.namu.wiki/i/SDZQDZhTSBiFe5YY75PNfHXAIaj3Stka8iV2e5Kr3fgBqlEZX-k9nQC1GD7KqG_2m48bEgodsyNtNTO3zNvVnsk-Eqq-i2vrRsyIJz1u7-JYuR99ONrVkD15iZ1dXxzqUapuTQwwHI0lpU8CtftgMg.webp",
+    "nickname": "닉네임",
+    "date": "2021.09.01",
+    "content": "댓글 내용입니다."
+  }
+]
