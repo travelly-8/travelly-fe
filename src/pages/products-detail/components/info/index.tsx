@@ -1,6 +1,6 @@
-import LocationIcon from '@/assets/productsdetail/location.svg'
-import ShareIcon from '@/assets/productsdetail/share.svg'
-import StarIcon from '@/assets/productsdetail/star.svg'
+import LocationIcon from '@/assets/products-detail/location.svg'
+import ShareIcon from '@/assets/products-detail/share.svg'
+import StarIcon from '@/assets/products-detail/star.svg'
 import { mockData3 } from '@/constants/MOCK_DATA'
 
 import ImageCarousel from '@components/image-carousel'

@@ -1,5 +1,5 @@
-import edit from '@/assets/productsdetail/edit.svg'
-import sort from '@/assets/productsdetail/sort.svg'
+import edit from '@/assets/products-detail/edit.svg'
+import sort from '@/assets/products-detail/sort.svg'
 
 import * as S from './Review.style'
 import ReviewPage from './ReviewPage'

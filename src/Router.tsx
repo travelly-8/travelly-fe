@@ -11,7 +11,7 @@ import MyPageEditPage from './pages/mypage/edit'
 import ExitPage from './pages/mypage/exit'
 import GoodbyePage from './pages/mypage/good-bye'
 import ProductsPage from './pages/products'
-import ProductsDetail from './pages/productsdetail'
+import ProductsDetail from './pages/products-detail'
 import SignupStartPage from './pages/signup'
 import SignupEndPage from './pages/signup/end'
 import SignupPage from './pages/signup/signup'
@@ -35,7 +35,7 @@ export default function AppRouter() {
         <Route path="/exit" element={<ExitPage />} />
         <Route path="/goodbye" element={<GoodbyePage />} />
         <Route path="/auth/callback/:platform" element={<AuthCallback />} />
-        <Route path="/productsdetail" element={<ProductsDetail />} />
+        <Route path="/products-detail" element={<ProductsDetail />} />
       </Routes>
     </BrowserRouter>
   )

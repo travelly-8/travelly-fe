@@ -34,9 +34,21 @@ const useKakaoMap = ({ address, detailAddress }: IUseKakaoMapProps) => {
                   parseFloat(result[0].x),
                 )
 
-                new window.kakao.maps.Marker({
+                const imageSrc = '/src/assets/products-detail/marker.svg'
+                const imageSize = new window.kakao.maps.Size(25, 32)
+                const imageOption = {
+                  offset: new window.kakao.maps.Point(12.5, 16),
+                }
+
+                const markerImage = new window.kakao.maps.MarkerImage(
+                  imageSrc,
+                  imageSize,
+                  imageOption,
+                )
+                const marker = new window.kakao.maps.Marker({
                   map: map,
                   position: coords,
+                  image: markerImage,
                 })
 
                 map.setCenter(coords)
@@ -49,7 +61,7 @@ const useKakaoMap = ({ address, detailAddress }: IUseKakaoMapProps) => {
     return () => {
       script.remove()
     }
-  }, [address])
+  }, [address, detailAddress])
 
   return mapRef
 }
