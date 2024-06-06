@@ -15,6 +15,7 @@ const Info: React.FC<IInfoProps> = ({
   address,
   rating,
   reviewCnt,
+  onShareClick,
 }) => {
   const add = address.split(' ')
   return (
@@ -22,10 +23,10 @@ const Info: React.FC<IInfoProps> = ({
       <S.CarouselContainer>
         <ImageCarousel images={mockData3} limit={5} />
       </S.CarouselContainer>
-      <S.DescriptonContainer>
+      <S.DescriptionContainer>
         <S.Label>
           <S.BlackTextL>{productName}</S.BlackTextL>
-          <img src={ShareIcon} alt="공유 버튼" />
+          <img src={ShareIcon} alt="공유 버튼" onClick={onShareClick} />
         </S.Label>
         <S.SellingWrapper>
           <S.BlackTextM>판매 일정</S.BlackTextM>
@@ -46,7 +47,7 @@ const Info: React.FC<IInfoProps> = ({
             <S.GrayText>리뷰보기&gt;</S.GrayText>
           </div>
         </S.LocationWrapper>
-      </S.DescriptonContainer>
+      </S.DescriptionContainer>
     </S.InfoContainer>
   )
 }

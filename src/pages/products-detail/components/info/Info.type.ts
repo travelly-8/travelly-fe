@@ -4,4 +4,5 @@ export interface IInfoProps {
   address: string
   rating: string
   reviewCnt: number
+  onShareClick: () => void
 }

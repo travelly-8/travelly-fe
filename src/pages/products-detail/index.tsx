@@ -12,6 +12,7 @@ import Info from './components/info'
 import RecommendCard from './components/recommend-card'
 import Review from './components/review'
 import ReviewOrderSheet from './components/review-order-sheet'
+import ShareSheet from './components/share-sheet'
 import { mockCard, mockData3, reviewData } from './mockData'
 import * as S from './ProductsDetail.style'
 
@@ -28,6 +29,10 @@ const ProductsDetail = () => {
     dispatch(sheet({ name: 'review-order-sheet', status: true, text: '' }))
   }
 
+  const handleShareClick = () => {
+    dispatch(sheet({ name: 'share-sheet', status: true, text: '' }))
+  }
+
   return (
     <>
       <ProductHeader kebabClick={() => setIsKebabClicked(!isKebabClicked)} />
@@ -38,6 +43,7 @@ const ProductsDetail = () => {
           address="서울시 강남구"
           rating="4.5"
           reviewCnt={111}
+          onShareClick={handleShareClick}
         />
         <BasicInfo
           address="서울시 강남구"
@@ -54,15 +60,18 @@ const ProductsDetail = () => {
           reviewData={reviewData}
           onOrderClick={handleOrderClick}
         />
-        {sheetReducer.status && sheetReducer.name === 'review-order-sheet' && (
-          <ReviewOrderSheet />
-        )}
         <Footer
           isBookmarked={true}
           isReservationProduct={true}
           discount={20}
           price={20000}
         />
+        {sheetReducer.status && sheetReducer.name === 'review-order-sheet' && (
+          <ReviewOrderSheet />
+        )}
+        {sheetReducer.status && sheetReducer.name === 'share-sheet' && (
+          <ShareSheet />
+        )}
       </S.PageContainer>
     </>
   )

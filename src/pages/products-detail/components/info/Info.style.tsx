@@ -13,7 +13,7 @@ export const CarouselContainer = styled.div`
   padding: 0;
 `
 
-export const DescriptonContainer = styled.div`
+export const DescriptionContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 1rem 2rem 1.7rem;
