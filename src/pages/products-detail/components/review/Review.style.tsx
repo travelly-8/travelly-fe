@@ -69,6 +69,8 @@ export const SortWrapper = styled.div`
   align-items: center;
   justify-content: center;
   gap: 0.8rem;
+
+  cursor: pointer;
 `
 
 export const GrayText = styled.span`
