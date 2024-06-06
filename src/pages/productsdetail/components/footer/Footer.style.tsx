@@ -7,10 +7,12 @@ export const Wrapper = styled.div`
   align-items: center;
 
   width: 100%;
-  position: absolute;
+  height: 5.6rem;
+  position: sticky;
   bottom: 0;
-
+  z-index: 100;
   padding: 2rem;
+  background-color: var(--color-white);
   border-top: 1px solid var(--color-gray-light);
 `
 
