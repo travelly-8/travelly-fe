@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+
 import { putRole } from '@/api/authAPI'
 import IconButton from '@/components/icon-button'
 import { SheetSliceState, sheet } from '@/store/sheet-slice'
@@ -8,11 +10,11 @@ import BackBar from '@components/back-bar'
 import { useDispatch, useSelector } from 'react-redux'
 
 import Bubble from '../components/bubble'
+import ConfirmPage from '../components/confirm-page'
+// eslint-disable-next-line import/order
+import * as S from './SelectPlanPage.style'
 
 import type { ButtonType } from '@components/icon-button/IconButton.type'
-import { useEffect, useState } from 'react'
-import ConfirmPage from '../components/confirm-page'
-import * as S from './SelectPlanPage.style'
 
 export default function SelectPlanPage() {
   const dispatch = useDispatch()
