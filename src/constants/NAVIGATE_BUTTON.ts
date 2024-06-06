@@ -10,7 +10,7 @@ export const FNB_TRAVELLER = [
   { img: chat, description: '챗', url: '/' },
   { img: bookmark, description: '찜', url: '/' },
   { img: home, description: '홈', url: '/' },
-  { img: myPage, description: 'my', url: '/' },
+  { img: myPage, description: 'my', url: '/mypage' },
 ] as const
 
 export const FNB_TRAVELLY = [
