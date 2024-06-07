@@ -23,7 +23,7 @@ const ProductsDetail = () => {
   )
   const isSearchSheet =
     sheetReducer.status && sheetReducer.name === 'search-sheet'
-  const [isKebabClicked, setIsKebabClicked] = useState(false)
+  const [isHamburgerClicked, setIsHamburgerClicked] = useState(false)
 
   const handleOrderClick = () => {
     dispatch(sheet({ name: 'review-order-sheet', status: true, text: '' }))
@@ -35,7 +35,9 @@ const ProductsDetail = () => {
 
   return (
     <>
-      <ProductHeader kebabClick={() => setIsKebabClicked(!isKebabClicked)} />
+      <ProductHeader
+        hamburgerClick={() => setIsHamburgerClicked(!isHamburgerClicked)}
+      />
       <S.PageContainer $isSearchSheet={isSearchSheet}>
         <Info
           productName="상품명"
