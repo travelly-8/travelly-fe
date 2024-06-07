@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-
 import type { ButtonType } from './IconButton.type'
 
 function textColor(buttonType: ButtonType) {
@@ -35,12 +34,12 @@ function borderColor(buttonType: ButtonType) {
   }
 }
 
-export const Wrapper = styled.button<{ buttonType: ButtonType }>`
+export const Wrapper = styled.button<{ $buttonType: ButtonType }>`
   width: 15.2rem;
   height: 15.2rem;
   border-radius: 1.5rem;
-  border: 0.1rem solid ${(props) => borderColor(props.buttonType)};
-  background: ${(props) => backgroundColor(props.buttonType)};
+  border: 0.1rem solid ${(props) => borderColor(props.$buttonType)};
+  background: ${(props) => backgroundColor(props.$buttonType)};
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -48,7 +47,7 @@ export const Wrapper = styled.button<{ buttonType: ButtonType }>`
   align-items: center;
   gap: 1rem;
   box-shadow: ${(props) =>
-    props.buttonType === 'selected' &&
+    props.$buttonType === 'selected' &&
     '0px 0px 5px 0px rgba(39, 0, 195, 0.25)'};
 `
 
@@ -57,8 +56,8 @@ export const Icon = styled.img`
   height: 8rem;
 `
 
-export const Text = styled.span<{ buttonType: ButtonType }>`
-  color: ${(props) => textColor(props.buttonType)};
+export const Text = styled.span<{ $buttonType: ButtonType }>`
+  color: ${(props) => textColor(props.$buttonType)};
   font-size: 1.4rem;
   font-weight: 700;
 `

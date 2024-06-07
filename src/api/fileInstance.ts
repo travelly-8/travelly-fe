@@ -5,16 +5,16 @@ import axios from 'axios'
 
 const baseURL = 'http://3.36.62.116:8080'
 
-const instance = axios.create({
+const fileInstance = axios.create({
   baseURL: baseURL,
   headers: {
-    'Content-Type': 'application/json',
+    'Content-Type': 'multipart/form-data',
   },
 })
 
 const noAuthRequiredEndpoints: string[] = [API_AUTH.SIGNUP, API_AUTH.LOGIN]
 
-instance.interceptors.request.use(
+fileInstance.interceptors.request.use(
   (config) => {
     const token = getAccessToken()
     if (token && !noAuthRequiredEndpoints.includes(config.url as string)) {
@@ -27,7 +27,7 @@ instance.interceptors.request.use(
   },
 )
 
-instance.interceptors.response.use(
+fileInstance.interceptors.response.use(
   (response) => {
     return response
   },
@@ -46,7 +46,7 @@ instance.interceptors.response.use(
         axios.defaults.headers.common['Authorization'] =
           `Bearer ${newAccessToken}`
         originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`
-        return instance(originalRequest)
+        return fileInstance(originalRequest)
       } catch (refreshError) {
         return Promise.reject(refreshError)
       }
@@ -56,4 +56,4 @@ instance.interceptors.response.use(
   },
 )
 
-export default instance
+export default fileInstance
