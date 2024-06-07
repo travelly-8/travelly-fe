@@ -29,6 +29,6 @@
 
     "types": ["kakao.maps.d.ts"]
   },
-  "include": ["src", "**/*.ts", "**/*.tsx"], // 추가
+  "include": ["src", "**/*.ts", "**/*.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

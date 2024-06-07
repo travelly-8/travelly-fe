@@ -1,3 +1,5 @@
+import arrowLeft from '@/assets/common/arrow-left.svg'
+
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import * as S from './BackBar.style'
@@ -19,11 +21,7 @@ const BackBar = () => {
 
   return (
     <S.Wrapper>
-      <S.Icon
-        src="/src/assets/common/arrow-left.svg"
-        alt="뒤로 가기"
-        onClick={handleClick}
-      />
+      <S.Icon src={arrowLeft} alt="뒤로 가기" onClick={handleClick} />
     </S.Wrapper>
   )
 }

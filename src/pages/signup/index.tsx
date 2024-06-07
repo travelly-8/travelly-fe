@@ -1,5 +1,11 @@
-import RectangleButton from '@components/rectangle-button'
 import { useEffect, useState } from 'react'
+
+import bubble from '@/assets/signup/bubble.png'
+import google from '@/assets/signup/google.png'
+import naver from '@/assets/signup/naver.svg'
+import signup from '@/assets/signup/signup.png'
+
+import RectangleButton from '@components/rectangle-button'
 import { useNavigate } from 'react-router-dom'
 
 import * as S from './SignupStartPage.style'
@@ -41,22 +47,14 @@ export default function SignupStartPage() {
   } else {
     return (
       <S.Wrapper>
-        <S.Image src="/src/assets/signup/signup.png" alt="signup" />
+        <S.Image src={signup} alt="signup" />
         <RectangleButton size="medium" onClick={() => navigate('/signup')}>
           이메일로 가입하기
         </RectangleButton>
         <S.StartSNS>
-          <S.Bubble src="/src/assets/signup/bubble.png" alt="간편하게 시작" />
-          <S.Sns
-            src="/src/assets/signup/naver.svg"
-            alt="네이버"
-            onClick={handleNaverLogin}
-          />
-          <S.Sns
-            src="/src/assets/signup/google.png"
-            alt="구글"
-            onClick={handleGoogleLogin}
-          />
+          <S.Bubble src={bubble} alt="간편하게 시작" />
+          <S.Sns src={naver} alt="네이버" onClick={handleNaverLogin} />
+          <S.Sns src={google} alt="구글" onClick={handleGoogleLogin} />
         </S.StartSNS>
         <S.OtherWay>
           <S.Find>
