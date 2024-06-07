@@ -16,7 +16,7 @@ export interface IInput {
     | 'newPasswordCheck'
   inputRef?: RefObject<HTMLInputElement>
   passwordValue?: string
-  errorType?: string | null
+  errorType?: string | null | undefined
   focused?: boolean
   value?: string
   placeholder?: string
