@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { putRole } from '@/api/authAPI'
 import IconButton from '@/components/icon-button'
+import { setRole } from '@/store/authSlice'
 import { SheetSliceState, sheet } from '@/store/sheet-slice'
 import isAxiosError from '@/utils/isAxiosError'
 import { getAccessToken, refreshAccessToken } from '@/utils/tokenStorage'
@@ -41,6 +42,7 @@ export default function SelectPlanPage() {
             token = await refreshAccessToken()
           }
           await putRole(userType)
+          dispatch(setRole(userType))
           openSheet('traveller')
         } catch (error) {
           if (isAxiosError(error)) {
@@ -61,6 +63,7 @@ export default function SelectPlanPage() {
             token = await refreshAccessToken()
           }
           await putRole(userType)
+          dispatch(setRole(userType))
           openSheet('travelly')
         } catch (error) {
           if (isAxiosError(error)) {

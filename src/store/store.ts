@@ -1,3 +1,4 @@
+// src/store/store.ts
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import {
   FLUSH,
@@ -11,19 +12,21 @@ import {
 } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
+import authReducer from './authSlice'
 import { sheetSlice } from './sheet-slice'
 
-const reducers = combineReducers({
+const rootReducer = combineReducers({
+  auth: authReducer,
   sheet: sheetSlice.reducer,
 })
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['sheet'],
+  whitelist: ['auth', 'sheet'],
 }
 
-const persistedReducer = persistReducer(persistConfig, reducers)
+const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 const store = configureStore({
   reducer: persistedReducer,

@@ -12,6 +12,7 @@ import ExitPage from './pages/mypage/exit'
 import GoodbyePage from './pages/mypage/good-bye'
 import ProductsPage from './pages/products'
 import ReviewDetailPage from './pages/review/detail'
+import ReviewList from './pages/review/list'
 import ReviewWritePage from './pages/review/write'
 import SignupStartPage from './pages/signup'
 import SignupEndPage from './pages/signup/end'
@@ -38,6 +39,7 @@ export default function AppRouter() {
         <Route path="/auth/callback/:platform" element={<AuthCallback />} />
         <Route path="/review/write" element={<ReviewWritePage />} />
         <Route path="/review/:reviewId" element={<ReviewDetailPage />} />
+        <Route path="/review/list" element={<ReviewList />} />
       </Routes>
     </BrowserRouter>
   )
