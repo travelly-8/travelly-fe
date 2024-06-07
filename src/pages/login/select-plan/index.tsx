@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-
 import { putRole } from '@/api/authAPI'
 import location from '@/assets/login/location.png'
 import passport from '@/assets/login/passport.png'
@@ -8,17 +7,12 @@ import ConfirmPage from '@/pages/login/components/confirm-page'
 import { SheetSliceState, sheet } from '@/store/sheet-slice'
 import isAxiosError from '@/utils/isAxiosError'
 import { getAccessToken, refreshAccessToken } from '@/utils/tokenStorage'
-
 import BackBar from '@components/back-bar'
 import { useDispatch, useSelector } from 'react-redux'
-import type { ButtonType } from '@components/icon-button/IconButton.type'
 import Bubble from '../components/bubble'
-
-import Bubble from '../components/bubble'
-import ConfirmPage from '../components/confirm-page'
-// eslint-disable-next-line import/order
 import * as S from './SelectPlanPage.style'
 
+// eslint-disable-next-line import/order
 import type { ButtonType } from '@components/icon-button/IconButton.type'
 
 export default function SelectPlanPage() {
