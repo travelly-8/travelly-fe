@@ -9,9 +9,11 @@ import isAxiosError from '@/utils/isAxiosError'
 import { getAccessToken, refreshAccessToken } from '@/utils/tokenStorage'
 import BackBar from '@components/back-bar'
 import { useDispatch, useSelector } from 'react-redux'
-import type { ButtonType } from '@components/icon-button/IconButton.type'
 import Bubble from '../components/bubble'
 import * as S from './SelectPlanPage.style'
+
+// eslint-disable-next-line import/order
+import type { ButtonType } from '@components/icon-button/IconButton.type'
 
 export default function SelectPlanPage() {
   const dispatch = useDispatch()
@@ -31,27 +33,44 @@ export default function SelectPlanPage() {
 
   const handleButtonClick = async (userType: 'traveller' | 'travelly') => {
     if (userType === 'traveller') {
-      setTravellerStatus('selected')
-      setTravellyStatus('unselected')
-    } else {
-      setTravellerStatus('unselected')
-      setTravellyStatus('selected')
-    }
-
-    try {
-      let token = getAccessToken()
-      if (!token) {
-        token = await refreshAccessToken()
-      }
-      // console.log(`Updating user type to: ${userType} with token: ${token}`)
-      await putRole(userType)
-      // console.log('success')
-      openSheet(userType === 'traveller' ? 'traveller' : 'travelly')
-    } catch (error) {
-      if (isAxiosError(error)) {
-        // console.error('Login failed:', error.response?.data)
+      if (travellerStatus === 'selected') {
+        try {
+          let token = getAccessToken()
+          if (!token) {
+            token = await refreshAccessToken()
+          }
+          await putRole(userType)
+          openSheet('traveller')
+        } catch (error) {
+          if (isAxiosError(error)) {
+            // console.error('Login failed:', error.response?.data)
+          } else {
+            // console.error('Login failed:', (error as Error).message)
+          }
+        }
       } else {
-        // console.error('Login failed:', (error as Error).message)
+        setTravellerStatus('selected')
+        setTravellyStatus('unselected')
+      }
+    } else {
+      if (travellyStatus === 'selected') {
+        try {
+          let token = getAccessToken()
+          if (!token) {
+            token = await refreshAccessToken()
+          }
+          await putRole(userType)
+          openSheet('travelly')
+        } catch (error) {
+          if (isAxiosError(error)) {
+            // console.error('Login failed:', error.response?.data)
+          } else {
+            // console.error('Login failed:', (error as Error).message)
+          }
+        }
+      } else {
+        setTravellerStatus('unselected')
+        setTravellyStatus('selected')
       }
     }
   }

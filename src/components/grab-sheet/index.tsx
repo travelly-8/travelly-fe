@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 import * as S from './GrabSheet.style'
 import { ISheetProps } from './GrabSheet.type'
 
-const GrabSheet: React.FC<ISheetProps> = ({ name, children, onClose }) => {
+function GrabSheet({ name, children, onClose }: ISheetProps) {
   const dispatch = useDispatch()
 
   const handleClose = () => {

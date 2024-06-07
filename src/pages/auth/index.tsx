@@ -1,6 +1,7 @@
 import isAxiosError from '@/utils/isAxiosError'
-import axios from 'axios'
 import React, { useEffect } from 'react'
+
+import axios from 'axios'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 const AuthCallback: React.FC = () => {

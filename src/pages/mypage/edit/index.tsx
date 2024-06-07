@@ -1,8 +1,17 @@
+import { useEffect, useState } from 'react'
+
+import {
+  getMemberProfile,
+  putMemberNickname,
+  putMemberProfileImage,
+} from '@/api/myAPI'
 import defaultProfileImg from '@/assets/mypage/default-profile.svg'
 import exitSvg from '@/assets/mypage/exit.svg'
 import keySvg from '@/assets/mypage/key.svg'
 import logoutSvg from '@/assets/mypage/logout.svg'
 import purplePenSvg from '@/assets/mypage/purple-pen.svg'
+import { API_MEMBER } from '@/constants/API'
+import useGetMemberProfile from '@/hooks/api/memberAPI/useGetMemberProfile'
 import { SheetSliceState, sheet } from '@/store/sheet-slice'
 
 import BlurSheet from '@components/blur-sheet'
@@ -11,14 +20,10 @@ import FooterNavigation from '@components/footer-navigation'
 import HorizontalMenu from '@components/horizontal-menu'
 import PageHeader from '@components/page-header'
 import { useDispatch, useSelector } from 'react-redux'
-
-/* eslint-disable import/order */
-import { getMemberProfile, putMemberNickname } from '@/api/myAPI'
-import { API_MEMBER } from '@/constants/API'
-import useGetMemberProfile from '@/hooks/api/memberAPI/useGetMemberProfile'
-import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+
 import EditPasswordPage from '../components/edit-password'
+// eslint-disable-next-line import/order
 import * as S from './MyPageEditPage.style'
 
 export default function MyPageEditPage() {
@@ -43,10 +48,12 @@ export default function MyPageEditPage() {
     { id: 2, icon: logoutSvg, text: '로그아웃', onClick: () => {} },
   ]
 
-  const { data, refetch } = useGetMemberProfile(API_MEMBER.MY_PROFILE, () =>
-    getMemberProfile(),
+  // 마이페이지 수정 정보 패치
+  const { data, refetch, status } = useGetMemberProfile(
+    API_MEMBER.MY_PROFILE,
+    () => getMemberProfile(),
   )
-
+  // 닉네임 변경
   const [newNickname, setNewNickname] = useState<string>('')
 
   const saveNewNickname = () => {
@@ -60,7 +67,41 @@ export default function MyPageEditPage() {
       })
   }
 
-  //TODO: 프로필 이미지 변경 API 연결
+  // 프로필 이미지 변경
+  const [profileImage, setProfileImage] = useState<string>(defaultProfileImg)
+
+  useEffect(() => {
+    if (status === 'success') {
+      setProfileImage(data?.imageUrl || defaultProfileImg)
+    }
+  }, [status, data])
+
+  const uploadImage = async (imageFile: File) => {
+    const formData = new FormData()
+    formData.append('file', imageFile)
+
+    putMemberProfileImage(formData)
+      .then(() => {
+        refetch()
+        controlSheet('profile', false)
+      })
+      .catch((err) => {
+        console.error(err)
+      })
+  }
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    if (file) {
+      uploadImage(file)
+    }
+  }
+
+  //TODO: 프사 리셋 api 연결 필요
+  const resetProfileImage = () => {
+    setProfileImage(defaultProfileImg)
+    controlSheet('profile', false)
+  }
 
   return (
     <S.Wrapper>
@@ -71,7 +112,7 @@ export default function MyPageEditPage() {
       </PageHeader>
       <S.ProfileWrapper>
         <S.ImgWrapper onClick={() => controlSheet('profile', true)}>
-          <S.ProfileImg src={defaultProfileImg} alt="프로필" />
+          <S.ProfileImg src={profileImage} alt="프로필" />
           <S.PenImg src={purplePenSvg} alt="프로필 수정" />
         </S.ImgWrapper>
         <S.NicknameWrapper>
@@ -107,8 +148,9 @@ export default function MyPageEditPage() {
         <BottomSheet onClick={() => controlSheet('profile', false)}>
           <S.SheetTextWraeppr idx={1}>
             <S.SheetText>갤러리에서 사진 선택</S.SheetText>
+            <S.FileInput type="file" onChange={handleFileChange} />
           </S.SheetTextWraeppr>
-          <S.SheetTextWraeppr idx={2}>
+          <S.SheetTextWraeppr idx={2} onClick={resetProfileImage}>
             <S.SheetText>기본 이미지로 변경</S.SheetText>
           </S.SheetTextWraeppr>
         </BottomSheet>
@@ -121,10 +163,7 @@ export default function MyPageEditPage() {
         <BlurSheet
           title="내 정보 수정"
           button="저장"
-          buttonClick={() => {
-            saveNewNickname()
-            //
-          }}
+          buttonClick={saveNewNickname}
         >
           <S.BlurSheetWrapper>
             <S.NewNicknameInput

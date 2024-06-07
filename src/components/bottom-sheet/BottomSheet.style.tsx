@@ -39,5 +39,5 @@ export const BarIcon = styled.img`
 
 export const Content = styled.div`
   width: 100%;
-  padding: 2.4rem 2rem;
+  padding: 1.2rem 2rem 4.8rem 2rem;
 `
