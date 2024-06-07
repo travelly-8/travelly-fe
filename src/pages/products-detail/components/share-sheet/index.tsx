@@ -23,7 +23,7 @@ function ShareSheet({
 
   useEffect(() => {
     window.Kakao.cleanup()
-    window.Kakao.init('e556577fbb3d6efe74faf54a15a6fde0')
+    window.Kakao.init(import.meta.env.VITE_APP_KAKAO_KEY)
     window.Kakao.isInitialized()
   }, [])
 
@@ -38,7 +38,7 @@ function ShareSheet({
               title,
               description,
               imageUrl,
-              'https://tickets.interpark.com/',
+              currentUrl,
               commentCount,
             )
           }
