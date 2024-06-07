@@ -1,4 +1,3 @@
-// src/pages/login/LoginPage.tsx
 import { postLogin } from '@/api/authAPI'
 import { useFormValidation } from '@/hooks/useFormValidation'
 import isAxiosError from '@/utils/isAxiosError'

@@ -1,4 +1,3 @@
-// src/pages/review/ReviewList.tsx
 import ReviewProductCard from '@/pages/review/components/review-product-card'
 import { RootState } from '@/store/store'
 import PageHeader from '@components/page-header'
