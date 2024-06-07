@@ -1,10 +1,11 @@
+import { useState } from 'react'
+
 import { postLogin } from '@/api/authAPI'
 import { useFormValidation } from '@/hooks/useFormValidation'
 import isAxiosError from '@/utils/isAxiosError'
 import { saveTokens } from '@/utils/tokenStorage'
 import useKeyboardDetection from '@/utils/useKeyboardDetection'
 import { loginEmailValidate, loginPasswordValidate } from '@/utils/validate'
-import { useState } from 'react'
 
 import { setUser } from '@/store/authSlice'
 import FormContainer from '@components/form-container'
@@ -16,9 +17,10 @@ import { useNavigate } from 'react-router-dom'
 import type { IErrorResponse, IFormData } from './Login.type'
 
 export default function LoginPage() {
+  const dispatch = useDispatch()
   const isKeyboardOpen = useKeyboardDetection()
   const navigate = useNavigate()
-  const dispatch = useDispatch()
+
   const {
     handleSubmit,
     control,
