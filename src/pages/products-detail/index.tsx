@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import BasicInfo from './components/basic-info'
 import Description from './components/description'
+import EditSheet from './components/edit-sheet'
 import Footer from './components/footer'
 import Info from './components/info'
 import RecommendCard from './components/recommend-card'
@@ -23,7 +24,7 @@ const ProductsDetail = () => {
   )
   const isSearchSheet =
     sheetReducer.status && sheetReducer.name === 'search-sheet'
-  const [isKebabClicked, setIsKebabClicked] = useState(false)
+  const [isHamburgerClicked, setIsHamburgerClicked] = useState(false)
 
   const handleOrderClick = () => {
     dispatch(sheet({ name: 'review-order-sheet', status: true, text: '' }))
@@ -33,9 +34,15 @@ const ProductsDetail = () => {
     dispatch(sheet({ name: 'share-sheet', status: true, text: '' }))
   }
 
+  const handleEditClick = () => {
+    dispatch(sheet({ name: 'edit-sheet', status: true, text: '' }))
+  }
+
   return (
     <>
-      <ProductHeader kebabClick={() => setIsKebabClicked(!isKebabClicked)} />
+      <ProductHeader
+        hamburgerClick={() => setIsHamburgerClicked(!isHamburgerClicked)}
+      />
       <S.PageContainer $isSearchSheet={isSearchSheet}>
         <Info
           productName="상품명"
@@ -59,6 +66,7 @@ const ProductsDetail = () => {
           reviewImg={mockData3}
           reviewData={reviewData}
           onOrderClick={handleOrderClick}
+          onEditClick={handleEditClick}
         />
         <Footer
           isBookmarked={true}
@@ -71,6 +79,9 @@ const ProductsDetail = () => {
         )}
         {sheetReducer.status && sheetReducer.name === 'share-sheet' && (
           <ShareSheet />
+        )}
+        {sheetReducer.status && sheetReducer.name === 'edit-sheet' && (
+          <EditSheet />
         )}
       </S.PageContainer>
     </>

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 
 import alarmIcon from '@/assets/common/alarm.svg'
-import kebabClickedIcon from '@/assets/common/kebab-click.svg'
-import kebabIcon from '@/assets/common/kebab.svg'
+import hamburgerClickedIcon from '@/assets/common/hamburger-click.svg'
+import hamburgerIcon from '@/assets/common/hamburger.svg'
 import searchIcon from '@/assets/common/search.svg'
 import { sheet, SheetSliceState } from '@/store/sheet-slice.ts'
 
@@ -14,8 +14,8 @@ import { useNavigate } from 'react-router-dom'
 import * as S from './Header.style'
 import { IHeaderProps } from './Header.type'
 
-const Header: React.FC<IHeaderProps> = ({ kebabClick }) => {
-  const [isKebabClicked, setIsKebabClicked] = useState(false)
+const Header: React.FC<IHeaderProps> = ({ hamburgerClick }) => {
+  const [isHamburgerClicked, setIsHamburgerClicked] = useState(false)
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -38,17 +38,17 @@ const Header: React.FC<IHeaderProps> = ({ kebabClick }) => {
   const handleLabelClick = () => {
     navigate('/')
   }
-  const handleKebabClick = () => {
-    setIsKebabClicked(!isKebabClicked)
-    kebabClick()
+  const handleHamburgerClick = () => {
+    setIsHamburgerClicked(!isHamburgerClicked)
+    hamburgerClick()
   }
-  const kebabImg = isKebabClicked ? kebabClickedIcon : kebabIcon
+  const hamburgerImg = isHamburgerClicked ? hamburgerClickedIcon : hamburgerIcon
   return (
     <>
-      {isKebabClicked && (
+      {isHamburgerClicked && (
         <S.HeaderBackground
           onClick={() => {
-            setIsKebabClicked(false)
+            setIsHamburgerClicked(false)
           }}
         />
       )}
@@ -61,9 +61,13 @@ const Header: React.FC<IHeaderProps> = ({ kebabClick }) => {
             onClick={() => handleSearchClick()}
           />
           <S.Icon src={alarmIcon} alt="alarm" />
-          <S.Icon src={kebabImg} alt="kebab" onClick={handleKebabClick} />
+          <S.Icon
+            src={hamburgerImg}
+            alt="hamburger"
+            onClick={handleHamburgerClick}
+          />
         </S.IconContainer>
-        {isKebabClicked && <CategorySection />}
+        {isHamburgerClicked && <CategorySection />}
       </S.HeaderContainer>
     </>
   )

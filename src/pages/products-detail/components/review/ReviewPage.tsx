@@ -6,13 +6,19 @@ import * as S from './Review.style'
 
 import type { IReviewPageProps } from './Review.type'
 
-const ReviewPage: React.FC<IReviewPageProps> = ({ reviewData }) => {
+const ReviewPage: React.FC<IReviewPageProps> = ({
+  reviewData,
+  onEditClick,
+}) => {
   return (
     <S.ReviewContent>
       <S.ProfileHeader>
         <S.ProfileImg src={reviewData.profileImage} />
         <S.ProfileNameWrapper>
-          <S.BlackText>닉네임</S.BlackText>
+          <S.ProfileHeaderWrapper>
+            <S.BlackText>닉네임</S.BlackText>
+            <S.EditKebab onClick={onEditClick} />
+          </S.ProfileHeaderWrapper>
           <S.RatingWrapper>
             <img src={star} alt="별점" />
             <S.GrayText>{reviewData.reviewDay}</S.GrayText>

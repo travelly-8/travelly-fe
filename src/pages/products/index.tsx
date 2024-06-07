@@ -18,7 +18,7 @@ const ProductsPage = () => {
   const dispatch = useDispatch()
   const cardsQueryData = useProductCardsParams()
 
-  const [isKebabClicked, setIsKebabClicked] = useState(false)
+  const [isHamburgerClicked, setIsHamburgerClicked] = useState(false)
   const {
     data: cardData,
     hasNextPage,
@@ -57,7 +57,9 @@ const ProductsPage = () => {
 
   return (
     <>
-      <ProductHeader kebabClick={() => setIsKebabClicked(!isKebabClicked)} />
+      <ProductHeader
+        hamburgerClick={() => setIsHamburgerClicked(!isHamburgerClicked)}
+      />
       <S.PageContainer $isSearchSheet={isSearchSheet}>
         <AppBar
           totalElements={totalElements}

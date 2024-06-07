@@ -11,7 +11,6 @@ export const ReviewHeader = styled.div`
   flex-direction: column;
   gap: 1.6rem;
 `
-
 export const ReviewTitle = styled.div`
   display: flex;
   justify-content: space-between;
@@ -38,7 +37,6 @@ export const Icon = styled.img`
   height: 2.4rem;
   cursor: pointer;
 `
-
 export const ReviewCheckBox = styled.div`
   display: flex;
   justify-content: space-between;
@@ -48,7 +46,6 @@ export const CheckBox = styled.div`
   display: flex;
   gap: 2.6rem;
 `
-
 export const InputCheckBox = styled.input`
   color: var(--color-black);
   font-size: 1.2rem;
@@ -58,6 +55,13 @@ export const BlackText = styled.label`
   color: var(--color-black);
   font-size: 1.2rem;
   line-height: 1.8rem;
+`
+export const EditKebab = styled.span`
+  width: 2.4rem;
+  height: 2.4rem;
+  background-image: url('src/assets/common/kebab.svg');
+
+  cursor: pointer;
 `
 export const CheckBoxWrapper = styled.div`
   display: flex;
@@ -72,7 +76,6 @@ export const SortWrapper = styled.div`
 
   cursor: pointer;
 `
-
 export const GrayText = styled.span`
   color: var(--color-gray-middle);
   font-size: 1.2rem;
@@ -147,6 +150,11 @@ export const ProfileNameWrapper = styled.div`
   margin-left: 0.2rem;
   gap: 0.8rem;
 `
+export const ProfileHeaderWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`
 export const RatingWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -159,10 +167,8 @@ export const DescriptionWrapper = styled.div`
 `
 export const LikeComment = styled.div`
   display: flex;
-
   gap: 0.8rem;
 `
-
 export const LikeCommentWrapper = styled.div`
   display: flex;
   align-items: center;

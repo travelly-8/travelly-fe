@@ -3,10 +3,12 @@ export interface IReviewProps {
   reviewImg: string[]
   reviewData: IReviewData[]
   onOrderClick: () => void
+  onEditClick: () => void
 }
 
 export interface IReviewPageProps {
   reviewData: IReviewData
+  onEditClick: () => void
 }
 
 export interface IReviewData {

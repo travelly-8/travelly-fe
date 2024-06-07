@@ -1,9 +1,9 @@
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g id="Frame 14">
-<g id="Group 48">
-<path id="Vector 8" d="M4.125 5H19.875" stroke="#333333" stroke-width="1.5" stroke-linecap="round"/>
-<path id="Vector 9" d="M4.125 19H19.875" stroke="#333333" stroke-width="1.5" stroke-linecap="round"/>
-<path id="Vector 10" d="M4.125 12H19.875" stroke="#333333" stroke-width="1.5" stroke-linecap="round"/>
+<g id="Frame 104">
+<g id="Group 2276">
+<circle id="Ellipse 10" cx="4" cy="12" r="2" fill="#D9D9D9"/>
+<circle id="Ellipse 11" cx="12" cy="12" r="2" fill="#D9D9D9"/>
+<circle id="Ellipse 12" cx="20" cy="12" r="2" fill="#D9D9D9"/>
 </g>
 </g>
 </svg>

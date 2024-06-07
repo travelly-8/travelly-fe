@@ -18,7 +18,7 @@ import * as S from './HomePage.style'
 function HomePage() {
   const navigate = useNavigate()
   const cardsQueryData = useProductCardsParams()
-  const [isKebabClicked, setIsKebabClicked] = useState(false)
+  const [isHamburgerClicked, setIsHamburgerClicked] = useState(false)
   const sheetReducer = useSelector(
     (state: SheetSliceState) => state.sheet.value,
   )
@@ -37,9 +37,11 @@ function HomePage() {
 
   return (
     <>
-      <Header kebabClick={() => setIsKebabClicked(!isKebabClicked)} />
+      <Header
+        hamburgerClick={() => setIsHamburgerClicked(!isHamburgerClicked)}
+      />
       <S.PageContainer
-        $isKebabClicked={isKebabClicked}
+        $isHamburgerClicked={isHamburgerClicked}
         $isSheet={sheetReducer.status}
       >
         <S.ProductsSection>

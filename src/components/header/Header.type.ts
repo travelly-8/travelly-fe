@@ -1,3 +1,3 @@
 export interface IHeaderProps {
-  kebabClick: () => void
+  hamburgerClick: () => void
 }

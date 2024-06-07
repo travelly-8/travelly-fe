@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
-import kebabClickedIcon from '@/assets/common/kebab-click.svg'
-import kebabIcon from '@/assets/common/kebab.svg'
+import hamburgerClickedIcon from '@/assets/common/hamburger-click.svg'
+import hamburgerIcon from '@/assets/common/hamburger.svg'
 import searchIcon from '@/assets/common/search.svg'
 import PRODUCT_TYPE from '@/constants/PRODUCT_TYPE'
 import { sheet, SheetSliceState } from '@/store/sheet-slice.ts'
@@ -16,8 +16,8 @@ import * as S from './ProductHeader.style'
 
 import type { IProductHeaderProps, ProductType } from './ProductHeader.type'
 
-const ProductHeader: React.FC<IProductHeaderProps> = ({ kebabClick }) => {
-  const [isKebabClicked, setIsKebabClicked] = useState(false)
+const ProductHeader: React.FC<IProductHeaderProps> = ({ hamburgerClick }) => {
+  const [isHamburgerClicked, setIsHamburgerClicked] = useState(false)
 
   const location = useLocation()
   const queryParams = new URLSearchParams(location.search)
@@ -28,9 +28,9 @@ const ProductHeader: React.FC<IProductHeaderProps> = ({ kebabClick }) => {
     : undefined
   const category =
     contentTypeIndex !== undefined ? PRODUCT_TYPE[contentTypeIndex] : input
-  const handleKebabClick = () => {
-    setIsKebabClicked(!isKebabClicked)
-    kebabClick()
+  const handleHamburgerClick = () => {
+    setIsHamburgerClicked(!isHamburgerClicked)
+    hamburgerClick()
   }
 
   const dispatch = useDispatch()
@@ -44,13 +44,13 @@ const ProductHeader: React.FC<IProductHeaderProps> = ({ kebabClick }) => {
     return <SearchSheet />
   }
 
-  const kebabImg = isKebabClicked ? kebabClickedIcon : kebabIcon
+  const hamburgerImg = isHamburgerClicked ? hamburgerClickedIcon : hamburgerIcon
   return (
     <>
-      {isKebabClicked && (
+      {isHamburgerClicked && (
         <S.ProductHeaderBackground
           onClick={() => {
-            setIsKebabClicked(false)
+            setIsHamburgerClicked(false)
           }}
         />
       )}
@@ -61,9 +61,13 @@ const ProductHeader: React.FC<IProductHeaderProps> = ({ kebabClick }) => {
         </S.BackBarContainer>
         <S.IconWrapper>
           <S.Icon src={searchIcon} alt="search" onClick={handleSearchClick} />
-          <S.Icon src={kebabImg} alt="kebab" onClick={handleKebabClick} />
+          <S.Icon
+            src={hamburgerImg}
+            alt="hamburger"
+            onClick={handleHamburgerClick}
+          />
         </S.IconWrapper>
-        {isKebabClicked && <CategorySection />}
+        {isHamburgerClicked && <CategorySection />}
       </S.ProductHeaderContainer>
     </>
   )
