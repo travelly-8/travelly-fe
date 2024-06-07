@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 
 import { sheet, SheetSliceState } from '@/store/sheet-slice.ts'
 
@@ -17,6 +17,25 @@ import ShareSheet from './components/share-sheet'
 import { mockCard, mockData3, reviewData } from './mockData'
 import * as S from './ProductsDetail.style'
 
+import type { ISheetComponents } from './ProductsDetail.type'
+
+const sheetComponents: ISheetComponents = {
+  'review-order-sheet': ReviewOrderSheet,
+  'share-sheet': ShareSheet,
+  'edit-sheet': EditSheet,
+}
+
+const SheetModal = () => {
+  const sheetReducer = useSelector(
+    (state: SheetSliceState) => state.sheet.value,
+  )
+  const SheetComponent = sheetReducer.status
+    ? sheetComponents[sheetReducer.name as keyof ISheetComponents]
+    : null
+
+  return SheetComponent ? <SheetComponent /> : null
+}
+
 const ProductsDetail = () => {
   const dispatch = useDispatch()
   const sheetReducer = useSelector(
@@ -26,17 +45,12 @@ const ProductsDetail = () => {
     sheetReducer.status && sheetReducer.name === 'search-sheet'
   const [isHamburgerClicked, setIsHamburgerClicked] = useState(false)
 
-  const handleOrderClick = () => {
-    dispatch(sheet({ name: 'review-order-sheet', status: true, text: '' }))
-  }
-
-  const handleShareClick = () => {
-    dispatch(sheet({ name: 'share-sheet', status: true, text: '' }))
-  }
-
-  const handleEditClick = () => {
-    dispatch(sheet({ name: 'edit-sheet', status: true, text: '' }))
-  }
+  const handleSheetDispatch = useCallback(
+    (name: keyof ISheetComponents) => {
+      dispatch(sheet({ name, status: true, text: '' }))
+    },
+    [dispatch],
+  )
 
   return (
     <>
@@ -50,7 +64,7 @@ const ProductsDetail = () => {
           address="서울시 강남구"
           rating="4.5"
           reviewCnt={111}
-          onShareClick={handleShareClick}
+          onShareClick={() => handleSheetDispatch('share-sheet')}
         />
         <BasicInfo
           address="서울시 강남구"
@@ -65,8 +79,8 @@ const ProductsDetail = () => {
           reviewCnt={111}
           reviewImg={mockData3}
           reviewData={reviewData}
-          onOrderClick={handleOrderClick}
-          onEditClick={handleEditClick}
+          onOrderClick={() => handleSheetDispatch('review-order-sheet')}
+          onEditClick={() => handleSheetDispatch('edit-sheet')}
         />
         <Footer
           isBookmarked={true}
@@ -74,15 +88,7 @@ const ProductsDetail = () => {
           discount={20}
           price={20000}
         />
-        {sheetReducer.status && sheetReducer.name === 'review-order-sheet' && (
-          <ReviewOrderSheet />
-        )}
-        {sheetReducer.status && sheetReducer.name === 'share-sheet' && (
-          <ShareSheet />
-        )}
-        {sheetReducer.status && sheetReducer.name === 'edit-sheet' && (
-          <EditSheet />
-        )}
+        <SheetModal />
       </S.PageContainer>
     </>
   )

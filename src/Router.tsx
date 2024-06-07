@@ -26,7 +26,7 @@ export default function AppRouter() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/products" element={<ProductsPage />} />
-        {/* <Route path="/products/:productId" element={<ProductsDetail />} /> */}
+        <Route path="/products/:productId" element={<ProductsDetail />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup/start" element={<SignupStartPage />} />
         <Route path="/signup" element={<SignupPage />} />
@@ -40,7 +40,6 @@ export default function AppRouter() {
         <Route path="/exit" element={<ExitPage />} />
         <Route path="/goodbye" element={<GoodbyePage />} />
         <Route path="/auth/callback/:platform" element={<AuthCallback />} />
-        <Route path="/products-detail" element={<ProductsDetail />} />
         <Route path="/review/write" element={<ReviewWritePage />} />
         <Route path="/review/:reviewId" element={<ReviewDetailPage />} />
       </Routes>

@@ -9,7 +9,7 @@ import * as S from './RecommendCard.styles'
 
 const RecommendCard = ({ cards }: { cards: IProductCardData[] }) => {
   const recommendedProductsRef = useRef<HTMLDivElement>(null)
-  const scrollrecommendedProductHandler = useScrollHandlers(
+  const scrollRecommendedProductHandler = useScrollHandlers(
     recommendedProductsRef,
   )
 
@@ -19,7 +19,7 @@ const RecommendCard = ({ cards }: { cards: IProductCardData[] }) => {
 
       <S.ProductList
         ref={recommendedProductsRef}
-        {...scrollrecommendedProductHandler}
+        {...scrollRecommendedProductHandler}
       >
         {cards.map((card) => (
           <ProductCard key={card.id} cardData={card} size="summary" />
