@@ -12,7 +12,10 @@ const ReviewPage: React.FC<IReviewPageProps> = ({ reviewData }) => {
       <S.ProfileHeader>
         <S.ProfileImg src={reviewData.profileImage} />
         <S.ProfileNameWrapper>
-          <S.BlackText>닉네임</S.BlackText>
+          <S.ProfileHeaderWrapper>
+            <S.BlackText>닉네임</S.BlackText>
+            <S.EditKebab />
+          </S.ProfileHeaderWrapper>
           <S.RatingWrapper>
             <img src={star} alt="별점" />
             <S.GrayText>{reviewData.reviewDay}</S.GrayText>
