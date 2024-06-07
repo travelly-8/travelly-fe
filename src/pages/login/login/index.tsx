@@ -14,6 +14,7 @@ import { Controller, useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
+import { user } from '@/store/user-slice'
 import type { IErrorResponse, IFormData } from './Login.type'
 
 export default function LoginPage() {
@@ -49,6 +50,7 @@ export default function LoginPage() {
       const response = await postLogin(data)
       const { accessToken, refreshToken } = response.data.token
       const { newUser, nickname, role } = response.data
+      dispatch(user({ newUser: newUser }))
       saveTokens(accessToken, refreshToken)
       dispatch(setUser({ nickname, role }))
       if (newUser) {
