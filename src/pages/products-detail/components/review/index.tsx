@@ -11,6 +11,7 @@ const Review: React.FC<IReviewProps> = ({
   reviewImg,
   reviewData,
   onOrderClick,
+  onEditClick,
 }) => {
   const reviewImgCnt = reviewImg.length
 
@@ -50,7 +51,11 @@ const Review: React.FC<IReviewProps> = ({
         </S.ReviewImgContainer>
       </S.ReviewHeader>
       {reviewData.map((data: IReviewData) => (
-        <ReviewPage key={data.name} reviewData={data} />
+        <ReviewPage
+          key={data.name}
+          reviewData={data}
+          onEditClick={onEditClick}
+        />
       ))}
     </S.ReviewContainer>
   )
