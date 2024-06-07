@@ -1,5 +1,7 @@
 import GlobalStyles from '@/styles/GlobalStyles'
+
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+
 import AuthCallback from './pages/auth'
 import HomePage from './pages/home'
 import LoginPage from './pages/login/login'
@@ -9,7 +11,7 @@ import MyPageEditPage from './pages/mypage/edit'
 import ExitPage from './pages/mypage/exit'
 import GoodbyePage from './pages/mypage/good-bye'
 import ProductsPage from './pages/products'
-import Result from './pages/result'
+import ProductsDetail from './pages/products-detail'
 import SignupStartPage from './pages/signup'
 import SignupEndPage from './pages/signup/end'
 import SignupPage from './pages/signup/signup'
@@ -21,9 +23,9 @@ export default function AppRouter() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/products" element={<ProductsPage />} />
+        {/* <Route path="/products/:productId" element={<ProductsDetail />} /> */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup/start" element={<SignupStartPage />} />
-        <Route path="/result" element={<Result />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/signup/end" element={<SignupEndPage />} />
         <Route path="/select-plan" element={<SelectPlanPage />} />
@@ -33,6 +35,7 @@ export default function AppRouter() {
         <Route path="/exit" element={<ExitPage />} />
         <Route path="/goodbye" element={<GoodbyePage />} />
         <Route path="/auth/callback/:platform" element={<AuthCallback />} />
+        <Route path="/products-detail" element={<ProductsDetail />} />
       </Routes>
     </BrowserRouter>
   )
