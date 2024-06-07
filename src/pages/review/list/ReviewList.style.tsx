@@ -40,16 +40,11 @@ export const ProfileInfo = styled.div`
 export const Nickname = styled.div`
   font-weight: bold;
   font-size: 1.4rem;
-  font-style: normal;
-  line-height: 2.38rem; /* 170% */
 `
 
 export const Email = styled.div`
-  color: var(--color-black);
+  color: black;
   font-size: 1.2rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 1.8rem; /* 150% */
 `
 
 export const BodyContainer = styled.div`
@@ -79,7 +74,6 @@ export const Tab = styled.button`
 
   &.active {
     color: var(--color-black);
-    font-weight: 600;
 
     &::after {
       content: '';
