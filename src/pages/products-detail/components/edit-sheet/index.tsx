@@ -6,7 +6,7 @@ const ACTION = ['수정', '삭제'] as const
 
 function EditSheet() {
   return (
-    <GrabSheet name="share-sheet">
+    <GrabSheet name="edit-sheet">
       {ACTION.map((action, idx) => (
         <S.OrderWrapper key={action}>
           <S.Order>{action}</S.Order>
