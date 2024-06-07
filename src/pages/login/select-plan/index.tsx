@@ -1,14 +1,16 @@
+import { useEffect, useState } from 'react'
 import { putRole } from '@/api/authAPI'
+import location from '@/assets/login/location.png'
+import passport from '@/assets/login/passport.png'
 import IconButton from '@/components/icon-button'
+import ConfirmPage from '@/pages/login/components/confirm-page'
 import { SheetSliceState, sheet } from '@/store/sheet-slice'
 import isAxiosError from '@/utils/isAxiosError'
 import { getAccessToken, refreshAccessToken } from '@/utils/tokenStorage'
 import BackBar from '@components/back-bar'
-import type { ButtonType } from '@components/icon-button/IconButton.type'
-import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import type { ButtonType } from '@components/icon-button/IconButton.type'
 import Bubble from '../components/bubble'
-import ConfirmPage from '../components/confirm-page'
 import * as S from './SelectPlanPage.style'
 
 export default function SelectPlanPage() {
@@ -63,7 +65,7 @@ export default function SelectPlanPage() {
         <S.Title>회원 유형 선택</S.Title>
         <S.ButtonWrapper>
           <IconButton
-            imgSrc="/src/assets/login/passport.png"
+            imgSrc={passport}
             buttonType={travellerStatus}
             onClick={() => handleButtonClick('traveller')}
           >
@@ -71,7 +73,7 @@ export default function SelectPlanPage() {
           </IconButton>
 
           <IconButton
-            imgSrc="/src/assets/login/location.png"
+            imgSrc={location}
             buttonType={travellyStatus}
             onClick={() => handleButtonClick('travelly')}
           >

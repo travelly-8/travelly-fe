@@ -1,5 +1,6 @@
 import { Fragment, useState } from 'react'
 
+import star from '@/assets/home/empty-star.svg'
 import { LOCALE_CODE_LIST } from '@/constants/FILTERING_BROWSING'
 import { registerRecentProducts } from '@/utils/registerLocalStorage'
 
@@ -47,7 +48,7 @@ function ProductCard({ cardData, size }: IProductCardProps) {
               <S.Price>{formattedPrice}원</S.Price>
             </S.DiscountPrice>
             <S.Review size={size}>
-              <S.Star src="src/assets/home/empty-star.svg" />
+              <S.Star src={star} />
               <S.ReviewPoint>{rating}</S.ReviewPoint>
               <S.ReviewCount>({reviewCount})</S.ReviewCount>
             </S.Review>
