@@ -16,6 +16,7 @@ import ReviewWritePage from './pages/review/write'
 import SignupStartPage from './pages/signup'
 import SignupEndPage from './pages/signup/end'
 import SignupPage from './pages/signup/signup'
+import SelectPlanRouter from './router/SelectPlanRouter'
 
 export default function AppRouter() {
   return (
@@ -29,7 +30,9 @@ export default function AppRouter() {
         <Route path="/result" element={<div>result page</div>} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/signup/end" element={<SignupEndPage />} />
-        <Route path="/select-plan" element={<SelectPlanPage />} />
+        <Route element={<SelectPlanRouter />}>
+          <Route path="/select-plan" element={<SelectPlanPage />} />
+        </Route>
         {/* <Route path="/browsing" element={<BrowsingPage />} /> */}
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/mypage/edit" element={<MyPageEditPage />} />

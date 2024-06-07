@@ -1,19 +1,23 @@
+import { useState } from 'react'
+
 import { postLogin } from '@/api/authAPI'
 import { useFormValidation } from '@/hooks/useFormValidation'
+import { user } from '@/store/user-slice'
 import isAxiosError from '@/utils/isAxiosError'
 import { saveTokens } from '@/utils/tokenStorage'
 import useKeyboardDetection from '@/utils/useKeyboardDetection'
 import { loginEmailValidate, loginPasswordValidate } from '@/utils/validate'
-import { useState } from 'react'
 
 import FormContainer from '@components/form-container'
 import Input from '@components/input'
 import { Controller, useForm } from 'react-hook-form'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import type { IErrorResponse, IFormData } from './Login.type'
 
 export default function LoginPage() {
+  const dispatch = useDispatch()
   const isKeyboardOpen = useKeyboardDetection()
   const navigate = useNavigate()
   const {
@@ -44,6 +48,7 @@ export default function LoginPage() {
       const response = await postLogin(data)
       const { accessToken, refreshToken } = response.data.token
       const { newUser } = response.data
+      dispatch(user({ newUser: newUser }))
       saveTokens(accessToken, refreshToken)
       if (newUser) {
         navigate('/select-plan')
