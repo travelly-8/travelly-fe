@@ -1,18 +1,48 @@
+import { useEffect } from 'react'
+
+import shareMessage from '@/utils/kakaoShare'
+
 import GrabSheet from '@components/grab-sheet'
 
 import * as S from './ShareSheet.style'
+import { IShareSheetProps } from './ShareSheet.type'
 
-function ShareSheet() {
-  const url = window.location.href
+function ShareSheet({
+  address,
+  addressTitle,
+  title,
+  description,
+  imageUrl,
+  commentCount,
+}: IShareSheetProps) {
+  const currentUrl = window.location.href
 
   const copyUrl = () => {
-    navigator.clipboard.writeText(url)
+    navigator.clipboard.writeText(currentUrl)
   }
+
+  useEffect(() => {
+    window.Kakao.cleanup()
+    window.Kakao.init('e556577fbb3d6efe74faf54a15a6fde0')
+    window.Kakao.isInitialized()
+  }, [])
 
   return (
     <GrabSheet name="share-sheet">
       <S.Wrapper>
-        <S.ShareWrapper>
+        <S.ShareWrapper
+          onClick={() =>
+            shareMessage(
+              address,
+              addressTitle,
+              title,
+              description,
+              imageUrl,
+              'https://tickets.interpark.com/',
+              commentCount,
+            )
+          }
+        >
           <S.KakaoIcon />
           <S.Share>카카오톡으로 공유하기</S.Share>
         </S.ShareWrapper>
