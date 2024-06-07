@@ -4,8 +4,8 @@ import useInfiniteCardsQuery from '@/hooks/api/productsAPI/useInfiniteCardsQuery
 import useProductCardsParams from '@/hooks/api/productsAPI/useProductCardsParams'
 import useIntersectionObserver from '@/hooks/useIntersectionObserver'
 import AppBar from '@/pages/products/components/app-bar'
+import CardOrdersSheet from '@/pages/products/components/card-orders-sheet'
 import FilteringSheet from '@/pages/products/components/filtering-sheet'
-import SortOrdersSheet from '@/pages/products/components/sort-orders-sheet'
 import { SheetSliceState, sheet } from '@/store/sheet-slice.ts'
 
 import ProductCard from '@components/product-card'
@@ -18,7 +18,7 @@ const ProductsPage = () => {
   const dispatch = useDispatch()
   const cardsQueryData = useProductCardsParams()
 
-  const [isKebabClicked, setIsKebabClicked] = useState(false)
+  const [isHamburgerClicked, setIsHamburgerClicked] = useState(false)
   const {
     data: cardData,
     hasNextPage,
@@ -41,8 +41,12 @@ const ProductsPage = () => {
   const sheetReducer = useSelector(
     (state: SheetSliceState) => state.sheet.value,
   )
+
+  const isSearchSheet =
+    sheetReducer.status && sheetReducer.name === 'search-sheet'
+
   const handleOrderClick = () => {
-    dispatch(sheet({ name: 'order-sheet', status: true, text: '' }))
+    dispatch(sheet({ name: 'card-order-sheet', status: true, text: '' }))
   }
   const handleFilterClick = () => {
     dispatch(sheet({ name: 'filter-sheet', status: true, text: '' }))
@@ -50,11 +54,12 @@ const ProductsPage = () => {
   if (sheetReducer.status && sheetReducer.name === 'filter-sheet') {
     return <FilteringSheet />
   }
-  const isSearchSheet =
-    sheetReducer.status && sheetReducer.name === 'search-sheet'
+
   return (
     <>
-      <ProductHeader kebabClick={() => setIsKebabClicked(!isKebabClicked)} />
+      <ProductHeader
+        hamburgerClick={() => setIsHamburgerClicked(!isHamburgerClicked)}
+      />
       <S.PageContainer $isSearchSheet={isSearchSheet}>
         <AppBar
           totalElements={totalElements}
@@ -69,8 +74,8 @@ const ProductsPage = () => {
           </S.AllCardWrapper>
         </S.AllProductsSection>
         {hasNextPage && <S.Target ref={ref} />}
-        {sheetReducer.status && sheetReducer.name === 'order-sheet' && (
-          <SortOrdersSheet />
+        {sheetReducer.status && sheetReducer.name === 'card-order-sheet' && (
+          <CardOrdersSheet />
         )}
       </S.PageContainer>
     </>

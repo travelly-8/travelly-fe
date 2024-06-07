@@ -11,6 +11,7 @@ import MyPageEditPage from './pages/mypage/edit'
 import ExitPage from './pages/mypage/exit'
 import GoodbyePage from './pages/mypage/good-bye'
 import ProductsPage from './pages/products'
+import ProductsDetail from './pages/products-detail'
 import ReviewDetailPage from './pages/review/detail'
 import ReviewWritePage from './pages/review/write'
 import SignupStartPage from './pages/signup'
@@ -25,9 +26,9 @@ export default function AppRouter() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/products" element={<ProductsPage />} />
+        {/* <Route path="/products/:productId" element={<ProductsDetail />} /> */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup/start" element={<SignupStartPage />} />
-        <Route path="/result" element={<div>result page</div>} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/signup/end" element={<SignupEndPage />} />
         <Route element={<SelectPlanRouter />}>
@@ -39,6 +40,7 @@ export default function AppRouter() {
         <Route path="/exit" element={<ExitPage />} />
         <Route path="/goodbye" element={<GoodbyePage />} />
         <Route path="/auth/callback/:platform" element={<AuthCallback />} />
+        <Route path="/products-detail" element={<ProductsDetail />} />
         <Route path="/review/write" element={<ReviewWritePage />} />
         <Route path="/review/:reviewId" element={<ReviewDetailPage />} />
       </Routes>

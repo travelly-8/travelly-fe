@@ -1,3 +1,5 @@
+import filter from '@/assets/products/filter.svg'
+
 import * as S from './AppBar.style'
 import { IAppBarProps } from './AppBar.type'
 
@@ -15,7 +17,7 @@ const AppBar = ({
       <S.OrderFilterWrapper>
         <S.Order onClick={onOrderClick}>정렬</S.Order>
         <S.Filter onClick={onFilterClick}>
-          <img src="/src/assets/products/filter.svg" alt="필터" />
+          <img src={filter} alt="필터" />
         </S.Filter>
       </S.OrderFilterWrapper>
     </S.AppBar>

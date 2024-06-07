@@ -1,3 +1,5 @@
+import bag from '@/assets/signup/bag.png'
+
 import RectangleButton from '@components/rectangle-button'
 import { useNavigate } from 'react-router-dom'
 
@@ -8,7 +10,7 @@ export default function GoodbyePage() {
 
   return (
     <S.Wrapper>
-      <S.Icon src="/src/assets/signup/bag.png" alt="회원가입 완료" />
+      <S.Icon src={bag} alt="회원가입 완료" />
       <S.TextWrapper>
         <S.UpperText>안녕히가세요!</S.UpperText>
         <S.LowerText>다음에 또 만나길 기다리고 있을게요.</S.LowerText>

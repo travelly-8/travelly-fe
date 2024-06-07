@@ -1,6 +1,8 @@
 import { useRef, useState } from 'react'
 
 import { getSearchProducts } from '@/api/productsAPI'
+import star2 from '@/assets/home/star2.svg'
+import trophy from '@/assets/home/trophy.svg'
 import { API_PRODUCTS } from '@/constants/API'
 import useGetAllProducts from '@/hooks/api/productsAPI/useGetAllProducts'
 import useProductCardsParams from '@/hooks/api/productsAPI/useProductCardsParams'
@@ -18,7 +20,7 @@ import * as S from './HomePage.style'
 function HomePage() {
   const navigate = useNavigate()
   const cardsQueryData = useProductCardsParams()
-  const [isKebabClicked, setIsKebabClicked] = useState(false)
+  const [isHamburgerClicked, setIsHamburgerClicked] = useState(false)
   const sheetReducer = useSelector(
     (state: SheetSliceState) => state.sheet.value,
   )
@@ -37,14 +39,16 @@ function HomePage() {
 
   return (
     <>
-      <Header kebabClick={() => setIsKebabClicked(!isKebabClicked)} />
+      <Header
+        hamburgerClick={() => setIsHamburgerClicked(!isHamburgerClicked)}
+      />
       <S.PageContainer
-        $isKebabClicked={isKebabClicked}
+        $isHamburgerClicked={isHamburgerClicked}
         $isSheet={sheetReducer.status}
       >
         <S.ProductsSection>
           <S.SectionTitleWrapper>
-            <S.SectionTitleIcon src="src/assets/home/trophy.svg" />
+            <S.SectionTitleIcon src={trophy} />
             <S.SectionTitle>인기 상품</S.SectionTitle>
           </S.SectionTitleWrapper>
           <S.SectionContentsWrapper>
@@ -57,7 +61,7 @@ function HomePage() {
         </S.ProductsSection>
         <S.ProductsSection>
           <S.SectionTitleWrapper>
-            <S.SectionTitleIcon src="src/assets/home/star2.svg" />
+            <S.SectionTitleIcon src={star2} />
             <S.SectionTitle>추천 상품</S.SectionTitle>
           </S.SectionTitleWrapper>
           <S.SectionContentsWrapper>
@@ -84,8 +88,8 @@ function HomePage() {
             ))}
           </S.AllCardWrapper>
         </S.AllProductsSection>
-        <FooterNavigation />
       </S.PageContainer>
+      <FooterNavigation />
     </>
   )
 }

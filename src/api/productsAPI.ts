@@ -51,7 +51,7 @@ export const getSearchProducts = (data: ISearchProductsData) => {
   const params = createParams(data)
   return instance({
     method: 'GET',
-    url: API_PRODUCTS.PRODUCTS_SEARCH,
+    url: API_PRODUCTS.PRODUCTS,
     params,
   })
 }

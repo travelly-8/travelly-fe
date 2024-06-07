@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const PageContainer = styled.main<{
-  $isKebabClicked: boolean
+  $isHamburgerClicked: boolean
   $isSheet: boolean
 }>`
   position: relative;
