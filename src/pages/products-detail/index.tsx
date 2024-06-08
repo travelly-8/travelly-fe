@@ -17,7 +17,7 @@ import Info from './components/info'
 import RecommendCard from './components/recommend-card'
 import Review from './components/review'
 import SheetRenderer from './components/sheet-renderer'
-import { reviewData as const_review_data } from './mockData'
+import { mockCard, reviewData as const_review_data } from './mockData'
 import * as S from './ProductsDetail.style'
 
 import type { ISheetComponents } from './ProductsDetail.type'
@@ -26,10 +26,11 @@ import { IProductCardData } from '@components/product-card/ProductCard.type.ts'
 
 function ProductsDetail() {
   const { productId } = useParams()
-  const { data: productDetailQuery } = useQuery({
-    queryKey: ['products-detail', productId],
-    queryFn: ({ queryKey }) => getProductDetail(Number(queryKey[1])),
-  })
+  const { data: productDetailQuery, isSuccess: isProductDetailSuccess } =
+    useQuery({
+      queryKey: ['products-detail', productId],
+      queryFn: ({ queryKey }) => getProductDetail(Number(queryKey[1])),
+    })
   const {
     address = '',
     cityCode = '',
@@ -49,12 +50,11 @@ function ProductsDetail() {
     keyword: address.split(' ')[1],
     cityCode: cityCode,
   }
-
   const { data: recommendProductQuery } = useQuery({
     queryKey: ['recommend-products'],
     queryFn: () => getSearchProducts(recommendQueryData),
+    enabled: isProductDetailSuccess,
   })
-
   const recommendProductData = recommendProductQuery?.data.content.filter(
     (product: IProductCardData) => product.id.toString() !== productId,
   )
@@ -127,7 +127,7 @@ function ProductsDetail() {
           website={homepage}
         />
         <Description />
-        <RecommendCard cards={recommendProductData} />
+        <RecommendCard cards={recommendProductData || mockCard} />
         <Review
           reviewCnt={reviewCount}
           reviewImg={reviewImg}
