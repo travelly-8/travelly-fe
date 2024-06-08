@@ -44,12 +44,22 @@ const Review: React.FC<IReviewProps> = ({
         </S.ReviewCheckBox>
         {reviewImgCnt && (
           <S.ReviewImgContainer>
-            <S.ReviewImg src={reviewImg[0]} alt="리뷰 이미지" />
-            <S.ReviewImg src={reviewImg[1]} alt="리뷰 이미지" />
-            <S.LastReviewImg onClick={onPhotoReviewsClick}>
-              <S.ReviewImg src={reviewImg[2]} alt="리뷰 이미지" />
-              <S.ReviewImgBackground>+{reviewImgCnt - 2}</S.ReviewImgBackground>
-            </S.LastReviewImg>
+            {reviewImgCnt <= 3 ? (
+              reviewImg.map((photo) => (
+                <S.ReviewImg key={photo} src={photo} alt="리뷰 이미지" />
+              ))
+            ) : (
+              <>
+                <S.ReviewImg src={reviewImg[0]} alt="리뷰 이미지" />
+                <S.ReviewImg src={reviewImg[1]} alt="리뷰 이미지" />
+                <S.LastReviewImg onClick={onPhotoReviewsClick}>
+                  <S.ReviewImg src={reviewImg[2]} alt="리뷰 이미지" />
+                  <S.ReviewImgBackground>
+                    +{reviewImgCnt - 2}
+                  </S.ReviewImgBackground>
+                </S.LastReviewImg>
+              </>
+            )}
           </S.ReviewImgContainer>
         )}
       </S.ReviewHeader>

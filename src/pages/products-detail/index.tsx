@@ -17,7 +17,7 @@ import Info from './components/info'
 import RecommendCard from './components/recommend-card'
 import Review from './components/review'
 import SheetRenderer from './components/sheet-renderer'
-import { mockCard, mockData3, reviewData } from './mockData'
+import { mockCard, reviewData as const_review_data } from './mockData'
 import * as S from './ProductsDetail.style'
 
 import type { ISheetComponents } from './ProductsDetail.type'
@@ -66,7 +66,13 @@ function ProductsDetail() {
     dispatch(sheet({ name: 'photo-reviews-sheet', status: true, text: '' }))
   }
 
-  if (isPhotoReviewsSheet) return <PhotoReviewsSheet reviewImg={mockData3} />
+  const reviewData = const_review_data
+  const reviewImg = reviewData?.reduce(
+    (acc: string[], review) => acc.concat(review.image),
+    [],
+  )
+
+  if (isPhotoReviewsSheet) return <PhotoReviewsSheet reviewImg={reviewImg} />
 
   const shareSheetProps = {
     address: address,
@@ -106,8 +112,8 @@ function ProductsDetail() {
         <RecommendCard cards={mockCard} />
         <Review
           reviewCnt={reviewCount}
-          reviewImg={mockData3}
-          reviewData={reviewData}
+          reviewImg={reviewImg}
+          reviewData={const_review_data}
           onOrderClick={() => handleSheetDispatch('review-order-sheet')}
           onEditClick={() => handleSheetDispatch('edit-sheet')}
           onPhotoReviewsClick={handlePhotoReviewsClick}
