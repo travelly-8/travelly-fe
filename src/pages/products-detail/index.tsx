@@ -1,5 +1,6 @@
 import { useState } from 'react'
 
+import PhotoReviewsSheet from '@/pages/products-detail/components/photo-reviews-sheet'
 import { sheet, SheetSliceState } from '@/store/sheet-slice.ts'
 
 import ProductHeader from '@components/product-header'
@@ -24,6 +25,8 @@ const ProductsDetail = () => {
   )
   const isSearchSheet =
     sheetReducer.status && sheetReducer.name === 'search-sheet'
+  const isPhotoReviewsSheet =
+    sheetReducer.status && sheetReducer.name === 'photo-reviews-sheet'
   const [isHamburgerClicked, setIsHamburgerClicked] = useState(false)
 
   const handleOrderClick = () => {
@@ -38,12 +41,21 @@ const ProductsDetail = () => {
     dispatch(sheet({ name: 'edit-sheet', status: true, text: '' }))
   }
 
+  const handlePhotoReviewsClick = () => {
+    dispatch(sheet({ name: 'photo-reviews-sheet', status: true, text: '' }))
+  }
+
+  if (isPhotoReviewsSheet) return <PhotoReviewsSheet />
+
   return (
     <>
       <ProductHeader
         hamburgerClick={() => setIsHamburgerClicked(!isHamburgerClicked)}
       />
-      <S.PageContainer $isSearchSheet={isSearchSheet}>
+      <S.PageContainer
+        $isSearchSheet={isSearchSheet}
+        $isPhotoReviewsSheet={isPhotoReviewsSheet}
+      >
         <Info
           productName="상품명"
           sellingDate="2024.00.00~00.00"
@@ -67,6 +79,7 @@ const ProductsDetail = () => {
           reviewData={reviewData}
           onOrderClick={handleOrderClick}
           onEditClick={handleEditClick}
+          onPhotoReviewsClick={handlePhotoReviewsClick}
         />
         <Footer
           isBookmarked={true}
