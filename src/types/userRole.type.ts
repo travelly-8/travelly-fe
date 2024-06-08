@@ -1,1 +1,1 @@
-export type UserRole = 'traveller' | 'travelly' | null
+export type UserRoleType = 'traveller' | 'travelly' | null
