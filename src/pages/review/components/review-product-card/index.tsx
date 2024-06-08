@@ -3,7 +3,13 @@ import Img from '@/assets/mypage/comunity.png' // TODO: 상품 상세 연결하�
 
 import * as S from './ReviewProductCard.style'
 
-const ReviewProductCard = () => {
+interface ReviewProductCardProps {
+  isCommentMode?: boolean
+}
+
+const ReviewProductCard: React.FC<ReviewProductCardProps> = ({
+  isCommentMode,
+}) => {
   // TODO: 상품 상세 페이지에서 데이터 받아오기
   // TODO: 화살표 클릭 시, 상품 상세 페이지로 이동
 
@@ -20,7 +26,11 @@ const ReviewProductCard = () => {
           </S.PriceAndDateWrapper>
         </S.DetailWrapper>
       </S.ContentWrapper>
-      <S.Arrow src={ArrowRight} alt="상세 페이지" />
+      {isCommentMode ? (
+        <S.CommentCount>1</S.CommentCount>
+      ) : (
+        <S.Arrow src={ArrowRight} alt="상세 페이지" />
+      )}
     </S.Wrapper>
   )
 }
