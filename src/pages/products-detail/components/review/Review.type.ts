@@ -4,6 +4,7 @@ export interface IReviewProps {
   reviewData: IReviewData[]
   onOrderClick: () => void
   onEditClick: () => void
+  onPhotoReviewsClick: () => void
 }
 
 export interface IReviewPageProps {

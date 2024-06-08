@@ -2,9 +2,11 @@ import styled from 'styled-components'
 
 export const PageContainer = styled.main<{
   $isSearchSheet: boolean
+  $isPhotoReviewsSheet: boolean
 }>`
   background-color: var(--color-white);
-  display: ${({ $isSearchSheet }) => ($isSearchSheet ? 'none' : 'block')};
+  display: ${({ $isSearchSheet, $isPhotoReviewsSheet }) =>
+    $isSearchSheet || $isPhotoReviewsSheet ? 'none' : 'block'};
 
   overflow-y: scroll;
   scrollbar-width: none;
