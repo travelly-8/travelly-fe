@@ -1,5 +1,5 @@
 export interface IBookmarkButtonProps {
   isBookmarked: boolean
-  onClick: () => void
+  onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
   className?: string
 }

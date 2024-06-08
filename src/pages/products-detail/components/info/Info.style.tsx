@@ -79,3 +79,8 @@ export const BlueText = styled.span`
   font-weight: 500;
   line-height: 2.38rem;
 `
+export const Review = styled.div`
+  display: flex;
+  justify-content: space-between;
+  gap: 1.2rem;
+`

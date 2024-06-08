@@ -1,3 +1,6 @@
+import kakao from '@/assets/products-detail/kakao-icon.svg'
+import link from '@/assets/products-detail/link-icon.svg'
+
 import styled from 'styled-components'
 
 export const Wrapper = styled.div`
@@ -17,13 +20,13 @@ export const ShareWrapper = styled.div`
 export const KakaoIcon = styled.span`
   width: 2.4rem;
   height: 2.4rem;
-  background-image: url('src/assets/products-detail/kakao-icon.svg');
+  background-image: url(${kakao});
 `
 export const LinkIcon = styled.span`
   width: 1.2rem;
   height: 1.2rem;
   padding: 1.2rem;
-  background-image: url('src/assets/products-detail/link-icon.svg');
+  background-image: url(${link});
   background-repeat: no-repeat;
   background-position: center;
   border: 1px solid var(--color-gray-light);
