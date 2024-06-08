@@ -1,8 +1,9 @@
+import type { UserRole } from '@/types/userRole.type'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface AuthState {
   nickname: string
-  role: 'traveller' | 'travelly' | null
+  role: UserRole
 }
 
 const initialState: AuthState = {
@@ -18,7 +19,7 @@ const authSlice = createSlice({
       state,
       action: PayloadAction<{
         nickname: string
-        role: 'traveller' | 'travelly' | null
+        role: UserRole
       }>,
     ) => {
       state.nickname = action.payload.nickname

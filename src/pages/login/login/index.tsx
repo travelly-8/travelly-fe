@@ -48,7 +48,6 @@ export default function LoginPage() {
       const { nickname, role } = response.data
       saveTokens(accessToken, refreshToken)
       dispatch(setUser({ nickname, role }))
-      console.log(`nickname: ${nickname} role: ${role}`)
       if (role === null) {
         navigate('/select-plan')
       } else {
