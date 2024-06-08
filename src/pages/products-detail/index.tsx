@@ -127,7 +127,11 @@ function ProductsDetail() {
           website={homepage}
         />
         <Description />
-        <RecommendCard cards={recommendProductData || mockCard} />
+        <RecommendCard
+          cards={
+            recommendProductData?.length > 0 ? recommendProductData : mockCard
+          }
+        />
         <Review
           reviewCnt={reviewCount}
           reviewImg={reviewImg}

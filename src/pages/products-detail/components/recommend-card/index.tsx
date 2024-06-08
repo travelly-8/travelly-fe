@@ -1,14 +1,13 @@
 import { useRef } from 'react'
 
 import useScrollHandlers from '@/hooks/useScrollHandlers'
-import { mockCard } from '@/pages/products-detail/mockData.ts'
 
 import ProductCard from '@components/product-card'
 import { IProductCardData } from '@components/product-card/ProductCard.type'
 
 import * as S from './RecommendCard.styles'
 
-const RecommendCard = ({ cards = mockCard }: { cards: IProductCardData[] }) => {
+const RecommendCard = ({ cards }: { cards: IProductCardData[] }) => {
   const recommendedProductsRef = useRef<HTMLDivElement>(null)
   const scrollRecommendedProductHandler = useScrollHandlers(
     recommendedProductsRef,

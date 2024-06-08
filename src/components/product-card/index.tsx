@@ -6,6 +6,7 @@ import { LOCALE_CODE_LIST } from '@/constants/FILTERING_BROWSING'
 import { registerRecentProducts } from '@/utils/registerLocalStorage'
 
 import BookmarkButton from '@components/bookmark-button'
+import { useNavigate } from 'react-router-dom'
 
 import * as S from './ProductCard.style'
 import { IProductCardData, IProductCardProps } from './ProductCard.type'
@@ -22,12 +23,12 @@ function ProductCard({ cardData, size }: IProductCardProps) {
     rating,
     reviewCount,
   }: IProductCardData = cardData
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
 
   const handleClick = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
     e.stopPropagation()
-    // navigate(`/products/${id}`)
-    window.location.replace(`/products/${id}`)
+    navigate(`/products/${id}`)
+    window.location.reload()
     registerRecentProducts(cardData)
   }
 
