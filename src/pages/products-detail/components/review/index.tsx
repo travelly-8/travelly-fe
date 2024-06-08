@@ -12,6 +12,7 @@ const Review: React.FC<IReviewProps> = ({
   reviewData,
   onOrderClick,
   onEditClick,
+  onPhotoReviewsClick,
 }) => {
   const reviewImgCnt = reviewImg.length
 
@@ -44,7 +45,7 @@ const Review: React.FC<IReviewProps> = ({
         <S.ReviewImgContainer>
           <S.ReviewImg src={reviewImg[0]} alt="리뷰 이미지" />
           <S.ReviewImg src={reviewImg[1]} alt="리뷰 이미지" />
-          <S.LastReviewImg>
+          <S.LastReviewImg onClick={onPhotoReviewsClick}>
             <S.ReviewImg src={reviewImg[2]} alt="리뷰 이미지" />
             <S.ReviewImgBackground>+{reviewImgCnt - 2}</S.ReviewImgBackground>
           </S.LastReviewImg>

@@ -12,6 +12,7 @@ import { IProductCardData, IProductCardProps } from './ProductCard.type'
 
 function ProductCard({ cardData, size }: IProductCardProps) {
   const {
+    id,
     imageUrl,
     name,
     cityCode,

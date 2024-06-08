@@ -124,6 +124,7 @@ export const ReviewImg = styled.img`
   width: 9.7rem;
   height: 9.7rem;
   border-radius: 0.5rem;
+  object-fit: cover;
 `
 
 export const ReviewContent = styled.div`
