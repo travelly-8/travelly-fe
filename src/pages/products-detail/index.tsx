@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
 
-import { getProductDetail } from '@/api/productsAPI'
+import { getProductDetail, getSearchProducts } from '@/api/productsAPI'
 import { LOCALE_CODE_LIST } from '@/constants/FILTERING_BROWSING'
 import PhotoReviewsSheet from '@/pages/products-detail/components/photo-reviews-sheet'
 import { sheet, SheetSliceState } from '@/store/sheet-slice.ts'
@@ -17,14 +17,16 @@ import Info from './components/info'
 import RecommendCard from './components/recommend-card'
 import Review from './components/review'
 import SheetRenderer from './components/sheet-renderer'
-import { mockCard, reviewData as const_review_data } from './mockData'
+import { reviewData as const_review_data } from './mockData'
 import * as S from './ProductsDetail.style'
 
 import type { ISheetComponents } from './ProductsDetail.type'
 
+import { IProductCardData } from '@components/product-card/ProductCard.type.ts'
+
 function ProductsDetail() {
   const { productId } = useParams()
-  const { data } = useQuery({
+  const { data: productDetailQuery } = useQuery({
     queryKey: ['products-detail', productId],
     queryFn: ({ queryKey }) => getProductDetail(Number(queryKey[1])),
   })
@@ -39,7 +41,23 @@ function ProductsDetail() {
     reviewCount = 0,
     phoneNumber = '',
     ticketDto = [],
-  } = data?.data || {}
+  } = productDetailQuery?.data || {}
+
+  const recommendQueryData = {
+    page: 0,
+    size: 5,
+    keyword: address.split(' ')[1],
+    cityCode: cityCode,
+  }
+
+  const { data: recommendProductQuery } = useQuery({
+    queryKey: ['recommend-products'],
+    queryFn: () => getSearchProducts(recommendQueryData),
+  })
+
+  const recommendProductData = recommendProductQuery?.data.content.filter(
+    (product: IProductCardData) => product.id.toString() !== productId,
+  )
 
   const city = LOCALE_CODE_LIST[cityCode]
   const district = address?.split(' ')[1]
@@ -109,7 +127,7 @@ function ProductsDetail() {
           website={homepage}
         />
         <Description />
-        <RecommendCard cards={mockCard} />
+        <RecommendCard cards={recommendProductData} />
         <Review
           reviewCnt={reviewCount}
           reviewImg={reviewImg}
