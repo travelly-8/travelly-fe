@@ -24,6 +24,8 @@ export const CardImage = styled.img<SizeProps>`
     width: ${size === 'sm' || size === 'summary' ? '10.2rem' : '100%'};
     height: ${size === 'sm' || size === 'summary' ? '10.2rem' : '15.2rem'};
   `}
+  border-radius: 0.5rem;
+  object-fit: cover;
 `
 
 export const ContentsWrapper = styled.div`
