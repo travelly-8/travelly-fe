@@ -11,7 +11,7 @@ const PhotoReviewsSheet = ({ reviewImg }: { reviewImg: string[] }) => {
       </SheetHeader>
       <S.PhotosWrapper>
         {reviewImg.map((photo, idx) => (
-          <PhotoReview key={idx} src={photo} />
+          <PhotoReview key={idx} src={photo} alt={`리뷰사진 ${idx}`} />
         ))}
       </S.PhotosWrapper>
     </div>
