@@ -32,7 +32,7 @@ export const postProduct = (data: IPostProduct) => {
   })
 }
 
-export const getProductDetail = (productId: number) => {
+export const getProductDetail = (productId: number | undefined) => {
   return instance({
     method: 'GET',
     url: API_PRODUCTS.PRODUCTS_DETAIL(productId),

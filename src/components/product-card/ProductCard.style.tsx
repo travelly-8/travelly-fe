@@ -4,9 +4,7 @@ interface SizeProps {
   size: 'sm' | 'bg' | 'summary'
 }
 
-interface IContainerProps extends SizeProps {
-  onClick: () => void
-}
+interface IContainerProps extends SizeProps {}
 
 export const Container = styled.li<IContainerProps>`
   position: relative;

@@ -1,42 +1,48 @@
 import { useCallback, useState } from 'react'
 
+import { getProductDetail } from '@/api/productsAPI'
+import { LOCALE_CODE_LIST } from '@/constants/FILTERING_BROWSING'
 import { sheet, SheetSliceState } from '@/store/sheet-slice.ts'
 
 import ProductHeader from '@components/product-header'
+import { useQuery } from '@tanstack/react-query'
 import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
 
 import BasicInfo from './components/basic-info'
 import Description from './components/description'
-import EditSheet from './components/edit-sheet'
 import Footer from './components/footer'
 import Info from './components/info'
 import RecommendCard from './components/recommend-card'
 import Review from './components/review'
-import ReviewOrderSheet from './components/review-order-sheet'
-import ShareSheet from './components/share-sheet'
+import SheetRenderer from './components/sheet-renderer'
 import { mockCard, mockData3, reviewData } from './mockData'
 import * as S from './ProductsDetail.style'
 
 import type { ISheetComponents } from './ProductsDetail.type'
 
-const sheetComponents: ISheetComponents = {
-  'review-order-sheet': ReviewOrderSheet,
-  'share-sheet': ShareSheet,
-  'edit-sheet': EditSheet,
-}
+function ProductsDetail() {
+  const { productId } = useParams()
+  const { data } = useQuery({
+    queryKey: ['products-detail', productId],
+    queryFn: ({ queryKey }) => getProductDetail(Number(queryKey[1])),
+  })
+  const {
+    address = '',
+    cityCode = '',
+    detailAddress = '',
+    homepage = '',
+    name = '',
+    rating = 0,
+    reviewCount = 0,
+    phoneNumber = '',
+    ticketDto = [],
+  } = data?.data || {}
 
-const SheetModal = () => {
-  const sheetReducer = useSelector(
-    (state: SheetSliceState) => state.sheet.value,
-  )
-  const SheetComponent = sheetReducer.status
-    ? sheetComponents[sheetReducer.name as keyof ISheetComponents]
-    : null
+  const city = LOCALE_CODE_LIST[cityCode]
+  const district = address?.split(' ')[1]
+  const price = ticketDto[0]?.price
 
-  return SheetComponent ? <SheetComponent /> : null
-}
-
-const ProductsDetail = () => {
   const dispatch = useDispatch()
   const sheetReducer = useSelector(
     (state: SheetSliceState) => state.sheet.value,
@@ -59,24 +65,24 @@ const ProductsDetail = () => {
       />
       <S.PageContainer $isSearchSheet={isSearchSheet}>
         <Info
-          productName="상품명"
+          productName={name}
           sellingDate="2024.00.00~00.00"
-          address="서울시 강남구"
-          rating="4.5"
+          address={`${city} ${district}`}
+          rating={rating}
           reviewCnt={111}
           onShareClick={() => handleSheetDispatch('share-sheet')}
         />
         <BasicInfo
-          address="서울시 강남구"
-          detailAddress="개포동 117"
+          address={address}
+          detailAddress={detailAddress}
           companyName="트래블리"
-          phoneNumber="02-1234-1234"
-          website="www.naver.com"
+          phoneNumber={phoneNumber}
+          website={homepage}
         />
         <Description />
         <RecommendCard cards={mockCard} />
         <Review
-          reviewCnt={111}
+          reviewCnt={reviewCount}
           reviewImg={mockData3}
           reviewData={reviewData}
           onOrderClick={() => handleSheetDispatch('review-order-sheet')}
@@ -86,9 +92,9 @@ const ProductsDetail = () => {
           isBookmarked={true}
           isReservationProduct={true}
           discount={20}
-          price={20000}
+          price={price}
         />
-        <SheetModal />
+        <SheetRenderer />
       </S.PageContainer>
     </>
   )

@@ -23,7 +23,7 @@ const BasicInfo: React.FC<IBasicInfoProps> = ({
         <S.Description>
           <S.LabelM>주소</S.LabelM>
           <S.GrayText>
-            {address} {detailAddress}
+            {`${address}.`} {detailAddress}
           </S.GrayText>
         </S.Description>
         <S.Description>
