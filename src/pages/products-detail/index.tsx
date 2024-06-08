@@ -45,7 +45,7 @@ const ProductsDetail = () => {
     dispatch(sheet({ name: 'photo-reviews-sheet', status: true, text: '' }))
   }
 
-  if (isPhotoReviewsSheet) return <PhotoReviewsSheet />
+  if (isPhotoReviewsSheet) return <PhotoReviewsSheet reviewImg={mockData3} />
 
   return (
     <>
