@@ -30,9 +30,9 @@ const ConfirmPage = ({ selectedRole }: ConfirmPageProps) => {
         navigate('/')
       } catch (error) {
         if (isAxiosError(error)) {
-          // console.error('Role update failed:', error.response?.data)
+          console.error('Role update failed:', error.response?.data)
         } else {
-          // console.error('Role update failed:', (error as Error).message)
+          console.error('Role update failed:', (error as Error).message)
         }
       }
     } else {
