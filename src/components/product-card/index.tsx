@@ -26,7 +26,7 @@ function ProductCard({ cardData, size }: IProductCardProps) {
 
   const handleClick = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
     e.stopPropagation()
-    navigate(`/products/${cardData.id}`)
+    navigate(`/products/${id}`)
     registerRecentProducts(cardData)
   }
 

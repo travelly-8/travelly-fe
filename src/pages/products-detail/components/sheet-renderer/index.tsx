@@ -1,11 +1,11 @@
 import EditSheet from '@/pages/products-detail/components/edit-sheet'
 import ReviewOrderSheet from '@/pages/products-detail/components/review-order-sheet'
 import ShareSheet from '@/pages/products-detail/components/share-sheet'
+import type { IShareSheetProps } from '@/pages/products-detail/components/share-sheet/ShareSheet.type'
+import type { ISheetComponents } from '@/pages/products-detail/components/sheet-renderer/SheetRenderer.type'
 import { SheetSliceState } from '@/store/sheet-slice.ts'
 
 import { useSelector } from 'react-redux'
-
-import { ISheetComponents } from './SheetRenderer.type'
 
 const sheetComponents: ISheetComponents = {
   'review-order-sheet': ReviewOrderSheet,
@@ -13,7 +13,11 @@ const sheetComponents: ISheetComponents = {
   'edit-sheet': EditSheet,
 }
 
-const SheetRenderer: React.FC = () => {
+interface SheetRendererProps {
+  shareSheetProps: IShareSheetProps
+}
+
+function SheetRenderer({ shareSheetProps }: SheetRendererProps) {
   const sheetReducer = useSelector(
     (state: SheetSliceState) => state.sheet.value,
   )
@@ -21,7 +25,15 @@ const SheetRenderer: React.FC = () => {
     ? sheetComponents[sheetReducer.name as keyof ISheetComponents]
     : null
 
-  return SheetComponent ? <SheetComponent /> : null
+  const sheetProps = {
+    'share-sheet': shareSheetProps,
+  }
+
+  return SheetComponent ? (
+    <SheetComponent
+      {...(sheetProps[sheetReducer.name as keyof typeof sheetProps] || {})}
+    />
+  ) : null
 }
 
 export default SheetRenderer
