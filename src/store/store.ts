@@ -11,21 +11,18 @@ import {
 } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
-import authReducer from './authSlice'
+import authReducer from './auth-slice'
 import { sheetSlice } from './sheet-slice'
-import { userSlice } from './user-slice'
 
 const rootReducer = combineReducers({
   auth: authReducer,
   sheet: sheetSlice.reducer,
-  user: userSlice.reducer,
 })
 
 const persistConfig = {
   key: 'root',
   storage,
-
-  whitelist: ['auth', 'sheet', 'user'],
+  whitelist: ['auth', 'sheet'],
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

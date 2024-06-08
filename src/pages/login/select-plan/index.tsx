@@ -1,29 +1,24 @@
-import { useEffect, useState } from 'react'
-
-import { putRole } from '@/api/authAPI'
 import IconButton from '@/components/icon-button'
-import { setRole } from '@/store/authSlice'
 import { SheetSliceState, sheet } from '@/store/sheet-slice'
-import isAxiosError from '@/utils/isAxiosError'
-import { getAccessToken, refreshAccessToken } from '@/utils/tokenStorage'
-
 import BackBar from '@components/back-bar'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-
 import Bubble from '../components/bubble'
 import ConfirmPage from '../components/confirm-page'
 // eslint-disable-next-line import/order
-import * as S from './SelectPlanPage.style'
-
 import type { ButtonType } from '@components/icon-button/IconButton.type'
+import * as S from './SelectPlanPage.style'
 
 export default function SelectPlanPage() {
   const dispatch = useDispatch()
   const sheetReducer = useSelector(
-    (state: SheetSliceState) => state.sheet.value,
+    (state: SheetSliceState) => state.sheet?.value,
   )
   const [travellerStatus, setTravellerStatus] = useState<ButtonType>('default')
   const [travellyStatus, setTravellyStatus] = useState<ButtonType>('default')
+  const [selectedRole, setSelectedRole] = useState<
+    'traveller' | 'travelly' | null
+  >(null)
 
   useEffect(() => {
     dispatch(sheet({ name: 'select-plan-confirm', status: false, text: '' }))
@@ -33,45 +28,18 @@ export default function SelectPlanPage() {
     dispatch(sheet({ name: 'select-plan-confirm', status: true, text: text }))
   }
 
-  const handleButtonClick = async (userType: 'traveller' | 'travelly') => {
+  const handleButtonClick = (userType: 'traveller' | 'travelly') => {
+    setSelectedRole(userType)
     if (userType === 'traveller') {
       if (travellerStatus === 'selected') {
-        try {
-          let token = getAccessToken()
-          if (!token) {
-            token = await refreshAccessToken()
-          }
-          await putRole(userType)
-          dispatch(setRole(userType))
-          openSheet('traveller')
-        } catch (error) {
-          if (isAxiosError(error)) {
-            // console.error('Login failed:', error.response?.data)
-          } else {
-            // console.error('Login failed:', (error as Error).message)
-          }
-        }
+        openSheet('traveller')
       } else {
         setTravellerStatus('selected')
         setTravellyStatus('unselected')
       }
     } else {
       if (travellyStatus === 'selected') {
-        try {
-          let token = getAccessToken()
-          if (!token) {
-            token = await refreshAccessToken()
-          }
-          await putRole(userType)
-          dispatch(setRole(userType))
-          openSheet('travelly')
-        } catch (error) {
-          if (isAxiosError(error)) {
-            // console.error('Login failed:', error.response?.data)
-          } else {
-            // console.error('Login failed:', (error as Error).message)
-          }
-        }
+        openSheet('travelly')
       } else {
         setTravellerStatus('unselected')
         setTravellyStatus('selected')
@@ -79,8 +47,8 @@ export default function SelectPlanPage() {
     }
   }
 
-  if (sheetReducer.status) {
-    return <ConfirmPage />
+  if (sheetReducer?.status) {
+    return <ConfirmPage selectedRole={selectedRole} />
   } else {
     return (
       <S.Wrapper>

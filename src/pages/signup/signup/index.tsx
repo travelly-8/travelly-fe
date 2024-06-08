@@ -61,7 +61,7 @@ export default function SignupPage() {
           setNameError(responseData.message)
         }
       } else {
-        // console.error('Signup failed:', (error as Error).message)
+        console.error('signup error:', (error as Error).message)
       }
     }
   }

@@ -1,20 +1,16 @@
-import { useState } from 'react'
-
 import { postLogin } from '@/api/authAPI'
 import { useFormValidation } from '@/hooks/useFormValidation'
+import { setUser } from '@/store/auth-slice'
 import isAxiosError from '@/utils/isAxiosError'
 import { saveTokens } from '@/utils/tokenStorage'
 import useKeyboardDetection from '@/utils/useKeyboardDetection'
 import { loginEmailValidate, loginPasswordValidate } from '@/utils/validate'
-
-import { setUser } from '@/store/authSlice'
 import FormContainer from '@components/form-container'
 import Input from '@components/input'
+import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-
-import { user } from '@/store/user-slice'
 import type { IErrorResponse, IFormData } from './Login.type'
 
 export default function LoginPage() {
@@ -49,11 +45,10 @@ export default function LoginPage() {
     try {
       const response = await postLogin(data)
       const { accessToken, refreshToken } = response.data.token
-      const { newUser, nickname, role } = response.data
-      dispatch(user({ newUser: newUser }))
+      const { nickname, role } = response.data
       saveTokens(accessToken, refreshToken)
       dispatch(setUser({ nickname, role }))
-      if (newUser) {
+      if (role === null) {
         navigate('/select-plan')
       } else {
         navigate('/')
@@ -67,7 +62,7 @@ export default function LoginPage() {
           setPasswordError(responseData.message)
         }
       } else {
-        // console.error('Login failed:', (error as Error).message)
+        console.error('login error:', (error as Error).message)
       }
     }
   }
