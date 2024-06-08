@@ -5,11 +5,13 @@ import { LOCALE_CODE_LIST } from '@/constants/FILTERING_BROWSING'
 import { registerRecentProducts } from '@/utils/registerLocalStorage'
 
 import BookmarkButton from '@components/bookmark-button'
+import { useNavigate } from 'react-router-dom'
 
 import * as S from './ProductCard.style'
 import { IProductCardData, IProductCardProps } from './ProductCard.type'
 function ProductCard({ cardData, size }: IProductCardProps) {
   const {
+    id,
     imageUrl,
     name,
     cityCode,
@@ -28,9 +30,20 @@ function ProductCard({ cardData, size }: IProductCardProps) {
   const district = address?.split(' ')[1]
   const price = ticketDto[0]?.price
   const formattedPrice = price.toLocaleString()
+  const navigate = useNavigate()
+
+  const handleClick = () => {
+    navigate(`/products/${id}`)
+  }
 
   return (
-    <S.Container size={size} onClick={() => registerRecentProducts(cardData)}>
+    <S.Container
+      size={size}
+      onClick={() => {
+        registerRecentProducts(cardData)
+        handleClick()
+      }}
+    >
       <S.CardImage src={imageUrl} alt={name} size={size} />
       <BookmarkButton
         onClick={() => setIsBookmarked(!isBookmarked)}

@@ -17,6 +17,7 @@ export const Container = styled.li<IContainerProps>`
     width: ${size === 'sm' || size === 'summary' ? '10.2rem' : '100%'};
   `}
   overflow: hidden;
+  cursor: pointer;
 `
 
 export const CardImage = styled.img<SizeProps>`
