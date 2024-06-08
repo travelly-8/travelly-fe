@@ -29,7 +29,7 @@ export const LOCALE_CODE_LIST: { [key: string]: string } = {
   17: '제주도',
 } as const
 
-export const SORT_FIELD: { [key: string]: string } = {
+export const SORT: { [key: string]: string } = {
   최신순: 'Newest',
   '리뷰 많은 순': 'MostReviews',
   평점순: 'HighestRating',

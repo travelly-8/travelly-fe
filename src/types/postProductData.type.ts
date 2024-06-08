@@ -33,8 +33,7 @@ interface IOperationDayHours {
 export interface ISearchProductsData {
   page: number
   size: number
-  sortType?: string | undefined
-  sortField?: string | undefined
+  sort?: string | undefined
   keyword?: string | undefined
   cityCode?: string | undefined
   contentType?: string | undefined
