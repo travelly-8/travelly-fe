@@ -18,7 +18,7 @@ function ProductCard({ cardData, size }: IProductCardProps) {
     name,
     cityCode,
     address,
-    discount = 10,
+    discount = 0,
     ticketDto,
     rating,
     reviewCount,

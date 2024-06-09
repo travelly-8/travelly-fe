@@ -17,7 +17,7 @@ import Info from './components/info'
 import RecommendCard from './components/recommend-card'
 import Review from './components/review'
 import SheetRenderer from './components/sheet-renderer'
-import { mockCard, reviewData as const_review_data } from './mockData'
+import { reviewData as const_review_data, mockCard } from './mockData'
 import * as S from './ProductsDetail.style'
 
 import type { ISheetComponents } from './ProductsDetail.type'
@@ -143,7 +143,7 @@ function ProductsDetail() {
         <Footer
           isBookmarked={true}
           isReservationProduct={true}
-          discount={20}
+          discount={0}
           price={price}
         />
         <SheetRenderer shareSheetProps={shareSheetProps} />

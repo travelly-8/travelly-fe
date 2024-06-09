@@ -9,6 +9,7 @@ import FilteringSheet from '@/pages/products/components/filtering-sheet'
 import { SheetSliceState, sheet } from '@/store/sheet-slice.ts'
 
 import ProductCard from '@components/product-card'
+import ProductCardSkeleton from '@components/product-card/ProductCardSkeleton'
 import ProductHeader from '@components/product-header'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -23,6 +24,8 @@ const ProductsPage = () => {
     data: cardData,
     hasNextPage,
     fetchNextPage,
+    isPending,
+    isFetchingNextPage,
   } = useInfiniteCardsQuery(cardsQueryData)
 
   const cardsContents = useMemo(
@@ -68,9 +71,16 @@ const ProductsPage = () => {
         />
         <S.AllProductsSection>
           <S.AllCardWrapper>
-            {cardsContents?.map((cardData) => (
-              <ProductCard key={cardData.id} cardData={cardData} size="bg" />
-            ))}
+            {isPending && !cardsContents.length ? (
+              <ProductCardSkeleton count={cardsQueryData.size} />
+            ) : (
+              cardsContents.map((cardData) => (
+                <ProductCard key={cardData.id} cardData={cardData} size="bg" />
+              ))
+            )}
+            {isFetchingNextPage && (
+              <ProductCardSkeleton count={cardsQueryData.size} />
+            )}
           </S.AllCardWrapper>
         </S.AllProductsSection>
         {hasNextPage && <S.Target ref={ref} />}
@@ -81,4 +91,5 @@ const ProductsPage = () => {
     </>
   )
 }
+
 export default ProductsPage
