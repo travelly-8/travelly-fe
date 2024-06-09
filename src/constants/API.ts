@@ -20,4 +20,5 @@ export const API_AUTH = Object.freeze({
   REISSUE: '/auth/login/reissue',
   FINDID: '/auth/login/find',
   LOGOUT: '/auth/logout',
+  LEAVE: '/auth/leave',
 })

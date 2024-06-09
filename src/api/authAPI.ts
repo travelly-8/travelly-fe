@@ -53,10 +53,18 @@ export const getFindId = (nickname: string) => {
 }
 
 export const getLogout = () => {
-  localStorage.removeItem('accessToken')
-  localStorage.removeItem('refreshToken')
   return instance({
     method: 'GET',
     url: API_AUTH.LOGOUT,
+  })
+}
+
+export const deleteLeave = (password: string) => {
+  return instance({
+    method: 'DELETE',
+    url: API_AUTH.LEAVE,
+    data: {
+      password: password,
+    },
   })
 }

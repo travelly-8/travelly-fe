@@ -16,6 +16,7 @@ import { API_MEMBER } from '@/constants/API'
 import useGetMemberProfile from '@/hooks/api/memberAPI/useGetMemberProfile'
 import EditPasswordPage from '@/pages/mypage/components/edit-password'
 import { SheetSliceState, sheet } from '@/store/sheet-slice'
+import { deleteTokens } from '@/utils/tokenStorage'
 
 import BlurSheet from '@components/blur-sheet'
 import BottomSheet from '@components/bottom-sheet'
@@ -53,6 +54,7 @@ export default function MyPageEditPage() {
       onClick: () => {
         getLogout()
           .then(() => {
+            deleteTokens()
             navigate('/')
           })
           .catch((err) => {
