@@ -43,3 +43,10 @@ export const putMemberProfileImage = (data: FormData) => {
     data,
   })
 }
+
+export const putMemberProfileImageReset = () => {
+  return instance({
+    method: 'PUT',
+    url: API_MEMBER.MY_PROFILE_IMG_RESET,
+  })
+}

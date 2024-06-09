@@ -28,3 +28,8 @@ export const refreshAccessToken = async () => {
     throw new Error('Failed to refresh access token')
   }
 }
+
+export const deleteTokens = () => {
+  localStorage.removeItem('accessToken')
+  localStorage.removeItem('refreshToken')
+}
