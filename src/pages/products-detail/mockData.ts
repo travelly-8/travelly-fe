@@ -59,11 +59,7 @@ export const mockData3 = [
 
 export const reviewData = [
   {
-    image: [
-      'https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp',
-      'https://images.unsplash.com/photo-1575936123452-b67c3203c357?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
-      'https://img.freepik.com/free-photo/painting-mountain-lake-with-mountain-background_188544-9126.jpg',
-    ],
+    image: [],
     name: '사용자1',
     profileImage:
       'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg',

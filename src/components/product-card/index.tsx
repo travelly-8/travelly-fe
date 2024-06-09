@@ -1,6 +1,7 @@
 import { Fragment, useState } from 'react'
 
 import star from '@/assets/home/empty-star.svg'
+import defaultImage from '@/assets/login/airplane.png'
 import { LOCALE_CODE_LIST } from '@/constants/FILTERING_BROWSING'
 import { registerRecentProducts } from '@/utils/registerLocalStorage'
 
@@ -13,7 +14,7 @@ import { IProductCardData, IProductCardProps } from './ProductCard.type'
 function ProductCard({ cardData, size }: IProductCardProps) {
   const {
     id,
-    imageUrl,
+    imageUrl = defaultImage,
     name,
     cityCode,
     address,
@@ -27,6 +28,7 @@ function ProductCard({ cardData, size }: IProductCardProps) {
   const handleClick = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
     e.stopPropagation()
     navigate(`/products/${id}`)
+    window.location.reload()
     registerRecentProducts(cardData)
   }
 

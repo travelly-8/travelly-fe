@@ -2,12 +2,13 @@ import { useState } from 'react'
 
 import nextIcon from '@/assets/home/next.svg'
 import previousIcon from '@/assets/home/previous.svg'
+import defaultImage from '@/assets/login/airplane.png'
 
 import * as S from './ImageCarousel.styles.tsx'
 
 import type { IImageCarousel } from './ImageCarousel.type.ts'
 
-const ImageCarousel = ({ images, limit }: IImageCarousel) => {
+const ImageCarousel = ({ images = [defaultImage], limit }: IImageCarousel) => {
   const [currentIndex, setCurrentIndex] = useState(0)
 
   const handlePrevClick = () => {

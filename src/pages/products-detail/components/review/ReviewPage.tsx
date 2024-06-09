@@ -26,11 +26,13 @@ const ReviewPage: React.FC<IReviewPageProps> = ({
         </S.ProfileNameWrapper>
       </S.ProfileHeader>
       <S.DescriptionWrapper>
-        <S.ReviewImgContainer>
-          <S.ReviewImg src={reviewData.image[0]} alt="리뷰 이미지" />
-          <S.ReviewImg src={reviewData.image[1]} alt="리뷰 이미지" />
-          <S.ReviewImg src={reviewData.image[2]} alt="리뷰 이미지" />
-        </S.ReviewImgContainer>
+        {reviewData.image.length > 0 && (
+          <S.ReviewImgContainer>
+            {reviewData.image.map((image) => (
+              <S.ReviewImg key={image} src={image} alt="리뷰 이미지" />
+            ))}
+          </S.ReviewImgContainer>
+        )}
         <S.BlackText>{reviewData.reviewText}</S.BlackText>
       </S.DescriptionWrapper>
       <S.LikeComment>
