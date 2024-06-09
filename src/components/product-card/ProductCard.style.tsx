@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-interface SizeProps {
+export interface SizeProps {
   size: 'sm' | 'bg' | 'summary'
 }
 
@@ -24,6 +24,7 @@ export const CardImage = styled.img<SizeProps>`
     width: ${size === 'sm' || size === 'summary' ? '10.2rem' : '100%'};
     height: ${size === 'sm' || size === 'summary' ? '10.2rem' : '15.2rem'};
   `}
+  margin-bottom: 0.8rem;
   border-radius: 0.5rem;
   object-fit: cover;
 `

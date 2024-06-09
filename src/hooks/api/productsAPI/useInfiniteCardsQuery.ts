@@ -39,7 +39,7 @@ const useInfiniteCardsQuery = (params: ISearchProductsData) => {
 
   const queryFn = searchQueryFn
 
-  const { data, hasNextPage, isFetchingNextPage, fetchNextPage } =
+  const { data, hasNextPage, isFetchingNextPage, fetchNextPage, isPending } =
     useInfiniteQuery({
       queryKey: ['products', params],
       initialPageParam: 0,
@@ -56,6 +56,7 @@ const useInfiniteCardsQuery = (params: ISearchProductsData) => {
     hasNextPage,
     isFetchingNextPage,
     fetchNextPage,
+    isPending,
   }
 }
 
