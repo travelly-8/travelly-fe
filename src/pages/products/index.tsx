@@ -72,14 +72,14 @@ const ProductsPage = () => {
         <S.AllProductsSection>
           <S.AllCardWrapper>
             {isPending && !cardsContents.length ? (
-              <ProductCardSkeleton count={cardsQueryData.size} />
+              <ProductCardSkeleton count={cardsQueryData.size} size="bg" />
             ) : (
               cardsContents.map((cardData) => (
                 <ProductCard key={cardData.id} cardData={cardData} size="bg" />
               ))
             )}
             {isFetchingNextPage && (
-              <ProductCardSkeleton count={cardsQueryData.size} />
+              <ProductCardSkeleton count={cardsQueryData.size} size="bg" />
             )}
           </S.AllCardWrapper>
         </S.AllProductsSection>
