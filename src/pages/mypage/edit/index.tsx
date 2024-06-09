@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 
+import { getLogout } from '@/api/authAPI'
 import {
   getMemberProfile,
   putMemberNickname,
@@ -45,7 +46,20 @@ export default function MyPageEditPage() {
         controlSheet('password', true)
       },
     },
-    { id: 2, icon: logoutSvg, text: '로그아웃', onClick: () => {} },
+    {
+      id: 2,
+      icon: logoutSvg,
+      text: '로그아웃',
+      onClick: () => {
+        getLogout()
+          .then(() => {
+            navigate('/')
+          })
+          .catch((err) => {
+            console.error(err)
+          })
+      },
+    },
   ]
 
   // 마이페이지 수정 정보 패치
@@ -97,7 +111,7 @@ export default function MyPageEditPage() {
     }
   }
 
-  //TODO: 프사 리셋 api 연결 필요
+  // 프사 리셋
   const resetProfileImage = () => {
     putMemberProfileImageReset()
       .then(() => {
