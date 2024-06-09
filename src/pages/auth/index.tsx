@@ -1,7 +1,6 @@
 import isAxiosError from '@/utils/isAxiosError'
-import React, { useEffect } from 'react'
-
 import axios from 'axios'
+import React, { useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 const AuthCallback: React.FC = () => {
@@ -15,7 +14,9 @@ const AuthCallback: React.FC = () => {
       const platform = location.pathname.split('/').pop()
 
       if (code && platform) {
+        console.log(`code: ${code} registrationId: ${platform}`)
         const authEndpoint = `/auth/login/${platform}`
+        console.log(authEndpoint, { code })
         try {
           await axios.post(authEndpoint, { code })
           navigate('/')
