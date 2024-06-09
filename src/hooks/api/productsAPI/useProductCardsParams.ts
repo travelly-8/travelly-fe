@@ -1,6 +1,5 @@
 import { useMemo } from 'react'
 
-import { SORT_FIELD } from '@/constants/FILTERING_BROWSING'
 import { ISearchProductsData } from '@/types/postProductData.type'
 
 import { useLocation } from 'react-router-dom'
@@ -22,8 +21,7 @@ const useProductCardsParams = () => {
     () => ({
       page: 0,
       size: 6,
-      sortField: sort ? SORT_FIELD[sort] : undefined,
-      sortType: undefined,
+      sort: sort ? sort : undefined,
       keyword: input || undefined,
       cityCode: city === '0' ? undefined : (city as string),
       contentType:

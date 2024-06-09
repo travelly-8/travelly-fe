@@ -6,8 +6,7 @@ import { useInfiniteQuery } from '@tanstack/react-query'
 const useInfiniteCardsQuery = (params: ISearchProductsData) => {
   const {
     size,
-    sortField,
-    sortType,
+    sort,
     keyword,
     cityCode,
     contentType,
@@ -23,8 +22,7 @@ const useInfiniteCardsQuery = (params: ISearchProductsData) => {
     const data: ISearchProductsData = {
       page: pageParam,
       size,
-      sortField,
-      sortType,
+      sort,
       keyword,
       cityCode,
       contentType,
