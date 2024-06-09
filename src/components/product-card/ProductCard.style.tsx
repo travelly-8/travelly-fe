@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-interface SizeProps {
+export interface SizeProps {
   size: 'sm' | 'bg' | 'summary'
 }
 

@@ -1,15 +1,18 @@
 import styled, { keyframes } from 'styled-components'
 
+import { SizeProps } from './ProductCard.style'
+
 interface IProductCardSkeletonProps {
   count: number
+  size: SizeProps['size']
 }
 
-function ProductCardSkeleton({ count }: IProductCardSkeletonProps) {
+function ProductCardSkeleton({ count, size }: IProductCardSkeletonProps) {
   return (
     <>
       {Array.from({ length: count }).map((_, index) => (
-        <SkeletonContainer key={index}>
-          <SkeletonCardImage />
+        <SkeletonContainer key={index} size={size}>
+          <SkeletonCardImage size={size} />
           <SkeletonContentsWrapper>
             <SkeletonText />
             <SkeletonLocation />
@@ -27,6 +30,10 @@ function ProductCardSkeleton({ count }: IProductCardSkeletonProps) {
 
 export default ProductCardSkeleton
 
+interface SkeletonProps {
+  size: SizeProps['size']
+}
+
 const pulse = keyframes`
   0%, 100% {
     opacity: 1;
@@ -36,19 +43,24 @@ const pulse = keyframes`
   }
 `
 
-const SkeletonContainer = styled.li`
+const SkeletonContainer = styled.li<SkeletonProps>`
   position: relative;
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
+  ${({ size }) => `
+    width: ${size === 'sm' || size === 'summary' ? '10.2rem' : '100%'};
+  `}
   overflow: hidden;
   cursor: pointer;
   animation: ${pulse} 1.5s infinite;
 `
 
-const SkeletonCardImage = styled.div`
-  width: 100%;
-  height: 15.2rem;
+const SkeletonCardImage = styled.div<SkeletonProps>`
+  ${({ size }) => `
+    width: ${size === 'sm' || size === 'summary' ? '10.2rem' : '100%'};
+    height: ${size === 'sm' || size === 'summary' ? '10.2rem' : '15.2rem'};
+  `}
   border-radius: 0.5rem;
   background-color: var(--color-gray-light);
   margin-bottom: 1rem;
