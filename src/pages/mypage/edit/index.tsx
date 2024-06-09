@@ -4,6 +4,7 @@ import {
   getMemberProfile,
   putMemberNickname,
   putMemberProfileImage,
+  putMemberProfileImageReset,
 } from '@/api/myAPI'
 import defaultProfileImg from '@/assets/mypage/default-profile.svg'
 import exitSvg from '@/assets/mypage/exit.svg'
@@ -12,6 +13,7 @@ import logoutSvg from '@/assets/mypage/logout.svg'
 import purplePenSvg from '@/assets/mypage/purple-pen.svg'
 import { API_MEMBER } from '@/constants/API'
 import useGetMemberProfile from '@/hooks/api/memberAPI/useGetMemberProfile'
+import EditPasswordPage from '@/pages/mypage/components/edit-password'
 import { SheetSliceState, sheet } from '@/store/sheet-slice'
 
 import BlurSheet from '@components/blur-sheet'
@@ -22,8 +24,6 @@ import PageHeader from '@components/page-header'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-import EditPasswordPage from '../components/edit-password'
-// eslint-disable-next-line import/order
 import * as S from './MyPageEditPage.style'
 
 export default function MyPageEditPage() {
@@ -99,8 +99,14 @@ export default function MyPageEditPage() {
 
   //TODO: 프사 리셋 api 연결 필요
   const resetProfileImage = () => {
-    setProfileImage(defaultProfileImg)
-    controlSheet('profile', false)
+    putMemberProfileImageReset()
+      .then(() => {
+        refetch()
+        controlSheet('profile', false)
+      })
+      .catch((err) => {
+        console.error(err)
+      })
   }
 
   return (

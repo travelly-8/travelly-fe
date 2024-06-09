@@ -8,6 +8,7 @@ export const API_MEMBER = Object.freeze({
   MY_PROFILE: '/my/profile',
   MY_NICKNAME: (nickname: string) => `/my/profile?nickname=${nickname}`,
   MY_PROFILE_IMG: '/my/profile/image',
+  MY_PROFILE_IMG_RESET: '/my/profile/image/default',
   MY_PASSWORD: '/my/profile/password',
 })
 
