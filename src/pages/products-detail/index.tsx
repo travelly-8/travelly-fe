@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
 
-import { getProductDetail, getSearchProducts } from '@/api/productsAPI'
+import { getAllProducts, getProductDetail } from '@/api/productsAPI'
 import { LOCALE_CODE_LIST } from '@/constants/FILTERING_BROWSING'
 import PhotoReviewsSheet from '@/pages/products-detail/components/photo-reviews-sheet'
 import { sheet, SheetSliceState } from '@/store/sheet-slice.ts'
@@ -52,7 +52,7 @@ function ProductsDetail() {
   }
   const { data: recommendProductQuery } = useQuery({
     queryKey: ['recommend-products'],
-    queryFn: () => getSearchProducts(recommendQueryData),
+    queryFn: () => getAllProducts(recommendQueryData),
     enabled: isProductDetailSuccess,
   })
   const recommendProductData = recommendProductQuery?.data.content.filter(

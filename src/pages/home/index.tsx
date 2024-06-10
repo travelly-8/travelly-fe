@@ -1,10 +1,10 @@
 import { useRef, useState } from 'react'
 
-import { getSearchProducts } from '@/api/productsAPI'
+import { getAllProducts } from '@/api/productsAPI'
 import star2 from '@/assets/home/star2.svg'
 import trophy from '@/assets/home/trophy.svg'
 import { API_PRODUCTS } from '@/constants/API'
-import useGetAllProducts from '@/hooks/api/productsAPI/useGetAllProducts'
+import useGetAllProducts from '@/hooks/api/productsAPI/useGetProductsQuery'
 import useProductCardsParams from '@/hooks/api/productsAPI/useProductCardsParams'
 import useScrollHandlers from '@/hooks/useScrollHandlers'
 import { SheetSliceState } from '@/store/sheet-slice.ts'
@@ -34,7 +34,7 @@ function HomePage() {
   const scrollRecommendHandlers = useScrollHandlers(recommendProductRef)
 
   const { data, isPending } = useGetAllProducts(API_PRODUCTS.PRODUCTS, () =>
-    getSearchProducts(cardsQueryData),
+    getAllProducts(cardsQueryData),
   )
   //TODO: 인기상품, 추천상품 논의 후 나중에 적용
   const cardsContents = data?.content
