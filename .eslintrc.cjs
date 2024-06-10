@@ -16,7 +16,8 @@ module.exports = {
     'no-multiple-empty-lines': 'warn',
     'no-console': ['warn', { allow: ['warn', 'error'] }],
     eqeqeq: 'warn',
-    'no-unused-vars': 'warn',
+    'no-unused-vars': 'off', // 기본 ESLint no-unused-vars 규칙 비활성화
+    '@typescript-eslint/no-unused-vars': 'off', // @typescript-eslint의 no-unused-vars 규칙 비활성화
     'react/destructuring-assignment': 'warn',
     'react/jsx-pascal-case': 'warn',
     'react/no-direct-mutation-state': 'warn',
