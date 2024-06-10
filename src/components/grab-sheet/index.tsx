@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 import * as S from './GrabSheet.style'
 import { ISheetProps } from './GrabSheet.type'
 
-function GrabSheet({ name, children, onClose }: ISheetProps) {
+function GrabSheet({ name, children, onClose, direction }: ISheetProps) {
   const dispatch = useDispatch()
 
   const handleClose = () => {
@@ -18,7 +18,7 @@ function GrabSheet({ name, children, onClose }: ISheetProps) {
   return (
     <>
       <S.SheetBackground onClick={handleClose} />
-      <S.Container>
+      <S.Container $direction={direction}>
         <S.GrabHandle />
         {children}
       </S.Container>

@@ -11,12 +11,12 @@ export const SheetBackground = styled.div`
   cursor: pointer;
 `
 
-export const Container = styled.div`
+export const Container = styled.div<{ $direction?: string }>`
   position: absolute;
   bottom: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: ${({ $direction = 'center' }) => $direction};
   gap: 2.4rem;
   width: 100%;
   padding: 0.8rem 2rem 2.4rem;
