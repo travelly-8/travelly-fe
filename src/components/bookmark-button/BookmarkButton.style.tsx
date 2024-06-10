@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 
+export const ButtonWrapper = styled.div``
+
 export const Button = styled.img`
   position: absolute;
   top: 0.5rem;
