@@ -17,6 +17,7 @@ export const ReviewTitle = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  cursor: pointer;
 `
 export const ReviewCntWrapper = styled.div`
   display: flex;
@@ -62,7 +63,6 @@ export const EditKebab = styled.span`
   width: 2.4rem;
   height: 2.4rem;
   background-image: url(${kebab});
-
   cursor: pointer;
 `
 export const CheckBoxWrapper = styled.div`
@@ -75,7 +75,6 @@ export const SortWrapper = styled.div`
   align-items: center;
   justify-content: center;
   gap: 0.8rem;
-
   cursor: pointer;
 `
 export const GrayText = styled.span`
@@ -181,4 +180,9 @@ export const LikeCommentWrapper = styled.div`
 export const IconS = styled.img`
   width: 1.2rem;
   height: 1.2rem;
+`
+export const ListButton = styled.button`
+  display: flex;
+  width: 100%;
+  cursor: pointer;
 `
