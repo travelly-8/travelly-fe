@@ -73,12 +73,12 @@ export default function ReviewDetailPage() {
             dispatch(sheet({ name: 'editAndDelete', status: false }))
           }
         >
-          <S.SheetTextWraeppr idx={1}>
+          <S.SheetTextWrapper idx={1}>
             <S.SheetText>수정</S.SheetText>
-          </S.SheetTextWraeppr>
-          <S.SheetTextWraeppr idx={2}>
+          </S.SheetTextWrapper>
+          <S.SheetTextWrapper idx={2}>
             <S.SheetText>삭제</S.SheetText>
-          </S.SheetTextWraeppr>
+          </S.SheetTextWrapper>
         </BottomSheet>
       )}
     </>

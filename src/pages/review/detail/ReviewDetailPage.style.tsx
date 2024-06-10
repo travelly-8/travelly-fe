@@ -6,7 +6,7 @@ export const HeaderTitle = styled.h1`
   font-size: 1.8rem;
   font-style: normal;
   font-weight: 700;
-  line-height: 3.06rem; /* 170% */
+  line-height: 3.06rem;
 `
 
 export const Wrapper = styled.div`
@@ -31,7 +31,7 @@ export const Title = styled.h2`
   font-size: 1.8rem;
   font-style: normal;
   font-weight: 500;
-  line-height: 3.06rem; /* 170% */
+  line-height: 3.06rem;
   margin-bottom: 0.8rem;
 `
 export const NumOfComments = styled.p<{ numOfComments: number }>`
@@ -42,7 +42,7 @@ export const NumOfComments = styled.p<{ numOfComments: number }>`
   font-size: 1.8rem;
   font-style: normal;
   font-weight: 500;
-  line-height: 3.06rem; /* 170% */
+  line-height: 3.06rem;
 `
 
 export const InputOuterWrapper = styled.div<{ numOfComments: number }>`
@@ -67,7 +67,7 @@ export const InputWrapper = styled.div<{ inputValue: string }>`
     font-size: 1.4rem;
     font-style: normal;
     font-weight: 500;
-    line-height: 2.38rem; /* 170% */
+    line-height: 2.38rem;
   }
 
   input {
@@ -83,7 +83,7 @@ export const InputWrapper = styled.div<{ inputValue: string }>`
 interface ISheet {
   idx: number
 }
-export const SheetTextWraeppr = styled.div<ISheet>`
+export const SheetTextWrapper = styled.div<ISheet>`
   display: flex;
   padding: 1.2rem 0.25rem;
   border-top: ${(props) =>
@@ -96,9 +96,9 @@ export const SheetTextWraeppr = styled.div<ISheet>`
   position: relative;
 `
 export const SheetText = styled.span`
-  color: var(--colro-black);
+  color: var(--color-black);
   font-size: 1.4rem;
   font-weight: 400;
-  line-height: 2.38rem; /* 170% */
+  line-height: 2.38rem;
   white-space: nowrap;
 `

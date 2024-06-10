@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
   padding: 1.6rem 2rem;
   border-bottom: 0.1rem solid var(--color-gray-bright);
   background-color: var(--color-white);
-  position: fixed;
+  position: sticky;
   top: 0;
 
   @media screen and (max-width: 767px) {
