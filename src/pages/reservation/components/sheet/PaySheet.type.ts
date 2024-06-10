@@ -1,4 +1,4 @@
-export interface IPayConfirmSheet {
+export interface IPaySheet {
   userPoint: number
   productPoint: number
 }

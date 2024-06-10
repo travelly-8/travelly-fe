@@ -1,15 +1,15 @@
-import type { IPayConfirmSheet } from '@/pages/reservation/components/pay-confirm-sheet/PayConfirmSheet.type.ts'
+import { IPaySheet } from '@/pages/reservation/components/sheet/PaySheet.type.ts'
 import { makeKorLocale } from '@/utils/makeKORLocale.ts'
 
 import GrabSheet from '@components/grab-sheet'
 
-import * as S from './PayConfirmSheet.styles.tsx'
+import * as S from '../PaySheet.styles.tsx'
 
-const PayConfirmSheet = ({ userPoint, productPoint }: IPayConfirmSheet) => {
+const PayCancelSheet = ({ userPoint, productPoint }: IPaySheet) => {
   return (
     <div>
-      <GrabSheet name="pay-confirm" align="left">
-        <S.Title>결제하시겠습니까?</S.Title>
+      <GrabSheet name="pay-cancel" align="left">
+        <S.Title>결제 취소하시겠습니까?</S.Title>
         <S.SheetItem $underline={false}>
           <S.ItemKey>현재 포인트</S.ItemKey>
           <S.ItemValue $primary={false}>
@@ -17,15 +17,15 @@ const PayConfirmSheet = ({ userPoint, productPoint }: IPayConfirmSheet) => {
           </S.ItemValue>
         </S.SheetItem>
         <S.SheetItem $underline={true}>
-          <S.ItemKey>- 결제 포인트</S.ItemKey>
+          <S.ItemKey>+ 취소 포인트</S.ItemKey>
           <S.ItemValue $primary={true}>
             {makeKorLocale(productPoint)}P
           </S.ItemValue>
         </S.SheetItem>
         <S.SheetItem $underline={false}>
-          <S.ItemKey>남은 포인트</S.ItemKey>
+          <S.ItemKey>전체 포인트</S.ItemKey>
           <S.ItemValue $primary={true}>
-            {makeKorLocale(userPoint - productPoint)}P
+            {makeKorLocale(userPoint + productPoint)}P
           </S.ItemValue>
         </S.SheetItem>
       </GrabSheet>
@@ -33,4 +33,4 @@ const PayConfirmSheet = ({ userPoint, productPoint }: IPayConfirmSheet) => {
   )
 }
 
-export default PayConfirmSheet
+export default PayCancelSheet
