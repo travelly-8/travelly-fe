@@ -1,12 +1,19 @@
 import { IPaySheet } from '@/pages/reservation/components/sheet/PaySheet.type.ts'
+import { sheet } from '@/store/sheet-slice.ts'
 import { makeKorLocale } from '@/utils/makeKORLocale.ts'
 
 import GrabSheet from '@components/grab-sheet'
-
 import RoundButton from '@components/round-button'
+import { useDispatch } from 'react-redux'
+
 import * as S from '../PaySheet.styles.tsx'
 
 const PayCancelSheet = ({ userPoint, productPoint }: IPaySheet) => {
+  const dispatch = useDispatch()
+  const handleConfirm = () => {
+    dispatch(sheet({ name: 'pay-confirm', status: false }))
+  }
+
   return (
     <div>
       <GrabSheet name="pay-cancel" align="left">
@@ -30,7 +37,9 @@ const PayCancelSheet = ({ userPoint, productPoint }: IPaySheet) => {
           </S.ItemValue>
         </S.SheetItem>
         <S.ButtonWrapper>
-          <RoundButton.Primary>결제 취소</RoundButton.Primary>
+          <RoundButton.Primary onClick={handleConfirm}>
+            결제 취소
+          </RoundButton.Primary>
         </S.ButtonWrapper>
       </GrabSheet>
     </div>
