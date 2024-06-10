@@ -1,13 +1,12 @@
-import { UserSliceState } from '@/store/user-slice'
-
+import { RootState } from '@/store/store'
 import { useSelector } from 'react-redux'
 import { Navigate, Outlet } from 'react-router-dom'
 
 const SelectPlanRouter = () => {
-  const sheetReducer = useSelector((state: UserSliceState) => state.user.value)
-  const { newUser } = sheetReducer
+  const authState = useSelector((state: RootState) => state.auth)
+  const { role } = authState
 
-  if (newUser) {
+  if (role === null) {
     return <Outlet />
   } else {
     return <Navigate to="/" />

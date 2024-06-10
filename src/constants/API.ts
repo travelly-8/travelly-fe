@@ -8,6 +8,7 @@ export const API_MEMBER = Object.freeze({
   MY_PROFILE: '/my/profile',
   MY_NICKNAME: (nickname: string) => `/my/profile?nickname=${nickname}`,
   MY_PROFILE_IMG: '/my/profile/image',
+  MY_PROFILE_IMG_RESET: '/my/profile/image/default',
   MY_PASSWORD: '/my/profile/password',
 })
 
@@ -18,4 +19,6 @@ export const API_AUTH = Object.freeze({
   SOCIALLOGIN: (registrationId: string) => `/auth/login/${registrationId}`,
   REISSUE: '/auth/login/reissue',
   FINDID: '/auth/login/find',
+  LOGOUT: '/auth/logout',
+  LEAVE: '/auth/leave',
 })
