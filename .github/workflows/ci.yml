@@ -34,6 +34,8 @@ jobs:
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
+          git remote set-url origin https://${GH_PAT}@github.com/${{ github.repository }}.git
+          git fetch origin main
           git checkout main
           git merge develop
-          git push https://${GH_PAT}@github.com/${{ github.repository }}.git main
+          git push origin main
