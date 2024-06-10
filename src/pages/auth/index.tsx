@@ -22,9 +22,9 @@ const AuthCallback: React.FC = () => {
           navigate('/')
         } catch (error) {
           if (isAxiosError(error)) {
-            // console.error('소셜로그인 에러:', error.response?.data)
+            console.error('소셜로그인 에러:', error.response?.data)
           } else {
-            // console.error('소셜로그인 에러:', (error as Error).message)
+            console.error('소셜로그인 에러:', (error as Error).message)
           }
         }
       }
