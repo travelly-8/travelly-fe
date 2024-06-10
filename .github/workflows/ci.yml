@@ -26,22 +26,3 @@ jobs:
 
       - name: Run tests
         run: npm test
-
-      - name: Commit changes if needed
-        if: success()
-        run: |
-          git config --global user.name 'github-actions'
-          git config --global user.email 'github-actions@github.com'
-          git add .
-          git commit -m "Auto-commit changes after successful tests" || echo "No changes to commit"
-
-      - name: Push to main branch if tests pass
-        if: success()
-        env:
-          GH_PAT: ${{ secrets.GH_PAT }}
-        run: |
-          git remote set-url origin https://${GH_PAT}@github.com/${{ github.repository }}.git
-          git fetch origin main
-          git checkout main
-          git reset --hard origin/develop
-          git push origin main --force
