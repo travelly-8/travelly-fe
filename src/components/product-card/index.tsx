@@ -35,7 +35,7 @@ function ProductCard({ cardData, size }: IProductCardProps) {
   const [isBookmarked, setIsBookmarked] = useState(false)
 
   const handleBookmarkClick = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
   ) => {
     e.stopPropagation()
     setIsBookmarked(!isBookmarked)

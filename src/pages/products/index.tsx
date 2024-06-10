@@ -6,7 +6,7 @@ import useIntersectionObserver from '@/hooks/useIntersectionObserver'
 import AppBar from '@/pages/products/components/app-bar'
 import CardOrdersSheet from '@/pages/products/components/card-orders-sheet'
 import FilteringSheet from '@/pages/products/components/filtering-sheet'
-import { SheetSliceState, sheet } from '@/store/sheet-slice.ts'
+import { sheet, type ISheetSliceState } from '@/store/sheet-slice.ts'
 
 import ProductCard from '@components/product-card'
 import ProductCardSkeleton from '@components/product-card/ProductCardSkeleton'
@@ -42,7 +42,7 @@ const ProductsPage = () => {
   })
 
   const sheetReducer = useSelector(
-    (state: SheetSliceState) => state.sheet.value,
+    (state: ISheetSliceState) => state.sheet.value,
   )
 
   const isSearchSheet =

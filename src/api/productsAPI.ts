@@ -1,29 +1,19 @@
 import { API_PRODUCTS } from '@/constants/API'
 import type {
+  IGetProductsData,
   IPostProduct,
-  ISearchProductsData,
 } from '@/types/postProductData.type'
 
 import instance from './instance'
 
-export const getAllProducts = (
-  page: number,
-  size: number,
-  sort?: string,
-  sortType?: string,
-) => {
+export const getAllProducts = (data: IGetProductsData) => {
+  const params = createParams(data)
   return instance({
     method: 'GET',
     url: API_PRODUCTS.PRODUCTS,
-    params: {
-      page: page,
-      size: size,
-      sort: sort,
-      sortType: sortType,
-    },
+    params,
   })
 }
-
 export const postProduct = (data: IPostProduct) => {
   return instance({
     url: API_PRODUCTS.PRODUCTS,
@@ -47,20 +37,11 @@ export const putProductDetail = (productId: number, data: IPostProduct) => {
   })
 }
 
-export const getSearchProducts = (data: ISearchProductsData) => {
-  const params = createParams(data)
-  return instance({
-    method: 'GET',
-    url: API_PRODUCTS.PRODUCTS,
-    params,
-  })
-}
-
-const createParams = (data: ISearchProductsData) => {
+const createParams = (data: IGetProductsData) => {
   const params: { [key: string]: string | number } = {}
 
   Object.keys(data).forEach((key) => {
-    const value = data[key as keyof ISearchProductsData]
+    const value = data[key as keyof IGetProductsData]
     if (value !== undefined) {
       params[key] = value
     }

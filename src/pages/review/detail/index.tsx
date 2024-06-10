@@ -5,7 +5,7 @@ import ReviewPage from '@/pages/products-detail/components/review/ReviewPage'
 import { reviewData } from '@/pages/products-detail/mockData'
 import CommentCard from '@/pages/review/components/comment-card'
 import ReviewProductCard from '@/pages/review/components/review-product-card'
-import { SheetSliceState, sheet } from '@/store/sheet-slice'
+import { ISheetSliceState, sheet } from '@/store/sheet-slice'
 
 import BottomSheet from '@components/bottom-sheet'
 import PageHeader from '@components/page-header'
@@ -20,7 +20,7 @@ export default function ReviewDetailPage() {
   const [inputValue, setInputValue] = useState('')
   const dispatch = useDispatch()
   const sheetReducer = useSelector(
-    (state: SheetSliceState) => state.sheet.value,
+    (state: ISheetSliceState) => state.sheet.value,
   )
 
   return (

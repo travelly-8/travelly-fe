@@ -5,7 +5,8 @@ import shareMessage from '@/utils/kakaoShare'
 import GrabSheet from '@components/grab-sheet'
 
 import * as S from './ShareSheet.style'
-import { IShareSheetProps } from './ShareSheet.type'
+
+import type { IShareSheetProps } from './ShareSheet.type'
 
 function ShareSheet({
   address,

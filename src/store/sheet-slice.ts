@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-export interface SheetSliceState {
+export interface ISheetSliceState {
   sheet: {
     value: {
       name?: string

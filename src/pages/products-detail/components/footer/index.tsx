@@ -3,7 +3,8 @@ import { useState } from 'react'
 import RoundButton from '@components/round-button'
 
 import * as S from './Footer.style'
-import { IFooter } from './Footer.type'
+
+import type { IFooter } from './Footer.type'
 
 const Footer = ({
   isBookmarked: initialBookmarked,

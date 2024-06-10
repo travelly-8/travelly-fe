@@ -5,7 +5,7 @@ import passport from '@/assets/login/passport.png'
 import IconButton from '@/components/icon-button'
 import Bubble from '@/pages/login/components/bubble'
 import ConfirmPage from '@/pages/login/components/confirm-page'
-import { SheetSliceState, sheet } from '@/store/sheet-slice'
+import { ISheetSliceState, sheet } from '@/store/sheet-slice'
 
 import BackBar from '@components/back-bar'
 import { useDispatch, useSelector } from 'react-redux'
@@ -17,7 +17,7 @@ import type { ButtonType } from '@components/icon-button/IconButton.type'
 export default function SelectPlanPage() {
   const dispatch = useDispatch()
   const sheetReducer = useSelector(
-    (state: SheetSliceState) => state.sheet?.value,
+    (state: ISheetSliceState) => state.sheet?.value,
   )
   const [travellerStatus, setTravellerStatus] = useState<ButtonType>('default')
   const [travellyStatus, setTravellyStatus] = useState<ButtonType>('default')

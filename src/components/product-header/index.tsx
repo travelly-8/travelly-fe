@@ -4,7 +4,7 @@ import hamburgerClickedIcon from '@/assets/common/hamburger-click.svg'
 import hamburgerIcon from '@/assets/common/hamburger.svg'
 import searchIcon from '@/assets/common/search.svg'
 import PRODUCT_TYPE from '@/constants/PRODUCT_TYPE'
-import { sheet, SheetSliceState } from '@/store/sheet-slice.ts'
+import { ISheetSliceState, sheet } from '@/store/sheet-slice.ts'
 
 import BackBar from '@components/back-bar'
 import CategorySection from '@components/category-section'
@@ -35,7 +35,7 @@ const ProductHeader: React.FC<IProductHeaderProps> = ({ hamburgerClick }) => {
 
   const dispatch = useDispatch()
   const sheetReducer = useSelector(
-    (state: SheetSliceState) => state.sheet.value,
+    (state: ISheetSliceState) => state.sheet.value,
   )
   const handleSearchClick = () => {
     dispatch(sheet({ name: 'search-sheet', status: true, text: '' }))
