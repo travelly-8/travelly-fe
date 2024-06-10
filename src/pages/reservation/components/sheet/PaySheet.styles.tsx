@@ -24,3 +24,8 @@ export const ItemValue = styled.div<{ $primary: boolean }>`
   color: ${({ $primary }) =>
     $primary ? 'var(--color-main)' : 'var(--color-gray-middle)'};
 `
+
+export const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: right;
+`
