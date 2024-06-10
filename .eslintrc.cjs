@@ -28,6 +28,7 @@ module.exports = {
     'react/jsx-curly-brace-presence': 'warn',
     'react-hooks/exhaustive-deps': 'off',
     'react/prop-types': 'off',
+    'react/jsx-no-comment-textnodes': 'off',
     'prettier/prettier': [
       'error',
       {
