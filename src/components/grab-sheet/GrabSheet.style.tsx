@@ -30,4 +30,7 @@ export const GrabHandle = styled.div`
   height: 0.3rem;
   border-radius: 3rem;
   background-color: var(--color-gray-light);
+  display: flex;
+  justify-content: center;
+  margin: auto;
 `
