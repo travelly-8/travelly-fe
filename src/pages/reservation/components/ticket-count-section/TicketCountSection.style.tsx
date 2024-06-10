@@ -8,6 +8,7 @@ export const SectionWrapper = styled.section`
   flex-direction: column;
   gap: 0.8rem;
   margin-top: 1.6rem;
+  margin-bottom: 2.4rem;
 `
 
 export const Title = styled.h3`
@@ -32,7 +33,7 @@ export const Ticket = styled.div`
 export const TicketType = styled.span`
   color: var(--color-black);
   font-size: 1.4rem;
-  line-height: 23.8px;
+  line-height: 2.38rem;
 `
 
 export const TicketCount = styled.div`
@@ -45,7 +46,7 @@ export const Count = styled.span`
   color: var(--color-black);
   font-size: 1.4rem;
   font-weight: 500;
-  line-height: 23.8px;
+  line-height: 2.38rem;
 `
 
 export const MinusButton = styled.button`

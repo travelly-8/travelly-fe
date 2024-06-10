@@ -1,3 +1,4 @@
+import ReservationDateSection from '@/pages/reservation/components/reservation-date-section'
 import TicketCountSection from '@/pages/reservation/components/ticket-count-section'
 import ReviewProductCard from '@/pages/review/components/review-product-card'
 
@@ -24,6 +25,7 @@ function ReservationPage() {
           <S.GetAccount>계정정보 가져오기</S.GetAccount>
         </S.CheckBoxWrapper>
         <TicketCountSection />
+        <ReservationDateSection />
       </S.PageContainer>
     </>
   )
