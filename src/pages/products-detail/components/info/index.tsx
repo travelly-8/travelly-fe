@@ -40,12 +40,10 @@ const Info: React.FC<IInfoProps> = ({
         </S.LocationWrapper>
         <S.LocationWrapper>
           <S.Icon src={StarIcon} alt="위치 아이콘" />
-          <div>
-            <S.BlackTextS>
-              {rating}({reviewCnt})&nbsp;&nbsp;&nbsp;
-            </S.BlackTextS>
+          <S.Review>
+            <S.BlackTextS>{`${rating} (${reviewCnt})`}</S.BlackTextS>
             <S.GrayText>리뷰보기&gt;</S.GrayText>
-          </div>
+          </S.Review>
         </S.LocationWrapper>
       </S.DescriptionContainer>
     </S.InfoContainer>

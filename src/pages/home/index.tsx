@@ -12,6 +12,8 @@ import { SheetSliceState } from '@/store/sheet-slice.ts'
 import FooterNavigation from '@components/footer-navigation'
 import Header from '@components/header'
 import ProductCard from '@components/product-card'
+import { SizeProps } from '@components/product-card/ProductCard.style'
+import ProductCardSkeleton from '@components/product-card/ProductCardSkeleton'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
@@ -31,11 +33,20 @@ function HomePage() {
   const scrollPopularHandlers = useScrollHandlers(popularProductRef)
   const scrollRecommendHandlers = useScrollHandlers(recommendProductRef)
 
-  const { data } = useGetAllProducts(API_PRODUCTS.PRODUCTS, () =>
+  const { data, isPending } = useGetAllProducts(API_PRODUCTS.PRODUCTS, () =>
     getSearchProducts(cardsQueryData),
   )
   //TODO: 인기상품, 추천상품 논의 후 나중에 적용
   const cardsContents = data?.content
+
+  const renderProductCards = (size: SizeProps['size']) =>
+    isPending ? (
+      <ProductCardSkeleton count={6} size={size} />
+    ) : (
+      cardsContents?.map((cardData) => (
+        <ProductCard key={cardData.id} cardData={cardData} size={size} />
+      ))
+    )
 
   return (
     <>
@@ -53,9 +64,7 @@ function HomePage() {
           </S.SectionTitleWrapper>
           <S.SectionContentsWrapper>
             <S.CardWrapper ref={popularProductRef} {...scrollPopularHandlers}>
-              {cardsContents?.map((cardData) => (
-                <ProductCard key={cardData.id} cardData={cardData} size="sm" />
-              ))}
+              {renderProductCards('sm')}
             </S.CardWrapper>
           </S.SectionContentsWrapper>
         </S.ProductsSection>
@@ -69,9 +78,7 @@ function HomePage() {
               ref={recommendProductRef}
               {...scrollRecommendHandlers}
             >
-              {cardsContents?.map((cardData) => (
-                <ProductCard key={cardData.id} cardData={cardData} size="sm" />
-              ))}
+              {renderProductCards('sm')}
             </S.CardWrapper>
           </S.SectionContentsWrapper>
         </S.ProductsSection>
@@ -82,14 +89,10 @@ function HomePage() {
               더보기
             </S.ShowAllProducts>
           </S.ALLTitleWrapper>
-          <S.AllCardWrapper>
-            {cardsContents?.map((cardData) => (
-              <ProductCard key={cardData.id} cardData={cardData} size="bg" />
-            ))}
-          </S.AllCardWrapper>
+          <S.AllCardWrapper>{renderProductCards('bg')}</S.AllCardWrapper>
         </S.AllProductsSection>
+        <FooterNavigation />
       </S.PageContainer>
-      <FooterNavigation />
     </>
   )
 }

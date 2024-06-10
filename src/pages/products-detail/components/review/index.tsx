@@ -12,8 +12,9 @@ const Review: React.FC<IReviewProps> = ({
   reviewData,
   onOrderClick,
   onEditClick,
+  onPhotoReviewsClick,
 }) => {
-  const reviewImgCnt = reviewImg.length
+  const reviewImgCnt = reviewImg?.length
 
   return (
     <S.ReviewContainer>
@@ -41,14 +42,26 @@ const Review: React.FC<IReviewProps> = ({
             <S.IconSort src={sort} alt="정렬" />
           </S.SortWrapper>
         </S.ReviewCheckBox>
-        <S.ReviewImgContainer>
-          <S.ReviewImg src={reviewImg[0]} alt="리뷰 이미지" />
-          <S.ReviewImg src={reviewImg[1]} alt="리뷰 이미지" />
-          <S.LastReviewImg>
-            <S.ReviewImg src={reviewImg[2]} alt="리뷰 이미지" />
-            <S.ReviewImgBackground>+{reviewImgCnt - 2}</S.ReviewImgBackground>
-          </S.LastReviewImg>
-        </S.ReviewImgContainer>
+        {reviewImgCnt && (
+          <S.ReviewImgContainer>
+            {reviewImgCnt <= 3 ? (
+              reviewImg.map((photo) => (
+                <S.ReviewImg key={photo} src={photo} alt="리뷰 이미지" />
+              ))
+            ) : (
+              <>
+                <S.ReviewImg src={reviewImg[0]} alt="리뷰 이미지" />
+                <S.ReviewImg src={reviewImg[1]} alt="리뷰 이미지" />
+                <S.LastReviewImg onClick={onPhotoReviewsClick}>
+                  <S.ReviewImg src={reviewImg[2]} alt="리뷰 이미지" />
+                  <S.ReviewImgBackground>
+                    +{reviewImgCnt - 2}
+                  </S.ReviewImgBackground>
+                </S.LastReviewImg>
+              </>
+            )}
+          </S.ReviewImgContainer>
+        )}
       </S.ReviewHeader>
       {reviewData.map((data: IReviewData) => (
         <ReviewPage

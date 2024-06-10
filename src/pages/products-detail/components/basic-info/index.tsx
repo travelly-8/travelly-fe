@@ -23,7 +23,7 @@ const BasicInfo: React.FC<IBasicInfoProps> = ({
         <S.Description>
           <S.LabelM>주소</S.LabelM>
           <S.GrayText>
-            {address} {detailAddress}
+            {`${address}.`} {detailAddress}
           </S.GrayText>
         </S.Description>
         <S.Description>
@@ -35,7 +35,7 @@ const BasicInfo: React.FC<IBasicInfoProps> = ({
           <S.GrayText>{phoneNumber}</S.GrayText>
         </S.Description>
         <S.Description>
-          <S.LabelM>전화</S.LabelM>
+          <S.LabelM>홈페이지</S.LabelM>
           <S.GrayATag href={website}>{website}</S.GrayATag>
         </S.Description>
       </S.DescriptionWrapper>

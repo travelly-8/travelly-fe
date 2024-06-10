@@ -1,39 +1,56 @@
 import { Fragment, useState } from 'react'
 
 import star from '@/assets/home/empty-star.svg'
+import defaultImage from '@/assets/login/airplane.png'
 import { LOCALE_CODE_LIST } from '@/constants/FILTERING_BROWSING'
 import { registerRecentProducts } from '@/utils/registerLocalStorage'
 
 import BookmarkButton from '@components/bookmark-button'
+import { useNavigate } from 'react-router-dom'
 
 import * as S from './ProductCard.style'
 import { IProductCardData, IProductCardProps } from './ProductCard.type'
+
 function ProductCard({ cardData, size }: IProductCardProps) {
   const {
-    imageUrl,
+    id,
+    imageUrl = defaultImage,
     name,
     cityCode,
     address,
-    discount = 10,
+    discount = 0,
     ticketDto,
     rating,
     reviewCount,
   }: IProductCardData = cardData
+  const navigate = useNavigate()
+
+  const handleClick = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
+    e.stopPropagation()
+    navigate(`/products/${id}`)
+    window.location.reload()
+    registerRecentProducts(cardData)
+  }
 
   const [isBookmarked, setIsBookmarked] = useState(false)
-  //TODO: 클릭했을 시 찜 목록에 나타나도록 기능 추가 필요
-  //TODO: 유저 아이디를 판별해서, 아이디를 가진 사람이 클릭한 적이 있다면 클릭한 state 그대로 가지고 있도록 기능 추가 필요
-  //TODO: BookmarkButton 기능 추가 후, 클릭했을 시 버블링 고려해야함
+
+  const handleBookmarkClick = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    e.stopPropagation()
+    setIsBookmarked(!isBookmarked)
+  }
+
   const city = LOCALE_CODE_LIST[cityCode]
   const district = address?.split(' ')[1]
   const price = ticketDto[0]?.price
   const formattedPrice = price.toLocaleString()
 
   return (
-    <S.Container size={size} onClick={() => registerRecentProducts(cardData)}>
+    <S.Container size={size} onClick={(e) => handleClick(e)}>
       <S.CardImage src={imageUrl} alt={name} size={size} />
       <BookmarkButton
-        onClick={() => setIsBookmarked(!isBookmarked)}
+        onClick={handleBookmarkClick}
         isBookmarked={isBookmarked}
       />
       <S.ContentsWrapper>

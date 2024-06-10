@@ -1,9 +1,10 @@
 export interface IReviewProps {
   reviewCnt: number
-  reviewImg: string[]
+  reviewImg?: string[]
   reviewData: IReviewData[]
   onOrderClick: () => void
   onEditClick: () => void
+  onPhotoReviewsClick?: () => void
 }
 
 export interface IReviewPageProps {

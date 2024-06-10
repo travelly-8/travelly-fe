@@ -1,12 +1,10 @@
 import styled from 'styled-components'
 
-interface SizeProps {
+export interface SizeProps {
   size: 'sm' | 'bg' | 'summary'
 }
 
-interface IContainerProps extends SizeProps {
-  onClick: () => void
-}
+interface IContainerProps extends SizeProps {}
 
 export const Container = styled.li<IContainerProps>`
   position: relative;
@@ -17,6 +15,8 @@ export const Container = styled.li<IContainerProps>`
     width: ${size === 'sm' || size === 'summary' ? '10.2rem' : '100%'};
   `}
   overflow: hidden;
+
+  cursor: pointer;
 `
 
 export const CardImage = styled.img<SizeProps>`
@@ -24,6 +24,9 @@ export const CardImage = styled.img<SizeProps>`
     width: ${size === 'sm' || size === 'summary' ? '10.2rem' : '100%'};
     height: ${size === 'sm' || size === 'summary' ? '10.2rem' : '15.2rem'};
   `}
+  margin-bottom: 0.8rem;
+  border-radius: 0.5rem;
+  object-fit: cover;
 `
 
 export const ContentsWrapper = styled.div`

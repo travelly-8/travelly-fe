@@ -40,3 +40,40 @@ interface KakaoAddressResult {
   y: string
   x: string
 }
+
+interface Window {
+  Kakao: KakaoNamespace
+}
+
+interface KakaoNamespace {
+  cleanup: () => void
+  init: (appKey: string) => void
+  isInitialized: () => boolean
+  Share: {
+    sendDefault: (params: KakaoShareParams) => void
+  }
+}
+interface KakaoShareParams {
+  objectType: string
+  address: string
+  addressTitle: string
+  content: {
+    title: string
+    description: string
+    imageUrl: string
+    link: {
+      mobileWebUrl: string
+      webUrl: string
+    }
+  }
+  social: {
+    commentCount: number
+  }
+  buttons: Array<{
+    title: string
+    link: {
+      mobileWebUrl: string
+      webUrl: string
+    }
+  }>
+}

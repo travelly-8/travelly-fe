@@ -1,3 +1,5 @@
+import kebab from '@/assets/common/kebab.svg'
+
 import styled from 'styled-components'
 
 export const ReviewContainer = styled.div`
@@ -59,7 +61,7 @@ export const BlackText = styled.label`
 export const EditKebab = styled.span`
   width: 2.4rem;
   height: 2.4rem;
-  background-image: url('src/assets/common/kebab.svg');
+  background-image: url(${kebab});
 
   cursor: pointer;
 `
@@ -122,6 +124,7 @@ export const ReviewImg = styled.img`
   width: 9.7rem;
   height: 9.7rem;
   border-radius: 0.5rem;
+  object-fit: cover;
 `
 
 export const ReviewContent = styled.div`
