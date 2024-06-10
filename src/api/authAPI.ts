@@ -51,3 +51,20 @@ export const getFindId = (nickname: string) => {
     },
   })
 }
+
+export const getLogout = () => {
+  return instance({
+    method: 'GET',
+    url: API_AUTH.LOGOUT,
+  })
+}
+
+export const deleteLeave = (password: string) => {
+  return instance({
+    method: 'DELETE',
+    url: API_AUTH.LEAVE,
+    data: {
+      password: password,
+    },
+  })
+}

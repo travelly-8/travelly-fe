@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react'
 
+import { deleteLeave } from '@/api/authAPI'
+import { deleteTokens } from '@/utils/tokenStorage'
+
 import Input from '@components/input'
 import PageHeader from '@components/page-header'
 import RectangleButton from '@components/rectangle-button'
@@ -43,16 +46,17 @@ export default function ExitVerificationPage() {
   }, [passwordCheck])
 
   const onSubmit = (data: FormData) => {
-    console.log(data)
-    setIsdisabled({ color: 'primary', disabled: true })
-    //TODO: 비밀번호 확인 후, 일치하면 탈퇴하기
-    checkValidate() && navigate('/goodbye')
+    deleteLeave(data.passwordCheck)
+      .then(() => {
+        navigate('/goodbye')
+        deleteTokens()
+        setIsdisabled({ color: 'primary', disabled: true })
+      })
+      .catch((err) => {
+        console.error(err)
+      })
   }
 
-  //TODO: 기존 비밀번호와 비교하는 validate 함수 만들기
-  const checkValidate = () => {
-    return true
-  }
   return (
     <S.Wrapper>
       <PageHeader>
@@ -65,9 +69,6 @@ export default function ExitVerificationPage() {
             name="passwordCheck"
             control={control}
             defaultValue=""
-            rules={{
-              validate: checkValidate,
-            }}
             render={({ field }) => (
               <Input
                 {...field}

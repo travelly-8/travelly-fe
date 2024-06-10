@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
 
+import { getLogout } from '@/api/authAPI'
 import {
   getMemberProfile,
   putMemberNickname,
   putMemberProfileImage,
+  putMemberProfileImageReset,
 } from '@/api/myAPI'
 import defaultProfileImg from '@/assets/mypage/default-profile.svg'
 import exitSvg from '@/assets/mypage/exit.svg'
@@ -12,7 +14,9 @@ import logoutSvg from '@/assets/mypage/logout.svg'
 import purplePenSvg from '@/assets/mypage/purple-pen.svg'
 import { API_MEMBER } from '@/constants/API'
 import useGetMemberProfile from '@/hooks/api/memberAPI/useGetMemberProfile'
+import EditPasswordPage from '@/pages/mypage/components/edit-password'
 import { SheetSliceState, sheet } from '@/store/sheet-slice'
+import { deleteTokens } from '@/utils/tokenStorage'
 
 import BlurSheet from '@components/blur-sheet'
 import BottomSheet from '@components/bottom-sheet'
@@ -22,8 +26,6 @@ import PageHeader from '@components/page-header'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-import EditPasswordPage from '../components/edit-password'
-// eslint-disable-next-line import/order
 import * as S from './MyPageEditPage.style'
 
 export default function MyPageEditPage() {
@@ -45,7 +47,21 @@ export default function MyPageEditPage() {
         controlSheet('password', true)
       },
     },
-    { id: 2, icon: logoutSvg, text: '로그아웃', onClick: () => {} },
+    {
+      id: 2,
+      icon: logoutSvg,
+      text: '로그아웃',
+      onClick: () => {
+        getLogout()
+          .then(() => {
+            deleteTokens()
+            navigate('/')
+          })
+          .catch((err) => {
+            console.error(err)
+          })
+      },
+    },
   ]
 
   // 마이페이지 수정 정보 패치
@@ -97,10 +113,16 @@ export default function MyPageEditPage() {
     }
   }
 
-  //TODO: 프사 리셋 api 연결 필요
+  // 프사 리셋
   const resetProfileImage = () => {
-    setProfileImage(defaultProfileImg)
-    controlSheet('profile', false)
+    putMemberProfileImageReset()
+      .then(() => {
+        refetch()
+        controlSheet('profile', false)
+      })
+      .catch((err) => {
+        console.error(err)
+      })
   }
 
   return (
