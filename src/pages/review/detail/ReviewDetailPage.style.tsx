@@ -46,8 +46,8 @@ export const NumOfComments = styled.p<{ numOfComments: number }>`
 `
 
 export const InputOuterWrapper = styled.div<{ numOfComments: number }>`
-  padding-top: ${(props) => (props.numOfComments === 0 ? '0' : '0.8rem')};
-  margin-top: ${(props) => (props.numOfComments === 0 ? '0' : '1.6rem')};
+  padding: ${(props) => (props.numOfComments === 0 ? '0' : '0.8rem 0')};
+  margin: ${(props) => (props.numOfComments === 0 ? '0' : '1.6rem 0')};
   border-top: ${(prop) =>
     prop.numOfComments === 0 ? 'none' : '0.1rem solid var(--color-gray-light)'};
 `

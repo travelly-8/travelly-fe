@@ -10,6 +10,7 @@ export const HeaderTitle = styled.h1`
 `
 
 export const Wrapper = styled.div`
+  margin-top: 4.8rem;
   display: flex;
   flex-direction: column;
   padding: 0 2rem;

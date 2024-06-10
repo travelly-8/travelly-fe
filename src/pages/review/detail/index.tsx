@@ -1,5 +1,8 @@
 import { useState } from 'react'
 
+import { IReviewData } from '@/pages/products-detail/components/review/Review.type'
+import ReviewPage from '@/pages/products-detail/components/review/ReviewPage'
+import { reviewData } from '@/pages/products-detail/mockData'
 import CommentCard from '@/pages/review/components/comment-card'
 import ReviewProductCard from '@/pages/review/components/review-product-card'
 import { SheetSliceState, sheet } from '@/store/sheet-slice'
@@ -27,7 +30,13 @@ export default function ReviewDetailPage() {
       </PageHeader>
       <S.Wrapper>
         <ReviewProductCard />
-        {/* TODO: 스쿼드 B에서 작업한 부분 연결 (상품 상세 후기 레이아웃) */}
+        {reviewData.map((data: IReviewData) => (
+          <ReviewPage
+            key={data.name}
+            reviewData={data}
+            onEditClick={() => {}}
+          />
+        ))}
       </S.Wrapper>
       <S.CommentWrapper>
         <S.TitleWrapper>

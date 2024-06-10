@@ -13,6 +13,7 @@ import GoodbyePage from './pages/mypage/good-bye'
 import ProductsPage from './pages/products'
 import ProductsDetail from './pages/products-detail'
 import ReviewDetailPage from './pages/review/detail'
+import ReviewList from './pages/review/list'
 import ReviewWritePage from './pages/review/write'
 import SignupStartPage from './pages/signup'
 import SignupEndPage from './pages/signup/end'
@@ -26,7 +27,7 @@ export default function AppRouter() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/products" element={<ProductsPage />} />
-        {/* <Route path="/products/:productId" element={<ProductsDetail />} /> */}
+        <Route path="/products/:productId" element={<ProductsDetail />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup/start" element={<SignupStartPage />} />
         <Route path="/signup" element={<SignupPage />} />
@@ -43,6 +44,7 @@ export default function AppRouter() {
         <Route path="/products-detail" element={<ProductsDetail />} />
         <Route path="/review/write" element={<ReviewWritePage />} />
         <Route path="/review/:reviewId" element={<ReviewDetailPage />} />
+        <Route path="/review/list" element={<ReviewList />} />
       </Routes>
     </BrowserRouter>
   )

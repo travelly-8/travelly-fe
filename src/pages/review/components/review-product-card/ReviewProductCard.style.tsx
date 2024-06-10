@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 
 export const Wrapper = styled.div`
-  margin-top: 4.8rem;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -70,4 +69,12 @@ export const Arrow = styled.img`
   width: 0.6rem;
   height: 1.2rem;
   cursor: pointer;
+`
+
+export const CommentCount = styled.p`
+  color: var(--color-main);
+  font-size: 1.4rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.8rem; /* 150% */
 `
