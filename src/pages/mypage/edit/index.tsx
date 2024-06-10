@@ -15,7 +15,7 @@ import purplePenSvg from '@/assets/mypage/purple-pen.svg'
 import { API_MEMBER } from '@/constants/API'
 import useGetMemberProfile from '@/hooks/api/memberAPI/useGetMemberProfile'
 import EditPasswordPage from '@/pages/mypage/components/edit-password'
-import { SheetSliceState, sheet } from '@/store/sheet-slice'
+import { ISheetSliceState, sheet } from '@/store/sheet-slice'
 import { deleteTokens } from '@/utils/tokenStorage'
 
 import BlurSheet from '@components/blur-sheet'
@@ -32,7 +32,7 @@ export default function MyPageEditPage() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const sheetReducer = useSelector(
-    (state: SheetSliceState) => state.sheet.value,
+    (state: ISheetSliceState) => state.sheet.value,
   )
   const controlSheet = (sheetType: string, status: boolean) => {
     dispatch(sheet({ name: sheetType, status: status, text: sheetType }))

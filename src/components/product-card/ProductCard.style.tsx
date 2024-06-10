@@ -1,10 +1,10 @@
 import styled from 'styled-components'
 
-export interface SizeProps {
+export interface ISizeProps {
   size: 'sm' | 'bg' | 'summary'
 }
 
-interface IContainerProps extends SizeProps {}
+interface IContainerProps extends ISizeProps {}
 
 export const Container = styled.li<IContainerProps>`
   position: relative;
@@ -19,7 +19,7 @@ export const Container = styled.li<IContainerProps>`
   cursor: pointer;
 `
 
-export const CardImage = styled.img<SizeProps>`
+export const CardImage = styled.img<ISizeProps>`
   ${({ size }) => `
     width: ${size === 'sm' || size === 'summary' ? '10.2rem' : '100%'};
     height: ${size === 'sm' || size === 'summary' ? '10.2rem' : '15.2rem'};
@@ -47,7 +47,7 @@ export const Title = styled.h2`
   word-break: break-all;
 `
 
-export const Location = styled.p<SizeProps>`
+export const Location = styled.p<ISizeProps>`
   display: flex;
   gap: 0.2rem;
   ${({ size }) => `
@@ -59,7 +59,7 @@ export const City = styled.span``
 
 export const District = styled.span``
 
-export const DiscountPrice = styled.div<SizeProps>`
+export const DiscountPrice = styled.div<ISizeProps>`
   display: flex;
   gap: 0.3rem;
   ${({ size }) => `
@@ -78,7 +78,7 @@ export const Price = styled.span`
   font-weight: 500;
 `
 
-export const Review = styled.div<SizeProps>`
+export const Review = styled.div<ISizeProps>`
   display: flex;
   align-items: center;
   color: var(--color-gray-middle);

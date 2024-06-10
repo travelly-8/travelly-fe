@@ -1,10 +1,10 @@
 import styled, { keyframes } from 'styled-components'
 
-import { SizeProps } from './ProductCard.style'
+import { ISizeProps } from './ProductCard.style'
 
 interface IProductCardSkeletonProps {
   count: number
-  size: SizeProps['size']
+  size: ISizeProps['size']
 }
 
 function ProductCardSkeleton({ count, size }: IProductCardSkeletonProps) {
@@ -31,7 +31,7 @@ function ProductCardSkeleton({ count, size }: IProductCardSkeletonProps) {
 export default ProductCardSkeleton
 
 interface SkeletonProps {
-  size: SizeProps['size']
+  size: ISizeProps['size']
 }
 
 const pulse = keyframes`

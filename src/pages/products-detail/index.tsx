@@ -3,7 +3,7 @@ import { useCallback, useState } from 'react'
 import { getAllProducts, getProductDetail } from '@/api/productsAPI'
 import { LOCALE_CODE_LIST } from '@/constants/FILTERING_BROWSING'
 import PhotoReviewsSheet from '@/pages/products-detail/components/photo-reviews-sheet'
-import { sheet, SheetSliceState } from '@/store/sheet-slice.ts'
+import { sheet, type ISheetSliceState } from '@/store/sheet-slice.ts'
 
 import ProductHeader from '@components/product-header'
 import { useQuery } from '@tanstack/react-query'
@@ -22,7 +22,7 @@ import * as S from './ProductsDetail.style'
 
 import type { ISheetComponents } from './ProductsDetail.type'
 
-import { IProductCardData } from '@components/product-card/ProductCard.type.ts'
+import type { IProductCardData } from '@components/product-card/ProductCard.type.ts'
 
 function ProductsDetail() {
   const { productId } = useParams()
@@ -65,7 +65,7 @@ function ProductsDetail() {
 
   const dispatch = useDispatch()
   const sheetReducer = useSelector(
-    (state: SheetSliceState) => state.sheet.value,
+    (state: ISheetSliceState) => state.sheet.value,
   )
   const isSearchSheet =
     sheetReducer.status && sheetReducer.name === 'search-sheet'

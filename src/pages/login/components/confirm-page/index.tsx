@@ -1,7 +1,7 @@
 import { putRole } from '@/api/authAPI'
 import rocket from '@/assets/login/rocket.png'
 import { setRole } from '@/store/auth-slice'
-import { SheetSliceState, sheet } from '@/store/sheet-slice'
+import { ISheetSliceState, sheet } from '@/store/sheet-slice'
 import isAxiosError from '@/utils/isAxiosError'
 import { getAccessToken, refreshAccessToken } from '@/utils/tokenStorage'
 
@@ -19,7 +19,7 @@ const ConfirmPage = ({ selectedRole }: ConfirmPageProps) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const sheetReducer = useSelector(
-    (state: SheetSliceState) => state.sheet.value,
+    (state: ISheetSliceState) => state.sheet.value,
   )
   const handleCreateAccount = async () => {
     if (selectedRole) {

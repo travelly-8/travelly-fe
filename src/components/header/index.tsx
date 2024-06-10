@@ -4,7 +4,7 @@ import alarmIcon from '@/assets/common/alarm.svg'
 import hamburgerClickedIcon from '@/assets/common/hamburger-click.svg'
 import hamburgerIcon from '@/assets/common/hamburger.svg'
 import searchIcon from '@/assets/common/search.svg'
-import { sheet, SheetSliceState } from '@/store/sheet-slice.ts'
+import { ISheetSliceState, sheet } from '@/store/sheet-slice.ts'
 
 import CategorySection from '@components/category-section'
 import SearchSheet from '@components/search-sheet'
@@ -20,7 +20,7 @@ const Header: React.FC<IHeaderProps> = ({ hamburgerClick }) => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const sheetReducer = useSelector(
-    (state: SheetSliceState) => state.sheet.value,
+    (state: ISheetSliceState) => state.sheet.value,
   )
 
   useEffect(() => {

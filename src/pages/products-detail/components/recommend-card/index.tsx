@@ -3,9 +3,10 @@ import { useRef } from 'react'
 import useScrollHandlers from '@/hooks/useScrollHandlers'
 
 import ProductCard from '@components/product-card'
-import { IProductCardData } from '@components/product-card/ProductCard.type'
 
 import * as S from './RecommendCard.styles'
+
+import type { IProductCardData } from '@components/product-card/ProductCard.type'
 
 const RecommendCard = ({ cards }: { cards: IProductCardData[] }) => {
   const recommendedProductsRef = useRef<HTMLDivElement>(null)
