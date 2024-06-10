@@ -1,0 +1,39 @@
+name: CI for Develop Branch
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Compile TypeScript
+        run: npm run build
+
+      - name: Run tests
+        run: npm test
+
+      - name: Push to main branch if tests pass
+        if: success()
+        env:
+          GH_PAT: ${{ secrets.YOUR_GITHUB_KEY }}
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+          git checkout main
+          git merge develop
+          git push https://${GH_PAT}@github.com/${{ github.repository }}.git main
