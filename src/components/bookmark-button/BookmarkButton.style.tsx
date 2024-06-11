@@ -8,7 +8,7 @@ export const ButtonWrapper = styled.div``
 
 export const Button = styled.img<IButtonProps>`
   position: ${({ $position }) =>
-    $position === 'absolute' ? 'static' : 'absolute'};
+    $position === 'static' ? 'static' : 'absolute'};
   top: 0.5rem;
   right: 0.5rem;
   width: 1.8rem;

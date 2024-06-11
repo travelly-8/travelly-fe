@@ -5,7 +5,6 @@ export const SectionWrapper = styled.section`
   flex-direction: column;
   gap: 0.5rem;
   padding-bottom: 6.5rem;
-  border-bottom: 0.1rem solid var(--color-gray-light);
 `
 
 export const PolicyHeader = styled.h3`

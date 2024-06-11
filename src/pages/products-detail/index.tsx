@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 
 import { getAllProducts, getProductDetail } from '@/api/productsAPI'
+import FooterReservation from '@/components/footer-reservation'
 import { LOCALE_CODE_LIST } from '@/constants/FILTERING_BROWSING'
 import PhotoReviewsSheet from '@/pages/products-detail/components/photo-reviews-sheet'
 import { setProductDetail } from '@/store/product-slice/product-slice'
@@ -16,7 +17,6 @@ import { useParams } from 'react-router-dom'
 
 import BasicInfo from './components/basic-info'
 import Description from './components/description'
-import Footer from './components/footer'
 import Info from './components/info'
 import RecommendCard from './components/recommend-card'
 import Review from './components/review'
@@ -151,11 +151,12 @@ function ProductsDetail() {
           onEditClick={() => handleSheetDispatch('edit-sheet')}
           onPhotoReviewsClick={handlePhotoReviewsClick}
         />
-        <Footer
+        <FooterReservation
           isBookmarked={true}
           isReservationProduct={true}
           discount={0}
           price={price}
+          buttonType="reservation"
         />
         <SheetRenderer shareSheetProps={shareSheetProps} />
       </S.PageContainer>

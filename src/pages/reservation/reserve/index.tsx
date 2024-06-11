@@ -6,6 +6,7 @@ import ReservationDateSection from '@/pages/reservation/components/reservation-d
 import ReservationInput from '@/pages/reservation/components/reservation-input'
 import TicketCountSection from '@/pages/reservation/components/ticket-count-section'
 
+import FooterReservation from '@components/footer-reservation'
 import PageHeader from '@components/page-header'
 
 import * as S from './ReservationPage.style'
@@ -66,6 +67,13 @@ function ReservationPage() {
         </S.PayAmount>
         <CancellationPolicy />
       </S.PageContainer>
+      <FooterReservation
+        isBookmarked={true}
+        isReservationProduct={true}
+        price={0}
+        discount={0}
+        buttonType="payment"
+      />
     </>
   )
 }
