@@ -1,3 +1,5 @@
+import { IReviewDetailData } from '@/types/getReviewDetailData.type'
+
 export interface IProductDetail {
   address: string
   cityCode: string
@@ -21,7 +23,7 @@ export interface IReviewProps {
 }
 
 export interface IReviewPageProps {
-  reviewData: IReviewData
+  reviewData: IReviewDetailData
   onEditClick: () => void
   canComment?: boolean
 }

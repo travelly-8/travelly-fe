@@ -2,31 +2,43 @@ import { useState } from 'react'
 
 import ThreeCircle from '@/assets/common/three-circle.svg'
 import { sheet } from '@/store/sheet-slice/sheet-slice'
+import { ICommentData } from '@/types/getReviewDetailData.type'
 
 import { useDispatch } from 'react-redux'
 
 import * as S from './CommentCard.style'
-import { ICommentProps } from './CommentCard.type'
 
-const CommentCard = ({ data }: ICommentProps) => {
+interface ICommentCardProps {
+  data: ICommentData
+}
+
+const CommentCard: React.FC<ICommentCardProps> = ({ data }) => {
+  const {
+    commentContent,
+    commentDate,
+    commentId,
+    commentUserImage,
+    commentUserNickname,
+  } = data
   const [isReplying, setIsReplying] = useState(false)
   const dispatch = useDispatch()
 
   const handleReply = () => {
     setIsReplying(true)
   }
+  // console.log(commentContent)
   return (
     <>
       <S.Wrapper isReplying={isReplying}>
         <S.CommentWrapper>
           <S.Content>
-            <S.ProfileImg src={data.profileImg} />
+            <S.ProfileImg src={commentUserImage} />
             <S.MiddleWrapper>
               <S.NicknameAndDate>
-                <S.Nickname>{data.nickname}</S.Nickname>
-                <S.Date>{data.date}</S.Date>
+                <S.Nickname>{commentUserNickname}</S.Nickname>
+                <S.Date>{commentDate}</S.Date>
               </S.NicknameAndDate>
-              <S.Comment>{data.content}</S.Comment>
+              <S.Comment>{commentContent}</S.Comment>
               {!isReplying && (
                 <S.ReplyButton onClick={() => handleReply()}>
                   답글달기
@@ -44,12 +56,12 @@ const CommentCard = ({ data }: ICommentProps) => {
         </S.CommentWrapper>
         {isReplying && (
           <S.ReplyingBar>
-            <p>{data.nickname}에게 댓글 다는 중입니다.</p>
+            <p>{commentUserNickname}에게 댓글 다는 중입니다.</p>
           </S.ReplyingBar>
         )}
       </S.Wrapper>
-      <S.ReplyWrapper isReplying={isReplying}>
-        {data.reply &&
+      {/* <S.ReplyWrapper isReplying={isReplying}>
+        {commentId !== 0 &&
           data.reply.map((replyData) => {
             return (
               <S.Wrapper key={replyData.commentId} isReplying={false}>
@@ -75,7 +87,7 @@ const CommentCard = ({ data }: ICommentProps) => {
               </S.Wrapper>
             )
           })}
-      </S.ReplyWrapper>
+      </S.ReplyWrapper> */}
     </>
   )
 }

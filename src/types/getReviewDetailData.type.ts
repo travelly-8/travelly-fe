@@ -8,6 +8,7 @@ export interface ICommentData {
   commentUserNickname: string
   commentDate: string
   commentContent: string
+  childrenComments?: ICommentData[]
 }
 
 export interface IReviewDetailData {

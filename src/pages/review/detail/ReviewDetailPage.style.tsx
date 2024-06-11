@@ -53,7 +53,7 @@ export const InputOuterWrapper = styled.div<{ numOfComments: number }>`
     prop.numOfComments === 0 ? 'none' : '0.1rem solid var(--color-gray-light)'};
 `
 
-export const InputWrapper = styled.div<{ inputValue: string }>`
+export const InputWrapper = styled.form<{ inputValue: string }>`
   border-radius: 0.5rem;
   background: var(--color-gray-bright);
   height: 4rem;
