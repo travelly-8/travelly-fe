@@ -4,11 +4,11 @@ declare namespace kakao.maps {
   }
 
   class Map {
-    constructor(container: HTMLElement, options: MapOptions)
+    constructor(container: HTMLElement, options: IMapOptions)
     setCenter(latlng: LatLng): void
   }
 
-  interface MapOptions {
+  interface IMapOptions {
     center: LatLng
     level: number
   }
@@ -17,7 +17,7 @@ declare namespace kakao.maps {
     class Geocoder {
       addressSearch(
         address: string,
-        callback: (result: KakaoAddressResult[], status: Status) => void,
+        callback: (result: IKakaoAddressResult[], status: Status) => void,
       ): void
     }
 
@@ -27,10 +27,10 @@ declare namespace kakao.maps {
   }
 
   class Marker {
-    constructor(options: MarkerOptions)
+    constructor(options: IMarkerOptions)
   }
 
-  interface MarkerOptions {
+  interface IMarkerOptions {
     map: Map
     position: LatLng
   }
@@ -50,15 +50,15 @@ declare namespace kakao.maps {
   function load(callback: () => void): void
 }
 
-interface KakaoAddressResult {
+interface IKakaoAddressResult {
   y: string
   x: string
 }
 
 interface Window {
-  kakao: KakaoNamespace
+  kakao: IKakaoNamespace
 }
 
-interface KakaoNamespace {
+interface IKakaoNamespace {
   maps: typeof kakao.maps
 }
