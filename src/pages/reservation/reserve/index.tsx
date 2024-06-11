@@ -1,9 +1,9 @@
 import { useState } from 'react'
 
+import ReviewProductCard from '@/components/review-product-card'
 import CancellationPolicy from '@/pages/reservation/components/cancellation-policy'
 import ReservationDateSection from '@/pages/reservation/components/reservation-date-section'
 import TicketCountSection from '@/pages/reservation/components/ticket-count-section'
-import ReviewProductCard from '@/pages/review/components/review-product-card'
 
 import PageHeader from '@components/page-header'
 
