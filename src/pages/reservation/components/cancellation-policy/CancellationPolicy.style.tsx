@@ -43,3 +43,58 @@ export const ConsentContent = styled.span`
   font-size: 1.2rem;
   line-height: 1.8rem;
 `
+
+/////////ddd
+
+export const StyledCheckbox = styled.input`
+  display: none;
+
+  & + label {
+    position: relative;
+    cursor: pointer;
+  }
+
+  & + label:before {
+    content: '';
+    margin-right: 10px;
+    display: inline-block;
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+
+  &:hover + label:before {
+    background: var(--color-main);
+  }
+
+  &:checked + label:before {
+    background: var(--color-main);
+  }
+
+  &:disabled + label {
+    color: #b8b8b8;
+    cursor: auto;
+  }
+
+  &:disabled + label:before {
+    box-shadow: none;
+    background: #ddd;
+  }
+
+  &:checked + label:after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 9px;
+    background: white;
+    width: 2px;
+    height: 2px;
+    box-shadow:
+      2px 0 0 white,
+      4px 0 0 white,
+      4px -2px 0 white,
+      4px -4px 0 white,
+      4px -6px 0 white,
+      4px -8px 0 white;
+    transform: rotate(45deg);
+  }
+`
