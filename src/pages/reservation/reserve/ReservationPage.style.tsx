@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 interface IPointInputProps {
-  visible: boolean
+  'data-visible': boolean
 }
 
 export const PageContainer = styled.div`
@@ -112,8 +112,12 @@ export const Radio = styled.input.attrs({ type: 'radio' })`
   }
 `
 
-export const PointInput = styled.input<IPointInputProps>`
-  display: ${({ visible }) => (visible ? 'block' : 'none')};
+export const PointInput = styled.input.attrs<IPointInputProps>(
+  ({ 'data-visible': visible }) => ({
+    'data-visible': visible,
+  }),
+)<IPointInputProps>`
+  display: ${({ 'data-visible': visible }) => (visible ? 'block' : 'none')};
   height: 4rem;
   padding: 1.1rem 1.6rem;
   border-radius: 0.4rem;

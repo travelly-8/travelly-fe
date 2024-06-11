@@ -5,6 +5,7 @@ export const InputContainer = styled.div`
   flex-direction: column;
   gap: 1.6rem;
   width: 100%;
+  padding-top: 1.2rem;
 `
 export const Input = styled.input`
   display: inline-flex;

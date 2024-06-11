@@ -4,6 +4,8 @@ export const SectionWrapper = styled.section`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  padding-bottom: 6.5rem;
+  border-bottom: 0.1rem solid var(--color-gray-light);
 `
 
 export const PolicyHeader = styled.h3`
@@ -50,24 +52,30 @@ export const StyledCheckbox = styled.input`
   display: none;
 
   & + label {
+    display: flex;
+    align-items: center;
     position: relative;
+    gap: 0.8rem;
     cursor: pointer;
   }
 
   & + label:before {
     content: '';
-    margin-right: 10px;
     display: inline-block;
     width: 1.4rem;
     height: 1.4rem;
+    border: 0.1rem solid var(--color-main);
+    border-radius: 0.2rem;
   }
 
   &:hover + label:before {
-    background: var(--color-main);
+    border: 0.1rem solid var(--color-main);
+    border-radius: 0.2rem;
   }
 
   &:checked + label:before {
     background: var(--color-main);
+    border-radius: 0.2rem;
   }
 
   &:disabled + label {
@@ -77,24 +85,25 @@ export const StyledCheckbox = styled.input`
 
   &:disabled + label:before {
     box-shadow: none;
+    border: none;
     background: #ddd;
   }
 
   &:checked + label:after {
     content: '';
     position: absolute;
-    left: 5px;
-    top: 9px;
-    background: white;
-    width: 2px;
-    height: 2px;
+    left: 0.2rem;
+    top: 0.6rem;
+    background: var(--color-white);
+    width: 0.2rem;
+    height: 0.2rem;
     box-shadow:
-      2px 0 0 white,
-      4px 0 0 white,
-      4px -2px 0 white,
-      4px -4px 0 white,
-      4px -6px 0 white,
-      4px -8px 0 white;
+      0.2rem 0 0 var(--color-white),
+      0.4rem 0 0 var(--color-white),
+      0.4rem -0.2rem 0 var(--color-white),
+      0.4rem -0.4rem 0 var(--color-white),
+      0.4rem -0.6rem 0 var(--color-white),
+      0.4rem -0.8rem 0 var(--color-white);
     transform: rotate(45deg);
   }
 `

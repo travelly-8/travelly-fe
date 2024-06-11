@@ -3,6 +3,7 @@ import { useState } from 'react'
 import ReviewProductCard from '@/components/review-product-card'
 import CancellationPolicy from '@/pages/reservation/components/cancellation-policy'
 import ReservationDateSection from '@/pages/reservation/components/reservation-date-section'
+import ReservationInput from '@/pages/reservation/components/reservation-input'
 import TicketCountSection from '@/pages/reservation/components/ticket-count-section'
 
 import PageHeader from '@components/page-header'
@@ -33,6 +34,7 @@ function ReservationPage() {
           />
           <S.GetAccount>계정정보 가져오기</S.GetAccount>
         </S.CheckBoxWrapper>
+        <ReservationInput />
         <S.TicketInfo>
           <TicketCountSection />
           <ReservationDateSection />
@@ -50,7 +52,7 @@ function ReservationPage() {
             </S.Label>
             <S.PointInput
               type="text"
-              visible={isRadioChecked}
+              data-visible={isRadioChecked}
               placeholder="프로모션 코드 입력"
             />
           </S.PayOption>
