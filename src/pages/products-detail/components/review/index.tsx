@@ -1,11 +1,13 @@
 import edit from '@/assets/products-detail/edit.svg'
 import sort from '@/assets/products-detail/sort.svg'
+import { RootState } from '@/store/store'
+
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+
 import * as S from './Review.style'
 import ReviewPage from './ReviewPage'
 
-import { RootState } from '@/store/store'
-import { useSelector } from 'react-redux'
 import type { IReviewData, IReviewProps } from './Review.type'
 
 const Review: React.FC<IReviewProps> = ({

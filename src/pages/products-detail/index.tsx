@@ -1,8 +1,14 @@
+import { useCallback, useEffect, useState } from 'react'
+
 import { getProductDetail, getSearchProducts } from '@/api/productsAPI'
 import { LOCALE_CODE_LIST } from '@/constants/FILTERING_BROWSING'
 import PhotoReviewsSheet from '@/pages/products-detail/components/photo-reviews-sheet'
-import { useCallback, useEffect, useState } from 'react'
+import { setProductDetail } from '@/store/product-slice/product-slice'
+import { sheet } from '@/store/sheet-slice/sheet-slice'
+import type { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
+import { RootState } from '@/store/store'
 
+import { IProductCardData } from '@components/product-card/ProductCard.type'
 import ProductHeader from '@components/product-header'
 import { useQuery } from '@tanstack/react-query'
 import { useDispatch, useSelector } from 'react-redux'
@@ -13,16 +19,10 @@ import Description from './components/description'
 import Footer from './components/footer'
 import Info from './components/info'
 import RecommendCard from './components/recommend-card'
-import Review from './components/review'
 import SheetRenderer from './components/sheet-renderer'
 import { reviewData as const_review_data, mockCard } from './mockData'
 import * as S from './ProductsDetail.style'
 
-import { setProductDetail } from '@/store/product-slice/product-slice'
-import { sheet } from '@/store/sheet-slice/sheet-slice'
-import type { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
-import { RootState } from '@/store/store'
-import { IProductCardData } from '@components/product-card/ProductCard.type'
 import type { ISheetComponents } from './ProductsDetail.type'
 
 function ProductsDetail() {
@@ -142,14 +142,15 @@ function ProductsDetail() {
             recommendProductData?.length > 0 ? recommendProductData : mockCard
           }
         />
-        <Review
+        {/* TODO: 상품 상세 조회에서 리뷰 데이터 받아와서 교체ㄴ */}
+        {/* <Review
           reviewCnt={reviewCount}
           reviewImg={reviewImg}
           reviewData={const_review_data}
           onOrderClick={() => handleSheetDispatch('review-order-sheet')}
           onEditClick={() => handleSheetDispatch('edit-sheet')}
           onPhotoReviewsClick={handlePhotoReviewsClick}
-        />
+        /> */}
         <Footer
           isBookmarked={true}
           isReservationProduct={true}
