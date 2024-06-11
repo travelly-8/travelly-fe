@@ -6,6 +6,7 @@ import ReservationDateSection from '@/pages/reservation/components/reservation-d
 import ReservationInput from '@/pages/reservation/components/reservation-input'
 import TicketCountSection from '@/pages/reservation/components/ticket-count-section'
 
+import CheckBox from '@components/check-box'
 import FooterReservation from '@components/footer-reservation'
 import PageHeader from '@components/page-header'
 
@@ -28,12 +29,7 @@ function ReservationPage() {
           <ReviewProductCard />
         </S.CardWrapper>
         <S.CheckBoxWrapper>
-          <S.InputCheckBox
-            type="checkbox"
-            id="get-account"
-            name="get-account"
-          />
-          <S.GetAccount>계정정보 가져오기</S.GetAccount>
+          <CheckBox text="계정정보 가져오기" />
         </S.CheckBoxWrapper>
         <ReservationInput />
         <S.TicketInfo>

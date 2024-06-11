@@ -157,6 +157,7 @@ function ProductsDetail() {
           discount={0}
           price={price}
           buttonType="reservation"
+          productId={productId}
         />
         <SheetRenderer shareSheetProps={shareSheetProps} />
       </S.PageContainer>

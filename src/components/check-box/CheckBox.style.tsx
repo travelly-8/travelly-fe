@@ -6,7 +6,6 @@ export const Label = styled.label`
   gap: 0.6rem;
   cursor: pointer;
   position: relative;
-  margin-bottom: 1rem;
 `
 
 export const StyledCheckbox = styled.input`

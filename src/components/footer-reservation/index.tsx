@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import RoundButton from '@components/round-button'
+import { useNavigate } from 'react-router-dom'
 
 import * as S from './FooterReservation.style'
 import { IFooter } from './FooterReservation.type'
@@ -17,8 +18,16 @@ const FooterReservation = ({
   discount,
   price,
   buttonType,
+  productId,
 }: IFooter) => {
+  const navigate = useNavigate()
   const [isBookmarked, setIsBookmarked] = useState(initialBookmarked)
+
+  const handleButtonClick = () => {
+    if (buttonType === 'reservation') {
+      navigate(`/reservation/${productId}`)
+    }
+  }
 
   return (
     <S.FooterContainer>
@@ -39,7 +48,9 @@ const FooterReservation = ({
               <S.PriceText>{price?.toLocaleString('ko-KR')}원</S.PriceText>
             </S.Text>
           )}
-          <RoundButton.Primary>{buttonText[buttonType]}</RoundButton.Primary>
+          <RoundButton.Primary onClick={handleButtonClick}>
+            {buttonText[buttonType]}
+          </RoundButton.Primary>
         </S.RightSection>
       </S.Wrapper>
     </S.FooterContainer>
