@@ -17,19 +17,17 @@ const CalendarSheet = () => {
   }
 
   return (
-    <div>
-      <GrabSheet name="pick-date" align="center">
-        <CalendarInput control={control} formLabel="date" />
-        <S.Buttons>
-          <S.RefreshButton onClick={reset}>
-            <S.Icon src={refreshIcon} /> 초기화
-          </S.RefreshButton>
-          <RoundButton.Primary onClick={handleConfirm}>
-            날짜 선택
-          </RoundButton.Primary>
-        </S.Buttons>
-      </GrabSheet>
-    </div>
+    <GrabSheet name="pick-date" align="center">
+      <CalendarInput control={control} formLabel="date" />
+      <S.Buttons>
+        <S.RefreshButton onClick={reset}>
+          <S.Icon src={refreshIcon} /> 초기화
+        </S.RefreshButton>
+        <RoundButton.Primary onClick={handleConfirm}>
+          날짜 선택
+        </RoundButton.Primary>
+      </S.Buttons>
+    </GrabSheet>
   )
 }
 
