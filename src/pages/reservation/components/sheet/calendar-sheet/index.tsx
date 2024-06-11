@@ -11,7 +11,7 @@ import * as S from './CalendarSheet.styles.tsx'
 
 const CalendarSheet = () => {
   const dispatch = useDispatch()
-  const { control, watch, reset } = useForm()
+  const { control, reset } = useForm()
   const handleConfirm = () => {
     dispatch(sheet({ name: 'pay-confirm', status: false }))
   }
@@ -21,10 +21,12 @@ const CalendarSheet = () => {
       <GrabSheet name="pick-date" align="center">
         <CalendarInput control={control} formLabel="date" />
         <S.Buttons>
-          <S.RefreshButton>
+          <S.RefreshButton onClick={reset}>
             <S.Icon src={refreshIcon} /> 초기화
           </S.RefreshButton>
-          <RoundButton.Primary>필터 적용</RoundButton.Primary>
+          <RoundButton.Primary onClick={handleConfirm}>
+            날짜 선택
+          </RoundButton.Primary>
         </S.Buttons>
       </GrabSheet>
     </div>
