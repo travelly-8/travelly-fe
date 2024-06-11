@@ -12,7 +12,6 @@ import ExitPage from './pages/mypage/exit'
 import GoodbyePage from './pages/mypage/good-bye'
 import ProductsPage from './pages/products'
 import ProductsDetail from './pages/products-detail'
-import Reservation from './pages/reservation'
 import ReviewDetailPage from './pages/review/detail'
 import ReviewList from './pages/review/list'
 import ReviewWritePage from './pages/review/write'
@@ -45,7 +44,6 @@ export default function AppRouter() {
         <Route path="/review/write" element={<ReviewWritePage />} />
         <Route path="/review/:reviewId" element={<ReviewDetailPage />} />
         <Route path="/review/list" element={<ReviewList />} />
-        <Route path="/reservation" element={<Reservation />} />
       </Routes>
     </BrowserRouter>
   )
