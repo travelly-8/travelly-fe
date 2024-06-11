@@ -1,5 +1,5 @@
 export interface IRating {
   readOnly?: boolean
   score?: number
-  onChange: (value: number) => void
+  onChange?: (value: number) => void
 }

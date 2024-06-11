@@ -60,7 +60,6 @@ export default function ReviewWritePage() {
     }
 
     try {
-      console.log(reviewData)
       await postReview(productId, reviewData)
       alert('리뷰가 성공적으로 등록되었습니다.')
       navigate(`/products/${productId}`)

@@ -9,6 +9,7 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import * as S from './ReviewList.style'
 import type { IProductDetail } from './ReviewList.type'
+import { SkeletonCircle, SkeletonText } from './Skeleton.style'
 
 const CARDS = (productDetail: IProductDetail) => ({
   후기: [
@@ -76,14 +77,23 @@ const ReviewList: React.FC = () => {
         <S.HeaderTitle>후기</S.HeaderTitle>
       </PageHeader>
       <S.ProfileSection>
-        <S.ProfileImg
-          src={profile?.imageUrl || 'https://via.placeholder.com/50'}
-          alt="프로필 이미지"
-        />
-        <S.ProfileInfo>
-          <S.Nickname>{profile?.nickname || '닉네임'}</S.Nickname>
-          <S.Email>{profile?.email || 'travelly@gmail.com'}</S.Email>
-        </S.ProfileInfo>
+        {status === 'pending' ? (
+          <>
+            <SkeletonCircle />
+            <S.ProfileInfo>
+              <SkeletonText style={{ width: '100px' }} />
+              <SkeletonText style={{ width: '150px' }} />
+            </S.ProfileInfo>
+          </>
+        ) : (
+          <>
+            <S.ProfileImg src={profile?.imageUrl} alt="프로필 이미지" />
+            <S.ProfileInfo>
+              <S.Nickname>{profile?.nickname}</S.Nickname>
+              <S.Email>{profile?.email}</S.Email>
+            </S.ProfileInfo>
+          </>
+        )}
       </S.ProfileSection>
       <S.BodyContainer>
         <S.Tabs>{renderTabs()}</S.Tabs>

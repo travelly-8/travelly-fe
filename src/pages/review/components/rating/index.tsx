@@ -24,12 +24,13 @@ const Rating = ({ readOnly = false, score = 0, onChange }: IRating) => {
   }, [rating, readOnly])
 
   const changeRating = (score: number) => {
+    if (readOnly) return
     if (score === 1 && rating === 1) {
       setRating(0)
-      onChange(0)
+      onChange && onChange(0)
     } else {
       setRating(score)
-      onChange(score)
+      onChange && onChange(score)
     }
   }
 
@@ -43,10 +44,8 @@ const Rating = ({ readOnly = false, score = 0, onChange }: IRating) => {
         {starElements.map((star, index) => (
           <div
             key={index}
-            onClick={() => !readOnly && changeRating(index + 1)}
-            onMouseEnter={() =>
-              !readOnly && mouseDown && changeRating(index + 1)
-            }
+            onClick={() => changeRating(index + 1)}
+            onMouseEnter={() => mouseDown && changeRating(index + 1)}
           >
             {star}
           </div>

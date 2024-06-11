@@ -8,6 +8,6 @@ export interface ISheetComponents {
   'edit-sheet': React.ComponentType
 }
 
-export interface SheetRendererProps {
+export interface ISheetRendererProps {
   shareSheetProps: IShareSheetProps
 }

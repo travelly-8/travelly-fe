@@ -3,7 +3,7 @@ import ReviewOrderSheet from '@/pages/products-detail/components/review-order-sh
 import ShareSheet from '@/pages/products-detail/components/share-sheet'
 import type {
   ISheetComponents,
-  SheetRendererProps,
+  ISheetRendererProps,
 } from '@/pages/products-detail/components/sheet-renderer/SheetRenderer.type'
 import type { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
 
@@ -15,7 +15,7 @@ const sheetComponents: ISheetComponents = {
   'edit-sheet': EditSheet,
 }
 
-function SheetRenderer({ shareSheetProps }: SheetRendererProps) {
+function SheetRenderer({ shareSheetProps }: ISheetRendererProps) {
   const sheetReducer = useSelector(
     (state: ISheetSliceState) => state.sheet.value,
   )
