@@ -29,7 +29,7 @@ const RecommendedSearches: React.FC<IReccomendedSearchesProps> = ({
       ;[array[i], array[j]] = [array[j], array[i]]
     }
     return array
-  }
+  } // 무작위 추천 검색어를 위한 함수
   const shuffledList = shuffleArray([...suggestList])
   const randSuggest = shuffledList.slice(0, 3)
   const suggestlen = randSuggest.length
@@ -76,7 +76,7 @@ const SearchInput = () => {
     () =>
       debounce((keyword) => {
         setKeyword(keyword)
-      }, 100),
+      }, 500),
     [],
   )
 
