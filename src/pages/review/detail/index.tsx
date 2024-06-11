@@ -3,6 +3,8 @@ import { useState } from 'react'
 import { getReveiwDetail, postComment } from '@/api/reviewAPI'
 import ReviewPage from '@/pages/products-detail/components/review/ReviewPage'
 import CommentCard from '@/pages/review/components/comment-card'
+import { comment } from '@/store/comment-slice/comment-slice'
+import { ICommentSliceState } from '@/store/comment-slice/comment-slice.type'
 import { sheet } from '@/store/sheet-slice/sheet-slice'
 import type { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
 import { RootState } from '@/store/store'
@@ -28,9 +30,12 @@ export default function ReviewDetailPage() {
     (state: ISheetSliceState) => state.sheet.value,
   )
   const productDetail = useSelector((state: RootState) => state.product.detail)
+  const commentReducer = useSelector(
+    (state: ICommentSliceState) => state.comment.value,
+  )
+  const commentId = commentReducer.parentId
 
   const [inputValue, setInputValue] = useState('')
-  const [commentId, setCommentId] = useState(0) // TODO: 답 댓글일 경우, 해당 부모 댓글 id로 교체 (0: 기본 댓글 , 다른 숫자 : 답 댓글)
 
   const handleComment = (e: React.FormEvent) => {
     e.preventDefault()
@@ -44,6 +49,7 @@ export default function ReviewDetailPage() {
     postComment(+reviewId, commentId, data)
       .then(() => {
         setInputValue('')
+        dispatch(comment({ parentId: 0 }))
         refetch()
       })
       .catch((err) => {

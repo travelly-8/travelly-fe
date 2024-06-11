@@ -58,6 +58,7 @@ export const InputOuterWrapper = styled.div<{ numOfComments: number }>`
     prop.numOfComments === 0 ? 'none' : '0.1rem solid var(--color-gray-light)'};
   position: fixed;
   bottom: 0;
+  background-color: var(--color-white);
   @media screen and (max-width: 767px) {
     width: calc(100% - 4rem);
   }

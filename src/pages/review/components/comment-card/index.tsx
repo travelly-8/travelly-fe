@@ -1,10 +1,12 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import ThreeCircle from '@/assets/common/three-circle.svg'
+import { comment } from '@/store/comment-slice/comment-slice'
+import { ICommentSliceState } from '@/store/comment-slice/comment-slice.type'
 import { sheet } from '@/store/sheet-slice/sheet-slice'
 import { ICommentData } from '@/types/getReviewDetailData.type'
 
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import * as S from './CommentCard.style'
 
@@ -23,12 +25,18 @@ const CommentCard: React.FC<ICommentCardProps> = ({ data }) => {
   } = data
   const [isReplying, setIsReplying] = useState(false)
   const dispatch = useDispatch()
+  const commentReducer = useSelector(
+    (state: ICommentSliceState) => state.comment.value,
+  )
+  const parentId = commentReducer.parentId
+
+  useEffect(() => {
+    setIsReplying(parentId === commentId)
+  }, [parentId])
 
   const handleReply = () => {
-    setIsReplying(true)
+    dispatch(comment({ parentId: commentId }))
   }
-
-  console.log(childrenComments)
   return (
     <>
       <S.Wrapper isReplying={isReplying}>
