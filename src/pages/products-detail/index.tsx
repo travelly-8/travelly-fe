@@ -1,8 +1,14 @@
+import { useCallback, useEffect, useState } from 'react'
+
 import { getProductDetail, getSearchProducts } from '@/api/productsAPI'
 import { LOCALE_CODE_LIST } from '@/constants/FILTERING_BROWSING'
 import PhotoReviewsSheet from '@/pages/products-detail/components/photo-reviews-sheet'
-import { useCallback, useEffect, useState } from 'react'
+import { setProductDetail } from '@/store/product-slice/product-slice'
+import { sheet } from '@/store/sheet-slice/sheet-slice'
+import type { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
+import { RootState } from '@/store/store'
 
+import { IProductCardData } from '@components/product-card/ProductCard.type'
 import ProductHeader from '@components/product-header'
 import { useQuery } from '@tanstack/react-query'
 import { useDispatch, useSelector } from 'react-redux'
@@ -18,11 +24,6 @@ import SheetRenderer from './components/sheet-renderer'
 import { reviewData as const_review_data, mockCard } from './mockData'
 import * as S from './ProductsDetail.style'
 
-import { setProductDetail } from '@/store/product-slice/product-slice'
-import { sheet } from '@/store/sheet-slice/sheet-slice'
-import type { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
-import { RootState } from '@/store/store'
-import { IProductCardData } from '@components/product-card/ProductCard.type'
 import type { ISheetComponents } from './ProductsDetail.type'
 
 function ProductsDetail() {
