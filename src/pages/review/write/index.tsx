@@ -1,6 +1,6 @@
-import { postReview } from '@/api/reviewAPI'
 import { useEffect, useRef, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 import CameraImg from '@/assets/review/camera.svg'
 import Rating from '@/pages/review/components/rating'
@@ -9,12 +9,14 @@ import ReviewProductCard from '@/pages/review/components/review-product-card'
 import FooterButton from '@components/footer-button'
 import PageHeader from '@components/page-header'
 
+import { postReview } from '@/api/reviewAPI'
+import { RootState } from '@/store/store'
 import * as S from './ReviewWritePage.style'
 
 export default function ReviewWritePage() {
-  const location = useLocation()
   const navigate = useNavigate()
-  const { productDetail, productId } = location.state || {}
+  const productDetail = useSelector((state: RootState) => state.product.detail)
+  console.log(productDetail)
   const [numOfPhotos, setNumOfPhotos] = useState(0)
   const [numOfText, setNumOfText] = useState(0)
   const [rating, setRating] = useState(0)
@@ -51,6 +53,13 @@ export default function ReviewWritePage() {
       return
     }
 
+    if (!productDetail) {
+      alert('상품 정보가 없습니다.')
+      return
+    }
+
+    const { id: productId } = productDetail
+
     const reviewData = {
       images,
       review: {
@@ -75,7 +84,7 @@ export default function ReviewWritePage() {
         <S.HeaderTitle>후기 작성</S.HeaderTitle>
       </PageHeader>
       <S.Wrapper>
-        <ReviewProductCard productDetail={productDetail} />
+        {productDetail && <ReviewProductCard productDetail={productDetail} />}
         <S.RatingWrapper>
           <S.Title>별점</S.Title>
           <Rating onChange={(value: number) => setRating(value)} />
