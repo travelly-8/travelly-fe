@@ -1,12 +1,8 @@
 import type { UserRoleType } from '@/types/userRole.type'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import type { IAuthState } from './auth-slice.type'
 
-interface AuthState {
-  nickname: string
-  role: UserRoleType
-}
-
-const initialState: AuthState = {
+const initialState: IAuthState = {
   nickname: '',
   role: null,
 }

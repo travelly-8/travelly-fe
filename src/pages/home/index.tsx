@@ -7,7 +7,6 @@ import { API_PRODUCTS } from '@/constants/API'
 import useGetAllProducts from '@/hooks/api/productsAPI/useGetAllProducts'
 import useProductCardsParams from '@/hooks/api/productsAPI/useProductCardsParams'
 import useScrollHandlers from '@/hooks/useScrollHandlers'
-import { SheetSliceState } from '@/store/sheet-slice.ts'
 
 import FooterNavigation from '@components/footer-navigation'
 import Header from '@components/header'
@@ -17,6 +16,7 @@ import ProductCardSkeleton from '@components/product-card/ProductCardSkeleton'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
+import type { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
 import * as S from './HomePage.style'
 
 function HomePage() {
@@ -24,7 +24,7 @@ function HomePage() {
   const cardsQueryData = useProductCardsParams()
   const [isHamburgerClicked, setIsHamburgerClicked] = useState(false)
   const sheetReducer = useSelector(
-    (state: SheetSliceState) => state.sheet.value,
+    (state: ISheetSliceState) => state.sheet.value,
   )
 
   const popularProductRef = useRef<HTMLDivElement>(null)

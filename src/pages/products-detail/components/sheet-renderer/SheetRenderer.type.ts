@@ -7,3 +7,7 @@ export interface ISheetComponents {
   'share-sheet': FunctionComponent<IShareSheetProps>
   'edit-sheet': React.ComponentType
 }
+
+export interface SheetRendererProps {
+  shareSheetProps: IShareSheetProps
+}

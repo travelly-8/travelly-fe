@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 
 import useScrollHandlers from '@/hooks/useScrollHandlers'
-import { sheet } from '@/store/sheet-slice.ts'
+import { sheet } from '@/store/sheet-slice/sheet-slice'
 import { registerRecentSearches } from '@/utils/registerLocalStorage'
 
 import ProductCard from '@components/product-card'

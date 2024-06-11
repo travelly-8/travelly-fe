@@ -1,10 +1,11 @@
 import edit from '@/assets/products-detail/edit.svg'
 import sort from '@/assets/products-detail/sort.svg'
-
 import { useNavigate } from 'react-router-dom'
 import * as S from './Review.style'
 import ReviewPage from './ReviewPage'
 
+import { RootState } from '@/store/store'
+import { useSelector } from 'react-redux'
 import type { IReviewData, IReviewProps } from './Review.type'
 
 const Review: React.FC<IReviewProps> = ({
@@ -15,6 +16,8 @@ const Review: React.FC<IReviewProps> = ({
   onEditClick,
   onPhotoReviewsClick,
 }) => {
+  const productDetail = useSelector((state: RootState) => state.product.detail)
+
   const reviewImgCnt = reviewImg?.length
   const navigate = useNavigate()
 
@@ -24,7 +27,7 @@ const Review: React.FC<IReviewProps> = ({
 
   const handleIconClick = (event: React.MouseEvent) => {
     event.stopPropagation()
-    navigate('/review/write')
+    navigate('/review/write', { state: { productDetail } })
   }
 
   return (

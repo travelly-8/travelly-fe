@@ -1,6 +1,6 @@
 import { postLogin } from '@/api/authAPI'
 import { useFormValidation } from '@/hooks/useFormValidation'
-import { setUser } from '@/store/auth-slice'
+import { setUser } from '@/store/auth-slice/auth-slice'
 import isAxiosError from '@/utils/isAxiosError'
 import { saveTokens } from '@/utils/tokenStorage'
 import useKeyboardDetection from '@/utils/useKeyboardDetection'

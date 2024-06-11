@@ -1,4 +1,6 @@
-import { useState } from 'react'
+import { postReview } from '@/api/reviewAPI'
+import { useEffect, useRef, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import CameraImg from '@/assets/review/camera.svg'
 import Rating from '@/pages/review/components/rating'
@@ -10,33 +12,99 @@ import PageHeader from '@components/page-header'
 import * as S from './ReviewWritePage.style'
 
 export default function ReviewWritePage() {
+  const location = useLocation()
+  const navigate = useNavigate()
+  const { productDetail, productId } = location.state || {}
   const [numOfPhotos, setNumOfPhotos] = useState(0)
   const [numOfText, setNumOfText] = useState(0)
+  const [rating, setRating] = useState(0)
+  const [content, setContent] = useState('')
+  const [images, setImages] = useState<File[]>([])
+  const fileInputRef = useRef<HTMLInputElement>(null)
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true)
 
-  // TODO: 상품 상세페이지에서 상품 정보 받아와서 연결
-  // TODO: 리뷰 등록 시, 별점과 텍스트는 필수
-  // TODO: 리뷰 등록 API 연결
+  useEffect(() => {
+    if (content.length >= 20 && rating > 0) {
+      setIsButtonDisabled(false)
+    } else {
+      setIsButtonDisabled(true)
+    }
+  }, [content, rating])
+
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      const fileArray = Array.from(event.target.files)
+      setImages((prevImages) => [...prevImages, ...fileArray])
+      setNumOfPhotos((prev) => prev + fileArray.length)
+    }
+  }
+
+  const handleCameraClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click()
+    }
+  }
+
+  const handleSubmit = async () => {
+    if (content.length < 20 || rating === 0) {
+      alert('리뷰 내용과 별점을 입력해주세요.')
+      return
+    }
+
+    const reviewData = {
+      images,
+      review: {
+        rating,
+        content,
+      },
+    }
+
+    try {
+      console.log(reviewData)
+      await postReview(productId, reviewData)
+      alert('리뷰가 성공적으로 등록되었습니다.')
+      navigate(`/products/${productId}`)
+    } catch (error) {
+      console.error(error)
+      alert('리뷰 등록에 실패했습니다. 다시 시도해주세요.')
+    }
+  }
+
   return (
     <>
       <PageHeader>
         <S.HeaderTitle>후기 작성</S.HeaderTitle>
       </PageHeader>
       <S.Wrapper>
-        <ReviewProductCard />
+        <ReviewProductCard productDetail={productDetail} />
         <S.RatingWrapper>
           <S.Title>별점</S.Title>
-          <Rating />
+          <Rating onChange={(value: number) => setRating(value)} />
         </S.RatingWrapper>
         <S.ReviewWrapper>
           <S.Title>후기 작성</S.Title>
           <S.CameraWrapper>
-            <S.CameraImg src={CameraImg} alt="사진 등록" />
+            <S.CameraImg
+              src={CameraImg}
+              alt="사진 등록"
+              onClick={handleCameraClick}
+            />
+            <input
+              type="file"
+              multiple
+              onChange={handleImageChange}
+              style={{ display: 'none' }}
+              ref={fileInputRef}
+            />
             <S.PhotoNum>{numOfPhotos}/3</S.PhotoNum>
           </S.CameraWrapper>
           <S.CommentWrapper>
             <S.Textarea
               placeholder="리뷰 입력하기."
-              onChange={(e) => setNumOfText(e.target.value.length)}
+              onChange={(e) => {
+                setContent(e.target.value)
+                setNumOfText(e.target.value.length)
+              }}
             />
             <S.TextLength>{numOfText}/500</S.TextLength>
             <S.TextInfo>최소 20자</S.TextInfo>
@@ -44,7 +112,11 @@ export default function ReviewWritePage() {
         </S.ReviewWrapper>
       </S.Wrapper>
       <S.FooterWrapper>
-        <FooterButton buttonText="작성 완료" />
+        <FooterButton
+          buttonText="작성 완료"
+          onClick={handleSubmit}
+          disabled={isButtonDisabled}
+        />
       </S.FooterWrapper>
     </>
   )

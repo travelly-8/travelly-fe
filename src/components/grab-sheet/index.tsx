@@ -1,4 +1,4 @@
-import { sheet } from '@/store/sheet-slice'
+import { sheet } from '@/store/sheet-slice/sheet-slice'
 
 import { useDispatch } from 'react-redux'
 

@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import refreshIcon from '@/assets/home/refresh.svg'
 import { LOCALE_CODE_LIST } from '@/constants/FILTERING_BROWSING.ts'
-import { sheet } from '@/store/sheet-slice.ts'
+import { sheet } from '@/store/sheet-slice/sheet-slice.ts'
 
 import CalendarInput from '@components/calendar-input'
 import FoldableMenu from '@components/foldable-menu'

@@ -1,9 +1,7 @@
-import { useCallback, useState } from 'react'
-
 import { getProductDetail, getSearchProducts } from '@/api/productsAPI'
 import { LOCALE_CODE_LIST } from '@/constants/FILTERING_BROWSING'
 import PhotoReviewsSheet from '@/pages/products-detail/components/photo-reviews-sheet'
-import { sheet, SheetSliceState } from '@/store/sheet-slice.ts'
+import { useCallback, useEffect, useState } from 'react'
 
 import ProductHeader from '@components/product-header'
 import { useQuery } from '@tanstack/react-query'
@@ -20,17 +18,30 @@ import SheetRenderer from './components/sheet-renderer'
 import { reviewData as const_review_data, mockCard } from './mockData'
 import * as S from './ProductsDetail.style'
 
+import { setProductDetail } from '@/store/product-slice/product-slice'
+import { sheet } from '@/store/sheet-slice/sheet-slice'
+import type { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
+import { RootState } from '@/store/store'
+import { IProductCardData } from '@components/product-card/ProductCard.type'
 import type { ISheetComponents } from './ProductsDetail.type'
-
-import { IProductCardData } from '@components/product-card/ProductCard.type.ts'
 
 function ProductsDetail() {
   const { productId } = useParams()
+  const dispatch = useDispatch()
+
   const { data: productDetailQuery, isSuccess: isProductDetailSuccess } =
     useQuery({
       queryKey: ['products-detail', productId],
       queryFn: ({ queryKey }) => getProductDetail(Number(queryKey[1])),
     })
+
+  useEffect(() => {
+    if (productDetailQuery?.data) {
+      dispatch(setProductDetail(productDetailQuery.data))
+    }
+  }, [productDetailQuery, dispatch])
+
+  const productDetail = useSelector((state: RootState) => state.product.detail)
   const {
     address = '',
     cityCode = '',
@@ -42,7 +53,7 @@ function ProductsDetail() {
     reviewCount = 0,
     phoneNumber = '',
     ticketDto = [],
-  } = productDetailQuery?.data || {}
+  } = productDetail || {}
 
   const recommendQueryData = {
     page: 0,
@@ -63,9 +74,8 @@ function ProductsDetail() {
   const district = address?.split(' ')[1]
   const price = ticketDto[0]?.price
 
-  const dispatch = useDispatch()
   const sheetReducer = useSelector(
-    (state: SheetSliceState) => state.sheet.value,
+    (state: ISheetSliceState) => state.sheet.value,
   )
   const isSearchSheet =
     sheetReducer.status && sheetReducer.name === 'search-sheet'
