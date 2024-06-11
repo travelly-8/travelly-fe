@@ -4,7 +4,7 @@ import hamburgerClickedIcon from '@/assets/common/hamburger-click.svg'
 import hamburgerIcon from '@/assets/common/hamburger.svg'
 import searchIcon from '@/assets/common/search.svg'
 import PRODUCT_TYPE from '@/constants/PRODUCT_TYPE'
-import { ISheetSliceState, sheet } from '@/store/sheet-slice.ts'
+import { sheet } from '@/store/sheet-slice/sheet-slice'
 
 import BackBar from '@components/back-bar'
 import CategorySection from '@components/category-section'
@@ -14,6 +14,7 @@ import { useLocation } from 'react-router-dom'
 
 import * as S from './ProductHeader.style'
 
+import type { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
 import type { IProductHeaderProps, ProductType } from './ProductHeader.type'
 
 const ProductHeader: React.FC<IProductHeaderProps> = ({ hamburgerClick }) => {

@@ -5,6 +5,10 @@ interface IUseKakaoMapProps {
   detailAddress: string
 }
 
+interface IExtendedMarkerOptions extends kakao.maps.IMarkerOptions {
+  image?: kakao.maps.MarkerImage
+}
+
 const useKakaoMap = ({ address, detailAddress }: IUseKakaoMapProps) => {
   const mapRef = useRef<HTMLDivElement>(null)
   const mapAddress = `${address} ${detailAddress}`
@@ -49,7 +53,7 @@ const useKakaoMap = ({ address, detailAddress }: IUseKakaoMapProps) => {
                   map: map,
                   position: coords,
                   image: markerImage,
-                })
+                } as IExtendedMarkerOptions)
 
                 map.setCenter(coords)
               }
@@ -59,7 +63,9 @@ const useKakaoMap = ({ address, detailAddress }: IUseKakaoMapProps) => {
       })
     }
     return () => {
-      script.remove()
+      if (script.parentNode) {
+        script.parentNode.removeChild(script)
+      }
     }
   }, [address, detailAddress])
 

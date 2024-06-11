@@ -12,7 +12,6 @@ const BasicInfo: React.FC<IBasicInfoProps> = ({
   website,
 }) => {
   const mapRef = useKakaoMap({ address, detailAddress })
-
   return (
     <S.BasicInfoContainer>
       <S.MapContainer>

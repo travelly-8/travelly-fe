@@ -1,10 +1,14 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
-import { getAllProducts, getProductDetail } from '@/api/productsAPI'
+import { getProductDetail, getSearchProducts } from '@/api/productsAPI'
 import { LOCALE_CODE_LIST } from '@/constants/FILTERING_BROWSING'
 import PhotoReviewsSheet from '@/pages/products-detail/components/photo-reviews-sheet'
-import { sheet, type ISheetSliceState } from '@/store/sheet-slice.ts'
+import { setProductDetail } from '@/store/product-slice/product-slice'
+import { sheet } from '@/store/sheet-slice/sheet-slice'
+import type { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
+import { RootState } from '@/store/store'
 
+import { IProductCardData } from '@components/product-card/ProductCard.type'
 import ProductHeader from '@components/product-header'
 import { useQuery } from '@tanstack/react-query'
 import { useDispatch, useSelector } from 'react-redux'
@@ -22,15 +26,23 @@ import * as S from './ProductsDetail.style'
 
 import type { ISheetComponents } from './ProductsDetail.type'
 
-import type { IProductCardData } from '@components/product-card/ProductCard.type.ts'
-
 function ProductsDetail() {
   const { productId } = useParams()
+  const dispatch = useDispatch()
+
   const { data: productDetailQuery, isSuccess: isProductDetailSuccess } =
     useQuery({
       queryKey: ['products-detail', productId],
       queryFn: ({ queryKey }) => getProductDetail(Number(queryKey[1])),
     })
+
+  useEffect(() => {
+    if (productDetailQuery?.data) {
+      dispatch(setProductDetail(productDetailQuery.data))
+    }
+  }, [productDetailQuery, dispatch])
+
+  const productDetail = useSelector((state: RootState) => state.product.detail)
   const {
     address = '',
     cityCode = '',
@@ -42,7 +54,7 @@ function ProductsDetail() {
     reviewCount = 0,
     phoneNumber = '',
     ticketDto = [],
-  } = productDetailQuery?.data || {}
+  } = productDetail || {}
 
   const recommendQueryData = {
     page: 0,
@@ -52,7 +64,7 @@ function ProductsDetail() {
   }
   const { data: recommendProductQuery } = useQuery({
     queryKey: ['recommend-products'],
-    queryFn: () => getAllProducts(recommendQueryData),
+    queryFn: () => getSearchProducts(recommendQueryData),
     enabled: isProductDetailSuccess,
   })
   const recommendProductData = recommendProductQuery?.data.content.filter(
@@ -63,7 +75,6 @@ function ProductsDetail() {
   const district = address?.split(' ')[1]
   const price = ticketDto[0]?.price
 
-  const dispatch = useDispatch()
   const sheetReducer = useSelector(
     (state: ISheetSliceState) => state.sheet.value,
   )

@@ -1,3 +1,16 @@
+export interface IProductDetail {
+  address: string
+  cityCode: string
+  detailAddress: string
+  homepage: string
+  name: string
+  description: string
+  rating: number
+  reviewCount: number
+  phoneNumber: string
+  ticketDto: { price: number }[]
+}
+
 export interface IReviewProps {
   reviewCnt: number
   reviewImg?: string[]

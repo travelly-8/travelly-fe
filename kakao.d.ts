@@ -4,11 +4,11 @@ declare namespace kakao.maps {
   }
 
   class Map {
-    constructor(container: HTMLElement, options: MapOptions)
+    constructor(container: HTMLElement, options: IMapOptions)
     setCenter(latlng: LatLng): void
   }
 
-  interface MapOptions {
+  interface IMapOptions {
     center: LatLng
     level: number
   }
@@ -17,7 +17,7 @@ declare namespace kakao.maps {
     class Geocoder {
       addressSearch(
         address: string,
-        callback: (result: KakaoAddressResult[], status: Status) => void,
+        callback: (result: IKakaoAddressResult[], status: Status) => void,
       ): void
     }
 
@@ -27,53 +27,76 @@ declare namespace kakao.maps {
   }
 
   class Marker {
-    constructor(options: MarkerOptions)
+    constructor(options: IMarkerOptions)
   }
 
-  interface MarkerOptions {
+  interface IMarkerOptions {
     map: Map
     position: LatLng
   }
+
+  class MarkerImage {
+    constructor(src: string, size: Size, options: { offset: Point })
+  }
+
+  class Size {
+    constructor(width: number, height: number)
+  }
+
+  class Point {
+    constructor(x: number, y: number)
+  }
+
+  function load(callback: () => void): void
 }
 
-interface KakaoAddressResult {
+declare namespace kakao {
+  function cleanup(): void
+  function init(appKey: string): void
+  function isInitialized(): boolean
+
+  namespace Share {
+    function sendDefault(options: ShareOptions): void
+
+    interface ShareOptions {
+      objectType: string
+      address: string
+      addressTitle: string
+      content: {
+        title: string
+        description: string
+        imageUrl: string
+        link: {
+          mobileWebUrl: string
+          webUrl: string
+        }
+      }
+      social: {
+        commentCount: number
+      }
+      buttons: Array<{
+        title: string
+        link: {
+          mobileWebUrl: string
+          webUrl: string
+        }
+      }>
+    }
+  }
+}
+
+interface IKakaoAddressResult {
   y: string
   x: string
 }
 
 interface Window {
-  Kakao: KakaoNamespace
-}
-
-interface KakaoNamespace {
-  cleanup: () => void
-  init: (appKey: string) => void
-  isInitialized: () => boolean
-  Share: {
-    sendDefault: (params: KakaoShareParams) => void
-  }
-}
-interface KakaoShareParams {
-  objectType: string
-  address: string
-  addressTitle: string
-  content: {
-    title: string
-    description: string
-    imageUrl: string
-    link: {
-      mobileWebUrl: string
-      webUrl: string
+  kakao: typeof kakao & {
+    cleanup: () => void
+    init: (appKey: string) => void
+    isInitialized: () => boolean
+    Share: {
+      sendDefault: (options: kakao.Share.ShareOptions) => void
     }
   }
-  social: {
-    commentCount: number
-  }
-  buttons: Array<{
-    title: string
-    link: {
-      mobileWebUrl: string
-      webUrl: string
-    }
-  }>
 }

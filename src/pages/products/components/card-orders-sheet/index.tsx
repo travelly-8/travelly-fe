@@ -1,5 +1,5 @@
 import { SORT } from '@/constants/FILTERING_BROWSING'
-import { sheet } from '@/store/sheet-slice'
+import { sheet } from '@/store/sheet-slice/sheet-slice'
 
 import GrabSheet from '@components/grab-sheet'
 import { useDispatch } from 'react-redux'

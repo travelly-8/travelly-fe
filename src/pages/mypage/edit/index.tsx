@@ -15,7 +15,7 @@ import purplePenSvg from '@/assets/mypage/purple-pen.svg'
 import { API_MEMBER } from '@/constants/API'
 import useGetMemberProfile from '@/hooks/api/memberAPI/useGetMemberProfile'
 import EditPasswordPage from '@/pages/mypage/components/edit-password'
-import { ISheetSliceState, sheet } from '@/store/sheet-slice'
+import { sheet } from '@/store/sheet-slice/sheet-slice'
 import { deleteTokens } from '@/utils/tokenStorage'
 
 import BlurSheet from '@components/blur-sheet'
@@ -26,6 +26,7 @@ import PageHeader from '@components/page-header'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
+import type { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
 import * as S from './MyPageEditPage.style'
 
 export default function MyPageEditPage() {

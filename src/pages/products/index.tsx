@@ -6,13 +6,14 @@ import useIntersectionObserver from '@/hooks/useIntersectionObserver'
 import AppBar from '@/pages/products/components/app-bar'
 import CardOrdersSheet from '@/pages/products/components/card-orders-sheet'
 import FilteringSheet from '@/pages/products/components/filtering-sheet'
-import { sheet, type ISheetSliceState } from '@/store/sheet-slice.ts'
+import { sheet } from '@/store/sheet-slice/sheet-slice'
 
 import ProductCard from '@components/product-card'
 import ProductCardSkeleton from '@components/product-card/ProductCardSkeleton'
 import ProductHeader from '@components/product-header'
 import { useDispatch, useSelector } from 'react-redux'
 
+import type { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
 import * as S from './ProductsPage.style'
 
 const ProductsPage = () => {

@@ -5,7 +5,7 @@ import type {
   ISheetComponents,
   ISheetRendererProps,
 } from '@/pages/products-detail/components/sheet-renderer/SheetRenderer.type'
-import type { ISheetSliceState } from '@/store/sheet-slice.ts'
+import type { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
 
 import { useSelector } from 'react-redux'
 

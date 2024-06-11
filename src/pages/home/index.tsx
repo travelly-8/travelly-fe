@@ -1,24 +1,23 @@
 import { useRef, useState } from 'react'
 
-import { getAllProducts } from '@/api/productsAPI'
+import { getSearchProducts } from '@/api/productsAPI'
 import star2 from '@/assets/home/star2.svg'
 import trophy from '@/assets/home/trophy.svg'
 import { API_PRODUCTS } from '@/constants/API'
-import useGetAllProducts from '@/hooks/api/productsAPI/useGetProductsQuery'
+import useGetAllProducts from '@/hooks/api/productsAPI/useGetAllProducts'
 import useProductCardsParams from '@/hooks/api/productsAPI/useProductCardsParams'
 import useScrollHandlers from '@/hooks/useScrollHandlers'
-import type { ISheetSliceState } from '@/store/sheet-slice.ts'
 
 import FooterNavigation from '@components/footer-navigation'
 import Header from '@components/header'
 import ProductCard from '@components/product-card'
+import { SizeProps } from '@components/product-card/ProductCard.style'
 import ProductCardSkeleton from '@components/product-card/ProductCardSkeleton'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
+import type { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
 import * as S from './HomePage.style'
-
-import type { ISizeProps } from '@components/product-card/ProductCard.style'
 
 function HomePage() {
   const navigate = useNavigate()
@@ -35,12 +34,12 @@ function HomePage() {
   const scrollRecommendHandlers = useScrollHandlers(recommendProductRef)
 
   const { data, isPending } = useGetAllProducts(API_PRODUCTS.PRODUCTS, () =>
-    getAllProducts(cardsQueryData),
+    getSearchProducts(cardsQueryData),
   )
   //TODO: 인기상품, 추천상품 논의 후 나중에 적용
   const cardsContents = data?.content
 
-  const renderProductCards = (size: ISizeProps['size']) =>
+  const renderProductCards = (size: SizeProps['size']) =>
     isPending ? (
       <ProductCardSkeleton count={6} size={size} />
     ) : (
