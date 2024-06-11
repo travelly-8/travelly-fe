@@ -1,19 +1,17 @@
 import styled from 'styled-components'
 
-import { IRating } from './Rating.type'
-
 export const Wrapper = styled.div`
   display: flex;
   gap: 2.4rem;
   align-items: center;
 `
 
-export const StarWrapper = styled.div<IRating>`
+export const StarWrapper = styled.div<{ readOnly?: boolean }>`
   display: flex;
   gap: ${(props) => (props.readOnly ? '0.4rem' : '1.6rem')};
 `
 
-export const Star = styled.img<IRating>`
+export const Star = styled.img<{ readOnly?: boolean }>`
   width: ${(props) => (props.readOnly ? '1.2568rem' : '3.3565rem')};
   height: ${(props) => (props.readOnly ? '1.1982rem' : '3.2rem')};
   cursor: pointer;

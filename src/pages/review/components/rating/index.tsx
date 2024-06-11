@@ -6,30 +6,31 @@ import StarYellow from '@/assets/common/star-yellow.svg'
 import * as S from './Rating.style'
 import { IRating } from './Rating.type'
 
-const Rating = ({ readOnly = false, score = 0 }: IRating) => {
+const Rating = ({ readOnly = false, score = 0, onChange }: IRating) => {
   const [rating, setRating] = useState(score)
   const [starElements, setStarElements] = useState<JSX.Element[]>([])
   const [mouseDown, setMouseDown] = useState(false)
-  const emptyStar = <S.Star readOnly={readOnly} src={StarGray} />
-  const yellowStar = <S.Star readOnly={readOnly} src={StarYellow} />
 
   useEffect(() => {
     const stars = []
     for (let i = 0; i < 5; i++) {
       if (i < rating) {
-        stars.push(yellowStar)
+        stars.push(<S.Star key={i} readOnly={readOnly} src={StarYellow} />)
       } else {
-        stars.push(emptyStar)
+        stars.push(<S.Star key={i} readOnly={readOnly} src={StarGray} />)
       }
     }
     setStarElements(stars)
-  }, [rating])
+  }, [rating, readOnly])
 
   const changeRating = (score: number) => {
+    if (readOnly) return
     if (score === 1 && rating === 1) {
       setRating(0)
+      onChange && onChange(0)
     } else {
       setRating(score)
+      onChange && onChange(score)
     }
   }
 
@@ -43,10 +44,8 @@ const Rating = ({ readOnly = false, score = 0 }: IRating) => {
         {starElements.map((star, index) => (
           <div
             key={index}
-            onClick={() => !readOnly && changeRating(index + 1)}
-            onMouseEnter={() =>
-              !readOnly && mouseDown && changeRating(index + 1)
-            }
+            onClick={() => changeRating(index + 1)}
+            onMouseEnter={() => mouseDown && changeRating(index + 1)}
           >
             {star}
           </div>

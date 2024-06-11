@@ -1,7 +1,7 @@
 import { putRole } from '@/api/authAPI'
 import rocket from '@/assets/login/rocket.png'
-import { setRole } from '@/store/auth-slice'
-import { SheetSliceState, sheet } from '@/store/sheet-slice'
+import { setRole } from '@/store/auth-slice/auth-slice'
+import { sheet } from '@/store/sheet-slice/sheet-slice'
 import isAxiosError from '@/utils/isAxiosError'
 import { getAccessToken, refreshAccessToken } from '@/utils/tokenStorage'
 
@@ -9,6 +9,7 @@ import RectangleButton from '@components/rectangle-button'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
+import type { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
 import * as S from './ConfirmPage.style'
 
 interface ConfirmPageProps {
@@ -19,7 +20,7 @@ const ConfirmPage = ({ selectedRole }: ConfirmPageProps) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const sheetReducer = useSelector(
-    (state: SheetSliceState) => state.sheet.value,
+    (state: ISheetSliceState) => state.sheet.value,
   )
   const handleCreateAccount = async () => {
     if (selectedRole) {

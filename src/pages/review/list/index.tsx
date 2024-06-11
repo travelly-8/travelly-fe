@@ -1,57 +1,74 @@
-import ReviewProductCard from '@/pages/review/components/review-product-card'
+import { getMemberProfile } from '@/api/myAPI'
+import { API_MEMBER } from '@/constants/API'
+import { TABS } from '@/constants/REVIEW'
+import useGetMemberProfile from '@/hooks/api/memberAPI/useGetMemberProfile'
 import { RootState } from '@/store/store'
 import PageHeader from '@components/page-header'
+import ReviewProductCard from '@components/review-product-card'
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import * as S from './ReviewList.style'
+import type { IProductDetail } from './ReviewList.type'
+import { SkeletonCircle, SkeletonText } from './Skeleton.style'
+
+const CARDS = (productDetail: IProductDetail) => ({
+  후기: [
+    <ReviewProductCard key={1} productDetail={productDetail} />,
+    <ReviewProductCard key={2} productDetail={productDetail} />,
+    <ReviewProductCard key={3} productDetail={productDetail} />,
+  ],
+  '작성한 후기': [
+    <ReviewProductCard key={4} productDetail={productDetail} />,
+    <ReviewProductCard key={5} productDetail={productDetail} />,
+    <ReviewProductCard key={6} productDetail={productDetail} />,
+  ],
+  댓글: [
+    <ReviewProductCard key={7} productDetail={productDetail} isCommentMode />,
+    <ReviewProductCard key={8} productDetail={productDetail} isCommentMode />,
+    <ReviewProductCard key={9} productDetail={productDetail} isCommentMode />,
+  ],
+  '받은 후기': [
+    <ReviewProductCard key={10} productDetail={productDetail} />,
+    <ReviewProductCard key={11} productDetail={productDetail} />,
+    <ReviewProductCard key={12} productDetail={productDetail} />,
+  ],
+  '작성한 댓글': [
+    <ReviewProductCard key={13} productDetail={productDetail} isCommentMode />,
+    <ReviewProductCard key={14} productDetail={productDetail} isCommentMode />,
+    <ReviewProductCard key={15} productDetail={productDetail} isCommentMode />,
+  ],
+})
 
 const ReviewList: React.FC = () => {
   const role = useSelector((state: RootState) => state.auth.role)
+  const productDetail = useSelector(
+    (state: RootState) => state.product.detail,
+  ) as IProductDetail
   const defaultTab = role === 'travelly' ? '받은 후기' : '후기'
   const [activeTab, setActiveTab] = useState(defaultTab)
 
+  const {
+    data: profile,
+    refetch,
+    status,
+  } = useGetMemberProfile(API_MEMBER.MY_PROFILE, () => getMemberProfile())
+
   const renderTabs = () => {
-    if (role === 'traveller') {
-      return (
-        <>
-          <S.Tab
-            className={activeTab === '후기' ? 'active' : ''}
-            onClick={() => setActiveTab('후기')}
-          >
-            후기
-          </S.Tab>
-          <S.Tab
-            className={activeTab === '작성한 후기' ? 'active' : ''}
-            onClick={() => setActiveTab('작성한 후기')}
-          >
-            작성한 후기
-          </S.Tab>
-          <S.Tab
-            className={activeTab === '댓글' ? 'active' : ''}
-            onClick={() => setActiveTab('댓글')}
-          >
-            댓글
-          </S.Tab>
-        </>
-      )
-    } else {
-      return (
-        <>
-          <S.Tab
-            className={activeTab === '받은 후기' ? 'active' : ''}
-            onClick={() => setActiveTab('받은 후기')}
-          >
-            받은 후기
-          </S.Tab>
-          <S.Tab
-            className={activeTab === '작성한 댓글' ? 'active' : ''}
-            onClick={() => setActiveTab('작성한 댓글')}
-          >
-            작성한 댓글
-          </S.Tab>
-        </>
-      )
-    }
+    return TABS[role as keyof typeof TABS].map((tab: string) => (
+      <S.Tab
+        key={tab}
+        className={activeTab === tab ? 'active' : ''}
+        onClick={() => setActiveTab(tab)}
+      >
+        {tab}
+      </S.Tab>
+    ))
+  }
+
+  const renderCards = () => {
+    return (
+      CARDS(productDetail)[activeTab as keyof ReturnType<typeof CARDS>] || []
+    )
   }
 
   return (
@@ -60,54 +77,27 @@ const ReviewList: React.FC = () => {
         <S.HeaderTitle>후기</S.HeaderTitle>
       </PageHeader>
       <S.ProfileSection>
-        <S.ProfileImg
-          src="https://via.placeholder.com/50"
-          alt="프로필 이미지"
-        />
-        <S.ProfileInfo>
-          <S.Nickname>닉네임</S.Nickname>
-          <S.Email>travelly@gmail.com</S.Email>
-        </S.ProfileInfo>
+        {status === 'pending' ? (
+          <>
+            <SkeletonCircle />
+            <S.ProfileInfo>
+              <SkeletonText style={{ width: '100px' }} />
+              <SkeletonText style={{ width: '150px' }} />
+            </S.ProfileInfo>
+          </>
+        ) : (
+          <>
+            <S.ProfileImg src={profile?.imageUrl} alt="프로필 이미지" />
+            <S.ProfileInfo>
+              <S.Nickname>{profile?.nickname}</S.Nickname>
+              <S.Email>{profile?.email}</S.Email>
+            </S.ProfileInfo>
+          </>
+        )}
       </S.ProfileSection>
       <S.BodyContainer>
         <S.Tabs>{renderTabs()}</S.Tabs>
-        <S.CardContainer>
-          {activeTab === '받은 후기' && (
-            <>
-              <ReviewProductCard />
-              <ReviewProductCard />
-              <ReviewProductCard />
-            </>
-          )}
-          {activeTab === '작성한 댓글' && (
-            <>
-              <ReviewProductCard isCommentMode />
-              <ReviewProductCard isCommentMode />
-              <ReviewProductCard isCommentMode />
-            </>
-          )}
-          {activeTab === '후기' && (
-            <>
-              <ReviewProductCard />
-              <ReviewProductCard />
-              <ReviewProductCard />
-            </>
-          )}
-          {activeTab === '작성한 후기' && (
-            <>
-              <ReviewProductCard />
-              <ReviewProductCard />
-              <ReviewProductCard />
-            </>
-          )}
-          {activeTab === '댓글' && (
-            <>
-              <ReviewProductCard isCommentMode />
-              <ReviewProductCard isCommentMode />
-              <ReviewProductCard isCommentMode />
-            </>
-          )}
-        </S.CardContainer>
+        <S.CardContainer>{renderCards()}</S.CardContainer>
       </S.BodyContainer>
     </S.Container>
   )

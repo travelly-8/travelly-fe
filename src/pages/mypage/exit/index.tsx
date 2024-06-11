@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 
 import airplaneImg from '@/assets/login/airplane.png'
-import { SheetSliceState, reset, sheet } from '@/store/sheet-slice'
+import { reset, sheet } from '@/store/sheet-slice/sheet-slice'
 
 import PageHeader from '@components/page-header'
 import RectangleButton from '@components/rectangle-button'
@@ -10,13 +10,14 @@ import { useNavigate } from 'react-router-dom'
 
 import ExitVerificationPage from '../exit-verification'
 // eslint-disable-next-line import/order
+import type { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
 import * as S from './ExitPage.style'
 
 export default function ExitPage() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const sheetReducer = useSelector(
-    (state: SheetSliceState) => state.sheet.value,
+    (state: ISheetSliceState) => state.sheet.value,
   )
 
   //TODO: customHook으로 분리

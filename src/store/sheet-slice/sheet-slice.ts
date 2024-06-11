@@ -1,15 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-export interface SheetSliceState {
-  sheet: {
-    value: {
-      name?: string
-      status: boolean
-      text: string
-    }
-  }
-}
-
 export const sheetSlice = createSlice({
   name: 'sheet',
   initialState: { value: { name: '', status: false, text: '' } },

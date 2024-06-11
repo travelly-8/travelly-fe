@@ -14,17 +14,17 @@ const AuthCallback: React.FC = () => {
       const platform = location.pathname.split('/').pop()
 
       if (code && platform) {
-        console.log(`code: ${code} registrationId: ${platform}`)
+        // console.log(`code: ${code} registrationId: ${platform}`)
         const authEndpoint = `/auth/login/${platform}`
-        console.log(authEndpoint, { code })
+        // console.log(authEndpoint, { code })
         try {
           await axios.post(authEndpoint, { code })
           navigate('/')
         } catch (error) {
           if (isAxiosError(error)) {
-            // console.error('소셜로그인 에러:', error.response?.data)
+            console.error('소셜로그인 에러:', error.response?.data)
           } else {
-            // console.error('소셜로그인 에러:', (error as Error).message)
+            console.error('소셜로그인 에러:', (error as Error).message)
           }
         }
       }
