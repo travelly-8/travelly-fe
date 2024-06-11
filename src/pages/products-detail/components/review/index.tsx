@@ -1,9 +1,11 @@
 import edit from '@/assets/products-detail/edit.svg'
 import sort from '@/assets/products-detail/sort.svg'
-
+import { useNavigate } from 'react-router-dom'
 import * as S from './Review.style'
 import ReviewPage from './ReviewPage'
 
+import { RootState } from '@/store/store'
+import { useSelector } from 'react-redux'
 import type { IReviewData, IReviewProps } from './Review.type'
 
 const Review: React.FC<IReviewProps> = ({
@@ -14,17 +16,29 @@ const Review: React.FC<IReviewProps> = ({
   onEditClick,
   onPhotoReviewsClick,
 }) => {
+  const productDetail = useSelector((state: RootState) => state.product.detail)
+
   const reviewImgCnt = reviewImg?.length
+  const navigate = useNavigate()
+
+  const handleHeaderClick = () => {
+    navigate('/review/list')
+  }
+
+  const handleIconClick = (event: React.MouseEvent) => {
+    event.stopPropagation()
+    navigate('/review/write', { state: { productDetail } })
+  }
 
   return (
     <S.ReviewContainer>
       <S.ReviewHeader>
-        <S.ReviewTitle>
+        <S.ReviewTitle onClick={handleHeaderClick}>
           <S.ReviewCntWrapper>
             <S.ReviewTitleText>후기</S.ReviewTitleText>
             <S.ReviewCntText>{reviewCnt}</S.ReviewCntText>
           </S.ReviewCntWrapper>
-          <S.Icon src={edit} alt="리뷰 수정" />
+          <S.Icon src={edit} alt="리뷰 수정" onClick={handleIconClick} />
         </S.ReviewTitle>
         <S.ReviewCheckBox>
           <S.CheckBox>

@@ -7,7 +7,7 @@ import { API_PRODUCTS } from '@/constants/API'
 import useGetAllProducts from '@/hooks/api/productsAPI/useGetProductsQuery'
 import useProductCardsParams from '@/hooks/api/productsAPI/useProductCardsParams'
 import useScrollHandlers from '@/hooks/useScrollHandlers'
-import type { ISheetSliceState } from '@/store/sheet-slice.ts'
+import type { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
 
 import FooterNavigation from '@components/footer-navigation'
 import Header from '@components/header'

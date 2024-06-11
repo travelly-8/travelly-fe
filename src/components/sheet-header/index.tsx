@@ -1,5 +1,5 @@
 import backIcon from '@/assets/common/arrow-left.svg'
-import { sheet } from '@/store/sheet-slice.ts'
+import { sheet } from '@/store/sheet-slice/sheet-slice'
 
 import { useDispatch } from 'react-redux'
 

@@ -1,19 +1,22 @@
 import { useState } from 'react'
 
+import ReviewProductCard from '@/components/review-product-card'
 import { IReviewData } from '@/pages/products-detail/components/review/Review.type'
 import ReviewPage from '@/pages/products-detail/components/review/ReviewPage'
 import { reviewData } from '@/pages/products-detail/mockData'
 import CommentCard from '@/pages/review/components/comment-card'
-import ReviewProductCard from '@/pages/review/components/review-product-card'
-import { ISheetSliceState, sheet } from '@/store/sheet-slice'
+import { sheet } from '@/store/sheet-slice/sheet-slice'
+import type { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
 
 import BottomSheet from '@components/bottom-sheet'
 import PageHeader from '@components/page-header'
 import { useDispatch, useSelector } from 'react-redux'
 
-import * as S from './ReviewDetailPage.style'
-// eslint-disable-next-line import/order
 import dummyComment from './dummyData.json'
+import * as S from './ReviewDetailPage.style'
+
+// eslint-disable-next-line import/order
+import { RootState } from '@/store/store'
 
 export default function ReviewDetailPage() {
   const [numOfComments, setNumOfComments] = useState(dummyComment.length)
@@ -22,6 +25,7 @@ export default function ReviewDetailPage() {
   const sheetReducer = useSelector(
     (state: ISheetSliceState) => state.sheet.value,
   )
+  const productDetail = useSelector((state: RootState) => state.product.detail)
 
   return (
     <>
@@ -29,7 +33,7 @@ export default function ReviewDetailPage() {
         <S.HeaderTitle>후기 상세</S.HeaderTitle>
       </PageHeader>
       <S.Wrapper>
-        <ReviewProductCard />
+        <ReviewProductCard productDetail={productDetail} />
         {reviewData.map((data: IReviewData) => (
           <ReviewPage
             key={data.name}
