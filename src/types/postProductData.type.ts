@@ -30,7 +30,7 @@ interface IOperationDayHours {
   endTime: string
 }
 
-export interface ISearchProductsData {
+export interface IGetProductsData {
   page: number
   size: number
   sort?: string | undefined

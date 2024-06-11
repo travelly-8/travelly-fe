@@ -9,7 +9,7 @@ import { useQuery } from '@tanstack/react-query'
  * @param {Function} queryFn 데이터 패치 함수, Promise 반환.
  */
 
-function useGetAllProducts(
+function useGetProductsQuery(
   queryKey: string,
   queryFn: () => Promise<IGetProductResponse>,
 ) {
@@ -22,4 +22,4 @@ function useGetAllProducts(
   })
 }
 
-export default useGetAllProducts
+export default useGetProductsQuery

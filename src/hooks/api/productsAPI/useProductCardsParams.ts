@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { ISearchProductsData } from '@/types/postProductData.type'
+import { IGetProductsData } from '@/types/postProductData.type'
 
 import { useLocation } from 'react-router-dom'
 
@@ -17,7 +17,7 @@ const useProductCardsParams = () => {
   const city = queryParams.get('city')
   const sort = queryParams.get('sort')
 
-  const cardsQueryData: ISearchProductsData = useMemo(
+  const cardsQueryData: IGetProductsData = useMemo(
     () => ({
       page: 0,
       size: 6,

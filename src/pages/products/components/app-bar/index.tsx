@@ -1,7 +1,8 @@
 import filter from '@/assets/products/filter.svg'
 
 import * as S from './AppBar.style'
-import { IAppBarProps } from './AppBar.type'
+
+import type { IAppBarProps } from './AppBar.type'
 
 const AppBar = ({
   totalElements,

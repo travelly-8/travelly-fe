@@ -1,54 +1,24 @@
-import { getSearchProducts } from '@/api/productsAPI'
-import { ISearchProductsData } from '@/types/postProductData.type'
+import useInfiniteScroll from '@/hooks/useInfiniteScroll'
+import { IGetProductsData } from '@/types/postProductData.type'
 
-import { useInfiniteQuery } from '@tanstack/react-query'
+import { getMoreProductsAPI } from '../../../api/getMoreProductsAPI'
 
-const useInfiniteCardsQuery = (params: ISearchProductsData) => {
-  const {
-    size,
-    sort,
-    keyword,
-    cityCode,
-    contentType,
-    startDate,
-    endDate,
-    startTime,
-    endTime,
-    minPrice,
-    maxPrice,
-  } = params
-
-  const searchQueryFn = async ({ pageParam = 0 }) => {
-    const data: ISearchProductsData = {
-      page: pageParam,
-      size,
-      sort,
-      keyword,
-      cityCode,
-      contentType,
-      startDate,
-      endDate,
-      startTime,
-      endTime,
-      minPrice,
-      maxPrice,
-    }
-    const response = await getSearchProducts(data)
-    return response.data
+const useInfiniteCardsQuery = (params: IGetProductsData) => {
+  const getQueryFn = async ({ pageParam = 0 }) => {
+    const data = await getMoreProductsAPI(params, pageParam)
+    return data
   }
 
-  const queryFn = searchQueryFn
-
   const { data, hasNextPage, isFetchingNextPage, fetchNextPage, isPending } =
-    useInfiniteQuery({
+    useInfiniteScroll({
       queryKey: ['products', params],
-      initialPageParam: 0,
-      queryFn,
+      queryFn: getQueryFn,
       getNextPageParam: (lastPage) => {
         const isLastPage = lastPage.last
         const nextPage = lastPage.pageable.pageNumber + 1
         return isLastPage ? undefined : nextPage
       },
+      initialPageParam: 0,
     })
 
   return {
