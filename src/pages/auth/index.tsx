@@ -14,9 +14,9 @@ const AuthCallback: React.FC = () => {
       const platform = location.pathname.split('/').pop()
 
       if (code && platform) {
-        console.log(`code: ${code} registrationId: ${platform}`)
+        // console.log(`code: ${code} registrationId: ${platform}`)
         const authEndpoint = `/auth/login/${platform}`
-        console.log(authEndpoint, { code })
+        // console.log(authEndpoint, { code })
         try {
           await axios.post(authEndpoint, { code })
           navigate('/')

@@ -2,8 +2,8 @@ import { IReviewData } from '@/pages/products-detail/components/review/Review.ty
 import ReviewPage from '@/pages/products-detail/components/review/ReviewPage'
 import { reviewData } from '@/pages/products-detail/mockData'
 import CommentCard from '@/pages/review/components/comment-card'
-import ReviewProductCard from '@/pages/review/components/review-product-card'
 import { sheet } from '@/store/sheet-slice/sheet-slice'
+import ReviewProductCard from '@components/review-product-card'
 import { useState } from 'react'
 
 import BottomSheet from '@components/bottom-sheet'

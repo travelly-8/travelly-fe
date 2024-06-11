@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 import CameraImg from '@/assets/review/camera.svg'
 import Rating from '@/pages/review/components/rating'
-import ReviewProductCard from '@/pages/review/components/review-product-card'
+import ReviewProductCard from '@components/review-product-card'
 
 import FooterButton from '@components/footer-button'
 import PageHeader from '@components/page-header'
@@ -16,7 +16,6 @@ import * as S from './ReviewWritePage.style'
 export default function ReviewWritePage() {
   const navigate = useNavigate()
   const productDetail = useSelector((state: RootState) => state.product.detail)
-  console.log(productDetail)
   const [numOfPhotos, setNumOfPhotos] = useState(0)
   const [numOfText, setNumOfText] = useState(0)
   const [rating, setRating] = useState(0)
