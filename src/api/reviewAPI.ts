@@ -1,4 +1,5 @@
 import { API_REVIEW } from '@/constants/API'
+import { IPostCommentData } from '@/types/postCommentData.type'
 
 import instance from './instance'
 
@@ -36,5 +37,17 @@ export const getReveiwDetail = (productId: number, reviewId: number) => {
   return instance({
     method: 'GET',
     url: API_REVIEW.REVIEW_DETAIL(productId, reviewId),
+  })
+}
+
+export const postComment = (
+  reviewId: number,
+  commentId: number,
+  data: IPostCommentData,
+) => {
+  return instance({
+    method: 'POST',
+    url: API_REVIEW.COMMENT(reviewId, commentId),
+    data,
   })
 }
