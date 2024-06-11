@@ -14,7 +14,7 @@ function BookmarkButton({
       <S.Button
         src={isBookmarked ? bookmarked : unbookmarked}
         alt="찜 버튼"
-        position={position}
+        $position={position}
       />
     </S.ButtonWrapper>
   )
