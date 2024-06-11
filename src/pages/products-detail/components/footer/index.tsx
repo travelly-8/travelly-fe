@@ -26,6 +26,7 @@ const Footer = ({
         onClick={() => {
           setIsBookmarked((prev) => !prev)
         }}
+        position="static"
       />
       <S.RightSection>
         {isReservationProduct && (

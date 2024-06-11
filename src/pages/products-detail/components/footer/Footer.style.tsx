@@ -17,7 +17,6 @@ export const Wrapper = styled.div`
 `
 
 export const FooterBookmarkButton = styled(BookmarkButton)`
-  position: static;
   width: 3.6rem;
   height: 3.6rem;
 `

@@ -1,3 +1,5 @@
+import { IProductImages } from '@components/product-card/ProductCard.type'
+
 export interface IGetProductResponse {
   data: IGetProductData
 }
@@ -9,7 +11,7 @@ export interface IProduct {
   name: string
   type: string
   description: string
-  imageUrl: string
+  images: IProductImages
   address: string
   detailAddress: string
   phoneNumber: string

@@ -1,7 +1,6 @@
 import { Fragment, useState } from 'react'
 
 import star from '@/assets/home/empty-star.svg'
-import defaultImage from '@/assets/login/airplane.png'
 import { LOCALE_CODE_LIST } from '@/constants/FILTERING_BROWSING'
 import { registerRecentProducts } from '@/utils/registerLocalStorage'
 
@@ -14,7 +13,7 @@ import { IProductCardData, IProductCardProps } from './ProductCard.type'
 function ProductCard({ cardData, size }: IProductCardProps) {
   const {
     id,
-    imageUrl = defaultImage,
+    images,
     name,
     cityCode,
     address,
@@ -48,10 +47,11 @@ function ProductCard({ cardData, size }: IProductCardProps) {
 
   return (
     <S.Container size={size} onClick={(e) => handleClick(e)}>
-      <S.CardImage src={imageUrl} alt={name} size={size} />
+      <S.CardImage src={images[0]?.url} alt={name} size={size} />
       <BookmarkButton
         onClick={handleBookmarkClick}
         isBookmarked={isBookmarked}
+        position="absolute"
       />
       <S.ContentsWrapper>
         <S.Title>{name}</S.Title>
