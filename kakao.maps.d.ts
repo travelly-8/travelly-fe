@@ -4,11 +4,11 @@ declare namespace kakao.maps {
   }
 
   class Map {
-    constructor(container: HTMLElement, options: MapOptions)
+    constructor(container: HTMLElement, options: IMapOptions)
     setCenter(latlng: LatLng): void
   }
 
-  interface MapOptions {
+  interface IMapOptions {
     center: LatLng
     level: number
   }
@@ -17,7 +17,7 @@ declare namespace kakao.maps {
     class Geocoder {
       addressSearch(
         address: string,
-        callback: (result: KakaoAddressResult[], status: Status) => void,
+        callback: (result: IKakaoAddressResult[], status: Status) => void,
       ): void
     }
 
@@ -27,53 +27,38 @@ declare namespace kakao.maps {
   }
 
   class Marker {
-    constructor(options: MarkerOptions)
+    constructor(options: IMarkerOptions)
   }
 
-  interface MarkerOptions {
+  interface IMarkerOptions {
     map: Map
     position: LatLng
   }
+
+  class MarkerImage {
+    constructor(src: string, size: Size, options: { offset: Point })
+  }
+
+  class Size {
+    constructor(width: number, height: number)
+  }
+
+  class Point {
+    constructor(x: number, y: number)
+  }
+
+  function load(callback: () => void): void
 }
 
-interface KakaoAddressResult {
+interface IKakaoAddressResult {
   y: string
   x: string
 }
 
 interface Window {
-  Kakao: KakaoNamespace
+  kakao: IKakaoNamespace
 }
 
-interface KakaoNamespace {
-  cleanup: () => void
-  init: (appKey: string) => void
-  isInitialized: () => boolean
-  Share: {
-    sendDefault: (params: KakaoShareParams) => void
-  }
-}
-interface KakaoShareParams {
-  objectType: string
-  address: string
-  addressTitle: string
-  content: {
-    title: string
-    description: string
-    imageUrl: string
-    link: {
-      mobileWebUrl: string
-      webUrl: string
-    }
-  }
-  social: {
-    commentCount: number
-  }
-  buttons: Array<{
-    title: string
-    link: {
-      mobileWebUrl: string
-      webUrl: string
-    }
-  }>
+interface IKakaoNamespace {
+  maps: typeof kakao.maps
 }
