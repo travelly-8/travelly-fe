@@ -1,5 +1,5 @@
 import { IPaySheet } from '@/pages/reservation/components/sheet/PaySheet.type.ts'
-import { sheet } from '@/store/sheet-slice.ts'
+import { sheet } from '@/store/sheet-slice/sheet-slice.ts'
 import { makeKorLocale } from '@/utils/makeKORLocale.ts'
 
 import GrabSheet from '@components/grab-sheet'
@@ -11,12 +11,12 @@ import * as S from '../PaySheet.styles.tsx'
 const PayConfirmSheet = ({ userPoint, productPoint }: IPaySheet) => {
   const dispatch = useDispatch()
   const handleConfirm = () => {
-    dispatch(sheet({ name: 'pay-confirm', status: false }))
+    dispatch(sheet({ name: 'pay-confirm-sheet', status: false }))
   }
 
   return (
     <div>
-      <GrabSheet name="pay-confirm" align="left">
+      <GrabSheet name="pay-confirm-sheet" align="left">
         <S.Title>결제하시겠습니까?</S.Title>
         <S.SheetItem $underline={false}>
           <S.ItemKey>현재 포인트</S.ItemKey>

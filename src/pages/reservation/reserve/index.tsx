@@ -1,19 +1,31 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 
 import ReviewProductCard from '@/components/review-product-card'
+import SheetRenderer from '@/pages/products-detail/components/sheet-renderer'
+import { ISheetComponents } from '@/pages/products-detail/ProductsDetail.type'
 import CancellationPolicy from '@/pages/reservation/components/cancellation-policy'
 import ReservationDateSection from '@/pages/reservation/components/reservation-date-section'
 import ReservationInput from '@/pages/reservation/components/reservation-input'
 import TicketCountSection from '@/pages/reservation/components/ticket-count-section'
+import { sheet } from '@/store/sheet-slice/sheet-slice'
 
 import CheckBox from '@components/check-box'
 import FooterReservation from '@components/footer-reservation'
 import PageHeader from '@components/page-header'
+import { useDispatch } from 'react-redux'
 
 import * as S from './ReservationPage.style'
 
 function ReservationPage() {
+  const dispatch = useDispatch()
   const [isRadioChecked, setIsRadioChecked] = useState(true)
+
+  const handleSheetDispatch = useCallback(
+    (name: keyof ISheetComponents) => {
+      dispatch(sheet({ name, status: true, text: '' }))
+    },
+    [dispatch],
+  )
 
   const handleRadioChange = () => {
     setIsRadioChecked(!isRadioChecked)
@@ -34,7 +46,9 @@ function ReservationPage() {
         <ReservationInput />
         <S.TicketInfo>
           <TicketCountSection />
-          <ReservationDateSection />
+          <ReservationDateSection
+            onCalendarClick={() => handleSheetDispatch('calendar-sheet')}
+          />
         </S.TicketInfo>
         <S.PayOptions>
           <S.PayOptionHeader>결제 방법</S.PayOptionHeader>
@@ -69,7 +83,9 @@ function ReservationPage() {
         price={0}
         discount={0}
         buttonType="payment"
+        onPayConfirmClick={() => handleSheetDispatch('pay-confirm-sheet')}
       />
+      <SheetRenderer />
     </>
   )
 }

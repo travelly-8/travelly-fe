@@ -82,6 +82,7 @@ function ProductsDetail() {
     sheetReducer.status && sheetReducer.name === 'search-sheet'
   const isPhotoReviewsSheet =
     sheetReducer.status && sheetReducer.name === 'photo-reviews-sheet'
+
   const [isHamburgerClicked, setIsHamburgerClicked] = useState(false)
 
   const handleSheetDispatch = useCallback(

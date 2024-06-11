@@ -4,7 +4,7 @@ export interface IFooter extends IButtonType {
   discount?: number
   price?: number
   url?: string
-  productId: string | undefined
+  productId?: string | undefined
 }
 
 export interface IButtonType {
