@@ -1,29 +1,36 @@
-import { IReviewData } from '@/pages/products-detail/components/review/Review.type'
+import { useEffect, useState } from 'react'
+
+import { getReveiwDetail } from '@/api/reviewAPI'
 import ReviewPage from '@/pages/products-detail/components/review/ReviewPage'
-import { reviewData } from '@/pages/products-detail/mockData'
-import CommentCard from '@/pages/review/components/comment-card'
 import { sheet } from '@/store/sheet-slice/sheet-slice'
-import ReviewProductCard from '@components/review-product-card'
-import { useState } from 'react'
+import type { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
+import { RootState } from '@/store/store'
 
 import BottomSheet from '@components/bottom-sheet'
 import PageHeader from '@components/page-header'
+import ReviewProductCard from '@components/review-product-card'
+import { useQuery } from '@tanstack/react-query'
 import { useDispatch, useSelector } from 'react-redux'
 
 import * as S from './ReviewDetailPage.style'
-// eslint-disable-next-line import/order
-import type { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
-import { RootState } from '@/store/store'
-import dummyComment from './dummyData.json'
 
 export default function ReviewDetailPage() {
-  const [numOfComments, setNumOfComments] = useState(dummyComment.length)
+  const [numOfComments, setNumOfComments] = useState(0)
   const [inputValue, setInputValue] = useState('')
   const dispatch = useDispatch()
   const sheetReducer = useSelector(
     (state: ISheetSliceState) => state.sheet.value,
   )
   const productDetail = useSelector((state: RootState) => state.product.detail)
+
+  const { data: reviewData, isFetched } = useQuery({
+    queryKey: ['review-detail'],
+    queryFn: () => getReveiwDetail(4, 1),
+  })
+
+  useEffect(() => {
+    isFetched && setNumOfComments(reviewData?.data.comments.length)
+  }, [isFetched])
 
   return (
     <>
@@ -32,13 +39,13 @@ export default function ReviewDetailPage() {
       </PageHeader>
       <S.Wrapper>
         <ReviewProductCard productDetail={productDetail} />
-        {reviewData.map((data: IReviewData) => (
+        {reviewData && (
           <ReviewPage
-            key={data.name}
-            reviewData={data}
+            reviewData={reviewData}
             onEditClick={() => {}}
+            canComment={false}
           />
-        ))}
+        )}
       </S.Wrapper>
       <S.CommentWrapper>
         <S.TitleWrapper>
@@ -47,7 +54,7 @@ export default function ReviewDetailPage() {
             {numOfComments}
           </S.NumOfComments>
         </S.TitleWrapper>
-        <div>
+        {/* <div>
           {dummyComment.map((data) => {
             return (
               <div key={data.commentId}>
@@ -55,19 +62,17 @@ export default function ReviewDetailPage() {
               </div>
             )
           })}
-        </div>
-        <S.Wrapper>
-          <S.InputOuterWrapper numOfComments={numOfComments}>
-            <S.InputWrapper inputValue={inputValue}>
-              <input
-                type="text"
-                placeholder="댓글을 입력해주세요."
-                onChange={(e) => setInputValue(e.target.value)}
-              />
-              <button>등록</button>
-            </S.InputWrapper>
-          </S.InputOuterWrapper>
-        </S.Wrapper>
+        </div> */}
+        <S.InputOuterWrapper numOfComments={numOfComments}>
+          <S.InputWrapper inputValue={inputValue}>
+            <input
+              type="text"
+              placeholder="댓글을 입력해주세요."
+              onChange={(e) => setInputValue(e.target.value)}
+            />
+            <button>등록</button>
+          </S.InputWrapper>
+        </S.InputOuterWrapper>
       </S.CommentWrapper>
       {sheetReducer.status && sheetReducer.name === 'editAndDelete' && (
         <BottomSheet

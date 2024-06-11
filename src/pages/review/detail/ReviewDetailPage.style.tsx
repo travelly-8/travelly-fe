@@ -10,6 +10,7 @@ export const HeaderTitle = styled.h1`
 `
 
 export const Wrapper = styled.div`
+  margin-top: 4.8rem;
   display: flex;
   flex-direction: column;
   padding: 0 2rem;
@@ -46,8 +47,8 @@ export const NumOfComments = styled.p<{ numOfComments: number }>`
 `
 
 export const InputOuterWrapper = styled.div<{ numOfComments: number }>`
-  padding: ${(props) => (props.numOfComments === 0 ? '0' : '0.8rem 0')};
-  margin: ${(props) => (props.numOfComments === 0 ? '0' : '1.6rem 0')};
+  padding: ${(props) => (props.numOfComments === 0 ? '0' : '0.8rem 0rem')};
+  margin: ${(props) => (props.numOfComments === 0 ? '0 2rem' : '1.6rem 2rem')};
   border-top: ${(prop) =>
     prop.numOfComments === 0 ? 'none' : '0.1rem solid var(--color-gray-light)'};
 `
@@ -59,6 +60,7 @@ export const InputWrapper = styled.div<{ inputValue: string }>`
   display: flex;
   justify-content: space-between;
   padding: 0 2rem;
+  /* margin: 0 2rem; */
 
   button {
     background-color: transparent;

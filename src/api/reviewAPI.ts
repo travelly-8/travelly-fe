@@ -1,3 +1,5 @@
+import { API_REVIEW } from '@/constants/API'
+
 import instance from './instance'
 
 interface IReviewRequest {
@@ -6,10 +8,6 @@ interface IReviewRequest {
     rating: number
     content: string
   }
-}
-
-const API_REVIEW = {
-  POST_REVIEW: (productId: number) => `/review/${productId}`,
 }
 
 export const postReview = (productId: number, data: IReviewRequest) => {
@@ -31,5 +29,12 @@ export const postReview = (productId: number, data: IReviewRequest) => {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
+  })
+}
+
+export const getReveiwDetail = (productId: number, reviewId: number) => {
+  return instance({
+    method: 'GET',
+    url: API_REVIEW.REVIEW_DETAIL(productId, reviewId),
   })
 }
