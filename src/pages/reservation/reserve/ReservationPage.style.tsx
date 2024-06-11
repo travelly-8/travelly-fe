@@ -6,7 +6,7 @@ interface IPointInputProps {
 
 export const PageContainer = styled.div`
   position: relative;
-  padding: 0 2rem;
+  padding: 0 2rem 6.5rem;
 
   overflow-y: scroll;
   scrollbar-width: none;
@@ -127,4 +127,40 @@ export const PointInput = styled.input<IPointInputProps>`
   &:focus {
     border: 0.2rem solid var(--color-main);
   }
+`
+
+export const PayAmount = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 0 2.4rem;
+`
+
+export const AllPayTitle = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+`
+
+export const AllPayText = styled.p`
+  color: var(--color-black);
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 2.38rem;
+`
+
+export const Vat = styled.span`
+  color: var(--color-gray-semi);
+  font-size: 1rem;
+
+  &::after {
+    content: '*';
+    color: var(--color-main);
+  }
+`
+
+export const AllAmount = styled.span`
+  color: var(--color-black);
+  font-size: 1.3rem;
+  font-weight: 600;
 `

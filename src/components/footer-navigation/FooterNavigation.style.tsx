@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Container = styled.footer`
-  position: absolute;
+  position: sticky;
   bottom: 0;
   display: flex;
   padding: 0.8rem 2rem;

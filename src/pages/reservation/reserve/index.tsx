@@ -1,5 +1,6 @@
 import { useState } from 'react'
 
+import CancellationPolicy from '@/pages/reservation/components/cancellation-policy'
 import ReservationDateSection from '@/pages/reservation/components/reservation-date-section'
 import TicketCountSection from '@/pages/reservation/components/ticket-count-section'
 import ReviewProductCard from '@/pages/review/components/review-product-card'
@@ -54,6 +55,14 @@ function ReservationPage() {
             />
           </S.PayOption>
         </S.PayOptions>
+        <S.PayAmount>
+          <S.AllPayTitle>
+            <S.AllPayText>총 결제 금액</S.AllPayText>
+            <S.Vat>(VAT포함)</S.Vat>
+          </S.AllPayTitle>
+          <S.AllAmount>1,000,000원</S.AllAmount>
+        </S.PayAmount>
+        <CancellationPolicy />
       </S.PageContainer>
     </>
   )
