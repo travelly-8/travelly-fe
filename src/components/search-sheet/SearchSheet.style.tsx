@@ -7,6 +7,7 @@ export const SheetWrapper = styled.div`
   background-color: var(--color-white);
   gap: 3.6rem;
   width: 100%;
+  height: 100%;
 `
 export const Label = styled.label`
   color: var(--color-gray-middle);
