@@ -47,8 +47,22 @@ export const NumOfComments = styled.p<{ numOfComments: number }>`
 `
 
 export const CommentCardWrapper = styled.div`
-  height: 30vh;
+  height: calc(100vh - 45rem);
   overflow-y: scroll;
+  padding-bottom: 9.2rem;
+`
+
+export const Background = styled.div`
+  background-color: var(--color-white);
+  position: fixed;
+  bottom: 0;
+
+  @media screen and (max-width: 767px) {
+    width: 100%;
+  }
+  @media screen and (min-width: 768px) {
+    width: 360px;
+  }
 `
 
 export const InputOuterWrapper = styled.div<{ numOfComments: number }>`
@@ -56,15 +70,6 @@ export const InputOuterWrapper = styled.div<{ numOfComments: number }>`
   margin: ${(props) => (props.numOfComments === 0 ? '0 2rem' : '1.6rem 2rem')};
   border-top: ${(prop) =>
     prop.numOfComments === 0 ? 'none' : '0.1rem solid var(--color-gray-light)'};
-  position: fixed;
-  bottom: 0;
-  background-color: var(--color-white);
-  @media screen and (max-width: 767px) {
-    width: calc(100% - 4rem);
-  }
-  @media screen and (min-width: 768px) {
-    width: 320px;
-  }
 `
 
 export const InputWrapper = styled.form<{ inputValue: string }>`

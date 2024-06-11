@@ -88,17 +88,19 @@ export default function ReviewDetailPage() {
             )
           })}
         </S.CommentCardWrapper>
-        <S.InputOuterWrapper numOfComments={reviewData?.data.comments.length}>
-          <S.InputWrapper inputValue={inputValue} onSubmit={handleComment}>
-            <input
-              type="text"
-              placeholder="댓글을 입력해주세요."
-              onChange={(e) => setInputValue(e.target.value)}
-              value={inputValue}
-            />
-            <button type="submit">등록</button>
-          </S.InputWrapper>
-        </S.InputOuterWrapper>
+        <S.Background>
+          <S.InputOuterWrapper numOfComments={reviewData?.data.comments.length}>
+            <S.InputWrapper inputValue={inputValue} onSubmit={handleComment}>
+              <input
+                type="text"
+                placeholder="댓글을 입력해주세요."
+                onChange={(e) => setInputValue(e.target.value)}
+                value={inputValue}
+              />
+              <button type="submit">등록</button>
+            </S.InputWrapper>
+          </S.InputOuterWrapper>
+        </S.Background>
       </S.CommentWrapper>
       {sheetReducer.status && sheetReducer.name === 'editAndDelete' && (
         <BottomSheet
