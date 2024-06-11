@@ -7,8 +7,6 @@ export const SectionWrapper = styled.section`
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
-  margin-top: 1.6rem;
-  margin-bottom: 2.4rem;
 `
 
 export const Title = styled.h3`
