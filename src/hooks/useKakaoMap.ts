@@ -5,6 +5,10 @@ interface IUseKakaoMapProps {
   detailAddress: string
 }
 
+interface ExtendedMarkerOptions extends kakao.maps.MarkerOptions {
+  image?: kakao.maps.MarkerImage
+}
+
 const useKakaoMap = ({ address, detailAddress }: IUseKakaoMapProps) => {
   const mapRef = useRef<HTMLDivElement>(null)
   const mapAddress = `${address} ${detailAddress}`
@@ -16,7 +20,7 @@ const useKakaoMap = ({ address, detailAddress }: IUseKakaoMapProps) => {
     document.head.appendChild(script)
 
     script.onload = () => {
-      window.kakao.maps.load(() => {
+      if (window.kakao && window.kakao.maps) {
         if (mapRef.current) {
           const options = {
             center: new window.kakao.maps.LatLng(33.450701, 126.570667),
@@ -49,14 +53,14 @@ const useKakaoMap = ({ address, detailAddress }: IUseKakaoMapProps) => {
                   map: map,
                   position: coords,
                   image: markerImage,
-                })
+                } as ExtendedMarkerOptions)
 
                 map.setCenter(coords)
               }
             }
           })
         }
-      })
+      }
     }
     return () => {
       script.remove()
