@@ -73,7 +73,7 @@ export default function ReviewDetailPage() {
             {reviewData?.data.comments.length}
           </S.NumOfComments>
         </S.TitleWrapper>
-        <div>
+        <S.CommentCardWrapper>
           {reviewData?.data.comments.map((data: ICommentData) => {
             return (
               <div key={data.commentId}>
@@ -81,7 +81,7 @@ export default function ReviewDetailPage() {
               </div>
             )
           })}
-        </div>
+        </S.CommentCardWrapper>
         <S.InputOuterWrapper numOfComments={reviewData?.data.comments.length}>
           <S.InputWrapper inputValue={inputValue} onSubmit={handleComment}>
             <input

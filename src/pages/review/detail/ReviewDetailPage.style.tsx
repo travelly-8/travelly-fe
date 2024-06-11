@@ -46,11 +46,24 @@ export const NumOfComments = styled.p<{ numOfComments: number }>`
   line-height: 3.06rem; /* 170% */
 `
 
+export const CommentCardWrapper = styled.div`
+  height: 30vh;
+  overflow-y: scroll;
+`
+
 export const InputOuterWrapper = styled.div<{ numOfComments: number }>`
   padding: ${(props) => (props.numOfComments === 0 ? '0' : '0.8rem 0rem')};
   margin: ${(props) => (props.numOfComments === 0 ? '0 2rem' : '1.6rem 2rem')};
   border-top: ${(prop) =>
     prop.numOfComments === 0 ? 'none' : '0.1rem solid var(--color-gray-light)'};
+  position: fixed;
+  bottom: 0;
+  @media screen and (max-width: 767px) {
+    width: calc(100% - 4rem);
+  }
+  @media screen and (min-width: 768px) {
+    width: 320px;
+  }
 `
 
 export const InputWrapper = styled.form<{ inputValue: string }>`
@@ -60,7 +73,6 @@ export const InputWrapper = styled.form<{ inputValue: string }>`
   display: flex;
   justify-content: space-between;
   padding: 0 2rem;
-  /* margin: 0 2rem; */
 
   button {
     background-color: transparent;

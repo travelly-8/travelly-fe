@@ -92,6 +92,6 @@ export const ReplyingBar = styled.div`
     line-height: 1.8rem; /* 150% */
   }
 `
-export const ReplyWrapper = styled.div<{ isReplying: boolean }>`
+export const ReplyWrapper = styled.div`
   margin-left: 4.8rem;
 `

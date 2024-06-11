@@ -14,6 +14,7 @@ interface ICommentCardProps {
 
 const CommentCard: React.FC<ICommentCardProps> = ({ data }) => {
   const {
+    childrenComments,
     commentContent,
     commentDate,
     commentId,
@@ -26,7 +27,8 @@ const CommentCard: React.FC<ICommentCardProps> = ({ data }) => {
   const handleReply = () => {
     setIsReplying(true)
   }
-  // console.log(commentContent)
+
+  console.log(childrenComments)
   return (
     <>
       <S.Wrapper isReplying={isReplying}>
@@ -60,34 +62,33 @@ const CommentCard: React.FC<ICommentCardProps> = ({ data }) => {
           </S.ReplyingBar>
         )}
       </S.Wrapper>
-      {/* <S.ReplyWrapper isReplying={isReplying}>
-        {commentId !== 0 &&
-          data.reply.map((replyData) => {
-            return (
-              <S.Wrapper key={replyData.commentId} isReplying={false}>
-                <S.CommentWrapper>
-                  <S.Content>
-                    <S.ProfileImg src={replyData.profileImg} />
-                    <S.MiddleWrapper>
-                      <S.NicknameAndDate>
-                        <S.Nickname>{replyData.nickname}</S.Nickname>
-                        <S.Date>{replyData.date}</S.Date>
-                      </S.NicknameAndDate>
-                      <S.Comment>{replyData.content}</S.Comment>
-                    </S.MiddleWrapper>
-                  </S.Content>
-                  <S.MenuButton
-                    src={ThreeCircle}
-                    alt="수정/삭제"
-                    onClick={() =>
-                      dispatch(sheet({ name: 'editAndDelete', status: true }))
-                    }
-                  />
-                </S.CommentWrapper>
-              </S.Wrapper>
-            )
-          })}
-      </S.ReplyWrapper> */}
+      <S.ReplyWrapper>
+        {childrenComments?.map((data) => {
+          return (
+            <S.Wrapper key={data.commentId} isReplying={false}>
+              <S.CommentWrapper>
+                <S.Content>
+                  <S.ProfileImg src={data.commentUserImage} />
+                  <S.MiddleWrapper>
+                    <S.NicknameAndDate>
+                      <S.Nickname>{data.commentUserNickname}</S.Nickname>
+                      <S.Date>{data.commentDate}</S.Date>
+                    </S.NicknameAndDate>
+                    <S.Comment>{data.commentContent}</S.Comment>
+                  </S.MiddleWrapper>
+                </S.Content>
+                <S.MenuButton
+                  src={ThreeCircle}
+                  alt="수정/삭제"
+                  onClick={() =>
+                    dispatch(sheet({ name: 'editAndDelete', status: true }))
+                  }
+                />
+              </S.CommentWrapper>
+            </S.Wrapper>
+          )
+        })}
+      </S.ReplyWrapper>
     </>
   )
 }
