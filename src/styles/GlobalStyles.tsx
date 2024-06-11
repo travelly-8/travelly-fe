@@ -24,6 +24,7 @@ const GlobalStyles = createGlobalStyle`
     --color-gray-light: #DFDFDF;
     --color-gray-bright: #EDEDED;
     --color-caution: #CD0000;
+    --color-gray-bright_bg:#F5F5F5;
   }
 
   *, 
