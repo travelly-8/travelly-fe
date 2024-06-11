@@ -46,6 +46,8 @@ declare namespace kakao.maps {
   class Point {
     constructor(x: number, y: number)
   }
+
+  function load(callback: () => void): void
 }
 
 interface KakaoAddressResult {
