@@ -1,8 +1,8 @@
 import refreshIcon from '@/assets/home/refresh.svg'
-import { sheet } from '@/store/sheet-slice.ts'
+import { sheet } from '@/store/sheet-slice/sheet-slice.ts'
 
+import CalendarInput from '@components/calendar-input'
 import GrabSheet from '@components/grab-sheet'
-import RangeCalendarInput from '@components/range-calendar-input'
 import RoundButton from '@components/round-button'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
@@ -19,7 +19,7 @@ const CalendarSheet = () => {
   return (
     <div>
       <GrabSheet name="pick-date" align="center">
-        <RangeCalendarInput formLabel="form" control={control} />
+        <CalendarInput control={control} formLabel="date" />
         <S.Buttons>
           <S.RefreshButton>
             <S.Icon src={refreshIcon} /> 초기화
