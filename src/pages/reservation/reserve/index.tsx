@@ -61,6 +61,12 @@ function ReservationPage() {
     !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(emailValue)
   const dispatch = useDispatch()
   const [isRadioChecked, setIsRadioChecked] = useState(true)
+  const [isCancelPolicyChecked, setIsCancelPolicyChecked] = useState(false)
+
+  const handleSetCancellationPolicyChecked = (isChecked: boolean) => {
+    setIsCancelPolicyChecked(isChecked)
+  }
+
   const { productId } = useParams()
 
   const { data: productDetail } = useQuery({
@@ -76,9 +82,8 @@ function ReservationPage() {
     },
     [dispatch, isError],
   )
-
   const handlePayConfirmClick = () => {
-    if (!isError) {
+    if (!isError && isCancelPolicyChecked) {
       handleSheetDispatch('pay-confirm-sheet')
     } else {
       dispatch(sheet({ name: 'pay-confirm-sheet', status: false, text: '' }))
@@ -90,8 +95,10 @@ function ReservationPage() {
   )
 
   const ticketPrice =
-    ticketDto[0]?.price *
-    (personnel.adult + personnel.teenager + personnel.infant) // 나중에 성인 청소년 소아 나눠지면 변경
+    ticketDto && ticketDto.length > 0
+      ? ticketDto[0].price *
+        (personnel.adult + personnel.teenager + personnel.infant)
+      : 0 // 나중에 성인 청소년 소아 나눠지면 변경
 
   const handleRadioChange = () => {
     setIsRadioChecked(!isRadioChecked)
@@ -164,7 +171,9 @@ function ReservationPage() {
           </S.AllPayTitle>
           <S.AllAmount>{ticketPrice} 포인트</S.AllAmount>
         </S.PayAmount>
-        <CancellationPolicy />
+        <CancellationPolicy
+          setCancellationPolicyChecked={handleSetCancellationPolicyChecked}
+        />
       </S.PageContainer>
       <FooterReservation
         isBookmarked={true}
