@@ -6,13 +6,13 @@ import IconButton from '@/components/icon-button'
 import Bubble from '@/pages/login/components/bubble'
 import ConfirmPage from '@/pages/login/components/confirm-page'
 import { sheet } from '@/store/sheet-slice/sheet-slice'
+import { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
 
 import BackBar from '@components/back-bar'
 import { useDispatch, useSelector } from 'react-redux'
 
 import * as S from './SelectPlanPage.style'
 
-import type { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
 import type { ButtonType } from '@components/icon-button/IconButton.type'
 
 export default function SelectPlanPage() {

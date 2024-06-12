@@ -1,4 +1,4 @@
-import { sheet } from '@/store/sheet-slice.ts'
+import { sheet } from '@/store/sheet-slice/sheet-slice'
 import { registerRecentSearches } from '@/utils/registerLocalStorage'
 import shuffleArray from '@/utils/shuffleArray'
 
@@ -7,11 +7,11 @@ import { useNavigate } from 'react-router-dom'
 
 import * as S from './SearchInput.style'
 
-interface IReccomendedSearchesProps {
+interface IRecommendedSearchesProps {
   suggestList: string[]
 }
 
-const RecommendedSearches: React.FC<IReccomendedSearchesProps> = ({
+const RecommendedSearches: React.FC<IRecommendedSearchesProps> = ({
   suggestList,
 }) => {
   const navigate = useNavigate()

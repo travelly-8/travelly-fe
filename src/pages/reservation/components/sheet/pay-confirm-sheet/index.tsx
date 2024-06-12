@@ -1,21 +1,14 @@
 import { IPaySheet } from '@/pages/reservation/components/sheet/PaySheet.type.ts'
-import { sheet } from '@/store/sheet-slice/sheet-slice.ts'
 import { makeKorLocale } from '@/utils/makeKORLocale.ts'
 
 import GrabSheet from '@components/grab-sheet'
 import RoundButton from '@components/round-button'
-import { useDispatch } from 'react-redux'
 
 import * as S from '../PaySheet.styles.tsx'
 
 const PayConfirmSheet = ({ userPoint, productPoint }: IPaySheet) => {
-  const dispatch = useDispatch()
-  const handleConfirm = () => {
-    dispatch(sheet({ name: 'pay-confirm', status: false }))
-  }
-
   return (
-    <GrabSheet name="pay-confirm" align="left">
+    <GrabSheet name="pay-confirm-sheet" align="left">
       <S.Title>결제하시겠습니까?</S.Title>
       <S.SheetItem $underline={false}>
         <S.ItemKey>현재 포인트</S.ItemKey>
@@ -30,13 +23,11 @@ const PayConfirmSheet = ({ userPoint, productPoint }: IPaySheet) => {
       <S.SheetItem $underline={true}>
         <S.ItemKey>잔여 포인트</S.ItemKey>
         <S.ItemValue $primary={true}>
-          {makeKorLocale(userPoint - productPoint)}P
+          {makeKorLocale(userPoint - productPoint)}
         </S.ItemValue>
       </S.SheetItem>
       <S.ButtonWrapper>
-        <RoundButton.Primary onClick={handleConfirm}>
-          결제하기
-        </RoundButton.Primary>
+        <RoundButton.Primary>결제하기</RoundButton.Primary>
       </S.ButtonWrapper>
     </GrabSheet>
   )

@@ -14,7 +14,7 @@ import { IProductCardData, IProductCardProps } from './ProductCard.type'
 function ProductCard({ cardData, size }: IProductCardProps) {
   const {
     id,
-    imageUrl = defaultImage,
+    images,
     name,
     cityCode,
     address,
@@ -43,15 +43,17 @@ function ProductCard({ cardData, size }: IProductCardProps) {
 
   const city = LOCALE_CODE_LIST[cityCode]
   const district = address?.split(' ')[1]
-  const price = ticketDto[0]?.price
-  const formattedPrice = price.toLocaleString()
+  const price = ticketDto && ticketDto.length > 0 ? ticketDto[0].price : null
+  const formattedPrice = price?.toLocaleString()
+  const image = images && images.length > 0 ? images[0].url : defaultImage
 
   return (
     <S.Container size={size} onClick={(e) => handleClick(e)}>
-      <S.CardImage src={imageUrl} alt={name} size={size} />
+      <S.CardImage src={image} alt={name} size={size} />
       <BookmarkButton
         onClick={handleBookmarkClick}
         isBookmarked={isBookmarked}
+        position="absolute"
       />
       <S.ContentsWrapper>
         <S.Title>{name}</S.Title>

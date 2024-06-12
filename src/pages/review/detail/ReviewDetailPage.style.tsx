@@ -20,13 +20,11 @@ export const CommentWrapper = styled.div`
   flex-direction: column;
   margin-top: 0.8rem;
 `
-
 export const TitleWrapper = styled.div`
   display: flex;
   gap: 0.4rem;
   padding: 0 2rem;
 `
-
 export const Title = styled.h2`
   color: var(--color-black);
   font-size: 1.8rem;
@@ -54,7 +52,6 @@ export const Background = styled.div`
   background-color: var(--color-white);
   position: fixed;
   bottom: 0;
-
   @media screen and (max-width: 767px) {
     width: 100%;
   }
@@ -79,7 +76,6 @@ export const InputWrapper = styled.form<{ $inputValue: string }>`
   display: flex;
   justify-content: space-between;
   padding: 0 2rem;
-
   button {
     background-color: transparent;
     color: ${({ $inputValue }) =>
@@ -89,31 +85,28 @@ export const InputWrapper = styled.form<{ $inputValue: string }>`
     font-weight: 500;
     line-height: 2.38rem; /* 170% */
   }
-
   input {
     background-color: transparent;
     border: none;
-
     &:focus {
       outline: none;
     }
   }
 `
 
-export const SheetTextWraeppr = styled.div<{ $idx: number }>`
+export const SheetTextWrapper = styled.div<{ $idx: number }>`
   display: flex;
   padding: 1.2rem 0.25rem;
   border-top: ${({ $idx }) =>
     $idx > 1 ? '0.1rem solid var(--color-gray-light)' : '0'};
   border-bottom: ${({ $idx }) =>
     $idx > 1 ? '0.1rem solid var(--color-gray-light)' : '0'};
-
   width: 100%;
   cursor: pointer;
   position: relative;
 `
 export const SheetText = styled.span`
-  color: var(--colro-black);
+  color: var(--color-black);
   font-size: 1.4rem;
   font-weight: 400;
   line-height: 2.38rem; /* 170% */

@@ -1,17 +1,18 @@
 import { useEffect } from 'react'
 
 import airplaneImg from '@/assets/login/airplane.png'
+import ExitVerificationPage from '@/pages/mypage/exit-verification'
 import { reset, sheet } from '@/store/sheet-slice/sheet-slice'
+import { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
 
 import PageHeader from '@components/page-header'
 import RectangleButton from '@components/rectangle-button'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-import ExitVerificationPage from '../exit-verification'
-// eslint-disable-next-line import/order
-import type { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
 import * as S from './ExitPage.style'
+
+// eslint-disable-next-line import/order
 
 export default function ExitPage() {
   const navigate = useNavigate()

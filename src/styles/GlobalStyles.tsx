@@ -20,9 +20,11 @@ const GlobalStyles = createGlobalStyle`
     --color-white: #FFFFFF;
     --color-black: #333333;
     --color-gray-middle: #787878;
+    --color-gray-semi: #959595;
     --color-gray-light: #DFDFDF;
     --color-gray-bright: #EDEDED;
     --color-caution: #CD0000;
+    --color-gray-bright_bg:#F5F5F5;
   }
 
   *, 

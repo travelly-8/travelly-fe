@@ -5,13 +5,13 @@ import hamburgerClickedIcon from '@/assets/common/hamburger-click.svg'
 import hamburgerIcon from '@/assets/common/hamburger.svg'
 import searchIcon from '@/assets/common/search.svg'
 import { sheet } from '@/store/sheet-slice/sheet-slice.ts'
+import type { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
 
 import CategorySection from '@components/category-section'
 import SearchSheet from '@components/search-sheet'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-import type { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
 import * as S from './Header.style'
 import { IHeaderProps } from './Header.type'
 

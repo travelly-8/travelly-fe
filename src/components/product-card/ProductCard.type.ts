@@ -3,9 +3,14 @@ export interface IProductCardProps {
   size: 'sm' | 'bg' | 'summary'
 }
 
+export interface IProductImages {
+  url: string
+  order: number
+}
+
 export interface IProductCardData {
   id: number
-  imageUrl: string
+  images: IProductImages[]
   name: string
   cityCode: string
   address: string
