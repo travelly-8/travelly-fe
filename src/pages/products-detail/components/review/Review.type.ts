@@ -5,6 +5,7 @@ export interface IProductDetail {
   cityCode: string
   detailAddress: string
   homepage: string
+  images: { url: string; order: number }[]
   name: string
   description: string
   rating: number

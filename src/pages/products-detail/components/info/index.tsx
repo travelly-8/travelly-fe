@@ -1,7 +1,6 @@
 import LocationIcon from '@/assets/products-detail/location.svg'
 import ShareIcon from '@/assets/products-detail/share.svg'
 import StarIcon from '@/assets/products-detail/star.svg'
-import { mockData3 } from '@/constants/MOCK_DATA'
 
 import ImageCarousel from '@components/image-carousel'
 
@@ -15,13 +14,14 @@ const Info: React.FC<IInfoProps> = ({
   address,
   rating,
   reviewCnt,
+  imageArray,
   onShareClick,
 }) => {
   const add = address.split(' ')
   return (
     <S.InfoContainer>
       <S.CarouselContainer>
-        <ImageCarousel images={mockData3} limit={5} />
+        <ImageCarousel images={imageArray} />
       </S.CarouselContainer>
       <S.DescriptionContainer>
         <S.Label>

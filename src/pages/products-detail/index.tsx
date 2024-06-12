@@ -47,6 +47,7 @@ function ProductsDetail() {
     cityCode = '',
     detailAddress = '',
     homepage = '',
+    images,
     name = '',
     description = '',
     rating = 0,
@@ -73,6 +74,7 @@ function ProductsDetail() {
   const city = LOCALE_CODE_LIST[cityCode]
   const district = address?.split(' ')[1]
   const price = ticketDto[0]?.price
+  const imageArray = images?.map((item) => item.url) || []
 
   const sheetReducer = useSelector(
     (state: ISheetSliceState) => state.sheet.value,
@@ -128,6 +130,7 @@ function ProductsDetail() {
           address={`${city} ${district}`}
           rating={rating}
           reviewCnt={111}
+          imageArray={imageArray}
           onShareClick={() => handleSheetDispatch('share-sheet')}
         />
         <BasicInfo
