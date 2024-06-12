@@ -40,7 +40,7 @@ export default function ReviewDetailPage() {
   const handleComment = (e: React.FormEvent) => {
     e.preventDefault()
 
-    if (reviewId === undefined) return
+    if (!reviewId) return
 
     const data = {
       content: inputValue,
