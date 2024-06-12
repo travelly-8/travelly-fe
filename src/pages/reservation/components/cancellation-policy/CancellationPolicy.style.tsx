@@ -4,7 +4,7 @@ export const SectionWrapper = styled.section`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  padding-bottom: 6.5rem;
+  padding-bottom: 2rem;
 `
 
 export const PolicyHeader = styled.h3`
