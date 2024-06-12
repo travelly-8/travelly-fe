@@ -5,7 +5,7 @@ import PageHeader from '@components/page-header'
 
 import CommunityList from './components/community-list'
 import Dashboard from './components/dashboard'
-import MyProductList from './components/my-product-list'
+import MyProduct from './components/my-product'
 import ProfileTab from './components/profile-tab'
 import RecentViewList from './components/recent-view-list'
 import dummyData from './dummyData.json'
@@ -16,7 +16,7 @@ export default function MyPage() {
   const { email, nickname, coin, imageUrl, role, reviews } = dummyData
 
   const PRODUCT_MENU: Record<string, JSX.Element> = {
-    travelly: <MyProductList />, // TODO: 내 상품 데이터 전달
+    travelly: <MyProduct />, // TODO: 내 상품 데이터 전달
     traveller: <RecentViewList />, // TODO: 최근 본 상품 데이터 전달
   }
   return (

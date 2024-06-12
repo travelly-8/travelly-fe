@@ -1,9 +1,9 @@
 import ProductCard from '@components/product-card'
 import { IProductCardData } from '@components/product-card/ProductCard.type'
 
-import * as S from './MyProductList.style'
+import * as S from './MyProduct.style'
 
-const MyProductList = ({ data }: { data?: IProductCardData[] }) => {
+const MyProduct = ({ data }: { data?: IProductCardData[] }) => {
   return (
     <S.Wrapper>
       <S.TitleWrapper>
@@ -23,4 +23,4 @@ const MyProductList = ({ data }: { data?: IProductCardData[] }) => {
   )
 }
 
-export default MyProductList
+export default MyProduct
