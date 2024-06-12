@@ -3,7 +3,7 @@ import { IProductCardData } from '@components/product-card/ProductCard.type'
 
 import * as S from './MyProductList.style'
 
-const MyProductList = ({ data }: { data: IProductCardData[] }) => {
+const MyProductList = ({ data }: { data?: IProductCardData[] }) => {
   return (
     <S.Wrapper>
       <S.TitleWrapper>
@@ -11,7 +11,7 @@ const MyProductList = ({ data }: { data: IProductCardData[] }) => {
         <S.More>더보기&gt;</S.More>
       </S.TitleWrapper>
       <S.CardWrapper>
-        {data.map((product) => {
+        {data?.map((product) => {
           return (
             <div key={product.name}>
               <ProductCard cardData={product} size="sm" />

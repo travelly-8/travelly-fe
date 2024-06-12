@@ -5,17 +5,20 @@ import PageHeader from '@components/page-header'
 
 import CommunityList from './components/community-list'
 import Dashboard from './components/dashboard'
+import MyProductList from './components/my-product-list'
 import ProfileTab from './components/profile-tab'
-import data from './dummyData.json'
+import RecentViewList from './components/recent-view-list'
+import dummyData from './dummyData.json'
 import * as S from './Mypage.style'
 
 export default function MyPage() {
-  const { email, nickname, coin, imageUrl, role, reviews } = data
+  // TODO : '/my' api 연결
+  const { email, nickname, coin, imageUrl, role, reviews } = dummyData
 
-  // const PRODUCT_MENU: Record<string, JSX.Element> = {
-  //   traveler: <MyProductList data={recentViews} />,
-  //   travelly: <RecentViewList data={recentViews} />,
-  // }
+  const PRODUCT_MENU: Record<string, JSX.Element> = {
+    travelly: <MyProductList />, // TODO: 내 상품 데이터 전달
+    traveller: <RecentViewList />, // TODO: 최근 본 상품 데이터 전달
+  }
   return (
     <S.Wrapper>
       <PageHeader>
@@ -27,7 +30,7 @@ export default function MyPage() {
       <ProfileTab data={{ email, nickname, imageUrl }} />
       <Dashboard data={{ role, coin, reviews }} />
       <S.CardListWrapper>
-        {/* {PRODUCT_MENU[role]} */}
+        {PRODUCT_MENU[role]}
         <CommunityList />
       </S.CardListWrapper>
       <S.FooterWrapper>
