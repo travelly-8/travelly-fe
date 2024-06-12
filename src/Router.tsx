@@ -42,7 +42,10 @@ export default function AppRouter() {
         <Route path="/goodbye" element={<GoodbyePage />} />
         <Route path="/auth/callback/:platform" element={<AuthCallback />} />
         <Route path="/review/write" element={<ReviewWritePage />} />
-        <Route path="/review/:reviewId" element={<ReviewDetailPage />} />
+        <Route
+          path="/review/:productId/:reviewId"
+          element={<ReviewDetailPage />}
+        />
         <Route path="/review/list" element={<ReviewList />} />
         <Route path="/reservation/:productId" element={<ReservationPage />} />
       </Routes>
