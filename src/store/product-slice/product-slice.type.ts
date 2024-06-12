@@ -1,3 +1,5 @@
+import { IOperationDays } from '@/types/postProductData.type'
+
 export interface IProductDetail {
   id: number
   address: string
@@ -6,6 +8,7 @@ export interface IProductDetail {
   homepage: string
   images: { url: string; order: number }[]
   name: string
+  operationDays: IOperationDays[]
   description: string
   rating: number
   reviewCount: number

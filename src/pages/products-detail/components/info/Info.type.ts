@@ -1,6 +1,8 @@
+import { IOperationDays } from '@/types/postProductData.type'
+
 export interface IInfoProps {
   productName: string
-  sellingDate: string
+  sellingDate: IOperationDays[] | undefined
   address: string
   rating: number
   reviewCnt: number

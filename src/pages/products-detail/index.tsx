@@ -49,13 +49,13 @@ function ProductsDetail() {
     homepage = '',
     images,
     name = '',
+    operationDays,
     description = '',
     rating = 0,
     reviewCount = 0,
     phoneNumber = '',
     ticketDto = [],
   } = productDetail || {}
-
   const recommendQueryData = {
     page: 0,
     size: 5,
@@ -126,7 +126,7 @@ function ProductsDetail() {
       >
         <Info
           productName={name}
-          sellingDate="2024.00.00~00.00"
+          sellingDate={operationDays}
           address={`${city} ${district}`}
           rating={rating}
           reviewCnt={111}

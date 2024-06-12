@@ -1,6 +1,7 @@
 import LocationIcon from '@/assets/products-detail/location.svg'
 import ShareIcon from '@/assets/products-detail/share.svg'
 import StarIcon from '@/assets/products-detail/star.svg'
+import { formatSellingDate, getFirstAndLastDates } from '@/utils/formatDate'
 
 import ImageCarousel from '@components/image-carousel'
 
@@ -17,6 +18,8 @@ const Info: React.FC<IInfoProps> = ({
   imageArray,
   onShareClick,
 }) => {
+  const { firstDate, lastDate } = getFirstAndLastDates(sellingDate)
+  const formatDate = `${formatSellingDate(firstDate)}~${formatSellingDate(lastDate)}`
   const add = address.split(' ')
   return (
     <S.InfoContainer>
@@ -30,7 +33,7 @@ const Info: React.FC<IInfoProps> = ({
         </S.Label>
         <S.SellingWrapper>
           <S.BlackTextM>판매 일정</S.BlackTextM>
-          <S.BlueText>{sellingDate}</S.BlueText>
+          <S.BlueText>{formatDate}</S.BlueText>
         </S.SellingWrapper>
         <S.LocationWrapper>
           <S.Icon src={LocationIcon} alt="위치 아이콘" />
