@@ -1,22 +1,15 @@
-import { useForm } from 'react-hook-form'
-
-import {
-  IReservationInputProps,
-  IReservationInputState,
-} from './Reservation.type'
+import { IReservationInputProps } from './Reservation.type'
 import * as S from './ReservationInput.style'
 
 const ReservationInput: React.FC<IReservationInputProps> = ({
+  nameRegister,
+  phoneRegister,
+  emailRegister,
+  errors,
+  handleSubmit,
+  onSubmit,
   disabled = false,
 }) => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<IReservationInputState>()
-  const onSubmit = (data: IReservationInputState) => {
-    console.log(data) // 나중에 수정
-  }
   const defaultValues = {
     name: '홍길동',
     phone: '01012345678',
@@ -29,7 +22,7 @@ const ReservationInput: React.FC<IReservationInputProps> = ({
         <S.InputWrapper>
           <S.Label>예약자명</S.Label>
           <S.Input
-            {...register('name', { required: '예약자명을 입력해주세요' })}
+            {...nameRegister}
             type="text"
             placeholder="예약자명"
             defaultValue={disabled ? defaultValues.name : undefined}
@@ -40,13 +33,7 @@ const ReservationInput: React.FC<IReservationInputProps> = ({
         <S.InputWrapper>
           <S.Label>연락처</S.Label>
           <S.Input
-            {...register('phone', {
-              required: '연락처를 입력해주세요',
-              pattern: {
-                value: /^[0-9\b -]{7,13}$/,
-                message: '올바른 연락처 형식을 입력해주세요',
-              },
-            })}
+            {...phoneRegister}
             type="tel"
             placeholder="연락처"
             defaultValue={disabled ? defaultValues.phone : undefined}
@@ -57,13 +44,7 @@ const ReservationInput: React.FC<IReservationInputProps> = ({
         <S.InputWrapper>
           <S.Label>이메일</S.Label>
           <S.Input
-            {...register('email', {
-              required: '이메일을 입력해주세요',
-              pattern: {
-                value: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/,
-                message: '올바른 이메일 형식을 입력해주세요',
-              },
-            })}
+            {...emailRegister}
             type="text"
             placeholder="이메일"
             defaultValue={disabled ? defaultValues.email : undefined}

@@ -21,6 +21,7 @@ const FooterReservation = ({
   productId,
   onPayConfirmClick,
   onPayCancelClick,
+  onSubmit,
 }: IFooter) => {
   const navigate = useNavigate()
   const [isBookmarked, setIsBookmarked] = useState(initialBookmarked)
@@ -28,7 +29,8 @@ const FooterReservation = ({
   const handleButtonClick = () => {
     if (buttontype === 'reservation') {
       navigate(`/reservation/${productId}`)
-    } else if (buttontype === 'payment' && onPayConfirmClick) {
+    } else if (buttontype === 'payment' && onPayConfirmClick && onSubmit) {
+      onSubmit()
       onPayConfirmClick()
     } else if (buttontype === 'cancelPayment' && onPayCancelClick) {
       onPayCancelClick()
@@ -51,7 +53,7 @@ const FooterReservation = ({
           {isReservationProduct && (
             <S.Text>
               <S.DiscountText>{discount}%</S.DiscountText>
-              <S.PriceText>{price?.toLocaleString('ko-KR')}원</S.PriceText>
+              <S.PriceText>{price?.toLocaleString('ko-KR')} 포인트</S.PriceText>
             </S.Text>
           )}
           <RoundButton.Primary onClick={handleButtonClick}>
