@@ -20,11 +20,14 @@ import { useParams } from 'react-router-dom'
 import * as S from './ReviewDetailPage.style'
 
 export default function ReviewDetailPage() {
+  const { productId, reviewId } = useParams()
+  const parsedProductId = productId ? Number(productId) : 0
+  const parsedReviewId = reviewId ? Number(reviewId) : 0
+
   const { data: reviewData, refetch } = useQuery({
     queryKey: ['review-detail'],
-    queryFn: () => getReviewDetail(4, 1),
+    queryFn: () => getReviewDetail(parsedProductId, parsedReviewId),
   })
-  const { reviewId } = useParams()
   const dispatch = useDispatch()
   const sheetReducer = useSelector(
     (state: ISheetSliceState) => state.sheet.value,
