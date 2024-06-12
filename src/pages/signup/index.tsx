@@ -58,7 +58,7 @@ export default function SignupStartPage() {
         </S.StartSNS>
         <S.OtherWay>
           <S.Find>
-            아이디&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;비밀번호 찾기
+            이메일&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;비밀번호 찾기
           </S.Find>
           <S.EmailLogin>이메일로 로그인</S.EmailLogin>
         </S.OtherWay>
