@@ -2,63 +2,16 @@ import { useEffect, useMemo, useState } from 'react'
 
 import searchIcon from '@/assets/common/search.svg'
 import useInfiniteCardsQuery from '@/hooks/api/productsAPI/useInfiniteCardsQuery'
-import { sheet } from '@/store/sheet-slice.ts'
 import { registerRecentSearches } from '@/utils/registerLocalStorage'
 
 import { debounce } from 'lodash'
 import { useForm } from 'react-hook-form'
-import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
+import RecommendedSearches from './RecommendedSearches'
 import * as S from './SearchInput.style'
 
 import type { IFormData } from './SearchInput.type'
-
-interface IReccomendedSearchesProps {
-  suggestList: string[]
-}
-
-const RecommendedSearches: React.FC<IReccomendedSearchesProps> = ({
-  suggestList,
-}) => {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-  const shuffleArray = (array: string[]) => {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1))
-      ;[array[i], array[j]] = [array[j], array[i]]
-    }
-    return array
-  } // 무작위 추천 검색어를 위한 함수
-  const shuffledList = shuffleArray([...suggestList])
-  const randSuggest = shuffledList.slice(0, 3)
-  const suggestlen = randSuggest.length
-  const handleClick = (suggest: string) => {
-    registerRecentSearches(suggest)
-    navigate(`/products?input=${suggest}`)
-    dispatch(sheet({ name: 'search-sheet', status: false, text: '' }))
-  }
-
-  return (
-    <S.SuggestionWrapper>
-      {suggestlen === 0 ? (
-        <S.Suggestion $suggestcnt={suggestlen === 0}>
-          검색 결과가 없습니다.
-        </S.Suggestion>
-      ) : (
-        randSuggest.map((suggest) => (
-          <S.Suggestion
-            onClick={() => handleClick(suggest)}
-            key={suggest}
-            $suggestcnt={suggestlen === 1}
-          >
-            {suggest}
-          </S.Suggestion>
-        ))
-      )}
-    </S.SuggestionWrapper>
-  )
-}
 
 const SearchInput = () => {
   const [keyword, setKeyword] = useState('')
