@@ -75,7 +75,7 @@ export default function ReviewDetailPage() {
       <S.CommentWrapper>
         <S.TitleWrapper>
           <S.Title>댓글</S.Title>
-          <S.NumOfComments numOfComments={reviewData?.data.comments.length}>
+          <S.NumOfComments $numOfComments={reviewData?.data.comments.length}>
             {reviewData?.data.comments.length}
           </S.NumOfComments>
         </S.TitleWrapper>
@@ -89,8 +89,10 @@ export default function ReviewDetailPage() {
           })}
         </S.CommentCardWrapper>
         <S.Background>
-          <S.InputOuterWrapper numOfComments={reviewData?.data.comments.length}>
-            <S.InputWrapper inputValue={inputValue} onSubmit={handleComment}>
+          <S.InputOuterWrapper
+            $numOfComments={reviewData?.data.comments.length}
+          >
+            <S.InputWrapper $inputValue={inputValue} onSubmit={handleComment}>
               <input
                 type="text"
                 placeholder="댓글을 입력해주세요."
@@ -108,10 +110,10 @@ export default function ReviewDetailPage() {
             dispatch(sheet({ name: 'editAndDelete', status: false }))
           }
         >
-          <S.SheetTextWraeppr idx={1}>
+          <S.SheetTextWraeppr $idx={1}>
             <S.SheetText>수정</S.SheetText>
           </S.SheetTextWraeppr>
-          <S.SheetTextWraeppr idx={2}>
+          <S.SheetTextWraeppr $idx={2}>
             <S.SheetText>삭제</S.SheetText>
           </S.SheetTextWraeppr>
         </BottomSheet>

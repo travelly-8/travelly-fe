@@ -35,11 +35,9 @@ export const Title = styled.h2`
   line-height: 3.06rem; /* 170% */
   margin-bottom: 0.8rem;
 `
-export const NumOfComments = styled.p<{ numOfComments: number }>`
-  color: ${(props) =>
-    props.numOfComments === 0
-      ? 'var(--color-gray-middle)'
-      : 'var(--color-main)'};
+export const NumOfComments = styled.p<{ $numOfComments: number }>`
+  color: ${({ $numOfComments }) =>
+    $numOfComments === 0 ? 'var(--color-gray-middle)' : 'var(--color-main)'};
   font-size: 1.8rem;
   font-style: normal;
   font-weight: 500;
@@ -65,14 +63,16 @@ export const Background = styled.div`
   }
 `
 
-export const InputOuterWrapper = styled.div<{ numOfComments: number }>`
-  padding: ${(props) => (props.numOfComments === 0 ? '0' : '0.8rem 0rem')};
-  margin: ${(props) => (props.numOfComments === 0 ? '0 2rem' : '1.6rem 2rem')};
-  border-top: ${(prop) =>
-    prop.numOfComments === 0 ? 'none' : '0.1rem solid var(--color-gray-light)'};
+export const InputOuterWrapper = styled.div<{ $numOfComments: number }>`
+  padding: ${({ $numOfComments }) =>
+    $numOfComments === 0 ? '0' : '0.8rem 0rem'};
+  margin: ${({ $numOfComments }) =>
+    $numOfComments === 0 ? '0 2rem' : '1.6rem 2rem'};
+  border-top: ${({ $numOfComments }) =>
+    $numOfComments === 0 ? 'none' : '0.1rem solid var(--color-gray-light)'};
 `
 
-export const InputWrapper = styled.form<{ inputValue: string }>`
+export const InputWrapper = styled.form<{ $inputValue: string }>`
   border-radius: 0.5rem;
   background: var(--color-gray-bright);
   height: 4rem;
@@ -82,8 +82,8 @@ export const InputWrapper = styled.form<{ inputValue: string }>`
 
   button {
     background-color: transparent;
-    color: ${(props) =>
-      props.inputValue.length > 0 ? 'var(--color-main)' : 'var(--color-black)'};
+    color: ${({ $inputValue }) =>
+      $inputValue.length > 0 ? 'var(--color-main)' : 'var(--color-black)'};
     font-size: 1.4rem;
     font-style: normal;
     font-weight: 500;
@@ -100,16 +100,13 @@ export const InputWrapper = styled.form<{ inputValue: string }>`
   }
 `
 
-interface ISheet {
-  idx: number
-}
-export const SheetTextWraeppr = styled.div<ISheet>`
+export const SheetTextWraeppr = styled.div<{ $idx: number }>`
   display: flex;
   padding: 1.2rem 0.25rem;
-  border-top: ${(props) =>
-    props.idx > 1 ? '0.1rem solid var(--color-gray-light)' : '0'};
-  border-bottom: ${(props) =>
-    props.idx > 1 ? '0.1rem solid var(--color-gray-light)' : '0'};
+  border-top: ${({ $idx }) =>
+    $idx > 1 ? '0.1rem solid var(--color-gray-light)' : '0'};
+  border-bottom: ${({ $idx }) =>
+    $idx > 1 ? '0.1rem solid var(--color-gray-light)' : '0'};
 
   width: 100%;
   cursor: pointer;
