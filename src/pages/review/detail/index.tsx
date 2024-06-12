@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { getReveiwDetail, postComment } from '@/api/reviewAPI'
+import { getReviewDetail, postComment } from '@/api/reviewAPI'
 import ReviewPage from '@/pages/products-detail/components/review/ReviewPage'
 import CommentCard from '@/pages/review/components/comment-card'
 import { comment } from '@/store/comment-slice/comment-slice'
@@ -22,7 +22,7 @@ import * as S from './ReviewDetailPage.style'
 export default function ReviewDetailPage() {
   const { data: reviewData, refetch } = useQuery({
     queryKey: ['review-detail'],
-    queryFn: () => getReveiwDetail(4, 1),
+    queryFn: () => getReviewDetail(4, 1),
   })
   const { reviewId } = useParams()
   const dispatch = useDispatch()

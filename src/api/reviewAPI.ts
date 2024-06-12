@@ -33,7 +33,7 @@ export const postReview = (productId: number, data: IReviewRequest) => {
   })
 }
 
-export const getReveiwDetail = (productId: number, reviewId: number) => {
+export const getReviewDetail = (productId: number, reviewId: number) => {
   return instance({
     method: 'GET',
     url: API_REVIEW.REVIEW_DETAIL(productId, reviewId),

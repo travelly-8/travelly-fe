@@ -106,7 +106,7 @@ export const SheetTextWrapper = styled.div<{ $idx: number }>`
   position: relative;
 `
 export const SheetText = styled.span`
-  color: var(--colro-black);
+  color: var(--color-black);
   font-size: 1.4rem;
   font-weight: 400;
   line-height: 2.38rem; /* 170% */
