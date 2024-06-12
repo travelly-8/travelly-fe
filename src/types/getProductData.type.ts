@@ -11,7 +11,7 @@ export interface IProduct {
   name: string
   type: string
   description: string
-  images: IProductImages
+  images: IProductImages[]
   address: string
   detailAddress: string
   phoneNumber: string

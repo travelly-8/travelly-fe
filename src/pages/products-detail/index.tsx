@@ -157,7 +157,7 @@ function ProductsDetail() {
           isReservationProduct={true}
           discount={0}
           price={price}
-          buttonType="reservation"
+          buttontype="reservation"
           productId={productId}
         />
         <SheetRenderer shareSheetProps={shareSheetProps} />

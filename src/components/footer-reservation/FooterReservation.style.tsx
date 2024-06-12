@@ -1,8 +1,6 @@
 import BookmarkButton from '@components/bookmark-button'
 import styled from 'styled-components'
 
-import { IButtonType } from './FooterReservation.type'
-
 export const FooterContainer = styled.footer`
   position: sticky;
   bottom: 0;
@@ -24,10 +22,10 @@ export const FooterBookmarkButton = styled(BookmarkButton)`
   width: 3.6rem;
   height: 3.6rem;
 `
-export const RightSection = styled.div<IButtonType>`
+export const RightSection = styled.div<{ $buttontype: string }>`
   display: flex;
-  justify-content: ${({ buttonType }) =>
-    buttonType === 'reservation' ? 'flex-end' : 'space-between'};
+  justify-content: ${({ $buttontype }) =>
+    $buttontype === 'reservation' ? 'flex-end' : 'space-between'};
   align-items: center;
   gap: 3rem;
   width: 100%;

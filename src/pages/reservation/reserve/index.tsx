@@ -1,6 +1,5 @@
 import { useCallback, useState } from 'react'
 
-import ReviewProductCard from '@/components/review-product-card'
 import SheetRenderer from '@/pages/products-detail/components/sheet-renderer'
 import { ISheetComponents } from '@/pages/products-detail/ProductsDetail.type'
 import CancellationPolicy from '@/pages/reservation/components/cancellation-policy'
@@ -43,9 +42,9 @@ function ReservationPage() {
         <S.HeaderTitle>상품 예약하기</S.HeaderTitle>
       </PageHeader>
       <S.PageContainer>
-        <S.CardWrapper>
+        {/* <S.CardWrapper>
           <ReviewProductCard />
-        </S.CardWrapper>
+        </S.CardWrapper> */}
         <S.CheckBoxWrapper>
           <CheckBox text="계정정보 가져오기" />
         </S.CheckBoxWrapper>
@@ -88,7 +87,7 @@ function ReservationPage() {
         isReservationProduct={true}
         price={0}
         discount={0}
-        buttonType="payment"
+        buttontype="payment"
         onPayConfirmClick={() => handleSheetDispatch('pay-confirm-sheet')}
       />
       <SheetRenderer payConfirmProps={payConfirmProps} />

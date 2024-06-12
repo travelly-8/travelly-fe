@@ -17,7 +17,7 @@ const FooterReservation = ({
   isReservationProduct,
   discount,
   price,
-  buttonType,
+  buttontype,
   productId,
   onPayConfirmClick,
 }: IFooter) => {
@@ -25,9 +25,9 @@ const FooterReservation = ({
   const [isBookmarked, setIsBookmarked] = useState(initialBookmarked)
 
   const handleButtonClick = () => {
-    if (buttonType === 'reservation') {
+    if (buttontype === 'reservation') {
       navigate(`/reservation/${productId}`)
-    } else if (buttonType === 'payment' && onPayConfirmClick) {
+    } else if (buttontype === 'payment' && onPayConfirmClick) {
       onPayConfirmClick()
     }
   }
@@ -35,7 +35,7 @@ const FooterReservation = ({
   return (
     <S.FooterContainer>
       <S.Wrapper>
-        {buttonType === 'reservation' && (
+        {buttontype === 'reservation' && (
           <S.FooterBookmarkButton
             isBookmarked={isBookmarked}
             onClick={() => {
@@ -44,7 +44,7 @@ const FooterReservation = ({
             position="static"
           />
         )}
-        <S.RightSection buttonType={buttonType}>
+        <S.RightSection $buttontype={buttontype}>
           {isReservationProduct && (
             <S.Text>
               <S.DiscountText>{discount}%</S.DiscountText>
@@ -52,7 +52,7 @@ const FooterReservation = ({
             </S.Text>
           )}
           <RoundButton.Primary onClick={handleButtonClick}>
-            {buttonText[buttonType]}
+            {buttonText[buttontype]}
           </RoundButton.Primary>
         </S.RightSection>
       </S.Wrapper>

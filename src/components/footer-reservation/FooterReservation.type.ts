@@ -3,11 +3,11 @@ export interface IFooter extends IButtonType {
   isReservationProduct: boolean
   discount?: number
   price?: number
-  buttonType: 'reservation' | 'payment' | 'cancelPayment'
+  buttontype: 'reservation' | 'payment' | 'cancelPayment'
   productId?: string
   onPayConfirmClick?: () => void
 }
 
 export interface IButtonType {
-  buttonType: 'reservation' | 'payment' | 'cancelPayment'
+  buttontype: 'reservation' | 'payment' | 'cancelPayment'
 }
