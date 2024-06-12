@@ -94,7 +94,7 @@ export const InputWrapper = styled.form<{ $inputValue: string }>`
   }
 `
 
-export const SheetTextWraeppr = styled.div<{ $idx: number }>`
+export const SheetTextWrapper = styled.div<{ $idx: number }>`
   display: flex;
   padding: 1.2rem 0.25rem;
   border-top: ${({ $idx }) =>
