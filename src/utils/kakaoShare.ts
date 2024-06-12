@@ -7,8 +7,8 @@ function shareMessage(
   url: string,
   commentCount: number,
 ) {
-  if (window.Kakao && window.Kakao.Share) {
-    window.Kakao.Share.sendDefault({
+  if (window.kakao && window.kakao.Share) {
+    window.kakao.Share.sendDefault({
       objectType: 'location',
       address: address,
       addressTitle: addressTitle,

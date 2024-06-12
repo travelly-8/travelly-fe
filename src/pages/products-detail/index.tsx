@@ -105,14 +105,14 @@ function ProductsDetail() {
   if (isPhotoReviewsSheet) return <PhotoReviewsSheet reviewImg={reviewImg} />
 
   const shareSheetProps = {
-    address: address,
-    addressTitle: detailAddress,
-    title: name,
-    description: description,
+    address: address || '',
+    addressTitle: detailAddress || '',
+    title: name || '',
+    description: description || '',
     imageUrl:
       'https://img8.yna.co.kr/etc/inner/KR/2018/01/17/AKR20180117116400007_02_i_P4.jpg',
-    commentCount: reviewCount,
-  }
+    commentCount: reviewCount || 0,
+  } as const
 
   return (
     <>

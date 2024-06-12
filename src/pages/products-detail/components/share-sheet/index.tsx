@@ -23,9 +23,9 @@ function ShareSheet({
   }
 
   useEffect(() => {
-    window.Kakao.cleanup()
-    window.Kakao.init(import.meta.env.VITE_APP_KAKAO_KEY)
-    window.Kakao.isInitialized()
+    window.kakao.cleanup()
+    window.kakao.init(import.meta.env.VITE_APP_KAKAO_KEY)
+    window.kakao.isInitialized()
   }, [])
 
   return (

@@ -1,7 +1,7 @@
 import refreshIcon from '@/assets/home/refresh.svg'
 
+import CalendarInput from '@components/calendar-input'
 import GrabSheet from '@components/grab-sheet'
-import RangeCalendarInput from '@components/range-calendar-input'
 import RoundButton from '@components/round-button'
 import { useForm } from 'react-hook-form'
 
@@ -11,17 +11,15 @@ const CalendarSheet = () => {
   const { control, watch, reset } = useForm()
 
   return (
-    <div>
-      <GrabSheet name="calendar-sheet" align="center">
-        <RangeCalendarInput formLabel="form" control={control} />
-        <S.Buttons>
-          <S.RefreshButton>
-            <S.Icon src={refreshIcon} /> 초기화
-          </S.RefreshButton>
-          <RoundButton.Primary>필터 적용</RoundButton.Primary>
-        </S.Buttons>
-      </GrabSheet>
-    </div>
+    <GrabSheet name="calendar-sheet" align="center">
+      <CalendarInput control={control} formLabel="date" />
+      <S.Buttons>
+        <S.RefreshButton onClick={reset}>
+          <S.Icon src={refreshIcon} /> 초기화
+        </S.RefreshButton>
+        <RoundButton.Primary>날짜 선택</RoundButton.Primary>
+      </S.Buttons>
+    </GrabSheet>
   )
 }
 

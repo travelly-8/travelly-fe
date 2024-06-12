@@ -50,15 +50,53 @@ declare namespace kakao.maps {
   function load(callback: () => void): void
 }
 
+declare namespace kakao {
+  function cleanup(): void
+  function init(appKey: string): void
+  function isInitialized(): boolean
+
+  namespace Share {
+    function sendDefault(options: ShareOptions): void
+
+    interface ShareOptions {
+      objectType: string
+      address: string
+      addressTitle: string
+      content: {
+        title: string
+        description: string
+        imageUrl: string
+        link: {
+          mobileWebUrl: string
+          webUrl: string
+        }
+      }
+      social: {
+        commentCount: number
+      }
+      buttons: Array<{
+        title: string
+        link: {
+          mobileWebUrl: string
+          webUrl: string
+        }
+      }>
+    }
+  }
+}
+
 interface IKakaoAddressResult {
   y: string
   x: string
 }
 
 interface Window {
-  kakao: IKakaoNamespace
-}
-
-interface IKakaoNamespace {
-  maps: typeof kakao.maps
+  kakao: typeof kakao & {
+    cleanup: () => void
+    init: (appKey: string) => void
+    isInitialized: () => boolean
+    Share: {
+      sendDefault: (options: kakao.Share.ShareOptions) => void
+    }
+  }
 }

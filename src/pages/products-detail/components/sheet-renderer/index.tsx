@@ -1,15 +1,16 @@
 import EditSheet from '@/pages/products-detail/components/edit-sheet'
 import ReviewOrderSheet from '@/pages/products-detail/components/review-order-sheet'
 import ShareSheet from '@/pages/products-detail/components/share-sheet'
-import type {
-  ISheetComponents,
-  ISheetRendererProps,
-} from '@/pages/products-detail/components/sheet-renderer/SheetRenderer.type'
 import CalendarSheet from '@/pages/reservation/components/sheet/calendar-sheet'
 import PayConfirmSheet from '@/pages/reservation/components/sheet/pay-confirm-sheet'
 import type { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
 
 import { useSelector } from 'react-redux'
+
+import type {
+  ISheetComponents,
+  ISheetRendererProps,
+} from './SheetRenderer.type'
 
 const sheetComponents: ISheetComponents = {
   'review-order-sheet': ReviewOrderSheet,
@@ -19,7 +20,10 @@ const sheetComponents: ISheetComponents = {
   'pay-confirm-sheet': PayConfirmSheet,
 }
 
-function SheetRenderer({ shareSheetProps }: ISheetRendererProps) {
+function SheetRenderer({
+  shareSheetProps,
+  payConfirmProps,
+}: ISheetRendererProps) {
   const sheetReducer = useSelector(
     (state: ISheetSliceState) => state.sheet.value,
   )
@@ -27,14 +31,16 @@ function SheetRenderer({ shareSheetProps }: ISheetRendererProps) {
     ? sheetComponents[sheetReducer.name as keyof ISheetComponents]
     : null
 
-  const sheetProps = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const sheetProps: Partial<Record<keyof ISheetComponents, any>> = {
     'share-sheet': shareSheetProps,
+    'pay-confirm-sheet': payConfirmProps,
   }
 
+  const sheetName = sheetReducer.name as keyof ISheetComponents
+
   return SheetComponent ? (
-    <SheetComponent
-      {...(sheetProps[sheetReducer.name as keyof typeof sheetProps] || {})}
-    />
+    <SheetComponent {...(sheetProps[sheetName] || {})} />
   ) : null
 }
 

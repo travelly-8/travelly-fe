@@ -19,6 +19,7 @@ const FooterReservation = ({
   price,
   buttonType,
   productId,
+  onPayConfirmClick,
 }: IFooter) => {
   const navigate = useNavigate()
   const [isBookmarked, setIsBookmarked] = useState(initialBookmarked)
@@ -26,6 +27,8 @@ const FooterReservation = ({
   const handleButtonClick = () => {
     if (buttonType === 'reservation') {
       navigate(`/reservation/${productId}`)
+    } else if (buttonType === 'payment' && onPayConfirmClick) {
+      onPayConfirmClick()
     }
   }
 

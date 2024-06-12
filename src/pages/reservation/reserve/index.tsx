@@ -6,6 +6,7 @@ import { ISheetComponents } from '@/pages/products-detail/ProductsDetail.type'
 import CancellationPolicy from '@/pages/reservation/components/cancellation-policy'
 import ReservationDateSection from '@/pages/reservation/components/reservation-date-section'
 import ReservationInput from '@/pages/reservation/components/reservation-input'
+import type { IPaySheet } from '@/pages/reservation/components/sheet/PaySheet.type'
 import TicketCountSection from '@/pages/reservation/components/ticket-count-section'
 import { sheet } from '@/store/sheet-slice/sheet-slice'
 
@@ -29,6 +30,11 @@ function ReservationPage() {
 
   const handleRadioChange = () => {
     setIsRadioChecked(!isRadioChecked)
+  }
+
+  const payConfirmProps: IPaySheet = {
+    userPoint: 1000,
+    productPoint: 1000,
   }
 
   return (
@@ -85,7 +91,7 @@ function ReservationPage() {
         buttonType="payment"
         onPayConfirmClick={() => handleSheetDispatch('pay-confirm-sheet')}
       />
-      <SheetRenderer />
+      <SheetRenderer payConfirmProps={payConfirmProps} />
     </>
   )
 }
