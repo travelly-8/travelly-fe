@@ -19,7 +19,6 @@ import Description from './components/description'
 import Footer from './components/footer'
 import Info from './components/info'
 import RecommendCard from './components/recommend-card'
-import Review from './components/review'
 import SheetRenderer from './components/sheet-renderer'
 import { reviewData as const_review_data, mockCard } from './mockData'
 import * as S from './ProductsDetail.style'
@@ -143,14 +142,15 @@ function ProductsDetail() {
             recommendProductData?.length > 0 ? recommendProductData : mockCard
           }
         />
-        <Review
+        {/* TODO: 상품 상세 조회에서 리뷰 데이터 받아와서 교체ㄴ */}
+        {/* <Review
           reviewCnt={reviewCount}
           reviewImg={reviewImg}
           reviewData={const_review_data}
           onOrderClick={() => handleSheetDispatch('review-order-sheet')}
           onEditClick={() => handleSheetDispatch('edit-sheet')}
           onPhotoReviewsClick={handlePhotoReviewsClick}
-        />
+        /> */}
         <Footer
           isBookmarked={true}
           isReservationProduct={true}
