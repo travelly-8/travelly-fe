@@ -30,7 +30,7 @@ function ReservedDetailPage() {
     productPoint: 1000,
   }
   return (
-    <div>
+    <>
       <PageHeader>
         <S.HeaderTitle>상품 예약 상세</S.HeaderTitle>
       </PageHeader>
@@ -74,7 +74,7 @@ function ReservedDetailPage() {
         onPayCancelClick={() => handleSheetDispatch('pay-cancel-sheet')}
       />
       <SheetRenderer payCancelProps={payCancelProps} />
-    </div>
+    </>
   )
 }
 
