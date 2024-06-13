@@ -3,7 +3,6 @@ import bellIcon from '@/assets/mypage/bell.svg'
 import FooterNavigation from '@components/footer-navigation'
 import PageHeader from '@components/page-header'
 
-import CommunityList from './components/community-list'
 import Dashboard from './components/dashboard'
 import MyProduct from './components/my-product'
 import ProfileTab from './components/profile-tab'
@@ -29,10 +28,7 @@ export default function MyPage() {
       </PageHeader>
       <ProfileTab data={{ email, nickname, imageUrl }} />
       <Dashboard data={{ role, coin, reviews }} />
-      <S.CardListWrapper>
-        {PRODUCT_MENU[role]}
-        <CommunityList />
-      </S.CardListWrapper>
+      <S.CardListWrapper>{PRODUCT_MENU[role]}</S.CardListWrapper>
       <S.FooterWrapper>
         <FooterNavigation />
       </S.FooterWrapper>
