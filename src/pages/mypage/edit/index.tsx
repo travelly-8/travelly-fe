@@ -79,6 +79,7 @@ export default function MyPageEditPage() {
     putMemberNickname({ nickname: newNickname })
       .then(() => {
         refetch()
+        controlSheet('nickname', false)
       })
       .catch((err) => {
         console.error(err)
@@ -140,6 +141,7 @@ export default function MyPageEditPage() {
           <S.PenImg src={purplePenSvg} alt="프로필 수정" />
         </S.ImgWrapper>
         <S.NicknameWrapper>
+          <S.EmptyBlock />
           <S.Nickname>{data?.nickname}</S.Nickname>
           <S.Edit onClick={() => controlSheet('nickname', true)}>수정</S.Edit>
         </S.NicknameWrapper>
