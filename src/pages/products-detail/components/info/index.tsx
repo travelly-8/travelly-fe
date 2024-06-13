@@ -1,9 +1,10 @@
 import LocationIcon from '@/assets/products-detail/location.svg'
 import ShareIcon from '@/assets/products-detail/share.svg'
 import StarIcon from '@/assets/products-detail/star.svg'
-import { formatSellingDate, getFirstAndLastDates } from '@/utils/formatDate'
+import { getFirstAndLastDates } from '@/utils/formatDate'
 
 import ImageCarousel from '@components/image-carousel'
+import { format } from 'date-fns'
 
 import * as S from './Info.style'
 
@@ -19,10 +20,14 @@ const Info: React.FC<IInfoProps> = ({
   onShareClick,
 }) => {
   const { firstDate, lastDate } = getFirstAndLastDates(sellingDate)
-  const formatDate = `${formatSellingDate(firstDate)}~${formatSellingDate(lastDate)}`
+  const formatDate =
+    firstDate && lastDate
+      ? `${format(firstDate, 'yyyy.MM.dd')}~${format(lastDate, 'yyyy.MM.dd')}`
+      : 'N/A'
   const add = address.split(' ')
   return (
     <S.InfoContainer>
+      s
       <S.CarouselContainer>
         <ImageCarousel images={imageArray} />
       </S.CarouselContainer>

@@ -5,14 +5,8 @@ export const getFirstAndLastDates = (arr: IOperationDays[] | undefined) => {
     return { firstDate: null, lastDate: null }
   }
 
-  const firstDate = arr[0].date
-  const lastDate = arr[arr.length - 1].date
+  const firstDate = new Date(arr[0].date)
+  const lastDate = new Date(arr[arr.length - 1].date)
 
   return { firstDate, lastDate }
-}
-
-export const formatSellingDate = (date: string | null) => {
-  if (!date) return '0000.00.00'
-  const [year, month, day] = date.split('-')
-  return `${year}.${month}.${day}`
 }
