@@ -1,26 +1,16 @@
-import { useEffect, useState } from 'react'
-
 import bubble from '@/assets/signup/bubble.png'
 import google from '@/assets/signup/google.png'
 import naver from '@/assets/signup/naver.svg'
 import signup from '@/assets/signup/signup.png'
 
+import PageHeader from '@components/page-header'
 import RectangleButton from '@components/rectangle-button'
 import { useNavigate } from 'react-router-dom'
 
 import * as S from './SignupStartPage.style'
-import SplashPage from './splash'
 
 export default function SignupStartPage() {
-  const [isSplashOn, setIsSplashOn] = useState(true)
   const navigate = useNavigate()
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsSplashOn(false)
-    }, 1000)
-    return () => clearTimeout(timer)
-  }, [])
 
   const handleNaverLogin = () => {
     const clientId = 'Ka9kJLyk9psbYa8p1OGf'
@@ -42,10 +32,13 @@ export default function SignupStartPage() {
     window.location.href = googleAuthUrl
   }
 
-  if (isSplashOn) {
-    return <SplashPage />
-  } else {
-    return (
+  return (
+    <>
+      <PageHeader border={false}>
+        <S.Content>
+          <S.Title>로그인</S.Title>
+        </S.Content>
+      </PageHeader>
       <S.Wrapper>
         <S.Image src={signup} alt="signup" />
         <RectangleButton size="medium" onClick={() => navigate('/signup')}>
@@ -63,6 +56,6 @@ export default function SignupStartPage() {
           <S.EmailLogin>이메일로 로그인</S.EmailLogin>
         </S.OtherWay>
       </S.Wrapper>
-    )
-  }
+    </>
+  )
 }

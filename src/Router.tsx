@@ -23,13 +23,16 @@ import SignupStartPage from './pages/signup'
 import SignupEndPage from './pages/signup/end'
 import SignupPage from './pages/signup/signup'
 import SelectPlanRouter from './router/SelectPlanRouter'
+import SplashRouter from './router/SplashRouter'
 
 export default function AppRouter() {
   return (
     <BrowserRouter>
       <GlobalStyles />
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route element={<SplashRouter />}>
+          <Route path="/" element={<HomePage />} />
+        </Route>
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/products/:productId" element={<ProductsDetail />} />
         <Route path="/products/create" element={<ProductCreatePage />} />

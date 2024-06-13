@@ -6,10 +6,15 @@ import { useNavigate } from 'react-router-dom'
 
 import * as S from './PageHeader.style'
 
-const PageHeader = ({ children }: { children: ReactNode }) => {
+interface IPageHeader {
+  children: ReactNode
+  border?: boolean
+}
+
+const PageHeader = ({ children, border = true }: IPageHeader) => {
   const navigate = useNavigate()
   return (
-    <S.Wrapper>
+    <S.Wrapper $border={border}>
       <S.Icon src={backIcon} alt="창 닫기" onClick={() => navigate(-1)} />
       {children}
     </S.Wrapper>

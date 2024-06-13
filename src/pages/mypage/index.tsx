@@ -20,7 +20,7 @@ export default function MyPage() {
   }
   return (
     <S.Wrapper>
-      <PageHeader>
+      <PageHeader border={false}>
         <S.Content>
           <S.Title>마이페이지</S.Title>
           <S.Bell src={bellIcon} alt="알림" />
