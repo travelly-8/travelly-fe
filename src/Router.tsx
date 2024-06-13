@@ -1,3 +1,4 @@
+import ReservedDetailPage from '@/pages/reservation/reserved-detail'
 import GlobalStyles from '@/styles/GlobalStyles'
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
@@ -52,6 +53,10 @@ export default function AppRouter() {
         />
         <Route path="/review/list" element={<ReviewList />} />
         <Route path="/reservation/:productId" element={<ReservationPage />} />
+        <Route
+          path="/reservation-detail/:productId"
+          element={<ReservedDetailPage />}
+        />
       </Routes>
     </BrowserRouter>
   )

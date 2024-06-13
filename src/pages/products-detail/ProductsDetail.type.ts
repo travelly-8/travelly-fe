@@ -8,4 +8,7 @@ export interface ISheetComponents {
   'edit-sheet': React.ComponentType
   'calendar-sheet': React.ComponentType
   'pay-confirm-sheet': React.ComponentType<IPaySheet>
+  'pay-cancel-sheet': React.ComponentType<IPaySheet>
 }
+
+export interface IImagesType {}

@@ -1,9 +1,10 @@
 import LocationIcon from '@/assets/products-detail/location.svg'
 import ShareIcon from '@/assets/products-detail/share.svg'
 import StarIcon from '@/assets/products-detail/star.svg'
-import { mockData3 } from '@/constants/MOCK_DATA'
+import { getDateArray } from '@/utils/formatDate'
 
 import ImageCarousel from '@components/image-carousel'
+import { format } from 'date-fns'
 
 import * as S from './Info.style'
 
@@ -15,13 +16,20 @@ const Info: React.FC<IInfoProps> = ({
   address,
   rating,
   reviewCnt,
+  imageArray,
   onShareClick,
 }) => {
+  const { firstDate, lastDate } = getDateArray(sellingDate)
+  const formatDate =
+    firstDate && lastDate
+      ? `${format(firstDate, 'yyyy.MM.dd')}~${format(lastDate, 'yyyy.MM.dd')}`
+      : 'N/A'
   const add = address.split(' ')
+
   return (
     <S.InfoContainer>
       <S.CarouselContainer>
-        <ImageCarousel images={mockData3} limit={5} />
+        <ImageCarousel images={imageArray} />
       </S.CarouselContainer>
       <S.DescriptionContainer>
         <S.Label>
@@ -30,7 +38,7 @@ const Info: React.FC<IInfoProps> = ({
         </S.Label>
         <S.SellingWrapper>
           <S.BlackTextM>판매 일정</S.BlackTextM>
-          <S.BlueText>{sellingDate}</S.BlueText>
+          <S.BlueText>{formatDate}</S.BlueText>
         </S.SellingWrapper>
         <S.LocationWrapper>
           <S.Icon src={LocationIcon} alt="위치 아이콘" />

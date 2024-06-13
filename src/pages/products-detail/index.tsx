@@ -47,14 +47,15 @@ function ProductsDetail() {
     cityCode = '',
     detailAddress = '',
     homepage = '',
+    images,
     name = '',
+    operationDays,
     description = '',
     rating = 0,
     reviewCount = 0,
     phoneNumber = '',
     ticketDto = [],
   } = productDetail || {}
-
   const recommendQueryData = {
     page: 0,
     size: 5,
@@ -73,6 +74,7 @@ function ProductsDetail() {
   const city = LOCALE_CODE_LIST[cityCode]
   const district = address?.split(' ')[1]
   const price = ticketDto[0]?.price
+  const imageArray = images?.map((item) => item.url) || []
 
   const sheetReducer = useSelector(
     (state: ISheetSliceState) => state.sheet.value,
@@ -124,10 +126,11 @@ function ProductsDetail() {
       >
         <Info
           productName={name}
-          sellingDate="2024.00.00~00.00"
+          sellingDate={operationDays}
           address={`${city} ${district}`}
           rating={rating}
           reviewCnt={111}
+          imageArray={imageArray}
           onShareClick={() => handleSheetDispatch('share-sheet')}
         />
         <BasicInfo

@@ -11,7 +11,7 @@ import * as S from '../PaySheet.styles.tsx'
 const PayCancelSheet = ({ userPoint, productPoint }: IPaySheet) => {
   const dispatch = useDispatch()
   const handleConfirm = () => {
-    dispatch(sheet({ name: 'pay-confirm', status: false }))
+    dispatch(sheet({ name: 'pay-cancel', status: false }))
   }
 
   return (

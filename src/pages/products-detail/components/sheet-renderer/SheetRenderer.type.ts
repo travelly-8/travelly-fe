@@ -5,6 +5,7 @@ import type { IShareSheetProps } from '../share-sheet/ShareSheet.type'
 export interface ISheetRendererProps {
   shareSheetProps?: IShareSheetProps
   payConfirmProps?: IPaySheet
+  payCancelProps?: IPaySheet
 }
 
 export interface ISheetComponents {
@@ -13,4 +14,5 @@ export interface ISheetComponents {
   'edit-sheet': React.ComponentType
   'calendar-sheet': React.ComponentType
   'pay-confirm-sheet': React.ComponentType<IPaySheet>
+  'pay-cancel-sheet': React.ComponentType<IPaySheet>
 }

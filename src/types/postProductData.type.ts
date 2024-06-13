@@ -21,11 +21,11 @@ interface ITicketPrice {
   [ticketName: string]: number
 }
 
-interface IOperationDays {
+export interface IOperationDays {
   date: string
   operationDayHours: IOperationDayHours[]
 }
-interface IOperationDayHours {
+export interface IOperationDayHours {
   startTime: string
   endTime: string
 }
