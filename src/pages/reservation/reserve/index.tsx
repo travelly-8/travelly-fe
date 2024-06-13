@@ -50,7 +50,7 @@ function ReservationPage() {
         </S.CheckBoxWrapper>
         <ReservationInput />
         <S.TicketInfo>
-          <TicketCountSection />
+          <TicketCountSection isInput />
           <ReservationDateSection
             onCalendarClick={() => handleSheetDispatch('calendar-sheet')}
           />

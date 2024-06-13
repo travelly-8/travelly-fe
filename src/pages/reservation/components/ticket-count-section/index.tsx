@@ -8,7 +8,7 @@ interface ITicketCounts {
   [key: string]: number
 }
 
-function TicketCountSection() {
+function TicketCountSection({ isInput = true }: { isInput: boolean }) {
   const initialCounts: ITicketCounts = mockTicket.reduce((acc, ticketType) => {
     acc[ticketType] = 0
     return acc
@@ -38,9 +38,15 @@ function TicketCountSection() {
           <S.Ticket key={ticketType}>
             <S.TicketType>{ticketType}</S.TicketType>
             <S.TicketCount>
-              <S.MinusButton onClick={() => handleDecrease(ticketType)} />
-              <S.Count>{ticketCounts[ticketType]}개</S.Count>
-              <S.PlusButton onClick={() => handleIncrease(ticketType)} />
+              {isInput ? (
+                <>
+                  <S.MinusButton onClick={() => handleDecrease(ticketType)} />
+                  <S.Count>{ticketCounts[ticketType]}개</S.Count>
+                  <S.PlusButton onClick={() => handleIncrease(ticketType)} />
+                </>
+              ) : (
+                <S.Count>{ticketCounts[ticketType]}개</S.Count>
+              )}
             </S.TicketCount>
           </S.Ticket>
         ))}
