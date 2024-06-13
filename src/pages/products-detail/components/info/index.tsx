@@ -28,7 +28,6 @@ const Info: React.FC<IInfoProps> = ({
 
   return (
     <S.InfoContainer>
-      s
       <S.CarouselContainer>
         <ImageCarousel images={imageArray} />
       </S.CarouselContainer>
