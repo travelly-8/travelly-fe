@@ -3,7 +3,7 @@ import { getAccessToken, refreshAccessToken } from '@/utils/tokenStorage'
 
 import axios from 'axios'
 
-const baseURL = 'http://3.36.62.116:8080'
+const baseURL = 'http://13.125.227.242:8080'
 
 const fileInstance = axios.create({
   baseURL: baseURL,
