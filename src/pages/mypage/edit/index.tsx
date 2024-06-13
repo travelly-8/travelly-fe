@@ -78,7 +78,6 @@ export default function MyPageEditPage() {
   const saveNewNickname = () => {
     putMemberNickname({ nickname: newNickname })
       .then(() => {
-        controlSheet('nickname', false)
         refetch()
       })
       .catch((err) => {

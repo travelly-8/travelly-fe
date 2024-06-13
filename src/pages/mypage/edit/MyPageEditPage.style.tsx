@@ -83,6 +83,13 @@ export const FooterWrapper = styled.div`
   width: 100%;
   position: fixed;
   bottom: 0%;
+
+  @media screen and (max-width: 767px) {
+    width: 100%;
+  }
+  @media screen and (min-width: 768px) {
+    width: 360px;
+  }
 `
 
 export const MenuWrapper = styled.div`

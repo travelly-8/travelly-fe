@@ -14,7 +14,7 @@ interface IBlurSheet {
 const BlurSheet = ({ children, title, buttonClick }: IBlurSheet) => {
   return (
     <S.Wrapper>
-      <SheetHeader sheetName="edit-nickname">
+      <SheetHeader sheetName="nickname">
         <S.Content>
           <S.Title>{title}</S.Title>
           <S.Button onClick={buttonClick}>저장</S.Button>
