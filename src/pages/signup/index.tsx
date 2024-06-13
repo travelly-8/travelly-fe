@@ -5,7 +5,7 @@ import signup from '@/assets/signup/signup.png'
 
 import PageHeader from '@components/page-header'
 import RectangleButton from '@components/rectangle-button'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import * as S from './SignupStartPage.style'
 
@@ -53,7 +53,9 @@ export default function SignupStartPage() {
           <S.Find>
             이메일&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;비밀번호 찾기
           </S.Find>
-          <S.EmailLogin>이메일로 로그인</S.EmailLogin>
+          <S.EmailLogin>
+            <Link to="/login">이메일로 로그인</Link>
+          </S.EmailLogin>
         </S.OtherWay>
       </S.Wrapper>
     </>
