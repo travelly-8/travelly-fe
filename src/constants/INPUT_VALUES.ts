@@ -9,6 +9,11 @@ export const INPUT_LABELS: InputValuesType = {
   prevPassword: '비밀번호 확인',
   newPassword: '비밀번호 재설정',
   newPasswordCheck: '재설정 비밀번호 확인',
+  companyName: '업체명',
+  productName: '상품명',
+  price: '가격',
+  contact: '연락처',
+  homepageUrl: '홈페이지 주소',
 }
 
 export const INPUT_ERROR_TYPE: InputValuesType = {
@@ -30,4 +35,9 @@ export const INPUT_PLACEHOLDER: InputValuesType = {
   prevPassword: '비밀번호를  입력해주세요.',
   newPassword: '재설정 비밀번호를 입력해주세요.',
   newPasswordCheck: '비밀번호를 다시 입력해주세요.',
+  companyName: '업체명을 입력해주세요.',
+  productName: '상품명을 입력해주세요.',
+  price: '가격을 입력해주세요.',
+  contact: '연락처 정보를 입력해 주세요.',
+  homepageUrl: 'url을 입력해주세요.',
 }

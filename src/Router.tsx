@@ -12,6 +12,7 @@ import ExitPage from './pages/mypage/exit'
 import GoodbyePage from './pages/mypage/good-bye'
 import MyProductListPage from './pages/mypage/my-product-list'
 import ProductsPage from './pages/products'
+import ProductCreatePage from './pages/products-create'
 import ProductsDetail from './pages/products-detail'
 import ReservationPage from './pages/reservation/reserve'
 import ReviewDetailPage from './pages/review/detail'
@@ -30,6 +31,7 @@ export default function AppRouter() {
         <Route path="/" element={<HomePage />} />
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/products/:productId" element={<ProductsDetail />} />
+        <Route path="/products/create" element={<ProductCreatePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup/start" element={<SignupStartPage />} />
         <Route path="/signup" element={<SignupPage />} />

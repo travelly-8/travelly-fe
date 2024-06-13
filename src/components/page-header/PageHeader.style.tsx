@@ -10,6 +10,7 @@ export const Wrapper = styled.div`
   background-color: var(--color-white);
   position: sticky;
   top: 0;
+  z-index: 10;
 
   @media screen and (max-width: 767px) {
     width: 100%;
