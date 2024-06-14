@@ -23,28 +23,19 @@ const MENU_MAP: Record<LoginUserRoleType, IMenu[]> = {
 function FooterNavigation() {
   const location = useLocation()
   const { role } = useSelector((state: RootState) => state.auth)
+  const footer = role ? MENU_MAP[role] : FNB_GUEST
 
   return (
     <S.Container>
-      {role
-        ? MENU_MAP[role].map(({ img, description, url }) => (
-            <NavigateButton
-              key={img}
-              img={img}
-              description={description}
-              url={url}
-              isButtonActive={location.pathname === url}
-            />
-          ))
-        : FNB_GUEST.map(({ img, description, url }) => (
-            <NavigateButton
-              key={img}
-              img={img}
-              description={description}
-              url={url}
-              isButtonActive={location.pathname === url}
-            />
-          ))}
+      {footer.map(({ img, description, url }) => (
+        <NavigateButton
+          key={img}
+          img={img}
+          description={description}
+          url={url}
+          isButtonActive={location.pathname === url}
+        />
+      ))}
     </S.Container>
   )
 }
