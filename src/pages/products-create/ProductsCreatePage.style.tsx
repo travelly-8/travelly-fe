@@ -71,7 +71,7 @@ export const AddressWrapper = styled.div`
   }
 `
 
-export const DatePhotoWrapper = styled.div`
+export const DateWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -160,6 +160,31 @@ export const Textarea = styled.textarea`
   font-weight: 400;
   line-height: 1.8rem; /* 180% */
 `
+export const PhotoWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 0.4rem solid var(--color-gray-bright);
+
+  p {
+    color: var(--color-black);
+    text-align: center;
+    font-size: 1.4rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 2.38rem; /* 170% */
+  }
+`
+
+export const TitleButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 1.2rem 2rem;
+`
 
 export const FileButton = styled.button`
   position: relative;
@@ -183,4 +208,10 @@ export const FileInput = styled.input`
   &::file-selector-button {
     display: none;
   }
+`
+
+export const PreviewImg = styled.img`
+  width: 100%;
+  height: 100%;
+  padding-bottom: 1.2rem;
 `

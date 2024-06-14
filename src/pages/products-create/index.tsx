@@ -66,15 +66,15 @@ export default function ProductCreatePage() {
   )
 
   // 사진 업로드
-  const [photo, setPhoto] = useState<File>()
+  const [photo, setPhoto] = useState<File | null>(null)
   const [preview, setPreview] = useState<string>()
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
     if (file) {
       setPhoto(file)
 
-      const reader = new FileReader()
-      setPreview(String(reader.readAsDataURL(file)))
+      const previewUrl = URL.createObjectURL(file)
+      setPreview(previewUrl)
     }
   }
 
@@ -220,25 +220,25 @@ export default function ProductCreatePage() {
             <img src={ArrowRight} alt="클릭" />
           </button>
         </S.AddressWrapper>
-        <S.DatePhotoWrapper>
+        <S.DateWrapper>
           <S.SectionTitle>판매 날짜</S.SectionTitle>
           <button>날짜 선택</button>
-        </S.DatePhotoWrapper>
-        <S.DatePhotoWrapper>
-          <S.SectionTitle>메인 사진 등록</S.SectionTitle>
-          {/* TODO: 사진 있으면 '파일 수정하기'로 워딩 및 스타일 변경 */}
-          <S.FileButton>
-            <img src={CameraImg} alt="사진 등록" />
-            파일 추가하기
-            <S.FileInput
-              type="file"
-              accept="image/*"
-              onChange={handleFileChange}
-            />
-          </S.FileButton>
-          {/* TODO: 디자인에 맞춰서 재배치 */}
-          {photo && <img src={preview} alt="미리보기" />}
-        </S.DatePhotoWrapper>
+        </S.DateWrapper>
+        <S.PhotoWrapper>
+          <S.TitleButtonWrapper>
+            <S.SectionTitle>메인 사진 등록</S.SectionTitle>
+            <S.FileButton>
+              <img src={CameraImg} alt="사진 등록" />
+              {photo ? '파일 수정하기' : '파일 추가하기'}
+              <S.FileInput
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+              />
+            </S.FileButton>
+          </S.TitleButtonWrapper>
+          {photo && <S.PreviewImg src={preview} alt="미리보기" />}
+        </S.PhotoWrapper>
         <S.DescriptionWrapper>
           <S.SectionTitle>설명 추가</S.SectionTitle>
           <S.CommentWrapper>
