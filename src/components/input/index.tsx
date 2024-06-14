@@ -60,7 +60,7 @@ const Input = forwardRef<HTMLInputElement, IInput>(
             value={value}
             onChange={onChange}
           />
-          {inputType === 'contact' && <S.CurrencyUnit>원</S.CurrencyUnit>}
+          {inputType === 'price' && <S.CurrencyUnit>원</S.CurrencyUnit>}
           {isPasswordType && (
             <S.ToggleButton type="button" onClick={toggleShowPassword}>
               <img
