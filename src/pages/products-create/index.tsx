@@ -48,6 +48,7 @@ export default function ProductCreatePage() {
   const contact = watch('contact')
   const homepageUrl = watch('homepageUrl')
   const [date, setDate] = useState<Date[] | null>(null)
+  const [description, setDescription] = useState<string | null>(null)
 
   const handleDate = (data: FieldValues) => {
     setDate(data.date)
@@ -83,11 +84,6 @@ export default function ProductCreatePage() {
   const [dateError, setDateError] = useState<string | undefined>(undefined)
 
   const [photoError, setPhotoError] = useState<string | undefined>(undefined)
-
-  const [description, sestDescriptionError] = useState<string | undefined>(
-    undefined,
-  )
-
   // 사진 업로드
   const [photo, setPhoto] = useState<File | null>(null)
   const [preview, setPreview] = useState<string>()
@@ -103,7 +99,7 @@ export default function ProductCreatePage() {
 
   // 제출
   const onSubmit = async (data: IProductCreateForm) => {
-    console.log(data, photo, date)
+    console.log(data, photo, date, description)
   }
 
   return (
@@ -272,7 +268,10 @@ export default function ProductCreatePage() {
         <S.DescriptionWrapper>
           <S.SectionTitle>설명 추가</S.SectionTitle>
           <S.CommentWrapper>
-            <S.Textarea placeholder="설명 입력하기." />
+            <S.Textarea
+              placeholder="설명 입력하기."
+              onChange={(e) => setDescription(e.target.value)}
+            />
           </S.CommentWrapper>
         </S.DescriptionWrapper>
         <S.FooterWrapper>
