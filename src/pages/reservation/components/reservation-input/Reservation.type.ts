@@ -1,6 +1,18 @@
+import {
+  FieldErrors,
+  SubmitHandler,
+  UseFormHandleSubmit,
+  UseFormRegisterReturn,
+} from 'react-hook-form'
+
 export interface IReservationInputProps {
+  nameRegister?: UseFormRegisterReturn
+  phoneRegister?: UseFormRegisterReturn
+  emailRegister?: UseFormRegisterReturn
+  errors?: FieldErrors
+  handleSubmit?: UseFormHandleSubmit<IReservationInputState>
+  onSubmit?: SubmitHandler<IReservationInputState>
   disabled?: boolean
-  // 나중에 regiseter를 props로 받아서 사용할 수 있음 + defaultValues도
 }
 
 export interface IReservationInputState {
