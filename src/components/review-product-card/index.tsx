@@ -1,6 +1,6 @@
 import ArrowRight from '@/assets/common/arrow-right.svg'
 
-import { useNavigate } from 'react-router-dom'
+import { matchPath, useLocation, useNavigate } from 'react-router-dom'
 
 import * as S from './ReviewProductCard.style'
 import { IReviewProductCardProps } from './ReviewProductCard.type'
@@ -10,7 +10,7 @@ const ReviewProductCard: React.FC<IReviewProductCardProps> = ({
   isCommentMode,
 }) => {
   const navigate = useNavigate()
-
+  const location = useLocation()
   if (!productDetail) return null
 
   const { id, name, ticketDto, createdDate, images } = productDetail
@@ -20,7 +20,11 @@ const ReviewProductCard: React.FC<IReviewProductCardProps> = ({
   const handleArrowClick = () => {
     navigate(`/products/${id}`)
   }
-
+  const isReservation =
+    matchPath('/reservation/:productId', location.pathname) !== null
+  const reviewDate = isReservation
+    ? createdDate
+    : new Date(createdDate).toLocaleDateString()
   return (
     <S.Wrapper>
       <S.ContentWrapper>
@@ -30,7 +34,7 @@ const ReviewProductCard: React.FC<IReviewProductCardProps> = ({
           <S.PriceAndDateWrapper>
             <S.Price>{price}원</S.Price>
             <S.Bar>|</S.Bar>
-            <S.Date>{new Date(createdDate).toLocaleDateString()}</S.Date>
+            <S.Date>{reviewDate}</S.Date>
           </S.PriceAndDateWrapper>
         </S.DetailWrapper>
       </S.ContentWrapper>
