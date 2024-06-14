@@ -2,17 +2,28 @@ import { useEffect, useState } from 'react'
 
 import ArrowRight from '@/assets/common/arrow-right-lightgray.svg'
 import CameraImg from '@/assets/common/camera.svg'
+import refreshIcon from '@/assets/home/refresh.svg'
+import { ISheetSliceState, sheet } from '@/store/sheet-slice/sheet-slice'
 
+import BottomSheet from '@components/bottom-sheet'
+import CalendarInput from '@components/calendar-input'
 import FooterButton from '@components/footer-button'
 import FooterNavigation from '@components/footer-navigation'
 import Input from '@components/input'
 import PageHeader from '@components/page-header'
-import { Controller, useForm } from 'react-hook-form'
+import RoundButton from '@components/round-button'
+import { format } from 'date-fns'
+import { Controller, FieldValues, useForm } from 'react-hook-form'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { IProductCreateForm } from './ProductsCreate.type'
 import * as S from './ProductsCreatePage.style'
 
 export default function ProductCreatePage() {
+  const dispatch = useDispatch()
+  const sheetReducer = useSelector(
+    (state: ISheetSliceState) => state.sheet.value,
+  )
   const {
     handleSubmit,
     control,
@@ -22,14 +33,26 @@ export default function ProductCreatePage() {
   } = useForm<IProductCreateForm>({
     mode: 'onChange',
   })
+  const {
+    control: dateControl,
+    reset: dateReset,
+    handleSubmit: dateHandleSubmit,
+  } = useForm()
 
   const [isDisabled, setIsDisabled] = useState(true)
+  const [selectedLocale, setSelectedLocale] = useState('0')
 
   const companyName = watch('companyName')
   const productName = watch('productName')
   const price = watch('price')
   const contact = watch('contact')
   const homepageUrl = watch('homepageUrl')
+  const [date, setDate] = useState<Date[] | null>(null)
+
+  const handleDate = (data: FieldValues) => {
+    setDate(data.date)
+    dispatch(sheet({ name: 'date', status: false }))
+  }
 
   // 에러 처리
   useEffect(() => {
@@ -80,7 +103,7 @@ export default function ProductCreatePage() {
 
   // 제출
   const onSubmit = async (data: IProductCreateForm) => {
-    console.log(data, photo)
+    console.log(data, photo, date)
   }
 
   return (
@@ -222,7 +245,14 @@ export default function ProductCreatePage() {
         </S.AddressWrapper>
         <S.DateWrapper>
           <S.SectionTitle>판매 날짜</S.SectionTitle>
-          <button>날짜 선택</button>
+          <button
+            type="button"
+            onClick={() => dispatch(sheet({ name: 'date', status: true }))}
+          >
+            {date
+              ? `${format(date[0], 'yy.MM.dd')}-${format(date[1], 'yy.MM.dd')}`
+              : '날짜 선택'}
+          </button>
         </S.DateWrapper>
         <S.PhotoWrapper>
           <S.TitleButtonWrapper>
@@ -254,6 +284,30 @@ export default function ProductCreatePage() {
           <FooterNavigation />
         </S.FooterWrapper>
       </form>
+      {sheetReducer.name === 'date' && sheetReducer.status === true && (
+        <BottomSheet
+          onClick={() => dispatch(sheet({ name: 'date', status: false }))}
+        >
+          <CalendarInput
+            formLabel="date"
+            control={dateControl}
+            calendarType="rangeDate"
+          />
+          <S.Buttons>
+            <S.RefreshButton
+              onClick={() => {
+                dateReset()
+                setDate(null)
+              }}
+            >
+              <S.Icon src={refreshIcon} /> 초기화
+            </S.RefreshButton>
+            <RoundButton.Primary onClick={dateHandleSubmit(handleDate)}>
+              날짜 선택
+            </RoundButton.Primary>
+          </S.Buttons>
+        </BottomSheet>
+      )}
     </S.Wrapper>
   )
 }

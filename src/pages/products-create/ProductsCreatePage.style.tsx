@@ -90,6 +90,9 @@ export const DateWrapper = styled.div`
     justify-content: center;
     align-items: center;
     gap: 1rem;
+    color: var(--default-font-color, #2d3748);
+    text-align: center;
+    white-space: nowrap;
   }
   img {
     width: 1.5rem;
@@ -214,4 +217,28 @@ export const PreviewImg = styled.img`
   width: 100%;
   height: 100%;
   padding-bottom: 1.2rem;
+`
+export const Buttons = styled.div`
+  width: 60%;
+  margin-top: 1rem;
+  float: right;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  white-space: nowrap;
+`
+export const RefreshButton = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  color: var(--color-black);
+  font-size: 1.4rem;
+  cursor: pointer;
+`
+export const Icon = styled.img`
+  width: 1.6rem;
+  height: 1.6rem;
 `
