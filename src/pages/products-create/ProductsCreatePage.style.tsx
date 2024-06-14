@@ -160,3 +160,27 @@ export const Textarea = styled.textarea`
   font-weight: 400;
   line-height: 1.8rem; /* 180% */
 `
+
+export const FileButton = styled.button`
+  position: relative;
+  width: 16rem;
+  border-radius: 0.4rem;
+  border: 1px solid var(--gray_light, #dfdfdf);
+  background: var(--white, #fff);
+  display: flex;
+  padding: 1.1rem 1.6rem;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+`
+
+export const FileInput = styled.input`
+  position: absolute;
+  z-index: 2;
+  color: transparent;
+  width: 100%;
+  cursor: pointer;
+  &::file-selector-button {
+    display: none;
+  }
+`
