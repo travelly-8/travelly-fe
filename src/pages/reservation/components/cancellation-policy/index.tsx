@@ -3,7 +3,7 @@ import CheckBox from '@components/check-box'
 import * as S from './CancellationPolicy.style'
 
 interface ICancellationPolicyProps {
-  setCancellationPolicyChecked: (isChecked: boolean) => void
+  setCancellationPolicyChecked?: (isChecked: boolean) => void
 }
 
 function CancellationPolicy({

@@ -6,12 +6,12 @@ import {
 } from 'react-hook-form'
 
 export interface IReservationInputProps {
-  nameRegister: UseFormRegisterReturn
-  phoneRegister: UseFormRegisterReturn
-  emailRegister: UseFormRegisterReturn
-  errors: FieldErrors
-  handleSubmit: UseFormHandleSubmit<IReservationInputState>
-  onSubmit: SubmitHandler<IReservationInputState>
+  nameRegister?: UseFormRegisterReturn
+  phoneRegister?: UseFormRegisterReturn
+  emailRegister?: UseFormRegisterReturn
+  errors?: FieldErrors
+  handleSubmit?: UseFormHandleSubmit<IReservationInputState>
+  onSubmit?: SubmitHandler<IReservationInputState>
   disabled?: boolean
 }
 
