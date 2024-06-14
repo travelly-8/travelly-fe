@@ -1,12 +1,10 @@
-import { API_AUTH } from '@/constants/API'
+import { API_AUTH, BASE_URL } from '@/constants/API'
 import { getAccessToken, refreshAccessToken } from '@/utils/tokenStorage'
 
 import axios from 'axios'
 
-const baseURL = 'http://13.125.227.242:8080'
-
 const instance = axios.create({
-  baseURL: baseURL,
+  baseURL: BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },

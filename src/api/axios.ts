@@ -1,7 +1,9 @@
+import { BASE_URL } from '@/constants/API'
+
 import baseAxios from 'axios'
 
 const axios = baseAxios.create({
-  baseURL: 'http://13.125.227.242:8080',
+  baseURL: BASE_URL,
 })
 
 export default axios
