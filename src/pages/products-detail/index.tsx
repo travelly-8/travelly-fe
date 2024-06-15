@@ -113,7 +113,7 @@ function ProductsDetail() {
     productId: productId,
     productName: name,
     productPrice: price,
-    reviewId: reviewItem.id,
+    reviewId: reviewItem.reviewId,
     reviewImages: reviewItem.reviewImages,
     reviewUserNickname: reviewItem.reviewUserNickname,
     reviewUserImage: reviewItem.reviewUserImage,

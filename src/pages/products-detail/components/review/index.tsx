@@ -5,7 +5,7 @@ import { RootState } from '@/store/store'
 import { IReviewDetailData } from '@/types/getReviewDetailData.type.ts'
 
 import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import * as S from './Review.style'
 
@@ -82,11 +82,13 @@ const Review: React.FC<IReviewProps> = ({
       </S.ReviewHeader>
 
       {reviewData.map((data: IReviewDetailData) => (
-        <ReviewPage
-          key={data.productId}
-          reviewData={data}
-          onEditClick={onEditClick}
-        />
+        <Link to={`/review/${data.productId}/${data.reviewId}`}>
+          <ReviewPage
+            key={data.productId}
+            reviewData={data}
+            onEditClick={onEditClick}
+          />
+        </Link>
       ))}
     </S.ReviewContainer>
   )
