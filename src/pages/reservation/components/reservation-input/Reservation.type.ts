@@ -13,10 +13,11 @@ export interface IReservationInputProps {
   handleSubmit?: UseFormHandleSubmit<IReservationInputState>
   onSubmit?: SubmitHandler<IReservationInputState>
   disabled?: boolean
+  defaultValues?: IReservationInputState
 }
 
 export interface IReservationInputState {
   name: string
-  phone: string
+  phone?: string
   email: string
 }
