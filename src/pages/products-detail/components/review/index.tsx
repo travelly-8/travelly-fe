@@ -59,7 +59,7 @@ const Review: React.FC<IReviewProps> = ({
             <S.IconSort src={sort} alt="정렬" />
           </S.SortWrapper>
         </S.ReviewCheckBox>
-        {reviewImgCnt && (
+        {reviewImgCnt > 0 ? (
           <S.ReviewImgContainer>
             {reviewImgCnt <= 3 ? (
               reviewImg.map((photo) => (
@@ -78,16 +78,17 @@ const Review: React.FC<IReviewProps> = ({
               </>
             )}
           </S.ReviewImgContainer>
+        ) : (
+          <S.GrayText>아직 리뷰가 없습니다.</S.GrayText>
         )}
       </S.ReviewHeader>
 
       {reviewData.map((data: IReviewDetailData) => (
-        <Link to={`/review/${data.productId}/${data.reviewId}`}>
-          <ReviewPage
-            key={data.productId}
-            reviewData={data}
-            onEditClick={onEditClick}
-          />
+        <Link
+          key={data.reviewId}
+          to={`/review/${data.productId}/${data.reviewId}`}
+        >
+          <ReviewPage reviewData={data} onEditClick={onEditClick} />
         </Link>
       ))}
     </S.ReviewContainer>
