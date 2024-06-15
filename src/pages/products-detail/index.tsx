@@ -155,7 +155,7 @@ function ProductsDetail() {
           sellingDate={operationDays}
           address={`${city} ${district}`}
           rating={rating}
-          reviewCnt={111}
+          reviewCnt={reviewData?.length}
           imageArray={imageArray}
           onShareClick={() => handleSheetDispatch('share-sheet')}
         />
