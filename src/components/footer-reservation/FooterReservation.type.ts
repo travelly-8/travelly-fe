@@ -10,4 +10,5 @@ export interface IFooter extends IButtonType {
   productId?: string
   onPayConfirmClick?: () => void
   onPayCancelClick?: () => void
+  onSubmit?: () => void
 }

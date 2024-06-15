@@ -1,7 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+
+import { personnel } from '@/store/personnel-slice/personnel-slice'
+
+import { useDispatch } from 'react-redux'
 
 import * as S from './TicketCountSection.style'
-
 const mockTicket = ['성인', '청소년', '소아']
 
 interface ITicketCounts {
@@ -9,6 +12,8 @@ interface ITicketCounts {
 }
 
 function TicketCountSection({ isInput = true }: { isInput: boolean }) {
+  const dispatch = useDispatch()
+
   const initialCounts: ITicketCounts = mockTicket.reduce((acc, ticketType) => {
     acc[ticketType] = 0
     return acc
@@ -29,6 +34,16 @@ function TicketCountSection({ isInput = true }: { isInput: boolean }) {
       [ticketType]: Math.max(prevCounts[ticketType] - 1, 0),
     }))
   }
+
+  useEffect(() => {
+    dispatch(
+      personnel({
+        adult: ticketCounts['성인'],
+        teenager: ticketCounts['청소년'],
+        infant: ticketCounts['소아'],
+      }),
+    )
+  }, [ticketCounts])
 
   return (
     <S.SectionWrapper>
