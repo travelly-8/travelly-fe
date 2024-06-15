@@ -1,6 +1,8 @@
 import edit from '@/assets/products-detail/edit.svg'
 import sort from '@/assets/products-detail/sort.svg'
+import ReviewPage from '@/pages/products-detail/components/review/ReviewPage.tsx'
 import { RootState } from '@/store/store'
+import { IReviewDetailData } from '@/types/getReviewDetailData.type.ts'
 
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -78,14 +80,14 @@ const Review: React.FC<IReviewProps> = ({
           </S.ReviewImgContainer>
         )}
       </S.ReviewHeader>
-      {/* TODO: 상품 상세 조회에서 리뷰 보내주는 API 완성되면 연결 */}
-      {/* {reviewData.map((data: IReviewDetailData) => (
+
+      {reviewData.map((data: IReviewDetailData) => (
         <ReviewPage
           key={data.productId}
           reviewData={data}
           onEditClick={onEditClick}
         />
-      ))} */}
+      ))}
     </S.ReviewContainer>
   )
 }

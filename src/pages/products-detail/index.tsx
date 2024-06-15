@@ -1,6 +1,7 @@
 import { getAllProducts, getProductDetail } from '@/api/productsAPI'
 import { LOCALE_CODE_LIST } from '@/constants/FILTERING_BROWSING'
 import PhotoReviewsSheet from '@/pages/products-detail/components/photo-reviews-sheet'
+import Review from '@/pages/products-detail/components/review'
 import { setProductDetail } from '@/store/product-slice/product-slice'
 import { sheet } from '@/store/sheet-slice/sheet-slice'
 import type { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
@@ -19,7 +20,6 @@ import Description from './components/description'
 import Info from './components/info'
 import RecommendCard from './components/recommend-card'
 import SheetRenderer from './components/sheet-renderer'
-import { reviewData as const_review_data } from './mockData'
 
 function ProductsDetail() {
   const { productId } = useParams()
@@ -51,6 +51,7 @@ function ProductsDetail() {
     reviewCount = 0,
     phoneNumber = '',
     ticketDto = [],
+    reviews = [],
   } = productDetail || {}
 
   const distanceRecommendQueryData = {
@@ -108,8 +109,22 @@ function ProductsDetail() {
     dispatch(sheet({ name: 'photo-reviews-sheet', status: true, text: '' }))
   }
 
-  const reviewData = const_review_data
-  const reviewImg = reviewData?.reduce(
+  const reviewData = reviews?.map((reviewItem) => ({
+    productId: productId,
+    productName: name,
+    productPrice: price,
+    reviewId: reviewItem.id,
+    reviewImages: reviewItem.reviewImages,
+    reviewUserNickname: reviewItem.reviewUserNickname,
+    reviewUserImage: reviewItem.reviewUserImage,
+    rating: reviewItem.rating,
+    reviewDate: reviewItem.reviewDate,
+    reviewContent: reviewItem.reviewContent,
+    comments: reviews,
+    likeCnt: reviewItem.likeCount,
+  }))
+
+  const reviewImg = reviewData?.reviewImages?.reduce(
     (acc: string[], review) => acc.concat(review.image),
     [],
   )
@@ -159,17 +174,15 @@ function ProductsDetail() {
               : ratingRecommendProductData
           }
         />
-        {/* TODO: 상품 상세 조회에서 리뷰 데이터 받아와서 교체ㄴ */}
-        {/* <Review
-          reviewCnt={reviewCount}
+
+        <Review
+          reviewCnt={reviewData?.length}
           reviewImg={reviewImg}
-          reviewData={const_review_data}
+          reviewData={reviewData}
           onOrderClick={() => handleSheetDispatch('review-order-sheet')}
           onEditClick={() => handleSheetDispatch('edit-sheet')}
           onPhotoReviewsClick={handlePhotoReviewsClick}
         />
-        <FooterReservation
-        /> */}
         <FooterReservation
           isBookmarked={true}
           isReservationProduct={true}
