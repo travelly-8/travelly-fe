@@ -14,7 +14,7 @@ const ReservationInput: React.FC<IReservationInputProps> = ({
   const preventDefaultSubmit = (event: React.FormEvent) => {
     event.preventDefault() //reservation-detail일때는 이벤트가 발생하지 않도록 설정
   }
-  console.log('defaultValues', defaultValues)
+
   return (
     <form
       onSubmit={

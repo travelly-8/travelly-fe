@@ -70,7 +70,7 @@ function ReservationPage() {
   const handleSetGetAccountChecked = (isChecked: boolean) => {
     setIsGetAccountChecked(isChecked)
   }
-  console.log(isGetAccountChecked)
+
   const { data: memberProfile } = useGetMemberProfile(
     'member-profile',
     getMemberProfile,
