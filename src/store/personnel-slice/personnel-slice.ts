@@ -1,13 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+const getInitialState = () => ({
+  value: {},
+})
+
 export const personnelSlice = createSlice({
   name: 'personnel',
-  initialState: { value: { adult: 0, teenager: 0, infant: 0 } },
+  initialState: getInitialState(),
   reducers: {
     personnel: (state, action) => {
       state.value = action.payload
     },
-    reset: () => {},
+    reset: () => getInitialState(),
   },
 })
 
