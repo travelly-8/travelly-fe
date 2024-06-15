@@ -1,5 +1,3 @@
-import { useCallback, useEffect, useState } from 'react'
-
 import { getAllProducts, getProductDetail } from '@/api/productsAPI'
 import { LOCALE_CODE_LIST } from '@/constants/FILTERING_BROWSING'
 import PhotoReviewsSheet from '@/pages/products-detail/components/photo-reviews-sheet'
@@ -7,23 +5,21 @@ import { setProductDetail } from '@/store/product-slice/product-slice'
 import { sheet } from '@/store/sheet-slice/sheet-slice'
 import type { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
 import { RootState } from '@/store/store'
-
 import FooterReservation from '@components/footer-reservation'
 import { IProductCardData } from '@components/product-card/ProductCard.type'
 import ProductHeader from '@components/product-header'
 import { useQuery } from '@tanstack/react-query'
+import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-
+import * as S from './ProductsDetail.style'
+import type { ISheetComponents } from './ProductsDetail.type'
 import BasicInfo from './components/basic-info'
 import Description from './components/description'
 import Info from './components/info'
 import RecommendCard from './components/recommend-card'
 import SheetRenderer from './components/sheet-renderer'
-import { reviewData as const_review_data, mockCard } from './mockData'
-import * as S from './ProductsDetail.style'
-
-import type { ISheetComponents } from './ProductsDetail.type'
+import { reviewData as const_review_data } from './mockData'
 
 function ProductsDetail() {
   const { productId } = useParams()
@@ -56,18 +52,33 @@ function ProductsDetail() {
     phoneNumber = '',
     ticketDto = [],
   } = productDetail || {}
-  const recommendQueryData = {
+
+  const distanceRecommendQueryData = {
     page: 0,
     size: 5,
     keyword: address.split(' ')[1],
     cityCode: cityCode,
   }
-  const { data: recommendProductQuery } = useQuery({
-    queryKey: ['recommend-products'],
-    queryFn: () => getAllProducts(recommendQueryData),
+  const { data: distanceRecommendProductQuery } = useQuery({
+    queryKey: ['recommend-products', 'distance'],
+    queryFn: () => getAllProducts(distanceRecommendQueryData),
     enabled: isProductDetailSuccess,
   })
-  const recommendProductData = recommendProductQuery?.data.content.filter(
+  const distanceRecommendProductData =
+    distanceRecommendProductQuery?.data.content.filter(
+      (product: IProductCardData) => product.id.toString() !== productId,
+    )
+
+  const ratingRecommendQueryData = {
+    page: 0,
+    size: 5,
+    sort: 'HighestRating',
+  }
+  const { data: ratingRecommendQuery } = useQuery({
+    queryKey: ['recommend-products', 'highestRating'],
+    queryFn: () => getAllProducts(ratingRecommendQueryData),
+  })
+  const ratingRecommendProductData = ratingRecommendQuery?.data.content.filter(
     (product: IProductCardData) => product.id.toString() !== productId,
   )
 
@@ -143,7 +154,9 @@ function ProductsDetail() {
         <Description />
         <RecommendCard
           cards={
-            recommendProductData?.length > 0 ? recommendProductData : mockCard
+            distanceRecommendProductData?.length > 0
+              ? distanceRecommendProductData
+              : ratingRecommendProductData
           }
         />
         {/* TODO: 상품 상세 조회에서 리뷰 데이터 받아와서 교체ㄴ */}
