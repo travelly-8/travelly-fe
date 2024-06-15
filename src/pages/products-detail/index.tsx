@@ -124,8 +124,8 @@ function ProductsDetail() {
     likeCnt: reviewItem.likeCount,
   }))
 
-  const reviewImg = reviewData?.reviewImages?.reduce(
-    (acc: string[], review) => acc.concat(review.image),
+  const reviewImg = reviewData?.reduce(
+    (acc: string[], review) => acc.concat(review.reviewImages),
     [],
   )
 
