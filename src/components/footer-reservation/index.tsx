@@ -1,5 +1,7 @@
 import { useState } from 'react'
 
+import { getAccessToken } from '@/utils/tokenStorage'
+
 import RoundButton from '@components/round-button'
 import { useNavigate } from 'react-router-dom'
 
@@ -25,10 +27,13 @@ const FooterReservation = ({
 }: IFooter) => {
   const navigate = useNavigate()
   const [isBookmarked, setIsBookmarked] = useState(initialBookmarked)
+  const accessToken = getAccessToken()
 
   const handleButtonClick = () => {
-    if (buttontype === 'reservation') {
+    if (buttontype === 'reservation' && accessToken) {
       navigate(`/reservation/${productId}`)
+    } else if (buttontype === 'reservation' && !accessToken) {
+      navigate('/login')
     } else if (buttontype === 'payment' && onPayConfirmClick && onSubmit) {
       onSubmit()
       onPayConfirmClick()
@@ -56,9 +61,15 @@ const FooterReservation = ({
               <S.PriceText>{price?.toLocaleString('ko-KR')} 포인트</S.PriceText>
             </S.Text>
           )}
-          <RoundButton.Primary onClick={handleButtonClick}>
-            {buttonText[buttontype]}
-          </RoundButton.Primary>
+          {accessToken ? (
+            <RoundButton.Primary onClick={handleButtonClick}>
+              {buttonText[buttontype]}
+            </RoundButton.Primary>
+          ) : (
+            <RoundButton.Gray onClick={handleButtonClick}>
+              {buttonText[buttontype]}
+            </RoundButton.Gray> // 로그인 x시 회색 버튼
+          )}
         </S.RightSection>
       </S.Wrapper>
     </S.FooterContainer>
