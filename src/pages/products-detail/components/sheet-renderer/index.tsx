@@ -26,6 +26,7 @@ function SheetRenderer({
   shareSheetProps,
   payConfirmProps,
   payCancelProps,
+  calendarProps,
 }: ISheetRendererProps) {
   const sheetReducer = useSelector(
     (state: ISheetSliceState) => state.sheet.value,
@@ -39,6 +40,7 @@ function SheetRenderer({
     'share-sheet': shareSheetProps,
     'pay-confirm-sheet': payConfirmProps,
     'pay-cancel-sheet': payCancelProps,
+    'calendar-sheet': calendarProps,
   }
 
   const sheetName = sheetReducer.name as keyof ISheetComponents

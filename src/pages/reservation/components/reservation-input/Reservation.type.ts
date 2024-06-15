@@ -1,4 +1,5 @@
 import {
+  Control,
   FieldErrors,
   SubmitHandler,
   UseFormHandleSubmit,
@@ -19,4 +20,5 @@ export interface IReservationInputState {
   name: string
   phone: string
   email: string
+  date: Control
 }
