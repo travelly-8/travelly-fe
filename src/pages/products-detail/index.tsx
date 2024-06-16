@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react'
 
-import { getAllProducts } from '@/api/productsAPI'
 import useProductDetail from '@/hooks/api/productsAPI/useProductDetail'
+import useRecommendProducts from '@/hooks/api/productsAPI/useRecommendProducts'
 import PhotoReviewsSheet from '@/pages/products-detail/components/photo-reviews-sheet'
 import { sheet } from '@/store/sheet-slice/sheet-slice'
 import type { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
@@ -11,9 +11,7 @@ import {
 } from '@/types/getReviewDetailData.type'
 
 import FooterReservation from '@components/footer-reservation'
-import { IProductCardData } from '@components/product-card/ProductCard.type'
 import ProductHeader from '@components/product-header'
-import { useQuery } from '@tanstack/react-query'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
@@ -42,37 +40,12 @@ function ProductsDetail() {
     reviews = [],
   } = productDetail || {}
 
-  const distanceRecommendQueryData = {
-    page: 0,
-    size: 5,
-    keyword: address.split(' ')[1],
-    cityCode: cityCode,
-  }
-
-  const { data: distanceRecommendProductQuery } = useQuery({
-    queryKey: ['recommend-products', 'distance'],
-    queryFn: () => getAllProducts(distanceRecommendQueryData),
-    enabled: isProductDetailSuccess,
+  const recommendProducts = useRecommendProducts({
+    productId,
+    address,
+    cityCode,
+    isProductDetailSuccess,
   })
-
-  const distanceRecommendProductData =
-    distanceRecommendProductQuery?.data.content.filter(
-      (product: IProductCardData) => product.id.toString() !== productId,
-    )
-
-  const ratingRecommendQueryData = {
-    page: 0,
-    size: 5,
-    sort: 'HighestRating',
-  }
-
-  const { data: ratingRecommendQuery } = useQuery({
-    queryKey: ['recommend-products', 'highestRating'],
-    queryFn: () => getAllProducts(ratingRecommendQueryData),
-  })
-  const ratingRecommendProductData = ratingRecommendQuery?.data.content.filter(
-    (product: IProductCardData) => product.id.toString() !== productId,
-  )
 
   const sheetReducer = useSelector(
     (state: ISheetSliceState) => state.sheet.value,
@@ -148,13 +121,7 @@ function ProductsDetail() {
         />
         <ProductBasicInfo productDetail={productDetail} />
         <Description />
-        <RecommendCard
-          cards={
-            distanceRecommendProductData?.length > 0
-              ? distanceRecommendProductData
-              : ratingRecommendProductData
-          }
-        />
+        <RecommendCard cards={recommendProducts} />
 
         <ProductReviews
           reviewData={reviewData}
