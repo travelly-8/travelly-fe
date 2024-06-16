@@ -22,7 +22,7 @@ function TicketCountSection({
   ticketDto,
 }: {
   isInput: boolean
-  ticketDto: ITicketDto[]
+  ticketDto?: ITicketDto[]
 }) {
   const dispatch = useDispatch()
 
