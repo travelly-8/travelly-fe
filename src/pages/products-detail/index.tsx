@@ -5,10 +5,8 @@ import useRecommendProducts from '@/hooks/api/productsAPI/useRecommendProducts'
 import PhotoReviewsSheet from '@/pages/products-detail/components/photo-reviews-sheet'
 import { sheet } from '@/store/sheet-slice/sheet-slice'
 import type { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
-import {
-  ICommentData,
-  IReviewDetailData,
-} from '@/types/getReviewDetailData.type'
+import { IReviewDetailData } from '@/types/getReviewDetailData.type'
+import { changeReviewData } from '@/utils/changeReviewData'
 
 import FooterReservation from '@components/footer-reservation'
 import ProductHeader from '@components/product-header'
@@ -66,27 +64,17 @@ function ProductsDetail() {
     dispatch(sheet({ name: 'photo-reviews-sheet', status: true, text: '' }))
   }
 
-  if (!productDetail) {
+  if (!productDetail || !productId) {
     return null
   }
 
   const price = ticketDto[0]?.price
 
-  const reviewData = (reviews as IReviewDetailData[]).map(
-    (reviewItem: IReviewDetailData) => ({
-      productId: Number(productId),
-      productName: name,
-      productPrice: price,
-      reviewId: reviewItem.reviewId,
-      reviewImages: reviewItem.reviewImages,
-      reviewUserNickname: reviewItem.reviewUserNickname,
-      reviewUserImage: reviewItem.reviewUserImage,
-      rating: reviewItem.rating,
-      reviewDate: reviewItem.reviewDate,
-      reviewContent: reviewItem.reviewContent,
-      comments: reviewItem.comments as ICommentData[],
-      likeCount: reviewItem.likeCount,
-    }),
+  const reviewData = changeReviewData(
+    reviews as IReviewDetailData[],
+    productId,
+    name,
+    price,
   )
 
   const reviewImg = reviewData.reduce<string[]>(
