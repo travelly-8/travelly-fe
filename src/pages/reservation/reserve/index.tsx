@@ -1,6 +1,12 @@
 import { getProductDetail } from '@/api/productsAPI'
-import { ISheetComponents } from '@/pages/products-detail/ProductsDetail.type'
+
+import { useCallback, useEffect, useState } from 'react'
+
+import { getMemberProfile } from '@/api/myAPI'
+import useGetMemberProfile from '@/hooks/api/memberAPI/useGetMemberProfile'
 import SheetRenderer from '@/pages/products-detail/components/sheet-renderer'
+
+import { ISheetComponents } from '@/pages/products-detail/ProductsDetail.type'
 import CancellationPolicy from '@/pages/reservation/components/cancellation-policy'
 import ReservationDateSection from '@/pages/reservation/components/reservation-date-section'
 import ReservationInput from '@/pages/reservation/components/reservation-input'
@@ -14,7 +20,9 @@ import FooterReservation from '@components/footer-reservation'
 import PageHeader from '@components/page-header'
 import ReviewProductCard from '@components/review-product-card'
 import { useQuery } from '@tanstack/react-query'
-import { useCallback, useState } from 'react'
+
+import { format } from 'date-fns'
+
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
@@ -64,6 +72,22 @@ function ReservationPage() {
   const dispatch = useDispatch()
   const [isRadioChecked, setIsRadioChecked] = useState(true)
   const [isCancelPolicyChecked, setIsCancelPolicyChecked] = useState(false)
+  const [isGetAccountChecked, setIsGetAccountChecked] = useState(false)
+  const [userInfo, setUserInfo] = useState<IReservationInputState>()
+  const handleSetGetAccountChecked = (isChecked: boolean) => {
+    setIsGetAccountChecked(isChecked)
+  }
+
+  const { data: memberProfile } = useGetMemberProfile(
+    'member-profile',
+    getMemberProfile,
+  )
+  useEffect(() => {
+    setUserInfo({
+      name: memberProfile?.nickname || '',
+      email: memberProfile?.email || '',
+    })
+  }, [memberProfile])
 
   const handleSetCancellationPolicyChecked = (isChecked: boolean) => {
     setIsCancelPolicyChecked(isChecked)
@@ -76,7 +100,7 @@ function ReservationPage() {
     queryFn: ({ queryKey }) => getProductDetail(Number(queryKey[1])),
   })
 
-  const { name, images, ticketDto } = productDetail?.data || {} // merge되면 변경
+  const { name, images, ticketDto, operationDays } = productDetail?.data || {} // merge되면 변경
 
   const isError = isNameValid || isPhoneValid || isEmailValid
 
@@ -119,11 +143,15 @@ function ReservationPage() {
     reset: reset,
   }
 
+  const len = operationDays ? operationDays.length : 1
+
   const reviewProductCardProps = {
     id: productId,
     name: name,
     images: images,
-    createdDate: '24.00.00-24.00.00',
+    createdDate: operationDays
+      ? `${format(operationDays[0]?.date, 'yyyy.MM.dd')} - ${format(operationDays[len - 1]?.date, 'yyyy.MM.dd')}`
+      : '일정 정보 없음',
     ticketDto: ticketDto,
   }
 
@@ -140,7 +168,10 @@ function ReservationPage() {
           />
         </S.CardWrapper>
         <S.CheckBoxWrapper>
-          <CheckBox text="계정정보 가져오기" />
+          <CheckBox
+            text="계정정보 가져오기"
+            onChange={handleSetGetAccountChecked}
+          />
         </S.CheckBoxWrapper>
         <ReservationInput
           nameRegister={nameRegister}
@@ -149,6 +180,7 @@ function ReservationPage() {
           errors={errors}
           handleSubmit={handleSubmit}
           onSubmit={onSubmit}
+          defaultValues={isGetAccountChecked ? userInfo : undefined}
         />
         <S.TicketInfo>
           <TicketCountSection isInput />

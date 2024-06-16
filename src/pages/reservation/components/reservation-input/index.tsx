@@ -9,17 +9,12 @@ const ReservationInput: React.FC<IReservationInputProps> = ({
   handleSubmit,
   onSubmit,
   disabled = false,
+  defaultValues,
 }) => {
-  const defaultValues = {
-    name: '홍길동',
-    phone: '01012345678',
-    email: 'abcd@naver.com',
-  }
-  const nameProps = { disabled, defaultValue: defaultValues.name }
-
   const preventDefaultSubmit = (event: React.FormEvent) => {
     event.preventDefault() //reservation-detail일때는 이벤트가 발생하지 않도록 설정
   }
+
   return (
     <form
       onSubmit={
@@ -34,7 +29,7 @@ const ReservationInput: React.FC<IReservationInputProps> = ({
             {...nameRegister}
             type="text"
             placeholder="예약자명"
-            defaultValue={disabled ? defaultValues.name : undefined}
+            defaultValue={defaultValues ? defaultValues?.name : ''}
             disabled={disabled}
           />
           {errors?.name && <S.Error>{errors.name.message as string}</S.Error>}
@@ -45,7 +40,7 @@ const ReservationInput: React.FC<IReservationInputProps> = ({
             {...phoneRegister}
             type="tel"
             placeholder="연락처"
-            defaultValue={disabled ? defaultValues.phone : undefined}
+            defaultValue={defaultValues ? defaultValues?.phone : ''}
             disabled={disabled}
           />
           {errors?.phone && <S.Error>{errors.phone.message as string}</S.Error>}
@@ -56,7 +51,7 @@ const ReservationInput: React.FC<IReservationInputProps> = ({
             {...emailRegister}
             type="text"
             placeholder="이메일"
-            defaultValue={disabled ? defaultValues.email : undefined}
+            defaultValue={defaultValues ? defaultValues?.email : ''}
             disabled={disabled}
           />
           {errors?.email && <S.Error>{errors.email.message as string}</S.Error>}
