@@ -1,9 +1,11 @@
 import edit from '@/assets/products-detail/edit.svg'
 import sort from '@/assets/products-detail/sort.svg'
+import ReviewPage from '@/pages/products-detail/components/review/ReviewPage.tsx'
 import { RootState } from '@/store/store'
+import { IReviewDetailData } from '@/types/getReviewDetailData.type.ts'
 
 import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import * as S from './Review.style'
 
@@ -57,7 +59,7 @@ const Review: React.FC<IReviewProps> = ({
             <S.IconSort src={sort} alt="정렬" />
           </S.SortWrapper>
         </S.ReviewCheckBox>
-        {reviewImgCnt && (
+        {reviewImgCnt > 0 ? (
           <S.ReviewImgContainer>
             {reviewImgCnt <= 3 ? (
               reviewImg.map((photo) => (
@@ -76,16 +78,19 @@ const Review: React.FC<IReviewProps> = ({
               </>
             )}
           </S.ReviewImgContainer>
+        ) : (
+          <S.GrayText>아직 리뷰가 없습니다.</S.GrayText>
         )}
       </S.ReviewHeader>
-      {/* TODO: 상품 상세 조회에서 리뷰 보내주는 API 완성되면 연결 */}
-      {/* {reviewData.map((data: IReviewDetailData) => (
-        <ReviewPage
-          key={data.productId}
-          reviewData={data}
-          onEditClick={onEditClick}
-        />
-      ))} */}
+
+      {reviewData.map((data: IReviewDetailData) => (
+        <Link
+          key={data.reviewId}
+          to={`/review/${data.productId}/${data.reviewId}`}
+        >
+          <ReviewPage reviewData={data} onEditClick={onEditClick} />
+        </Link>
+      ))}
     </S.ReviewContainer>
   )
 }

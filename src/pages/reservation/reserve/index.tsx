@@ -1,9 +1,11 @@
+import { getProductDetail } from '@/api/productsAPI'
+
 import { useCallback, useEffect, useState } from 'react'
 
 import { getMemberProfile } from '@/api/myAPI'
-import { getProductDetail } from '@/api/productsAPI'
 import useGetMemberProfile from '@/hooks/api/memberAPI/useGetMemberProfile'
 import SheetRenderer from '@/pages/products-detail/components/sheet-renderer'
+
 import { ISheetComponents } from '@/pages/products-detail/ProductsDetail.type'
 import CancellationPolicy from '@/pages/reservation/components/cancellation-policy'
 import ReservationDateSection from '@/pages/reservation/components/reservation-date-section'
@@ -13,17 +15,17 @@ import type { IPaySheet } from '@/pages/reservation/components/sheet/PaySheet.ty
 import TicketCountSection from '@/pages/reservation/components/ticket-count-section'
 import { IPersonnelSliceState } from '@/store/personnel-slice/personnel-slice.type'
 import { sheet } from '@/store/sheet-slice/sheet-slice'
-
 import CheckBox from '@components/check-box'
 import FooterReservation from '@components/footer-reservation'
 import PageHeader from '@components/page-header'
 import ReviewProductCard from '@components/review-product-card'
 import { useQuery } from '@tanstack/react-query'
+
 import { format } from 'date-fns'
+
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-
 import * as S from './ReservationPage.style'
 
 function ReservationPage() {
@@ -32,7 +34,10 @@ function ReservationPage() {
     handleSubmit,
     formState: { errors },
     watch,
+    control,
+    reset,
   } = useForm<IReservationInputState>()
+
   const onSubmit = (data: IReservationInputState) => {
     console.log(data) // 나중에 용도에 맞게 변경
   }
@@ -56,12 +61,14 @@ function ReservationPage() {
   const nameValue = watch('name')
   const phoneValue = watch('phone')
   const emailValue = watch('email')
+  const dateValue = watch('date')?.toString() || new Date().toString()
 
   const isNameValid = !nameValue
   const isPhoneValid = !phoneValue || !/^[0-9\b -]{7,13}$/.test(phoneValue)
   const isEmailValid =
     !emailValue ||
     !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(emailValue)
+
   const dispatch = useDispatch()
   const [isRadioChecked, setIsRadioChecked] = useState(true)
   const [isCancelPolicyChecked, setIsCancelPolicyChecked] = useState(false)
@@ -94,13 +101,16 @@ function ReservationPage() {
   })
 
   const { name, images, ticketDto, operationDays } = productDetail?.data || {} // merge되면 변경
+
   const isError = isNameValid || isPhoneValid || isEmailValid
+
   const handleSheetDispatch = useCallback(
     (name: keyof ISheetComponents) => {
       dispatch(sheet({ name, status: true, text: '' }))
     },
-    [dispatch, isError],
+    [dispatch],
   )
+
   const handlePayConfirmClick = () => {
     if (!isError && isCancelPolicyChecked) {
       handleSheetDispatch('pay-confirm-sheet')
@@ -127,7 +137,14 @@ function ReservationPage() {
     userPoint: 1000,
     productPoint: 1000,
   }
+
+  const calendarProps = {
+    control: control,
+    reset: reset,
+  }
+
   const len = operationDays ? operationDays.length : 1
+
   const reviewProductCardProps = {
     id: productId,
     name: name,
@@ -169,6 +186,7 @@ function ReservationPage() {
           <TicketCountSection isInput />
           <ReservationDateSection
             onCalendarClick={() => handleSheetDispatch('calendar-sheet')}
+            value={dateValue}
           />
         </S.TicketInfo>
         <S.PayOptions>
@@ -209,7 +227,10 @@ function ReservationPage() {
         onPayConfirmClick={handlePayConfirmClick}
         onSubmit={handleSubmit(onSubmit)}
       />
-      <SheetRenderer payConfirmProps={payConfirmProps} />
+      <SheetRenderer
+        payConfirmProps={payConfirmProps}
+        calendarProps={calendarProps}
+      />
     </>
   )
 }

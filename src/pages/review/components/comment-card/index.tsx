@@ -6,6 +6,7 @@ import { ICommentSliceState } from '@/store/comment-slice/comment-slice.type'
 import { sheet } from '@/store/sheet-slice/sheet-slice'
 import { ICommentData } from '@/types/getReviewDetailData.type'
 
+import defaultUser from '@/assets/common/default-user.svg'
 import { useDispatch, useSelector } from 'react-redux'
 
 import * as S from './CommentCard.style'
@@ -20,7 +21,7 @@ const CommentCard: React.FC<ICommentCardProps> = ({ data }) => {
     commentContent,
     commentDate,
     commentId,
-    commentUserImage,
+    commentUserImage = defaultUser,
     commentUserNickname,
   } = data
   const [isReplying, setIsReplying] = useState(false)
@@ -37,12 +38,16 @@ const CommentCard: React.FC<ICommentCardProps> = ({ data }) => {
   const handleReply = () => {
     dispatch(comment({ parentId: commentId }))
   }
+
+  const handleImageError = (e) => {
+    e.target.src = defaultUser
+  }
   return (
     <>
       <S.Wrapper isReplying={isReplying}>
         <S.CommentWrapper>
           <S.Content>
-            <S.ProfileImg src={commentUserImage} />
+            <S.ProfileImg src={commentUserImage} onError={handleImageError} />
             <S.MiddleWrapper>
               <S.NicknameAndDate>
                 <S.Nickname>{commentUserNickname}</S.Nickname>
@@ -76,7 +81,10 @@ const CommentCard: React.FC<ICommentCardProps> = ({ data }) => {
             <S.Wrapper key={data.commentId} isReplying={false}>
               <S.CommentWrapper>
                 <S.Content>
-                  <S.ProfileImg src={data.commentUserImage} />
+                  <S.ProfileImg
+                    src={data.commentUserImage || defaultUser}
+                    onError={handleImageError}
+                  />
                   <S.MiddleWrapper>
                     <S.NicknameAndDate>
                       <S.Nickname>{data.commentUserNickname}</S.Nickname>
