@@ -1,11 +1,9 @@
-import { getProductDetail } from '@/api/productsAPI'
-
 import { useCallback, useEffect, useState } from 'react'
 
 import { getMemberProfile } from '@/api/myAPI'
+import { getProductDetail } from '@/api/productsAPI'
 import useGetMemberProfile from '@/hooks/api/memberAPI/useGetMemberProfile'
 import SheetRenderer from '@/pages/products-detail/components/sheet-renderer'
-
 import { ISheetComponents } from '@/pages/products-detail/ProductsDetail.type'
 import CancellationPolicy from '@/pages/reservation/components/cancellation-policy'
 import ReservationDateSection from '@/pages/reservation/components/reservation-date-section'
@@ -15,18 +13,37 @@ import type { IPaySheet } from '@/pages/reservation/components/sheet/PaySheet.ty
 import TicketCountSection from '@/pages/reservation/components/ticket-count-section'
 import { IPersonnelSliceState } from '@/store/personnel-slice/personnel-slice.type'
 import { sheet } from '@/store/sheet-slice/sheet-slice'
+
 import CheckBox from '@components/check-box'
 import FooterReservation from '@components/footer-reservation'
 import PageHeader from '@components/page-header'
 import ReviewProductCard from '@components/review-product-card'
 import { useQuery } from '@tanstack/react-query'
-
 import { format } from 'date-fns'
-
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
+
 import * as S from './ReservationPage.style'
+
+interface ITicketCounts {
+  [key: string]: number
+}
+interface ITicketDto {
+  id: number
+  name: string
+  price: number
+  description: string
+}
+interface IReservationData {
+  name: string
+  phone: string | undefined
+  email: string
+  personnel: ITicketCounts
+  date: string
+  promotionCode: string
+  totlaPrice: number
+}
 
 function ReservationPage() {
   const {
@@ -38,8 +55,8 @@ function ReservationPage() {
     reset,
   } = useForm<IReservationInputState>()
 
-  const onSubmit = (data: IReservationInputState) => {
-    console.log(data) // 나중에 용도에 맞게 변경
+  const onSubmit = () => {
+    console.log(reservationInfo) // 임시 예약 api 호출?
   }
 
   const nameRegister = register('name', { required: '예약자명을 입력해주세요' })
@@ -74,6 +91,8 @@ function ReservationPage() {
   const [isCancelPolicyChecked, setIsCancelPolicyChecked] = useState(false)
   const [isGetAccountChecked, setIsGetAccountChecked] = useState(false)
   const [userInfo, setUserInfo] = useState<IReservationInputState>()
+  const [promotionCode, setPromotionCode] = useState<string>('')
+  const [reservationInfo, setReservationInfo] = useState<IReservationData>()
   const handleSetGetAccountChecked = (isChecked: boolean) => {
     setIsGetAccountChecked(isChecked)
   }
@@ -91,6 +110,12 @@ function ReservationPage() {
 
   const handleSetCancellationPolicyChecked = (isChecked: boolean) => {
     setIsCancelPolicyChecked(isChecked)
+  }
+
+  const handlePromotionCodeChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    setPromotionCode(e.target.value)
   }
 
   const { productId } = useParams()
@@ -122,12 +147,18 @@ function ReservationPage() {
   const personnel = useSelector(
     (state: IPersonnelSliceState) => state.personnel.value,
   )
-
   const ticketPrice =
-    ticketDto && ticketDto.length > 0
-      ? ticketDto[0].price *
-        (personnel.adult + personnel.teenager + personnel.infant)
-      : 0 // 나중에 성인 청소년 소아 나눠지면 변경
+    ticketDto && personnel
+      ? ticketDto.reduce((acc: number, ticket: ITicketDto) => {
+          for (const personnelType in personnel) {
+            if (ticket.name === personnelType) {
+              acc += ticket.price * personnel[personnelType]
+              break
+            }
+          }
+          return acc
+        }, 0)
+      : 0
 
   const handleRadioChange = () => {
     setIsRadioChecked(!isRadioChecked)
@@ -154,6 +185,26 @@ function ReservationPage() {
       : '일정 정보 없음',
     ticketDto: ticketDto,
   }
+
+  useEffect(() => {
+    setReservationInfo({
+      name: nameValue,
+      phone: phoneValue,
+      email: emailValue,
+      personnel: personnel,
+      date: dateValue,
+      promotionCode: promotionCode,
+      totlaPrice: ticketPrice,
+    })
+  }, [
+    nameValue,
+    phoneValue,
+    emailValue,
+    personnel,
+    dateValue,
+    promotionCode,
+    ticketPrice,
+  ])
 
   return (
     <>
@@ -183,7 +234,7 @@ function ReservationPage() {
           defaultValues={isGetAccountChecked ? userInfo : undefined}
         />
         <S.TicketInfo>
-          <TicketCountSection isInput />
+          <TicketCountSection ticketDto={ticketDto} isInput />
           <ReservationDateSection
             onCalendarClick={() => handleSheetDispatch('calendar-sheet')}
             value={dateValue}
@@ -204,6 +255,7 @@ function ReservationPage() {
               type="text"
               data-visible={isRadioChecked}
               placeholder="프로모션 코드 입력"
+              onChange={handlePromotionCodeChange}
             />
           </S.PayOption>
         </S.PayOptions>

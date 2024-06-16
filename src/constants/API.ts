@@ -19,7 +19,7 @@ export const API_AUTH = Object.freeze({
   SIGNUP: '/auth/signup',
   LOGIN: '/auth/login',
   SOCIALLOGIN: (registrationId: string) => `/auth/login/${registrationId}`,
-  REISSUE: '/auth/login/reissue',
+  REISSUE: `${BASE_URL}/auth/login/reissue`,
   FINDID: '/auth/login/find',
   LOGOUT: '/auth/logout',
   LEAVE: '/auth/leave',
