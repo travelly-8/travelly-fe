@@ -19,12 +19,14 @@ import ProductInfo from './components/product-info'
 import ProductReviews from './components/product-review'
 import RecommendCard from './components/recommend-card'
 import SheetRenderer from './components/sheet-renderer'
+import LoadingSpinner from './LoadingSpinner'
 import * as S from './ProductsDetail.style'
 
 function ProductsDetail() {
-  const { productId } = useParams()
+  const { productId } = useParams<{ productId: string }>()
   const dispatch = useDispatch()
-  const { productDetail, isProductDetailSuccess } = useProductDetail(productId)
+  const { productDetail, isProductDetailSuccess, isLoading } =
+    useProductDetail(productId)
   const [isHamburgerClicked, setIsHamburgerClicked] = useState(false)
 
   const {
@@ -60,8 +62,12 @@ function ProductsDetail() {
     [dispatch],
   )
 
-  const handlePhotoReviewsClick = () => {
+  const handlePhotoReviewsClick = useCallback(() => {
     dispatch(sheet({ name: 'photo-reviews-sheet', status: true, text: '' }))
+  }, [dispatch])
+
+  if (isLoading) {
+    return <LoadingSpinner />
   }
 
   if (!productDetail || !productId) {

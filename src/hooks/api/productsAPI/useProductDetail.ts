@@ -10,21 +10,24 @@ import { useDispatch, useSelector } from 'react-redux'
 const useProductDetail = (productId: string | undefined) => {
   const dispatch = useDispatch()
 
-  const { data: productDetailQuery, isSuccess: isProductDetailSuccess } =
-    useQuery({
-      queryKey: ['products-detail', productId],
-      queryFn: ({ queryKey }) => getProductDetail(Number(queryKey[1])),
-    })
+  const {
+    data,
+    isSuccess: isProductDetailSuccess,
+    isLoading,
+  } = useQuery({
+    queryKey: ['products-detail', productId],
+    queryFn: () => getProductDetail(Number(productId)),
+  })
 
   useEffect(() => {
-    if (productDetailQuery?.data) {
-      dispatch(setProductDetail(productDetailQuery.data))
+    if (data?.data) {
+      dispatch(setProductDetail(data.data))
     }
-  }, [productDetailQuery, dispatch])
+  }, [data, dispatch])
 
   const productDetail = useSelector((state: RootState) => state.product.detail)
 
-  return { productDetail, isProductDetailSuccess }
+  return { productDetail, isProductDetailSuccess, isLoading }
 }
 
 export default useProductDetail
