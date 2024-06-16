@@ -1,12 +1,7 @@
 import { LOCALE_CODE_LIST } from '@/constants/FILTERING_BROWSING'
-import { IProductDetail } from '@/store/product-slice/product-slice.type'
+import Info from '@/pages/products-detail/components/product-info/info'
 
-import Info from './info'
-
-interface IProductInfoProps {
-  productDetail: IProductDetail
-  handleSheetDispatch: (name: string) => void
-}
+import { IProductInfoProps } from '../product-review/review/Review.type'
 
 function ProductInfo({
   productDetail,

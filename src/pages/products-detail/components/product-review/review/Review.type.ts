@@ -1,6 +1,8 @@
 import { IReviewDetailData } from '@/types/getReviewDetailData.type'
 import { IOperationDays } from '@/types/postProductData.type'
 
+import { ISheetComponents } from '../../sheet-renderer/SheetRenderer.type'
+
 export interface IProductDetail {
   address: string
   cityCode: string
@@ -17,10 +19,18 @@ export interface IProductDetail {
   reviews: IReviewDetailData
 }
 
+export interface IProductInfoProps extends IProductBasicInfoProps {
+  handleSheetDispatch: (name: keyof ISheetComponents) => void
+}
+
+export interface IProductBasicInfoProps {
+  productDetail: IProductDetail | null
+}
+
 export interface IReviewProps {
   reviewCnt: number
   reviewImg?: string[]
-  reviewData: IReviewData[]
+  reviewData: IReviewDetailData[]
   onOrderClick: () => void
   onEditClick: () => void
   onPhotoReviewsClick?: () => void

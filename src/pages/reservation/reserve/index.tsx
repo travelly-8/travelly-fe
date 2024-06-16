@@ -1,11 +1,9 @@
-import { getProductDetail } from '@/api/productsAPI'
-
 import { useCallback, useEffect, useState } from 'react'
 
 import { getMemberProfile } from '@/api/myAPI'
+import { getProductDetail } from '@/api/productsAPI'
 import useGetMemberProfile from '@/hooks/api/memberAPI/useGetMemberProfile'
 import SheetRenderer from '@/pages/products-detail/components/sheet-renderer'
-
 import { ISheetComponents } from '@/pages/products-detail/ProductsDetail.type'
 import CancellationPolicy from '@/pages/reservation/components/cancellation-policy'
 import ReservationDateSection from '@/pages/reservation/components/reservation-date-section'
@@ -15,17 +13,17 @@ import type { IPaySheet } from '@/pages/reservation/components/sheet/PaySheet.ty
 import TicketCountSection from '@/pages/reservation/components/ticket-count-section'
 import { IPersonnelSliceState } from '@/store/personnel-slice/personnel-slice.type'
 import { sheet } from '@/store/sheet-slice/sheet-slice'
+
 import CheckBox from '@components/check-box'
 import FooterReservation from '@components/footer-reservation'
 import PageHeader from '@components/page-header'
 import ReviewProductCard from '@components/review-product-card'
 import { useQuery } from '@tanstack/react-query'
-
 import { format } from 'date-fns'
-
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
+
 import * as S from './ReservationPage.style'
 
 function ReservationPage() {

@@ -1,14 +1,13 @@
 import edit from '@/assets/products-detail/edit.svg'
 import sort from '@/assets/products-detail/sort.svg'
-import ReviewPage from '@/pages/products-detail/components/product-review/review/ReviewPage'
 import { RootState } from '@/store/store'
 
 import { useSelector } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import * as S from './Review.style'
 
-import type { IReviewData, IReviewProps } from './Review.type'
+import type { IReviewProps } from './Review.type'
 
 const Review: React.FC<IReviewProps> = ({
   reviewCnt,
@@ -82,14 +81,14 @@ const Review: React.FC<IReviewProps> = ({
         )}
       </S.ReviewHeader>
 
-      {reviewData.map((data: IReviewData) => (
+      {/* {reviewData.map((data: IReviewDetailData) => (
         <Link
           key={data.reviewId}
           to={`/review/${data.productId}/${data.reviewId}`}
         >
           <ReviewPage reviewData={data} onEditClick={onEditClick} />
         </Link>
-      ))}
+      ))} */}
     </S.ReviewContainer>
   )
 }

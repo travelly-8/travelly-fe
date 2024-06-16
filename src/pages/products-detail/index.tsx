@@ -5,7 +5,10 @@ import useProductDetail from '@/hooks/api/productsAPI/useProductDetail'
 import PhotoReviewsSheet from '@/pages/products-detail/components/photo-reviews-sheet'
 import { sheet } from '@/store/sheet-slice/sheet-slice'
 import type { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
-import { IReviewDetailData } from '@/types/getReviewDetailData.type'
+import {
+  ICommentData,
+  IReviewDetailData,
+} from '@/types/getReviewDetailData.type'
 
 import FooterReservation from '@components/footer-reservation'
 import { IProductCardData } from '@components/product-card/ProductCard.type'
@@ -21,8 +24,6 @@ import ProductReviews from './components/product-review'
 import RecommendCard from './components/recommend-card'
 import SheetRenderer from './components/sheet-renderer'
 import * as S from './ProductsDetail.style'
-
-import type { ISheetComponents } from './ProductsDetail.type'
 
 function ProductsDetail() {
   const { productId } = useParams()
@@ -82,7 +83,7 @@ function ProductsDetail() {
     sheetReducer.status && sheetReducer.name === 'photo-reviews-sheet'
 
   const handleSheetDispatch = useCallback(
-    (name: keyof ISheetComponents) => {
+    (name: string) => {
       dispatch(sheet({ name, status: true, text: '' }))
     },
     [dispatch],
@@ -92,11 +93,15 @@ function ProductsDetail() {
     dispatch(sheet({ name: 'photo-reviews-sheet', status: true, text: '' }))
   }
 
+  if (!productDetail) {
+    return null
+  }
+
   const price = ticketDto[0]?.price
 
-  const reviewData = ((reviews as IReviewDetailData[]) || [])?.map(
-    (reviewItem) => ({
-      productId: productId,
+  const reviewData = (reviews as IReviewDetailData[]).map(
+    (reviewItem: IReviewDetailData) => ({
+      productId: Number(productId),
       productName: name,
       productPrice: price,
       reviewId: reviewItem.reviewId,
@@ -106,12 +111,13 @@ function ProductsDetail() {
       rating: reviewItem.rating,
       reviewDate: reviewItem.reviewDate,
       reviewContent: reviewItem.reviewContent,
-      comments: reviews,
-      likeCnt: reviewItem.likeCount,
+      comments: reviewItem.comments as ICommentData[],
+      likeCount: reviewItem.likeCount,
     }),
   )
-  const reviewImg = (reviewData || []).reduce<string[]>(
-    (acc, review) => acc.concat(review.reviewImages),
+
+  const reviewImg = reviewData.reduce<string[]>(
+    (acc: string[], review) => acc.concat(review.reviewImages),
     [],
   )
 

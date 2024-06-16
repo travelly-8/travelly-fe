@@ -1,6 +1,8 @@
-import BasicInfo from './basic-info'
+import BasicInfo from '@/pages/products-detail/components/product-basic-info/basic-info'
 
-function ProductBasicInfo({ productDetail }) {
+import { IProductBasicInfoProps } from '../product-review/review/Review.type'
+
+function ProductBasicInfo({ productDetail }: IProductBasicInfoProps) {
   const {
     address = '',
     detailAddress = '',

@@ -1,11 +1,18 @@
-import Review from './review'
+import Review from '@/pages/products-detail/components/product-review/review'
+import { IReviewDetailData } from '@/types/getReviewDetailData.type'
+
+interface IProductReviewsProps {
+  reviewData: IReviewDetailData[]
+  handleSheetDispatch: (name: string) => void
+  handlePhotoReviewsClick: () => void
+}
 
 const ProductReviews = ({
   reviewData,
   handleSheetDispatch,
   handlePhotoReviewsClick,
-}) => {
-  const reviewImg = reviewData?.reduce(
+}: IProductReviewsProps) => {
+  const reviewImg = reviewData?.reduce<string[]>(
     (acc, review) => acc.concat(review.reviewImages),
     [],
   )
