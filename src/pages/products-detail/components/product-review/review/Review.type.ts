@@ -14,6 +14,7 @@ export interface IProductDetail {
   reviewCount: number
   phoneNumber: string
   ticketDto: { price: number }[]
+  reviews: IReviewDetailData
 }
 
 export interface IReviewProps {
