@@ -19,7 +19,7 @@ const ReviewPage: React.FC<IReviewPageProps> = ({
           src={reviewData.reviewUserImage || defaultUser}
           alt="프로필 이미지"
           onError={(e) => {
-            e.target.src = defaultUser
+            if (e.target instanceof HTMLImageElement) e.target.src = defaultUser
           }}
         />
         <S.ProfileNameWrapper>

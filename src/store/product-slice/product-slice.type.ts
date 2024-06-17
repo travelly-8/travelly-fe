@@ -1,3 +1,4 @@
+import { IReviewDetailData } from '@/types/getReviewDetailData.type'
 import { IOperationDays } from '@/types/postProductData.type'
 
 export interface IProductDetail {
@@ -14,6 +15,7 @@ export interface IProductDetail {
   reviewCount: number
   phoneNumber: string
   ticketDto: Array<{ price: number }>
+  reviews: IReviewDetailData[]
 }
 
 export interface IProductState {

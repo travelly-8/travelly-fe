@@ -14,12 +14,13 @@ export interface IProductDetail {
   reviewCount: number
   phoneNumber: string
   ticketDto: { price: number }[]
+  reviews: IReviewDetailData[]
 }
 
 export interface IReviewProps {
   reviewCnt: number
   reviewImg?: string[]
-  reviewData: IReviewData[]
+  reviewData: IReviewDetailData[]
   onOrderClick: () => void
   onEditClick: () => void
   onPhotoReviewsClick?: () => void

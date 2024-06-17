@@ -110,7 +110,7 @@ function ProductsDetail() {
   }
 
   const reviewData = reviews?.map((reviewItem) => ({
-    productId: productId,
+    productId: (productId || 0) as number,
     productName: name,
     productPrice: price,
     reviewId: reviewItem.reviewId,
@@ -120,8 +120,8 @@ function ProductsDetail() {
     rating: reviewItem.rating,
     reviewDate: reviewItem.reviewDate,
     reviewContent: reviewItem.reviewContent,
-    comments: reviews,
-    likeCnt: reviewItem.likeCount,
+    comments: reviewItem.comments,
+    likeCount: reviewItem.likeCount,
   }))
 
   const reviewImg = reviewData?.reduce(

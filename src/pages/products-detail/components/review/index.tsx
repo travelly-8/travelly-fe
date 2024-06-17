@@ -2,18 +2,18 @@ import edit from '@/assets/products-detail/edit.svg'
 import sort from '@/assets/products-detail/sort.svg'
 import ReviewPage from '@/pages/products-detail/components/review/ReviewPage.tsx'
 import { RootState } from '@/store/store'
-import { IReviewDetailData } from '@/types/getReviewDetailData.type.ts'
 
 import { useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 
 import * as S from './Review.style'
 
+import { IReviewDetailData } from '@/types/getReviewDetailData.type'
 import type { IReviewProps } from './Review.type'
 
 const Review: React.FC<IReviewProps> = ({
   reviewCnt,
-  reviewImg,
+  reviewImg = [],
   reviewData,
   onOrderClick,
   onEditClick,
@@ -21,7 +21,7 @@ const Review: React.FC<IReviewProps> = ({
 }) => {
   const productDetail = useSelector((state: RootState) => state.product.detail)
 
-  const reviewImgCnt = reviewImg?.length
+  const reviewImgCnt = reviewImg.length
   const navigate = useNavigate()
 
   const handleHeaderClick = () => {
@@ -62,7 +62,7 @@ const Review: React.FC<IReviewProps> = ({
         {reviewImgCnt > 0 ? (
           <S.ReviewImgContainer>
             {reviewImgCnt <= 3 ? (
-              reviewImg.map((photo) => (
+              reviewImg?.map((photo) => (
                 <S.ReviewImg key={photo} src={photo} alt="리뷰 이미지" />
               ))
             ) : (
@@ -83,7 +83,7 @@ const Review: React.FC<IReviewProps> = ({
         )}
       </S.ReviewHeader>
 
-      {reviewData.map((data: IReviewDetailData) => (
+      {reviewData?.map((data: IReviewDetailData) => (
         <Link
           key={data.reviewId}
           to={`/review/${data.productId}/${data.reviewId}`}
