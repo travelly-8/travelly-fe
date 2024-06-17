@@ -12,8 +12,6 @@ import { useNavigate } from 'react-router-dom'
 
 import * as S from './ExitPage.style'
 
-// eslint-disable-next-line import/order
-
 export default function ExitPage() {
   const navigate = useNavigate()
   const dispatch = useDispatch()

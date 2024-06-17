@@ -20,7 +20,6 @@ export const Title = styled.h1`
 `
 
 export const Content = styled.div`
-  margin-top: 4.8rem;
   padding: 2.4rem 0rem;
   width: 100%;
   display: flex;
@@ -44,7 +43,7 @@ export const UpperText = styled.span`
   font-style: normal;
   font-weight: 700;
   line-height: 3.06rem; /* 170% */
-  margin-bottom: 4.4rem;
+  margin-bottom: 4rem;
   width: 100%;
   text-align: left;
 `
