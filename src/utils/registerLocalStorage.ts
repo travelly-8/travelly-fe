@@ -32,7 +32,6 @@ export function registerRecentProducts(cardData: IProductCardData) {
     name: cardData.name,
     cityCode: cardData.cityCode,
     address: cardData.address,
-    discount: cardData.discount,
     ticketDto: cardData.ticketDto,
     rating: cardData.rating,
     reviewCount: cardData.reviewCount,

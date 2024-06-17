@@ -69,7 +69,6 @@ function ReservedDetailPage() {
         isBookmarked={true}
         isReservationProduct={true}
         price={0}
-        discount={0}
         buttontype="cancelPayment"
         onPayCancelClick={() => handleSheetDispatch('pay-cancel-sheet')}
       />
