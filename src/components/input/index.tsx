@@ -36,6 +36,21 @@ const Input = forwardRef<HTMLInputElement, IInput>(
       inputType === 'newPassword' ||
       inputType === 'newPasswordCheck'
 
+    const INPUT_TYPE_MAP: Record<string, string> = {
+      price: 'number',
+      contact: 'tel',
+      password: 'password',
+      passwordCheck: 'password',
+      passwordConfirm: 'password',
+      prevPassword: 'password',
+      newPassword: 'password',
+      newPasswordCheck: 'password',
+      email: 'email',
+      homepageUrl: 'url',
+    }
+
+    const inputTagType = INPUT_TYPE_MAP[inputType] || inputType
+
     return (
       <S.StyledInputContainer>
         <S.StyledLabel htmlFor={inputType} $errorType={errorType}>
@@ -45,7 +60,11 @@ const Input = forwardRef<HTMLInputElement, IInput>(
           <S.StyledInput
             id={inputType}
             type={
-              isPasswordType ? (showPassword ? 'text' : 'password') : inputType
+              isPasswordType
+                ? showPassword
+                  ? 'text'
+                  : 'password'
+                : inputTagType
             }
             onBlur={() => {
               setFocused(false)
