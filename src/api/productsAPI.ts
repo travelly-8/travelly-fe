@@ -23,7 +23,7 @@ export const postProduct = (data: IPostProduct) => {
   })
 }
 
-export const postProductImage = (data: FormData[]) => {
+export const postProductImage = (data: FormData) => {
   return fileInstance({
     url: API_PRODUCTS.PRODUCTS_IMAGE,
     method: 'POST',

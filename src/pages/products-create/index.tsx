@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { postProduct } from '@/api/productsAPI'
+import { postProduct, postProductImage } from '@/api/productsAPI'
 import ArrowRight from '@/assets/common/arrow-right-lightgray.svg'
 import CameraImg from '@/assets/common/camera.svg'
 import refreshIcon from '@/assets/home/refresh.svg'
@@ -60,7 +60,7 @@ export default function ProductCreatePage() {
   const [detailAddressData, setDetailAddressData] = useState<string | null>(
     null,
   )
-  const [photo, setPhoto] = useState<File | null>(null)
+  const [photo, setPhoto] = useState<string | null>(null)
 
   // 에러
   const [companyNameError, setCompanyNameError] =
@@ -111,30 +111,30 @@ export default function ProductCreatePage() {
   }
 
   // 사진 업로드
-  const [preview, setPreview] = useState<string>()
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]
-    if (file) {
-      setPhoto(file)
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const files = event.target.files
+    if (files && files.length > 0) {
+      const formData = new FormData()
 
-      // TODO: /products/upload API 연결
-      // const formData = new FormData()
-      // formData.append('file', file)
-      // postProductImage([formData])
-      //   .then((res) => {
-      //     console.log(res)
-      //   })
-      //   .catch((err) => console.error(err))
+      Array.from(files).forEach((file) => {
+        formData.append('images', file, file.name)
+      })
 
-      const previewUrl = URL.createObjectURL(file)
-      setPreview(previewUrl)
+      try {
+        const response = await postProductImage(formData)
+        setPhoto(response.data[0])
+      } catch (err) {
+        console.error(err)
+      }
     }
   }
 
   // 제출
   const onSubmit = async (data: IProductCreateForm) => {
     if (
-      !preview ||
+      !photo ||
       !date ||
       !addressData?.roadAddress ||
       !description ||
@@ -149,7 +149,7 @@ export default function ProductCreatePage() {
       description: description,
       images: [
         {
-          url: preview, // TODO: /products/upload API 연결하고 그 res값으로 교체
+          url: photo,
           order: 0,
         },
       ],
@@ -372,7 +372,7 @@ export default function ProductCreatePage() {
               />
             </S.FileButton>
           </S.TitleButtonWrapper>
-          {photo && <S.PreviewImg src={preview} alt="미리보기" />}
+          {photo && <S.PreviewImg src={photo} alt="미리보기" />}
         </S.PhotoWrapper>
         <S.DescriptionWrapper>
           <S.SectionTitle>설명 추가</S.SectionTitle>
