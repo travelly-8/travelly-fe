@@ -53,7 +53,7 @@ const ReviewPage: React.FC<IReviewPageProps> = ({
           <S.LikeCommentWrapper>
             <S.IconS src={comment} alt="댓글" />
             <S.GrayText>댓글 </S.GrayText>
-            <S.BlackText>{reviewData.comments.length}</S.BlackText>
+            <S.BlackText>{reviewData.comments?.length}</S.BlackText>
           </S.LikeCommentWrapper>
         )}
       </S.LikeComment>
