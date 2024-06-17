@@ -149,14 +149,12 @@ function ReservationPage() {
   )
   const ticketPrice =
     ticketDto && personnel
-      ? ticketDto.reduce((acc: number, ticket: ITicketDto) => {
-          for (const personnelType in personnel) {
-            if (ticket.name === personnelType) {
-              acc += ticket.price * personnel[personnelType]
-              break
-            }
+      ? ticketDto.reduce((totalPrice: number, ticket: ITicketDto) => {
+          const personnelCount = personnel[ticket.name]
+          if (personnelCount) {
+            return totalPrice + ticket.price * personnelCount
           }
-          return acc
+          return totalPrice
         }, 0)
       : 0
 
