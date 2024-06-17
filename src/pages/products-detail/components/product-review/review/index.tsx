@@ -1,7 +1,8 @@
+import { useState } from 'react'
+
 import edit from '@/assets/products-detail/edit.svg'
 import sort from '@/assets/products-detail/sort.svg'
 import { RootState } from '@/store/store'
-import { useState } from 'react'
 
 import CheckBox from '@components/check-box'
 import { useSelector } from 'react-redux'
