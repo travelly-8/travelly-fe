@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 
+import defaultUser from '@/assets/common/default-user.svg'
 import ThreeCircle from '@/assets/common/three-circle.svg'
 import { comment } from '@/store/comment-slice/comment-slice'
 import { ICommentSliceState } from '@/store/comment-slice/comment-slice.type'
 import { sheet } from '@/store/sheet-slice/sheet-slice'
 import { ICommentData } from '@/types/getReviewDetailData.type'
 
-import defaultUser from '@/assets/common/default-user.svg'
 import { useDispatch, useSelector } from 'react-redux'
 
 import * as S from './CommentCard.style'
@@ -39,8 +39,10 @@ const CommentCard: React.FC<ICommentCardProps> = ({ data }) => {
     dispatch(comment({ parentId: commentId }))
   }
 
-  const handleImageError = (e) => {
-    e.target.src = defaultUser
+  const handleImageError = (
+    e: React.SyntheticEvent<HTMLImageElement, Event>,
+  ) => {
+    if (e.target instanceof HTMLImageElement) e.target.src = defaultUser
   }
   return (
     <>
