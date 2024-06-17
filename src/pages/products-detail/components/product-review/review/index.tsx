@@ -2,11 +2,13 @@ import { useState } from 'react'
 
 import edit from '@/assets/products-detail/edit.svg'
 import sort from '@/assets/products-detail/sort.svg'
+import ReviewPage from '@/pages/products-detail/components/product-review/review/ReviewPage.tsx'
 import { RootState } from '@/store/store'
+import { IReviewDetailData } from '@/types/getReviewDetailData.type.ts'
 
 import CheckBox from '@components/check-box'
 import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import * as S from './Review.style'
 
@@ -95,14 +97,14 @@ const Review: React.FC<IReviewProps> = ({
         )}
       </S.ReviewHeader>
 
-      {/* {reviewData.map((data: IReviewDetailData) => (
+      {reviewData?.map((data: IReviewDetailData) => (
         <Link
           key={data.reviewId}
           to={`/review/${data.productId}/${data.reviewId}`}
         >
           <ReviewPage reviewData={data} onEditClick={onEditClick} />
         </Link>
-      ))} */}
+      ))}
     </S.ReviewContainer>
   )
 }

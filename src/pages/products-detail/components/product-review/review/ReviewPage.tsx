@@ -19,7 +19,7 @@ const ReviewPage: React.FC<IReviewPageProps> = ({
           src={reviewData.reviewUserImage || defaultUser}
           alt="프로필 이미지"
           onError={(e) => {
-            e.target.src = defaultUser
+            if (e.target instanceof HTMLImageElement) e.target.src = defaultUser
           }}
         />
         <S.ProfileNameWrapper>
@@ -53,7 +53,7 @@ const ReviewPage: React.FC<IReviewPageProps> = ({
           <S.LikeCommentWrapper>
             <S.IconS src={comment} alt="댓글" />
             <S.GrayText>댓글 </S.GrayText>
-            <S.BlackText>{reviewData.comments.length}</S.BlackText>
+            <S.BlackText>{reviewData.comments?.length}</S.BlackText>
           </S.LikeCommentWrapper>
         )}
       </S.LikeComment>
