@@ -9,3 +9,5 @@ export interface IProductCreateForm {
   photo: string
   description: string
 }
+
+export type ErrorMessageType = string | undefined

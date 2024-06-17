@@ -24,7 +24,7 @@ import { Controller, FieldValues, useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-import { IProductCreateForm } from './ProductsCreate.type'
+import { ErrorMessageType, IProductCreateForm } from './ProductsCreate.type'
 import * as S from './ProductsCreatePage.style'
 
 export default function ProductCreatePage() {
@@ -48,9 +48,7 @@ export default function ProductCreatePage() {
     handleSubmit: dateHandleSubmit,
   } = useForm()
 
-  const [isDisabled, setIsDisabled] = useState(true)
-  const [selectedLocale, setSelectedLocale] = useState('0')
-
+  // 데이터
   const companyName = watch('companyName')
   const productName = watch('productName')
   const price = watch('price')
@@ -58,43 +56,61 @@ export default function ProductCreatePage() {
   const homepageUrl = watch('homepageUrl')
   const [date, setDate] = useState<Date[] | null>(null)
   const [description, setDescription] = useState<string | null>(null)
+  const [addressData, setAddressData] = useState<OnCompleteParams | null>(null)
+  const [detailAddressData, setDetailAddressData] = useState<string | null>(
+    null,
+  )
+  const [photo, setPhoto] = useState<File | null>(null)
 
+  // 에러
+  const [companyNameError, setCompanyNameError] =
+    useState<ErrorMessageType>(undefined)
+  const [productNameError, setProductNameError] =
+    useState<ErrorMessageType>(undefined)
+  const [priceError, setPriceError] = useState<ErrorMessageType>(undefined)
+  const [contactError, setContactError] = useState<ErrorMessageType>(undefined)
+  const [homepageUrlError, setHomepageUrlError] =
+    useState<ErrorMessageType>(undefined)
+
+  // 버튼 활성화
+  const [isDisabled, setIsDisabled] = useState(true)
+  const areAllFieldsFilled = () => {
+    return [
+      companyName,
+      productName,
+      price,
+      contact,
+      homepageUrl,
+      date,
+      description,
+      addressData,
+      detailAddressData,
+      photo,
+    ].every((field) => Boolean(field))
+  }
+
+  useEffect(() => {
+    setIsDisabled(!areAllFieldsFilled())
+  }, [
+    companyName,
+    productName,
+    price,
+    contact,
+    homepageUrl,
+    date,
+    description,
+    addressData,
+    detailAddressData,
+    photo,
+  ])
+
+  // 날짜
   const handleDate = (data: FieldValues) => {
     setDate(data.date)
     dispatch(sheet({ name: 'date', status: false }))
   }
 
-  // 에러 처리
-  useEffect(() => {
-    if (companyName && productName && price && contact && homepageUrl) {
-      setIsDisabled(false)
-    } else {
-      setIsDisabled(true)
-    }
-  }, [companyName, productName, price, contact, homepageUrl])
-
-  const [companyNameError, setCompanyNameError] = useState<string | undefined>(
-    undefined,
-  )
-  const [productNameError, setProductNameError] = useState<string | undefined>(
-    undefined,
-  )
-  const [priceError, setPriceError] = useState<string | undefined>(undefined)
-  const [contactError, setContactError] = useState<string | undefined>(
-    undefined,
-  )
-  const [homepageUrlError, setHomepageUrlError] = useState<string | undefined>(
-    undefined,
-  )
-  const [addressError, setAddressError] = useState<string | undefined>(
-    undefined,
-  )
-
-  const [dateError, setDateError] = useState<string | undefined>(undefined)
-
-  const [photoError, setPhotoError] = useState<string | undefined>(undefined)
   // 사진 업로드
-  const [photo, setPhoto] = useState<File | null>(null)
   const [preview, setPreview] = useState<string>()
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
@@ -114,12 +130,6 @@ export default function ProductCreatePage() {
       setPreview(previewUrl)
     }
   }
-
-  // 주소
-  const [addressData, setAddressData] = useState<OnCompleteParams | null>(null)
-  const [detailAddressData, setDetailAddressData] = useState<string | null>(
-    null,
-  )
 
   // 제출
   const onSubmit = async (data: IProductCreateForm) => {
