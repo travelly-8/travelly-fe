@@ -242,3 +242,27 @@ export const Icon = styled.img`
   width: 1.6rem;
   height: 1.6rem;
 `
+
+export const AddressSheet = styled.div`
+  position: absolute;
+  z-index: 20;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #e9e9e9;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+`
+export const AddressInputWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+export const RoadAddress = styled.div`
+  color: var(--color-black);
+  font-size: 1.8rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 3.06rem; /* 170% */
+`

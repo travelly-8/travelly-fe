@@ -5,13 +5,17 @@ import CameraImg from '@/assets/common/camera.svg'
 import refreshIcon from '@/assets/home/refresh.svg'
 import { ISheetSliceState, sheet } from '@/store/sheet-slice/sheet-slice'
 
+import Postcode from '@actbase/react-daum-postcode'
+import { OnCompleteParams } from '@actbase/react-daum-postcode/lib/types'
 import BottomSheet from '@components/bottom-sheet'
 import CalendarInput from '@components/calendar-input'
 import FooterButton from '@components/footer-button'
 import FooterNavigation from '@components/footer-navigation'
 import Input from '@components/input'
+import { StyledInput, StyledInputWrapper } from '@components/input/Input.style'
 import PageHeader from '@components/page-header'
 import RoundButton from '@components/round-button'
+import SheetHeader from '@components/sheet-header'
 import { format } from 'date-fns'
 import { Controller, FieldValues, useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
@@ -97,9 +101,15 @@ export default function ProductCreatePage() {
     }
   }
 
+  // 주소
+  const [addressData, setAddressData] = useState<OnCompleteParams | null>(null)
+  const [detailAddressData, setDetailAddressData] = useState<string | null>(
+    null,
+  )
+
   // 제출
   const onSubmit = async (data: IProductCreateForm) => {
-    console.log(data, photo, date, description)
+    console.log(data, photo, date, description, addressData, detailAddressData)
   }
 
   return (
@@ -234,8 +244,25 @@ export default function ProductCreatePage() {
         </S.InputWrapper>
         <S.AddressWrapper>
           <S.SectionTitle>주소 입력</S.SectionTitle>
-          <button>
-            <p>주소 검색</p>
+          <div>
+            {addressData && (
+              <S.AddressInputWrapper>
+                <S.RoadAddress>{addressData.roadAddress}</S.RoadAddress>
+                <StyledInputWrapper>
+                  <StyledInput
+                    type="text"
+                    placeholder="상세 주소 입력"
+                    onChange={(e) => setDetailAddressData(e.target.value)}
+                  />
+                </StyledInputWrapper>
+              </S.AddressInputWrapper>
+            )}
+          </div>
+          <button
+            type="button"
+            onClick={() => dispatch(sheet({ name: 'address', status: true }))}
+          >
+            <p>{addressData ? '주소 변경하기' : '주소 검색'}</p>
             <img src={ArrowRight} alt="클릭" />
           </button>
         </S.AddressWrapper>
@@ -283,6 +310,20 @@ export default function ProductCreatePage() {
           <FooterNavigation />
         </S.FooterWrapper>
       </form>
+      {sheetReducer.name === 'address' && sheetReducer.status === true && (
+        <S.AddressSheet>
+          <SheetHeader />
+          <Postcode
+            style={{ width: '100%', height: '100%' }}
+            onSelected={(data) => {
+              console.log(data)
+              setAddressData(data)
+              dispatch(sheet({ name: 'address', status: false }))
+            }}
+            onError={(err) => console.error(err)}
+          />
+        </S.AddressSheet>
+      )}
       {sheetReducer.name === 'date' && sheetReducer.status === true && (
         <BottomSheet
           onClick={() => dispatch(sheet({ name: 'date', status: false }))}
