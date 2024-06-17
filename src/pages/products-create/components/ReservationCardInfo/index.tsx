@@ -1,32 +1,28 @@
 import { IReservationCardProps } from '../ReservationCard/ReservationCard.type'
-import * as S from './ReservationCardInfo.type'
+import * as S from './ReservationCardInfo.style'
 
 const ReservationCardInfo: React.FC<{
   reservation: IReservationCardProps
 }> = ({ reservation }) => {
   const { name, date, email, phoneNumber } = reservation
   return (
-    <div>
+    <S.Wrapper>
       <S.InfoName>
-        <div>
-          <S.InfoLabel>예약자:</S.InfoLabel>
-          <S.InfoLabel>{name}</S.InfoLabel>
-        </div>
-        <div>
-          <S.InfoValue>{date}</S.InfoValue>
-        </div>
+        <S.InfoLabel>예약자:</S.InfoLabel>
+        <S.InfoValue>{name}</S.InfoValue>
+        <S.InfoDate>{date}</S.InfoDate>
       </S.InfoName>
       <S.InfoDetail>
-        <div>
+        <S.InfoItem>
           <S.InfoLabel>이메일:</S.InfoLabel>
           <S.InfoValue>{email}</S.InfoValue>
-        </div>
-        <div>
+        </S.InfoItem>
+        <S.InfoItem>
           <S.InfoLabel>연락처:</S.InfoLabel>
           <S.InfoValue>{phoneNumber}</S.InfoValue>
-        </div>
+        </S.InfoItem>
       </S.InfoDetail>
-    </div>
+    </S.Wrapper>
   )
 }
 
