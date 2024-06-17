@@ -12,7 +12,7 @@ export interface ICommentData {
 }
 
 export interface IReviewDetailData {
-  productId: number
+  productId: string
   productName: string
   productPrice: number
   reviewId: number

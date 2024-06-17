@@ -32,6 +32,7 @@ export const DescriptionWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
+  width: 100%;
 `
 
 export const LabelM = styled.span`
@@ -54,9 +55,12 @@ export const GrayATag = styled.a`
   font-size: 1.2rem;
   line-height: 1.8rem;
   text-decoration: underline;
+  white-space: normal;
+  word-break: break-all;
 `
 
 export const Description = styled.div`
   display: flex;
   gap: 1.5rem;
+  white-space: nowrap;
 `

@@ -1,11 +1,9 @@
 import edit from '@/assets/products-detail/edit.svg'
 import sort from '@/assets/products-detail/sort.svg'
-import ReviewPage from '@/pages/products-detail/components/review/ReviewPage.tsx'
 import { RootState } from '@/store/store'
-import { IReviewDetailData } from '@/types/getReviewDetailData.type.ts'
 
 import { useSelector } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import * as S from './Review.style'
 
@@ -21,7 +19,7 @@ const Review: React.FC<IReviewProps> = ({
 }) => {
   const productDetail = useSelector((state: RootState) => state.product.detail)
 
-  const reviewImgCnt = reviewImg?.length
+  const reviewImgCnt = reviewImg?.length || 0
   const navigate = useNavigate()
 
   const handleHeaderClick = () => {
@@ -62,15 +60,15 @@ const Review: React.FC<IReviewProps> = ({
         {reviewImgCnt > 0 ? (
           <S.ReviewImgContainer>
             {reviewImgCnt <= 3 ? (
-              reviewImg.map((photo) => (
+              reviewImg?.map((photo) => (
                 <S.ReviewImg key={photo} src={photo} alt="리뷰 이미지" />
               ))
             ) : (
               <>
-                <S.ReviewImg src={reviewImg[0]} alt="리뷰 이미지" />
-                <S.ReviewImg src={reviewImg[1]} alt="리뷰 이미지" />
+                <S.ReviewImg src={reviewImg?.[0]} alt="리뷰 이미지" />
+                <S.ReviewImg src={reviewImg?.[1]} alt="리뷰 이미지" />
                 <S.LastReviewImg onClick={onPhotoReviewsClick}>
-                  <S.ReviewImg src={reviewImg[2]} alt="리뷰 이미지" />
+                  <S.ReviewImg src={reviewImg?.[2]} alt="리뷰 이미지" />
                   <S.ReviewImgBackground>
                     +{reviewImgCnt - 2}
                   </S.ReviewImgBackground>
@@ -83,14 +81,14 @@ const Review: React.FC<IReviewProps> = ({
         )}
       </S.ReviewHeader>
 
-      {reviewData.map((data: IReviewDetailData) => (
+      {/* {reviewData.map((data: IReviewDetailData) => (
         <Link
           key={data.reviewId}
           to={`/review/${data.productId}/${data.reviewId}`}
         >
           <ReviewPage reviewData={data} onEditClick={onEditClick} />
         </Link>
-      ))}
+      ))} */}
     </S.ReviewContainer>
   )
 }
