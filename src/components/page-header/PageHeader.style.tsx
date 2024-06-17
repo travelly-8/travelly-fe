@@ -1,15 +1,17 @@
 import styled from 'styled-components'
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.div<{ $border: boolean }>`
   height: 4.8rem;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   padding: 1.6rem 2rem;
-  border-bottom: 0.1rem solid var(--color-gray-bright);
+  border-bottom: ${({ $border }) =>
+    $border ? '0.1rem solid var(--color-gray-bright)' : ''};
   background-color: var(--color-white);
   position: sticky;
   top: 0;
+  z-index: 10;
 
   @media screen and (max-width: 767px) {
     width: 100%;

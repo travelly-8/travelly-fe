@@ -15,6 +15,7 @@ import purplePenSvg from '@/assets/mypage/purple-pen.svg'
 import { API_MEMBER } from '@/constants/API'
 import useGetMemberProfile from '@/hooks/api/memberAPI/useGetMemberProfile'
 import EditPasswordPage from '@/pages/mypage/components/edit-password'
+import { clearUser } from '@/store/auth-slice/auth-slice'
 import { sheet } from '@/store/sheet-slice/sheet-slice'
 import { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
 import { deleteTokens } from '@/utils/tokenStorage'
@@ -56,6 +57,7 @@ export default function MyPageEditPage() {
         getLogout()
           .then(() => {
             deleteTokens()
+            dispatch(clearUser())
             navigate('/')
           })
           .catch((err) => {

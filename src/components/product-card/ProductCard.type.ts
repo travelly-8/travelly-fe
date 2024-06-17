@@ -1,6 +1,7 @@
 export interface IProductCardProps {
   cardData: IProductCardData
   size: 'sm' | 'bg' | 'summary'
+  bookmark?: boolean
 }
 
 export interface IProductImages {

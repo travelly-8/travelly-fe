@@ -78,3 +78,11 @@ export const StyledError = styled.p`
   margin: 0.3rem 0;
   color: var(--color-caution);
 `
+
+export const CurrencyUnit = styled.p`
+  color: var(--color-black);
+  font-size: 1.4rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+`

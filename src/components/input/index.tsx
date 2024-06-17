@@ -1,7 +1,11 @@
 import { INPUT_LABELS, INPUT_PLACEHOLDER } from '@/constants/INPUT_VALUES'
+
 import { forwardRef, useState } from 'react'
+
 import * as S from './Input.style'
+
 import type { IInput } from './Input.type'
+
 import eyeOffIcon from '/src/assets/common/eye-off.svg'
 
 const Input = forwardRef<HTMLInputElement, IInput>(
@@ -56,6 +60,7 @@ const Input = forwardRef<HTMLInputElement, IInput>(
             value={value}
             onChange={onChange}
           />
+          {inputType === 'contact' && <S.CurrencyUnit>원</S.CurrencyUnit>}
           {isPasswordType && (
             <S.ToggleButton type="button" onClick={toggleShowPassword}>
               <img

@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom'
 import * as S from './ProductCard.style'
 import { IProductCardData, IProductCardProps } from './ProductCard.type'
 
-function ProductCard({ cardData, size }: IProductCardProps) {
+function ProductCard({ cardData, size, bookmark = true }: IProductCardProps) {
   const {
     id,
     images,
@@ -50,11 +50,13 @@ function ProductCard({ cardData, size }: IProductCardProps) {
   return (
     <S.Container size={size} onClick={(e) => handleClick(e)}>
       <S.CardImage src={image} alt={name} size={size} />
-      <BookmarkButton
-        onClick={handleBookmarkClick}
-        isBookmarked={isBookmarked}
-        position="absolute"
-      />
+      {bookmark && (
+        <BookmarkButton
+          onClick={handleBookmarkClick}
+          isBookmarked={isBookmarked}
+          position="absolute"
+        />
+      )}
       <S.ContentsWrapper>
         <S.Title>{name}</S.Title>
         <S.Location size={size}>

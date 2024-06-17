@@ -4,16 +4,23 @@ export type InputValuesType = {
   [key: string]: string
 }
 
+export type InputType =
+  | 'name'
+  | 'email'
+  | 'password'
+  | 'passwordCheck'
+  | 'passwordConfirm'
+  | 'prevPassword'
+  | 'newPassword'
+  | 'newPasswordCheck'
+  | 'companyName'
+  | 'productName'
+  | 'price'
+  | 'contact'
+  | 'homepageUrl'
+
 export interface IInput {
-  inputType?:
-    | 'name'
-    | 'email'
-    | 'password'
-    | 'passwordCheck'
-    | 'passwordConfirm'
-    | 'prevPassword'
-    | 'newPassword'
-    | 'newPasswordCheck'
+  inputType?: InputType
   inputRef?: RefObject<HTMLInputElement>
   passwordValue?: string
   errorType?: string | null | undefined

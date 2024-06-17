@@ -56,3 +56,16 @@ export const EmailLogin = styled.span`
   font-weight: 400;
   cursor: pointer;
 `
+
+export const Content = styled.div`
+  margin-left: 3rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`
+
+export const Title = styled.h1`
+  color: var(--color-black);
+  font-size: 1.8rem;
+  font-weight: 700;
+`

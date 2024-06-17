@@ -17,9 +17,11 @@ const AppBar = ({
       </S.ProductInfo>
       <S.OrderFilterWrapper>
         <S.Order onClick={onOrderClick}>정렬</S.Order>
-        <S.Filter onClick={onFilterClick}>
-          <img src={filter} alt="필터" />
-        </S.Filter>
+        {onFilterClick && (
+          <S.Filter onClick={onFilterClick}>
+            <img src={filter} alt="필터" />
+          </S.Filter>
+        )}
       </S.OrderFilterWrapper>
     </S.AppBar>
   </S.AppBarWrapper>
