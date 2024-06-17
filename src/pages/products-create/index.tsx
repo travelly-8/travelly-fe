@@ -101,6 +101,15 @@ export default function ProductCreatePage() {
     if (file) {
       setPhoto(file)
 
+      // TODO: /products/upload API 연결
+      // const formData = new FormData()
+      // formData.append('file', file)
+      // postProductImage([formData])
+      //   .then((res) => {
+      //     console.log(res)
+      //   })
+      //   .catch((err) => console.error(err))
+
       const previewUrl = URL.createObjectURL(file)
       setPreview(previewUrl)
     }
@@ -130,7 +139,7 @@ export default function ProductCreatePage() {
       description: description,
       images: [
         {
-          url: preview,
+          url: preview, // TODO: /products/upload API 연결하고 그 res값으로 교체
           order: 0,
         },
       ],
@@ -309,20 +318,18 @@ export default function ProductCreatePage() {
         </S.InputWrapper>
         <S.AddressWrapper>
           <S.SectionTitle>주소 입력</S.SectionTitle>
-          <div>
-            {addressData && (
-              <S.AddressInputWrapper>
-                <S.RoadAddress>{addressData.roadAddress}</S.RoadAddress>
-                <StyledInputWrapper>
-                  <StyledInput
-                    type="text"
-                    placeholder="상세 주소 입력"
-                    onChange={(e) => setDetailAddressData(e.target.value)}
-                  />
-                </StyledInputWrapper>
-              </S.AddressInputWrapper>
-            )}
-          </div>
+          {addressData && (
+            <S.AddressInputWrapper>
+              <S.RoadAddress>{addressData.roadAddress}</S.RoadAddress>
+              <StyledInputWrapper>
+                <StyledInput
+                  type="text"
+                  placeholder="상세 주소 입력"
+                  onChange={(e) => setDetailAddressData(e.target.value)}
+                />
+              </StyledInputWrapper>
+            </S.AddressInputWrapper>
+          )}
           <button
             type="button"
             onClick={() => dispatch(sheet({ name: 'address', status: true }))}
@@ -345,7 +352,7 @@ export default function ProductCreatePage() {
         <S.PhotoWrapper>
           <S.TitleButtonWrapper>
             <S.SectionTitle>메인 사진 등록</S.SectionTitle>
-            <S.FileButton>
+            <S.FileButton type="button">
               <img src={CameraImg} alt="사진 등록" />
               {photo ? '파일 수정하기' : '파일 추가하기'}
               <S.FileInput
@@ -377,9 +384,9 @@ export default function ProductCreatePage() {
       </form>
       {sheetReducer.name === 'address' && sheetReducer.status === true && (
         <S.AddressSheet>
-          <SheetHeader />
+          <SheetHeader sheetName="address" />
           <Postcode
-            style={{ width: '100%', height: '100%' }}
+            style={{ width: '100%', height: '100vh' }}
             onSelected={(data) => {
               setAddressData(data)
               dispatch(sheet({ name: 'address', status: false }))

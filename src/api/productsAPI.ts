@@ -4,6 +4,7 @@ import type {
   IPostProduct,
 } from '@/types/postProductData.type'
 
+import fileInstance from './fileInstance'
 import instance from './instance'
 
 export const getAllProducts = (data: IGetProductsData) => {
@@ -17,6 +18,14 @@ export const getAllProducts = (data: IGetProductsData) => {
 export const postProduct = (data: IPostProduct) => {
   return instance({
     url: API_PRODUCTS.PRODUCTS,
+    method: 'POST',
+    data: data,
+  })
+}
+
+export const postProductImage = (data: FormData[]) => {
+  return fileInstance({
+    url: API_PRODUCTS.PRODUCTS_IMAGE,
     method: 'POST',
     data: data,
   })
