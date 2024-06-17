@@ -15,7 +15,7 @@ export interface IProductDetail {
   reviewCount: number
   phoneNumber: string
   ticketDto: Array<{ price: number }>
-  reviews: IReviewDetailData[]
+  reviews: IReviewDetailData
 }
 
 export interface IProductState {

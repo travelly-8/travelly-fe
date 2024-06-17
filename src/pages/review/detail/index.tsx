@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import { getReviewDetail, postComment } from '@/api/reviewAPI'
-import ReviewPage from '@/pages/products-detail/components/product-review/review'
+import ReviewPage from '@/pages/products-detail/components/product-review/review/ReviewPage.tsx'
 import CommentCard from '@/pages/review/components/comment-card'
 import { comment } from '@/store/comment-slice/comment-slice'
 import { ICommentSliceState } from '@/store/comment-slice/comment-slice.type'
