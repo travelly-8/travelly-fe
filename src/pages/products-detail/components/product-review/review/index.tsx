@@ -1,9 +1,14 @@
+import { useState } from 'react'
+
 import edit from '@/assets/products-detail/edit.svg'
 import sort from '@/assets/products-detail/sort.svg'
+import ReviewPage from '@/pages/products-detail/components/product-review/review/ReviewPage.tsx'
 import { RootState } from '@/store/store'
+import { IReviewDetailData } from '@/types/getReviewDetailData.type.ts'
 
+import CheckBox from '@components/check-box'
 import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import * as S from './Review.style'
 
@@ -17,9 +22,16 @@ const Review: React.FC<IReviewProps> = ({
   onEditClick,
   onPhotoReviewsClick,
 }) => {
+  const [isRecentVisitChecked, setIsRecentVisitChecked] = useState(false)
+  const [isPictureChecked, setIsPictureChecked] = useState(false)
+
+  const handleSetGetAccountChecked = (isChecked: boolean) => {
+    setIsRecentVisitChecked(isChecked)
+  }
+
   const productDetail = useSelector((state: RootState) => state.product.detail)
 
-  const reviewImgCnt = reviewImg?.length
+  const reviewImgCnt = reviewImg?.length || 0
   const navigate = useNavigate()
 
   const handleHeaderClick = () => {
@@ -44,12 +56,16 @@ const Review: React.FC<IReviewProps> = ({
         <S.ReviewCheckBox>
           <S.CheckBox>
             <S.CheckBoxWrapper>
-              <S.InputCheckBox type="checkbox" id="recent" name="recent" />
-              <S.BlackText>최근 방문</S.BlackText>
+              <CheckBox
+                text="최근 방문"
+                onChange={handleSetGetAccountChecked}
+              />
             </S.CheckBoxWrapper>
             <S.CheckBoxWrapper>
-              <S.InputCheckBox type="checkbox" id="pic/vid" name="pic/vid" />
-              <S.BlackText>사진/동영상</S.BlackText>
+              <CheckBox
+                text="사진/동영상"
+                onChange={handleSetGetAccountChecked}
+              />
             </S.CheckBoxWrapper>
           </S.CheckBox>
           <S.SortWrapper onClick={onOrderClick}>
@@ -57,18 +73,18 @@ const Review: React.FC<IReviewProps> = ({
             <S.IconSort src={sort} alt="정렬" />
           </S.SortWrapper>
         </S.ReviewCheckBox>
-        {reviewImgCnt && (
+        {reviewImgCnt > 0 ? (
           <S.ReviewImgContainer>
             {reviewImgCnt <= 3 ? (
-              reviewImg.map((photo) => (
+              reviewImg?.map((photo) => (
                 <S.ReviewImg key={photo} src={photo} alt="리뷰 이미지" />
               ))
             ) : (
               <>
-                <S.ReviewImg src={reviewImg[0]} alt="리뷰 이미지" />
-                <S.ReviewImg src={reviewImg[1]} alt="리뷰 이미지" />
+                <S.ReviewImg src={reviewImg?.[0]} alt="리뷰 이미지" />
+                <S.ReviewImg src={reviewImg?.[1]} alt="리뷰 이미지" />
                 <S.LastReviewImg onClick={onPhotoReviewsClick}>
-                  <S.ReviewImg src={reviewImg[2]} alt="리뷰 이미지" />
+                  <S.ReviewImg src={reviewImg?.[2]} alt="리뷰 이미지" />
                   <S.ReviewImgBackground>
                     +{reviewImgCnt - 2}
                   </S.ReviewImgBackground>
@@ -76,16 +92,19 @@ const Review: React.FC<IReviewProps> = ({
               </>
             )}
           </S.ReviewImgContainer>
+        ) : (
+          <S.GrayText>아직 리뷰가 없습니다.</S.GrayText>
         )}
       </S.ReviewHeader>
-      {/* TODO: 상품 상세 조회에서 리뷰 보내주는 API 완성되면 연결 */}
-      {/* {reviewData.map((data: IReviewDetailData) => (
-        <ReviewPage
-          key={data.productId}
-          reviewData={data}
-          onEditClick={onEditClick}
-        />
-      ))} */}
+
+      {reviewData?.map((data: IReviewDetailData) => (
+        <Link
+          key={data.reviewId}
+          to={`/review/${data.productId}/${data.reviewId}`}
+        >
+          <ReviewPage reviewData={data} onEditClick={onEditClick} />
+        </Link>
+      ))}
     </S.ReviewContainer>
   )
 }

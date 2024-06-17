@@ -25,7 +25,7 @@ function colorCssString(color: ColorType, size: SizeType) {
           color: var(--color-white);
         `
       }
-      if (size === 'large') {
+      if (size === 'large' || 'small') {
         colorCss = css`
           background-color: var(--color-gray-bright);
           color: var(--color-gray-middle);
@@ -66,10 +66,9 @@ function sizeCssString(size: SizeType) {
     case 'small':
       sizeCss = css`
         padding: 1.1rem 2rem;
-        width: 11rem;
-        height: 3.2rem;
-        gap: 1rem;
-        border-radius: 1.6rem;
+        width: 13.45rem;
+        height: 4rem;
+        border-radius: 0.4rem;
       `
       break
 

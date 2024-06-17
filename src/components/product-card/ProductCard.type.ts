@@ -15,7 +15,6 @@ export interface IProductCardData {
   name: string
   cityCode: string
   address: string
-  discount?: number
   ticketDto: ITicketDto[]
   rating: number
   reviewCount: number

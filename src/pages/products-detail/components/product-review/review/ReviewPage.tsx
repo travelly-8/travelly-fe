@@ -1,3 +1,4 @@
+import defaultUser from '@/assets/common/default-user.svg'
 import comment from '@/assets/products-detail/comment.svg'
 import like from '@/assets/products-detail/like.svg'
 import Rating from '@/pages/review/components/rating'
@@ -14,7 +15,13 @@ const ReviewPage: React.FC<IReviewPageProps> = ({
   return (
     <S.ReviewContent>
       <S.ProfileHeader>
-        <S.ProfileImg src={reviewData.reviewUserImage} alt="프로필 이미지" />
+        <S.ProfileImg
+          src={reviewData.reviewUserImage || defaultUser}
+          alt="프로필 이미지"
+          onError={(e) => {
+            if (e.target instanceof HTMLImageElement) e.target.src = defaultUser
+          }}
+        />
         <S.ProfileNameWrapper>
           <S.ProfileHeaderWrapper>
             <S.BlackText>{reviewData.reviewUserNickname}</S.BlackText>
@@ -46,7 +53,7 @@ const ReviewPage: React.FC<IReviewPageProps> = ({
           <S.LikeCommentWrapper>
             <S.IconS src={comment} alt="댓글" />
             <S.GrayText>댓글 </S.GrayText>
-            <S.BlackText>{reviewData.comments.length}</S.BlackText>
+            <S.BlackText>{reviewData.comments?.length}</S.BlackText>
           </S.LikeCommentWrapper>
         )}
       </S.LikeComment>

@@ -16,12 +16,8 @@ const SplashRouter = () => {
     return () => clearTimeout(timer)
   }, [])
 
-  if (!isReturningUser) {
-    if (isSplashOn) {
-      return <SplashPage />
-    } else {
-      return <Outlet />
-    }
+  if (isSplashOn && !isReturningUser) {
+    return <SplashPage />
   } else {
     return <Outlet />
   }

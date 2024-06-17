@@ -1,80 +1,51 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 
-import { getAllProducts, getProductDetail } from '@/api/productsAPI'
-import { LOCALE_CODE_LIST } from '@/constants/FILTERING_BROWSING'
+import useProductDetail from '@/hooks/api/productsAPI/useProductDetail'
+import useRecommendProducts from '@/hooks/api/productsAPI/useRecommendProducts'
 import PhotoReviewsSheet from '@/pages/products-detail/components/photo-reviews-sheet'
-import { setProductDetail } from '@/store/product-slice/product-slice'
 import { sheet } from '@/store/sheet-slice/sheet-slice'
 import type { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
-import { RootState } from '@/store/store'
+import { IReviewDetailData } from '@/types/getReviewDetailData.type'
+import { changeReviewData } from '@/utils/changeReviewData'
 
 import FooterReservation from '@components/footer-reservation'
-import { IProductCardData } from '@components/product-card/ProductCard.type'
 import ProductHeader from '@components/product-header'
-import { useQuery } from '@tanstack/react-query'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
-import BasicInfo from './components/basic-info'
 import Description from './components/description'
-import Info from './components/info'
+import ProductBasicInfo from './components/product-basic-info'
+import ProductInfo from './components/product-info'
+import ProductReviews from './components/product-review'
 import RecommendCard from './components/recommend-card'
 import SheetRenderer from './components/sheet-renderer'
-import { reviewData as const_review_data, mockCard } from './mockData'
+import LoadingSpinner from './LoadingSpinner'
 import * as S from './ProductsDetail.style'
 
-import type { ISheetComponents } from './ProductsDetail.type'
-
 function ProductsDetail() {
-  const { productId } = useParams()
+  const { productId } = useParams<{ productId: string }>()
   const dispatch = useDispatch()
+  const { productDetail, isProductDetailSuccess, isLoading } =
+    useProductDetail(productId)
+  const [isHamburgerClicked, setIsHamburgerClicked] = useState(false)
 
-  const { data: productDetailQuery, isSuccess: isProductDetailSuccess } =
-    useQuery({
-      queryKey: ['products-detail', productId],
-      queryFn: ({ queryKey }) => getProductDetail(Number(queryKey[1])),
-    })
-
-  useEffect(() => {
-    if (productDetailQuery?.data) {
-      dispatch(setProductDetail(productDetailQuery.data))
-    }
-  }, [productDetailQuery, dispatch])
-
-  const productDetail = useSelector((state: RootState) => state.product.detail)
   const {
     address = '',
     cityCode = '',
     detailAddress = '',
-    homepage = '',
-    images,
     name = '',
-    operationDays,
     description = '',
-    rating = 0,
     reviewCount = 0,
-    phoneNumber = '',
     ticketDto = [],
+    reviews = [],
   } = productDetail || {}
-  const recommendQueryData = {
-    page: 0,
-    size: 5,
-    keyword: address.split(' ')[1],
-    cityCode: cityCode,
-  }
-  const { data: recommendProductQuery } = useQuery({
-    queryKey: ['recommend-products'],
-    queryFn: () => getAllProducts(recommendQueryData),
-    enabled: isProductDetailSuccess,
-  })
-  const recommendProductData = recommendProductQuery?.data.content.filter(
-    (product: IProductCardData) => product.id.toString() !== productId,
-  )
 
-  const city = LOCALE_CODE_LIST[cityCode]
-  const district = address?.split(' ')[1]
-  const price = ticketDto[0]?.price
-  const imageArray = images?.map((item) => item.url) || []
+  const recommendProducts = useRecommendProducts({
+    productId,
+    address,
+    cityCode,
+    isProductDetailSuccess,
+  })
 
   const sheetReducer = useSelector(
     (state: ISheetSliceState) => state.sheet.value,
@@ -84,22 +55,36 @@ function ProductsDetail() {
   const isPhotoReviewsSheet =
     sheetReducer.status && sheetReducer.name === 'photo-reviews-sheet'
 
-  const [isHamburgerClicked, setIsHamburgerClicked] = useState(false)
-
   const handleSheetDispatch = useCallback(
-    (name: keyof ISheetComponents) => {
+    (name: string) => {
       dispatch(sheet({ name, status: true, text: '' }))
     },
     [dispatch],
   )
 
-  const handlePhotoReviewsClick = () => {
+  const handlePhotoReviewsClick = useCallback(() => {
     dispatch(sheet({ name: 'photo-reviews-sheet', status: true, text: '' }))
+  }, [dispatch])
+
+  if (isLoading) {
+    return <LoadingSpinner />
   }
 
-  const reviewData = const_review_data
-  const reviewImg = reviewData?.reduce(
-    (acc: string[], review) => acc.concat(review.image),
+  if (!productDetail || !productId) {
+    return null
+  }
+
+  const price = ticketDto[0]?.price
+
+  const reviewData = changeReviewData(
+    reviews as IReviewDetailData[],
+    productId,
+    name,
+    price,
+  )
+
+  const reviewImg = reviewData.reduce<string[]>(
+    (acc: string[], review) => acc.concat(review.reviewImages),
     [],
   )
 
@@ -124,43 +109,22 @@ function ProductsDetail() {
         $isSearchSheet={isSearchSheet}
         $isPhotoReviewsSheet={isPhotoReviewsSheet}
       >
-        <Info
-          productName={name}
-          sellingDate={operationDays}
-          address={`${city} ${district}`}
-          rating={rating}
-          reviewCnt={111}
-          imageArray={imageArray}
-          onShareClick={() => handleSheetDispatch('share-sheet')}
+        <ProductInfo
+          productDetail={productDetail}
+          handleSheetDispatch={handleSheetDispatch}
         />
-        <BasicInfo
-          address={address}
-          detailAddress={detailAddress}
-          companyName="트래블리"
-          phoneNumber={phoneNumber}
-          website={homepage}
-        />
+        <ProductBasicInfo productDetail={productDetail} />
         <Description />
-        <RecommendCard
-          cards={
-            recommendProductData?.length > 0 ? recommendProductData : mockCard
-          }
+        <RecommendCard cards={recommendProducts} />
+
+        <ProductReviews
+          reviewData={reviewData}
+          handleSheetDispatch={handleSheetDispatch}
+          handlePhotoReviewsClick={handlePhotoReviewsClick}
         />
-        {/* TODO: 상품 상세 조회에서 리뷰 데이터 받아와서 교체ㄴ */}
-        {/* <Review
-          reviewCnt={reviewCount}
-          reviewImg={reviewImg}
-          reviewData={const_review_data}
-          onOrderClick={() => handleSheetDispatch('review-order-sheet')}
-          onEditClick={() => handleSheetDispatch('edit-sheet')}
-          onPhotoReviewsClick={handlePhotoReviewsClick}
-        />
-        <FooterReservation
-        /> */}
         <FooterReservation
           isBookmarked={true}
           isReservationProduct={true}
-          discount={0}
           price={price}
           buttontype="reservation"
           productId={productId}

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 
+import defaultUser from '@/assets/common/default-user.svg'
 import ThreeCircle from '@/assets/common/three-circle.svg'
 import { comment } from '@/store/comment-slice/comment-slice'
 import { ICommentSliceState } from '@/store/comment-slice/comment-slice.type'
@@ -20,7 +21,7 @@ const CommentCard: React.FC<ICommentCardProps> = ({ data }) => {
     commentContent,
     commentDate,
     commentId,
-    commentUserImage,
+    commentUserImage = defaultUser,
     commentUserNickname,
   } = data
   const [isReplying, setIsReplying] = useState(false)
@@ -37,12 +38,18 @@ const CommentCard: React.FC<ICommentCardProps> = ({ data }) => {
   const handleReply = () => {
     dispatch(comment({ parentId: commentId }))
   }
+
+  const handleImageError = (
+    e: React.SyntheticEvent<HTMLImageElement, Event>,
+  ) => {
+    if (e.target instanceof HTMLImageElement) e.target.src = defaultUser
+  }
   return (
     <>
       <S.Wrapper isReplying={isReplying}>
         <S.CommentWrapper>
           <S.Content>
-            <S.ProfileImg src={commentUserImage} />
+            <S.ProfileImg src={commentUserImage} onError={handleImageError} />
             <S.MiddleWrapper>
               <S.NicknameAndDate>
                 <S.Nickname>{commentUserNickname}</S.Nickname>
@@ -76,7 +83,10 @@ const CommentCard: React.FC<ICommentCardProps> = ({ data }) => {
             <S.Wrapper key={data.commentId} isReplying={false}>
               <S.CommentWrapper>
                 <S.Content>
-                  <S.ProfileImg src={data.commentUserImage} />
+                  <S.ProfileImg
+                    src={data.commentUserImage || defaultUser}
+                    onError={handleImageError}
+                  />
                   <S.MiddleWrapper>
                     <S.NicknameAndDate>
                       <S.Nickname>{data.commentUserNickname}</S.Nickname>

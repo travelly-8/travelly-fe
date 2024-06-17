@@ -22,7 +22,7 @@ const RecommendCard = ({ cards }: { cards: IProductCardData[] }) => {
         ref={recommendedProductsRef}
         {...scrollRecommendedProductHandler}
       >
-        {cards.map((card) => (
+        {cards?.map((card) => (
           <ProductCard key={card.id} cardData={card} size="summary" />
         ))}
       </S.ProductList>
