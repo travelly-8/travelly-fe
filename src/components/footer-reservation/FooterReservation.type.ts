@@ -5,7 +5,6 @@ export interface IButtonType {
 export interface IFooter extends IButtonType {
   isBookmarked: boolean
   isReservationProduct: boolean
-  discount?: number
   price?: number
   productId?: string
   onPayConfirmClick?: () => void

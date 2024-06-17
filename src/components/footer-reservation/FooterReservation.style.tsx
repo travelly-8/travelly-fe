@@ -36,7 +36,5 @@ export const Text = styled.div`
   display: flex;
   gap: 1rem;
 `
-export const DiscountText = styled.div`
-  color: var(--color-main);
-`
+
 export const PriceText = styled.div``

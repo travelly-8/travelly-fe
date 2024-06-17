@@ -17,7 +17,6 @@ const buttonText = {
 const FooterReservation = ({
   isBookmarked: initialBookmarked,
   isReservationProduct,
-  discount,
   price,
   buttontype,
   productId,
@@ -57,7 +56,6 @@ const FooterReservation = ({
         <S.RightSection $buttontype={buttontype}>
           {isReservationProduct && (
             <S.Text>
-              <S.DiscountText>{discount}%</S.DiscountText>
               <S.PriceText>{price?.toLocaleString('ko-KR')} 포인트</S.PriceText>
             </S.Text>
           )}

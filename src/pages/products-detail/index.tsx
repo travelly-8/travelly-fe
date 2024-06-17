@@ -125,7 +125,6 @@ function ProductsDetail() {
         <FooterReservation
           isBookmarked={true}
           isReservationProduct={true}
-          discount={0}
           price={price}
           buttontype="reservation"
           productId={productId}

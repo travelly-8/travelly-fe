@@ -59,18 +59,12 @@ export const City = styled.span``
 
 export const District = styled.span``
 
-export const DiscountPrice = styled.div<ISizeProps>`
+export const PriceWrapper = styled.div<ISizeProps>`
   display: flex;
   gap: 0.3rem;
   ${({ size }) => `
     font-size: ${size === 'sm' || size === 'summary' ? '1.2rem' : '1.4rem'};
   `}
-`
-
-export const Discount = styled.span`
-  color: var(--color-main);
-  font-size: inherit;
-  font-weight: 500;
 `
 
 export const Price = styled.span`

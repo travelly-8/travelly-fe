@@ -19,7 +19,6 @@ const dummyCardDataList: IProductCardData[] = [
     name: '상품명',
     cityCode: 'cityCode',
     address: 'address',
-    discount: 10,
     ticketDto: [
       {
         name: 'name',
@@ -41,7 +40,6 @@ const dummyCardDataList: IProductCardData[] = [
     name: '상품명',
     cityCode: 'cityCode',
     address: 'address',
-    discount: 10,
     ticketDto: [
       {
         name: 'name',
