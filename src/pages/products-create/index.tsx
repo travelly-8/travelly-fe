@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react'
 
+import { postProduct } from '@/api/productsAPI'
 import ArrowRight from '@/assets/common/arrow-right-lightgray.svg'
 import CameraImg from '@/assets/common/camera.svg'
 import refreshIcon from '@/assets/home/refresh.svg'
+import { REVERSED_LOCALE_CODE_LIST } from '@/constants/FILTERING_BROWSING'
 import { ISheetSliceState, sheet } from '@/store/sheet-slice/sheet-slice'
+import { IPostProduct } from '@/types/postProductData.type'
 
 import Postcode from '@actbase/react-daum-postcode'
 import { OnCompleteParams } from '@actbase/react-daum-postcode/lib/types'
@@ -16,15 +19,17 @@ import { StyledInput, StyledInputWrapper } from '@components/input/Input.style'
 import PageHeader from '@components/page-header'
 import RoundButton from '@components/round-button'
 import SheetHeader from '@components/sheet-header'
-import { format } from 'date-fns'
+import { format, formatDate } from 'date-fns'
 import { Controller, FieldValues, useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 import { IProductCreateForm } from './ProductsCreate.type'
 import * as S from './ProductsCreatePage.style'
 
 export default function ProductCreatePage() {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const sheetReducer = useSelector(
     (state: ISheetSliceState) => state.sheet.value,
   )
@@ -109,7 +114,67 @@ export default function ProductCreatePage() {
 
   // 제출
   const onSubmit = async (data: IProductCreateForm) => {
-    console.log(data, photo, date, description, addressData, detailAddressData)
+    if (
+      !preview ||
+      !date ||
+      !addressData?.roadAddress ||
+      !description ||
+      !detailAddressData
+    )
+      return
+
+    const postData: IPostProduct = {
+      name: data.productName,
+      companyName: data.companyName,
+      type: '10', // TODO: 디자인 누락
+      description: description,
+      images: [
+        {
+          url: preview,
+          order: 0,
+        },
+      ],
+      address: addressData?.roadAddress,
+      detailAddress: detailAddressData,
+      phoneNumber: data.contact,
+      homepage: data.homepageUrl,
+      cityCode:
+        REVERSED_LOCALE_CODE_LIST[addressData?.roadAddress?.split(' ')[0]],
+      quantity: 100, // TODO: 디자인 누락
+      tickets: [
+        // TODO: 디자인 누락
+        {
+          name: '성인',
+          price: 10000,
+        },
+      ],
+      operationDays: [
+        {
+          date: formatDate(date[0], 'yyyy-MM-dd'),
+          operationDayHours: [
+            {
+              startTime: '12:00',
+              endTime: '12:00',
+            },
+          ],
+        },
+        {
+          date: formatDate(date[1], 'yyyy-MM-dd'),
+          operationDayHours: [
+            {
+              startTime: '12:00',
+              endTime: '12:00',
+            },
+          ],
+        },
+      ],
+    }
+
+    postProduct(postData)
+      .then(() => {
+        navigate('/mypage/my-product-list')
+      })
+      .catch((err) => console.error(err))
   }
 
   return (
@@ -316,7 +381,6 @@ export default function ProductCreatePage() {
           <Postcode
             style={{ width: '100%', height: '100%' }}
             onSelected={(data) => {
-              console.log(data)
               setAddressData(data)
               dispatch(sheet({ name: 'address', status: false }))
             }}

@@ -11,23 +11,28 @@ export const DAY_TO_STRING = {
 export const LOCALE_CODE_LIST: { [key: string]: string } = {
   0: '전체',
   1: '서울',
-  9: '경기도',
+  9: '경기',
   2: '인천',
-  8: '세종',
+  8: '세종특별자치시',
   3: '대전',
   12: '충남',
   11: '충북',
-  10: '강원도',
+  10: '강원특별자치도',
   14: '경남',
   13: '경북',
   4: '대구',
   6: '부산',
   7: '울산',
   16: '전남',
-  15: '전북',
+  15: '전북특별자치도',
   5: '광주',
-  17: '제주도',
+  17: '제주특별자치도',
 } as const
+
+export const REVERSED_LOCALE_CODE_LIST: { [key: string]: string } =
+  Object.fromEntries(
+    Object.entries(LOCALE_CODE_LIST).map(([key, value]) => [value, key]),
+  )
 
 export const SORT: { [key: string]: string } = {
   최신순: 'Newest',

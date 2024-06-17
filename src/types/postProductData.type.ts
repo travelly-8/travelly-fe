@@ -1,24 +1,32 @@
+import { DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_CREATE_ROOT_CONTAINERS } from 'react-dom/client'
+
 export interface IPutProductDetail {
   productId: number
   data: IPostProduct
 }
 
+export interface IImages {
+  url: string
+  order: DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_CREATE_ROOT_CONTAINERS
+}
 export interface IPostProduct {
   name: string
+  companyName: string
   type: string
   description: string
-  imageUrl: string
+  images: IImages[]
   address: string
   detailAddress: string
   phoneNumber: string
   homepage: string
   cityCode: string
   quantity: number
-  ticketPrice: ITicketPrice
+  tickets: ITicketPrice[]
   operationDays: IOperationDays[]
 }
 interface ITicketPrice {
-  [ticketName: string]: number
+  name: string
+  price: number
 }
 
 export interface IOperationDays {
