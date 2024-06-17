@@ -272,7 +272,6 @@ function ReservationPage() {
         isBookmarked={true}
         isReservationProduct={true}
         price={ticketPrice}
-        discount={0}
         buttontype="payment"
         onPayConfirmClick={handlePayConfirmClick}
         onSubmit={handleSubmit(onSubmit)}

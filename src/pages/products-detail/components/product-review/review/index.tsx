@@ -1,7 +1,10 @@
+import { useState } from 'react'
+
 import edit from '@/assets/products-detail/edit.svg'
 import sort from '@/assets/products-detail/sort.svg'
 import { RootState } from '@/store/store'
 
+import CheckBox from '@components/check-box'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
@@ -17,6 +20,13 @@ const Review: React.FC<IReviewProps> = ({
   onEditClick,
   onPhotoReviewsClick,
 }) => {
+  const [isRecentVisitChecked, setIsRecentVisitChecked] = useState(false)
+  const [isPictureChecked, setIsPictureChecked] = useState(false)
+
+  const handleSetGetAccountChecked = (isChecked: boolean) => {
+    setIsRecentVisitChecked(isChecked)
+  }
+
   const productDetail = useSelector((state: RootState) => state.product.detail)
 
   const reviewImgCnt = reviewImg?.length || 0
@@ -44,12 +54,16 @@ const Review: React.FC<IReviewProps> = ({
         <S.ReviewCheckBox>
           <S.CheckBox>
             <S.CheckBoxWrapper>
-              <S.InputCheckBox type="checkbox" id="recent" name="recent" />
-              <S.BlackText>최근 방문</S.BlackText>
+              <CheckBox
+                text="최근 방문"
+                onChange={handleSetGetAccountChecked}
+              />
             </S.CheckBoxWrapper>
             <S.CheckBoxWrapper>
-              <S.InputCheckBox type="checkbox" id="pic/vid" name="pic/vid" />
-              <S.BlackText>사진/동영상</S.BlackText>
+              <CheckBox
+                text="사진/동영상"
+                onChange={handleSetGetAccountChecked}
+              />
             </S.CheckBoxWrapper>
           </S.CheckBox>
           <S.SortWrapper onClick={onOrderClick}>

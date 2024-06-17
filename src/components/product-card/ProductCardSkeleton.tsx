@@ -16,7 +16,6 @@ function ProductCardSkeleton({ count, size }: IProductCardSkeletonProps) {
           <SkeletonContentsWrapper>
             <SkeletonText />
             <SkeletonLocation />
-            <SkeletonDiscountPrice />
             <SkeletonReview>
               <SkeletonStar />
               <SkeletonText />
@@ -85,16 +84,6 @@ const SkeletonLocation = styled.div`
   gap: 0.2rem;
   height: 1.5rem;
   width: 40%;
-  margin-bottom: 0.1rem;
-  background-color: var(--color-gray-light);
-  border-radius: 0.25rem;
-`
-
-const SkeletonDiscountPrice = styled.div`
-  display: flex;
-  gap: 0.3rem;
-  height: 1.8rem;
-  width: 50%;
   margin-bottom: 0.1rem;
   background-color: var(--color-gray-light);
   border-radius: 0.25rem;

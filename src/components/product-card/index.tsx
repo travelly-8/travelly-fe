@@ -18,7 +18,6 @@ function ProductCard({ cardData, size, bookmark = true }: IProductCardProps) {
     name,
     cityCode,
     address,
-    discount = 0,
     ticketDto,
     rating,
     reviewCount,
@@ -64,10 +63,9 @@ function ProductCard({ cardData, size, bookmark = true }: IProductCardProps) {
         </S.Location>
         {size !== 'summary' && (
           <Fragment>
-            <S.DiscountPrice size={size}>
-              <S.Discount>{discount}%</S.Discount>
-              <S.Price>{formattedPrice}원</S.Price>
-            </S.DiscountPrice>
+            <S.PriceWrapper size={size}>
+              <S.Price>{formattedPrice}원~</S.Price>
+            </S.PriceWrapper>
             <S.Review size={size}>
               <S.Star src={star} />
               <S.ReviewPoint>{rating}</S.ReviewPoint>
