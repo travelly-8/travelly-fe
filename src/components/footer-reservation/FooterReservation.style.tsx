@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 export const FooterContainer = styled.footer`
   position: sticky;
+  z-index: 100;
   bottom: 0;
 `
 
@@ -13,7 +14,6 @@ export const Wrapper = styled.div`
   width: 100%;
   height: 5.6rem;
   padding: 0 2rem 0;
-  z-index: 100;
   background-color: var(--color-white);
   border-top: 1px solid var(--color-gray-light);
 `
