@@ -35,7 +35,13 @@ const FooterReservation = ({
       navigate(`/reservation/${productId}`)
     } else if (buttontype === 'reservation' && !accessToken) {
       navigate('/signup/start')
-    } else if (buttontype === 'payment' && onPayConfirmClick && onSubmit) {
+    } else if (
+      buttontype === 'payment' &&
+      onPayConfirmClick &&
+      onSubmit &&
+      cancelPolicyChecked &&
+      personnelInfoChecked
+    ) {
       onSubmit()
       onPayConfirmClick()
     } else if (buttontype === 'cancelPayment' && onPayCancelClick) {
