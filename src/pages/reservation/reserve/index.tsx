@@ -173,6 +173,7 @@ function ReservationPage() {
   const calendarProps = {
     control: control,
     reset: reset,
+    operationDays: operationDays,
   }
 
   const len = operationDays ? operationDays.length : 1
