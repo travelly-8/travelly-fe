@@ -15,6 +15,7 @@ import authReducer from './auth-slice/auth-slice'
 import commentReducer from './comment-slice/comment-slice'
 import personnelReducer from './personnel-slice/personnel-slice'
 import productReducer from './product-slice/product-slice'
+import reservationReducer from './reservation-slice/reservation-slice'
 import { sheetSlice } from './sheet-slice/sheet-slice'
 
 const rootReducer = combineReducers({
@@ -23,12 +24,13 @@ const rootReducer = combineReducers({
   product: productReducer,
   comment: commentReducer,
   personnel: personnelReducer,
+  reservation: reservationReducer,
 })
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['auth', 'sheet', 'product', 'personnel'],
+  whitelist: ['auth', 'sheet', 'product', 'personnel', 'reservation'],
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

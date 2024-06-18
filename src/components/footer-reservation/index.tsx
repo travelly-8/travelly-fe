@@ -22,6 +22,7 @@ const FooterReservation = ({
   productId,
   cancelPolicyChecked = true,
   personnelInfoChecked = true,
+  reasonableDate = true,
   onPayConfirmClick,
   onPayCancelClick,
   onSubmit,
@@ -40,7 +41,8 @@ const FooterReservation = ({
       onPayConfirmClick &&
       onSubmit &&
       cancelPolicyChecked &&
-      personnelInfoChecked
+      personnelInfoChecked &&
+      reasonableDate
     ) {
       onSubmit()
       onPayConfirmClick()
@@ -67,7 +69,10 @@ const FooterReservation = ({
               <S.PriceText>{price?.toLocaleString('ko-KR')} 포인트</S.PriceText>
             </S.Text>
           )}
-          {accessToken && cancelPolicyChecked && personnelInfoChecked ? (
+          {accessToken &&
+          cancelPolicyChecked &&
+          personnelInfoChecked &&
+          reasonableDate ? (
             <RoundButton.Primary onClick={handleButtonClick}>
               {buttonText[buttontype]}
             </RoundButton.Primary>

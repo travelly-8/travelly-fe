@@ -12,7 +12,9 @@ import type { IReservationInputState } from '@/pages/reservation/components/rese
 import type { IPaySheet } from '@/pages/reservation/components/sheet/PaySheet.type'
 import TicketCountSection from '@/pages/reservation/components/ticket-count-section'
 import { IPersonnelSliceState } from '@/store/personnel-slice/personnel-slice.type'
+import { reservation } from '@/store/reservation-slice/reservation-slice'
 import { sheet } from '@/store/sheet-slice/sheet-slice'
+import dateValueBetween from '@/utils/dateValueBetween'
 
 import CheckBox from '@components/check-box'
 import FooterReservation from '@components/footer-reservation'
@@ -26,23 +28,23 @@ import { useParams } from 'react-router-dom'
 
 import * as S from './ReservationPage.style'
 
-interface ITicketCounts {
-  [key: string]: number
-}
 interface ITicketDto {
   id: number
   name: string
   price: number
   description: string
 }
+interface IPostTicketDto {
+  ticketId: number
+  quantity: number
+}
 interface IReservationData {
+  productId: number
   name: string
   phone: string | undefined
   email: string
-  personnel: ITicketCounts
+  ticketDtos: IPostTicketDto[]
   date: string
-  promotionCode: string
-  totlaPrice: number
 }
 
 function ReservationPage() {
@@ -56,7 +58,7 @@ function ReservationPage() {
   } = useForm<IReservationInputState>()
 
   const onSubmit = () => {
-    console.log(reservationInfo) // 임시 예약 api 호출?
+    dispatch(reservation(reservationInfo))
   }
 
   const nameRegister = register('name', { required: '예약자명을 입력해주세요' })
@@ -179,20 +181,43 @@ function ReservationPage() {
     name: name,
     images: images,
     createdDate: operationDays
-      ? `${format(operationDays[0]?.date, 'yyyy.MM.dd')} - ${format(operationDays[len - 1]?.date, 'yyyy.MM.dd')}`
+      ? `${format(operationDays[len - 1]?.date, 'yyyy.MM.dd')} - ${format(operationDays[0]?.date, 'yyyy.MM.dd')}`
       : '일정 정보 없음',
     ticketDto: ticketDto,
   }
+  const currentTime = new Date()
+  const currentYear = currentTime.getFullYear()
+  const currentDay = currentTime.getDate()
+  const currentMonth = currentTime.getMonth() + 1
+
+  const reasonableDate = dateValueBetween(
+    dateValue,
+    operationDays
+      ? operationDays[len - 1]?.date
+      : `${currentYear}.${currentMonth}.${currentDay}`,
+    operationDays
+      ? operationDays[0]?.date
+      : `${currentYear}.${currentMonth}.${currentDay}`,
+  )
 
   useEffect(() => {
+    const ticketDtos = Object.keys(personnel).map((key) => {
+      const matchedTicket = ticketDto?.find(
+        (ticket: ITicketDto) => ticket.name === key,
+      )
+      return {
+        ticketId: matchedTicket?.id,
+        quantity: personnel[key],
+      }
+    })
+
     setReservationInfo({
+      productId: Number(productId),
       name: nameValue,
       phone: phoneValue,
       email: emailValue,
-      personnel: personnel,
-      date: dateValue,
-      promotionCode: promotionCode,
-      totlaPrice: ticketPrice,
+      ticketDtos: ticketDtos,
+      date: format(dateValue, 'yyyy-MM-dd'),
     })
   }, [
     nameValue,
@@ -200,8 +225,8 @@ function ReservationPage() {
     emailValue,
     personnel,
     dateValue,
-    promotionCode,
-    ticketPrice,
+    productId,
+    ticketDto,
   ])
 
   return (
@@ -275,6 +300,7 @@ function ReservationPage() {
         buttontype="payment"
         cancelPolicyChecked={isCancelPolicyChecked}
         personnelInfoChecked={ticketPrice !== 0}
+        reasonableDate={reasonableDate}
         onPayConfirmClick={handlePayConfirmClick}
         onSubmit={handleSubmit(onSubmit)}
       />
