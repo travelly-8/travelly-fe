@@ -1,16 +1,16 @@
 import { useEffect, useRef, useState } from 'react'
-import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
 
+import { postReview } from '@/api/reviewAPI'
 import CameraImg from '@/assets/review/camera.svg'
 import Rating from '@/pages/review/components/rating'
-import ReviewProductCard from '@components/review-product-card'
+import { RootState } from '@/store/store'
 
 import FooterButton from '@components/footer-button'
 import PageHeader from '@components/page-header'
+import ReviewProductCard from '@components/review-product-card'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
-import { postReview } from '@/api/reviewAPI'
-import { RootState } from '@/store/store'
 import * as S from './ReviewWritePage.style'
 
 export default function ReviewWritePage() {

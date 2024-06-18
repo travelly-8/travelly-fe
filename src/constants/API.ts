@@ -2,6 +2,7 @@ export const BASE_URL = 'https://travellykr.shop'
 
 export const API_PRODUCTS = Object.freeze({
   PRODUCTS: '/products/',
+  PRODUCTS_IMAGE: '/products/upload',
   PRODUCTS_DETAIL: (productId: number | undefined) => `/products/${productId}`,
 })
 
