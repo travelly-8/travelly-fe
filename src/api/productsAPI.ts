@@ -46,6 +46,13 @@ export const putProductDetail = (productId: number, data: IPostProduct) => {
   })
 }
 
+export const getTopKeyWords = () => {
+  return instance({
+    method: 'GET',
+    url: API_PRODUCTS.TOP_KEYWORDS,
+  })
+}
+
 const createParams = (data: IGetProductsData) => {
   const params: { [key: string]: string | number } = {}
 
@@ -55,20 +62,5 @@ const createParams = (data: IGetProductsData) => {
       params[key] = value
     }
   })
-
-  // params.page = data.page
-  // params.size = data.size
-  // if (data.sortField) params.sortField = data.sortField
-  // if (data.sortType) params.sortType = data.sortType
-  // if (data.keyword) params.keyword = data.keyword
-  // if (data.cityCode) params.cityCode = data.cityCode
-  // if (data.contentType) params.contentType = data.contentType
-  // if (data.startDate) params.startDate = data.startDate
-  // if (data.endDate) params.endDate = data.endDate
-  // if (data.startTime) params.startTime = data.startTime
-  // if (data.endTime) params.endTime = data.endTime
-  // if (data.minPrice !== undefined) params.minPrice = data.minPrice
-  // if (data.maxPrice !== undefined) params.maxPrice = data.maxPrice
-
   return params
 }

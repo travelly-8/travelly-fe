@@ -4,6 +4,7 @@ export const API_PRODUCTS = Object.freeze({
   PRODUCTS: '/products/',
   PRODUCTS_IMAGE: '/products/upload',
   PRODUCTS_DETAIL: (productId: number | undefined) => `/products/${productId}`,
+  TOP_KEYWORDS: '/products/top-keywords',
 })
 
 export const API_MEMBER = Object.freeze({
