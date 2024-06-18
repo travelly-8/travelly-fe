@@ -1,5 +1,3 @@
-import { DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_CREATE_ROOT_CONTAINERS } from 'react-dom/client'
-
 export interface IPutProductDetail {
   productId: number
   data: IPostProduct
@@ -7,7 +5,7 @@ export interface IPutProductDetail {
 
 export interface IImages {
   url: string
-  order: DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_CREATE_ROOT_CONTAINERS
+  order: number
 }
 export interface IPostProduct {
   name: string
