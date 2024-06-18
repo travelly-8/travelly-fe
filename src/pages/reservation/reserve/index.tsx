@@ -273,6 +273,7 @@ function ReservationPage() {
         isReservationProduct={true}
         price={ticketPrice}
         buttontype="payment"
+        cancelPolicyChecked={isCancelPolicyChecked}
         onPayConfirmClick={handlePayConfirmClick}
         onSubmit={handleSubmit(onSubmit)}
       />

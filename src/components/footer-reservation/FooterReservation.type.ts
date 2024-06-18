@@ -7,6 +7,7 @@ export interface IFooter extends IButtonType {
   isReservationProduct: boolean
   price?: number
   productId?: string
+  cancelPolicyChecked?: boolean
   onPayConfirmClick?: () => void
   onPayCancelClick?: () => void
   onSubmit?: () => void

@@ -20,6 +20,7 @@ const FooterReservation = ({
   price,
   buttontype,
   productId,
+  cancelPolicyChecked = true,
   onPayConfirmClick,
   onPayCancelClick,
   onSubmit,
@@ -59,7 +60,7 @@ const FooterReservation = ({
               <S.PriceText>{price?.toLocaleString('ko-KR')} 포인트</S.PriceText>
             </S.Text>
           )}
-          {accessToken ? (
+          {accessToken && cancelPolicyChecked ? (
             <RoundButton.Primary onClick={handleButtonClick}>
               {buttonText[buttontype]}
             </RoundButton.Primary>
