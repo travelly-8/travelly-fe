@@ -10,6 +10,7 @@ export interface IFooter extends IButtonType {
   cancelPolicyChecked?: boolean
   personnelInfoChecked?: boolean
   reasonableDate?: boolean
+  calendarChecked?: boolean
   onPayConfirmClick?: () => void
   onPayCancelClick?: () => void
   onSubmit?: () => void

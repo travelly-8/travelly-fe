@@ -94,10 +94,15 @@ function ReservationPage() {
   const [isCancelPolicyChecked, setIsCancelPolicyChecked] = useState(false)
   const [isGetAccountChecked, setIsGetAccountChecked] = useState(false)
   const [userInfo, setUserInfo] = useState<IReservationInputState>()
+  const [calendarCnt, setCalendarCnt] = useState<number>(0)
   const [promotionCode, setPromotionCode] = useState<string>('')
   const [reservationInfo, setReservationInfo] = useState<IReservationData>()
   const handleSetGetAccountChecked = (isChecked: boolean) => {
     setIsGetAccountChecked(isChecked)
+  }
+
+  const handleCalendarClick = () => {
+    setCalendarCnt(calendarCnt + 1)
   }
 
   const { data: memberProfile } = useGetMemberProfile(
@@ -262,10 +267,13 @@ function ReservationPage() {
         />
         <S.TicketInfo>
           <TicketCountSection ticketDto={ticketDto} isInput />
-          <ReservationDateSection
-            onCalendarClick={() => handleSheetDispatch('calendar-sheet')}
-            value={dateValue}
-          />
+          <S.Wrapper onClick={handleCalendarClick}>
+            <ReservationDateSection
+              onCalendarClick={() => handleSheetDispatch('calendar-sheet')}
+              value={dateValue}
+            />
+            {calendarCnt === 0 && <S.Error>예약할 날짜를 선택해주세요</S.Error>}
+          </S.Wrapper>
         </S.TicketInfo>
         <S.PayOptions>
           <S.PayOptionHeader>결제 방법</S.PayOptionHeader>
@@ -305,6 +313,7 @@ function ReservationPage() {
         cancelPolicyChecked={isCancelPolicyChecked}
         personnelInfoChecked={ticketPrice !== 0}
         reasonableDate={reasonableDate}
+        calendarChecked={calendarCnt !== 0}
         onPayConfirmClick={handlePayConfirmClick}
         onSubmit={handleSubmit(onSubmit)}
       />
