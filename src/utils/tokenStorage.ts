@@ -21,9 +21,9 @@ export const refreshAccessToken = async () => {
 
   try {
     const response = await axios.post(API_AUTH.REISSUE, { refreshToken })
-    const { accessToken, refreshToken: newRefreshToken } = response.data.token
-    saveTokens(accessToken, newRefreshToken)
-    return accessToken
+    const newAccessToken = response.data.accessToken
+    saveTokens(newAccessToken, refreshToken)
+    return newAccessToken
   } catch (error) {
     throw new Error('Failed to refresh access token')
   }
