@@ -7,6 +7,7 @@ export interface IReservationSliceState {
       email: string
       ticketDtos: IPostTicketDto[]
       date: string
+      ticketPrice: number
     }
   }
 }

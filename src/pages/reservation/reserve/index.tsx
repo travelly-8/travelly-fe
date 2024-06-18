@@ -45,6 +45,7 @@ interface IReservationData {
   email: string
   ticketDtos: IPostTicketDto[]
   date: string
+  ticketPrice: number
 }
 
 function ReservationPage() {
@@ -218,6 +219,7 @@ function ReservationPage() {
       email: emailValue,
       ticketDtos: ticketDtos,
       date: format(dateValue, 'yyyy-MM-dd'),
+      ticketPrice: ticketPrice,
     })
   }, [
     nameValue,
@@ -227,6 +229,7 @@ function ReservationPage() {
     dateValue,
     productId,
     ticketDto,
+    ticketPrice,
   ])
 
   return (
