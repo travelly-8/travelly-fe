@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import refreshIcon from '@/assets/home/refresh.svg'
 import { IReservationInputState } from '@/pages/reservation/components/reservation-input/Reservation.type.ts'
 import { sheet } from '@/store/sheet-slice/sheet-slice.ts'
@@ -27,6 +29,7 @@ interface IOperationDayHours {
 
 const CalendarSheet = ({ control, reset, operationDays }: ICalendarSheet) => {
   const dispatch = useDispatch()
+  const [isValidDate, setIsValidDate] = useState(false)
 
   return (
     <GrabSheet name="calendar-sheet" align="center">
@@ -34,6 +37,7 @@ const CalendarSheet = ({ control, reset, operationDays }: ICalendarSheet) => {
         control={control}
         formLabel="date"
         operationDays={operationDays}
+        validReservationDate={setIsValidDate}
       />
       <S.Buttons>
         <S.ExampleWrapper>
@@ -47,13 +51,17 @@ const CalendarSheet = ({ control, reset, operationDays }: ICalendarSheet) => {
         <S.RefreshButton onClick={() => reset()}>
           <S.Icon src={refreshIcon} /> 초기화
         </S.RefreshButton>
-        <RoundButton.Primary
-          onClick={() =>
-            dispatch(sheet({ name: 'calendar-sheet', status: false }))
-          }
-        >
-          날짜 선택
-        </RoundButton.Primary>
+        {isValidDate ? (
+          <RoundButton.Primary
+            onClick={() =>
+              dispatch(sheet({ name: 'calendar-sheet', status: false }))
+            }
+          >
+            날짜 선택
+          </RoundButton.Primary>
+        ) : (
+          <RoundButton.Gray disabled>날짜 선택</RoundButton.Gray>
+        )}
       </S.Buttons>
     </GrabSheet>
   )

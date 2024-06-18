@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { DAY_TO_STRING } from '@/constants/FILTERING_BROWSING.ts'
 
@@ -19,6 +19,7 @@ const CalendarInput = ({
   control,
   calendarType = 'singleDate',
   operationDays = [],
+  validReservationDate,
 }: ICalendarInput) => {
   const [value, onChange] = useState(new Date())
   const [rangdeDate, setRangeDate] = useState([new Date(), new Date()])
@@ -42,7 +43,10 @@ const CalendarInput = ({
     }
     return ''
   }
-
+  useEffect(() => {
+    if (!validReservationDate) return
+    validReservationDate(isOperationDay(new Date(value)))
+  }, [value, validReservationDate])
   return (
     <S.Wrapper>
       <S.Content>

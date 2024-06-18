@@ -6,6 +6,7 @@ export interface ICalendarInput {
   calendarType?: 'singleDate' | 'rangeDate'
   control: Control<any>
   operationDays?: IOperationDays[]
+  validReservationDate?: (isValid: boolean) => void
 }
 
 export interface IOperationDays {
