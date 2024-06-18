@@ -32,7 +32,7 @@ const FooterReservation = ({
     if (buttontype === 'reservation' && accessToken) {
       navigate(`/reservation/${productId}`)
     } else if (buttontype === 'reservation' && !accessToken) {
-      navigate('/login')
+      navigate('/signup/start')
     } else if (buttontype === 'payment' && onPayConfirmClick && onSubmit) {
       onSubmit()
       onPayConfirmClick()
