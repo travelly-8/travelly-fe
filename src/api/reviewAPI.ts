@@ -1,17 +1,10 @@
 import { API_REVIEW } from '@/constants/API'
-import { IPostCommentData } from '@/types/postCommentData.type'
+import type { IPostCommentData } from '@/types/postCommentData.type'
+import type { IGetReviews, IPostReview } from '@/types/review.type'
 
 import instance from './instance'
 
-interface IReviewRequest {
-  images: File[] // Multipartfile로 전송할 파일 배열
-  review: {
-    rating: number
-    content: string
-  }
-}
-
-export const postReview = (productId: number, data: IReviewRequest) => {
+export const postReview = (productId: number, data: IPostReview) => {
   const formData = new FormData()
 
   data.images.forEach((image) => {
@@ -49,5 +42,13 @@ export const postComment = (
     method: 'POST',
     url: API_REVIEW.COMMENT(reviewId, commentId),
     data,
+  })
+}
+
+export const getReviews = (productId: number, params: IGetReviews) => {
+  return instance({
+    method: 'GET',
+    url: API_REVIEW.REVIEWS(productId),
+    params,
   })
 }

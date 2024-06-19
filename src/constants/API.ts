@@ -32,4 +32,5 @@ export const API_REVIEW = Object.freeze({
     `/review/${productId}/${reviewId}`,
   COMMENT: (reviewId: number, commentId: number) =>
     `/comment/${reviewId}/${commentId}`,
+  REVIEWS: (productId: number) => `/review/product/${productId}`,
 })

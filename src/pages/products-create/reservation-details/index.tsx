@@ -1,9 +1,11 @@
+import ReservationCard from '@/pages/products-create/components/ReservationCard'
 import type { IProductDetail } from '@/store/product-slice/product-slice.type'
 import { RootState } from '@/store/store'
+
 import PageHeader from '@components/page-header'
 import ReviewProductCard from '@components/review-product-card'
 import { useSelector } from 'react-redux'
-import ReservationCard from '../components/ReservationCard'
+
 import * as S from './ReservationDetails.style'
 
 const ReservationDetails = () => {
@@ -15,9 +17,9 @@ const ReservationDetails = () => {
       <PageHeader>
         <S.Title>예약 상세</S.Title>
       </PageHeader>
-      <S.CardContianer>
+      <S.CardContainer>
         <ReviewProductCard productDetail={productDetail} />
-      </S.CardContianer>
+      </S.CardContainer>
       <S.ReservationCardContainer>
         <ReservationCard />
         <ReservationCard />

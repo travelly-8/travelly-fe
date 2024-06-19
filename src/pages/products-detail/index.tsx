@@ -2,11 +2,9 @@ import { useCallback, useState } from 'react'
 
 import useProductDetail from '@/hooks/api/productsAPI/useProductDetail'
 import useRecommendProducts from '@/hooks/api/productsAPI/useRecommendProducts'
-import PhotoReviewsSheet from '@/pages/products-detail/components/photo-reviews-sheet'
+import useGetReviews from '@/hooks/api/reviewAPI/useGetReviews'
 import { sheet } from '@/store/sheet-slice/sheet-slice'
 import type { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
-import { IReviewDetailData } from '@/types/getReviewDetailData.type'
-import { changeReviewData } from '@/utils/changeReviewData'
 
 import FooterReservation from '@components/footer-reservation'
 import ProductHeader from '@components/product-header'
@@ -14,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
 import Description from './components/description'
+import PhotoReviewsSheet from './components/photo-reviews-sheet'
 import ProductBasicInfo from './components/product-basic-info'
 import ProductInfo from './components/product-info'
 import ProductReviews from './components/product-review'
@@ -27,6 +26,7 @@ function ProductsDetail() {
   const dispatch = useDispatch()
   const { productDetail, isProductDetailSuccess, isLoading } =
     useProductDetail(productId)
+  const { reviewsData } = useGetReviews(productId)
   const [isHamburgerClicked, setIsHamburgerClicked] = useState(false)
 
   const {
@@ -37,7 +37,6 @@ function ProductsDetail() {
     description = '',
     reviewCount = 0,
     ticketDto = [],
-    reviews = [],
   } = productDetail || {}
 
   const recommendProducts = useRecommendProducts({
@@ -76,14 +75,7 @@ function ProductsDetail() {
 
   const price = ticketDto[0]?.price
 
-  const reviewData = changeReviewData(
-    reviews as IReviewDetailData[],
-    productId,
-    name,
-    price,
-  )
-
-  const reviewImg = reviewData.reduce<string[]>(
+  const reviewImg = reviewsData.reduce<string[]>(
     (acc: string[], review) => acc.concat(review.reviewImages),
     [],
   )
@@ -118,7 +110,7 @@ function ProductsDetail() {
         <RecommendCard cards={recommendProducts} />
 
         <ProductReviews
-          reviewData={reviewData}
+          reviewData={reviewsData}
           handleSheetDispatch={handleSheetDispatch}
           handlePhotoReviewsClick={handlePhotoReviewsClick}
         />

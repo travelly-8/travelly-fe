@@ -12,7 +12,7 @@ export const Title = styled.h1`
   margin-left: 2rem;
 `
 
-export const CardContianer = styled.div`
+export const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0 2rem;
