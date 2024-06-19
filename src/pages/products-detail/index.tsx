@@ -5,6 +5,8 @@ import useRecommendProducts from '@/hooks/api/productsAPI/useRecommendProducts'
 import useGetReviews from '@/hooks/api/reviewAPI/useGetReviews'
 import { sheet } from '@/store/sheet-slice/sheet-slice'
 import type { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
+import { IReviewDetailData } from '@/types/getReviewDetailData.type'
+import { changeReviewData } from '@/utils/changeReviewData'
 
 import FooterReservation from '@components/footer-reservation'
 import ProductHeader from '@components/product-header'
@@ -26,7 +28,8 @@ function ProductsDetail() {
   const dispatch = useDispatch()
   const { productDetail, isProductDetailSuccess, isLoading } =
     useProductDetail(productId)
-  const { reviewsData } = useGetReviews(productId)
+  const [page, setPage] = useState(0)
+  const { reviews, totalElements } = useGetReviews(productId, page)
   const [isHamburgerClicked, setIsHamburgerClicked] = useState(false)
 
   const {
@@ -65,6 +68,10 @@ function ProductsDetail() {
     dispatch(sheet({ name: 'photo-reviews-sheet', status: true, text: '' }))
   }, [dispatch])
 
+  const handleLoadMoreReviews = () => {
+    setPage((prevPage) => prevPage + 1)
+  }
+
   if (isLoading) {
     return <LoadingSpinner />
   }
@@ -75,10 +82,16 @@ function ProductsDetail() {
 
   const price = ticketDto[0]?.price
 
-  const reviewImg = reviewsData.reduce<string[]>(
+  const reviewData = reviews
+    ? changeReviewData(reviews as IReviewDetailData[], productId, name, price)
+    : []
+
+  const reviewImg = reviewData.reduce<string[]>(
     (acc: string[], review) => acc.concat(review.reviewImages),
     [],
   )
+
+  const remainingReviews = Math.max(totalElements - reviews.length, 0)
 
   if (isPhotoReviewsSheet) return <PhotoReviewsSheet reviewImg={reviewImg} />
 
@@ -110,10 +123,18 @@ function ProductsDetail() {
         <RecommendCard cards={recommendProducts} />
 
         <ProductReviews
-          reviewData={reviewsData}
+          reviewData={reviewData}
+          totalElements={totalElements}
           handleSheetDispatch={handleSheetDispatch}
           handlePhotoReviewsClick={handlePhotoReviewsClick}
         />
+        {remainingReviews !== 0 && (
+          <S.ButtonWrapper>
+            <S.LoadMoreButton onClick={handleLoadMoreReviews}>
+              {remainingReviews}개 리뷰 더보기
+            </S.LoadMoreButton>
+          </S.ButtonWrapper>
+        )}
         <FooterReservation
           isBookmarked={true}
           isReservationProduct={true}
