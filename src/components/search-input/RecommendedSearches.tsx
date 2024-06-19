@@ -32,13 +32,13 @@ const RecommendedSearches: React.FC<IRecommendedSearchesProps> = ({
           검색 결과가 없습니다.
         </S.Suggestion>
       ) : (
-        randSuggest.map((suggest) => (
+        randSuggest?.map((suggest) => (
           <S.Suggestion
-            onClick={() => handleClick(suggest)}
-            key={suggest}
+            onClick={() => handleClick(suggest as string)}
+            key={suggest as string}
             $suggestcnt={suggestlen === 1}
           >
-            {suggest}
+            {suggest as string}
           </S.Suggestion>
         ))
       )}
