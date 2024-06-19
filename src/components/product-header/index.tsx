@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import hamburgerClickedIcon from '@/assets/common/hamburger-click.svg'
 import hamburgerIcon from '@/assets/common/hamburger.svg'
 import searchIcon from '@/assets/common/search.svg'
@@ -15,11 +13,9 @@ import { useLocation } from 'react-router-dom'
 
 import * as S from './ProductHeader.style'
 
-import type { IProductHeaderProps, ProductType } from './ProductHeader.type'
+import type { ProductType } from './ProductHeader.type'
 
-const ProductHeader: React.FC<IProductHeaderProps> = ({ hamburgerClick }) => {
-  const [isHamburgerClicked, setIsHamburgerClicked] = useState(false)
-
+const ProductHeader = () => {
   const location = useLocation()
   const queryParams = new URLSearchParams(location.search)
   const input = queryParams.get('input')
@@ -29,10 +25,6 @@ const ProductHeader: React.FC<IProductHeaderProps> = ({ hamburgerClick }) => {
     : undefined
   const category =
     contentTypeIndex !== undefined ? PRODUCT_TYPE[contentTypeIndex] : input
-  const handleHamburgerClick = () => {
-    setIsHamburgerClicked(!isHamburgerClicked)
-    hamburgerClick()
-  }
 
   const dispatch = useDispatch()
   const sheetReducer = useSelector(
@@ -45,13 +37,14 @@ const ProductHeader: React.FC<IProductHeaderProps> = ({ hamburgerClick }) => {
     return <SearchSheet />
   }
 
-  const hamburgerImg = isHamburgerClicked ? hamburgerClickedIcon : hamburgerIcon
+  const isOpen = sheetReducer.status && sheetReducer.name === 'category-sheet'
+
   return (
     <>
-      {isHamburgerClicked && (
+      {isOpen && (
         <S.ProductHeaderBackground
           onClick={() => {
-            setIsHamburgerClicked(false)
+            dispatch(sheet({ name: 'category-sheet', status: false, text: '' }))
           }}
         />
       )}
@@ -63,12 +56,20 @@ const ProductHeader: React.FC<IProductHeaderProps> = ({ hamburgerClick }) => {
         <S.IconWrapper>
           <S.Icon src={searchIcon} alt="search" onClick={handleSearchClick} />
           <S.Icon
-            src={hamburgerImg}
+            src={isOpen ? hamburgerClickedIcon : hamburgerIcon}
             alt="hamburger"
-            onClick={handleHamburgerClick}
+            onClick={() =>
+              dispatch(
+                sheet({
+                  name: 'category-sheet',
+                  status: !isOpen,
+                  text: '',
+                }),
+              )
+            }
           />
         </S.IconWrapper>
-        {isHamburgerClicked && <CategorySection />}
+        {isOpen && <CategorySection />}
       </S.ProductHeaderContainer>
     </>
   )
