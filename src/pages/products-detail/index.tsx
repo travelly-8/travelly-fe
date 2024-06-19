@@ -114,7 +114,7 @@ function ProductsDetail() {
           handleSheetDispatch={handleSheetDispatch}
         />
         <ProductBasicInfo productDetail={productDetail} />
-        <Description />
+        <Description description={description} />
         <RecommendCard cards={recommendProducts} />
 
         <ProductReviews
