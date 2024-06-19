@@ -168,3 +168,10 @@ export const AllAmount = styled.span`
   font-size: 1.3rem;
   font-weight: 600;
 `
+export const Wrapper = styled.div``
+
+export const Error = styled.span`
+  color: var(--color-caution);
+  font-size: 1.2rem;
+  line-height: normal;
+`

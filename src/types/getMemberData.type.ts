@@ -7,4 +7,5 @@ export interface IGetMemberProfile {
   nickname: string
   imageUrl: string
   type: 'local' | 'social'
+  point: number
 }

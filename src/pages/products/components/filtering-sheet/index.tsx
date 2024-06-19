@@ -30,7 +30,7 @@ const FilteringSheet = () => {
   const minPriceValue = watch('min-price') || 0
   const maxPriceValue = watch('max-price') || 100000
   const startTimeValue = watch('start-time') || 0
-  const endTimeValue = watch('end-time') || 23
+  const endTimeValue = watch('end-time') || 24
   const dateValue = watch('date') || new Date()
 
   function handleSubmit() {

@@ -36,6 +36,7 @@ function ProductsDetail() {
     name = '',
     description = '',
     reviewCount = 0,
+    images = [],
     ticketDto = [],
     reviews = [],
   } = productDetail || {}
@@ -87,7 +88,7 @@ function ProductsDetail() {
     (acc: string[], review) => acc.concat(review.reviewImages),
     [],
   )
-
+  console.log(productDetail)
   if (isPhotoReviewsSheet) return <PhotoReviewsSheet reviewImg={reviewImg} />
 
   const shareSheetProps = {
@@ -95,8 +96,7 @@ function ProductsDetail() {
     addressTitle: detailAddress || '',
     title: name || '',
     description: description || '',
-    imageUrl:
-      'https://img8.yna.co.kr/etc/inner/KR/2018/01/17/AKR20180117116400007_02_i_P4.jpg',
+    imageUrl: images[0]?.url,
     commentCount: reviewCount || 0,
   } as const
 
