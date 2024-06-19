@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react'
 
 import useProductDetail from '@/hooks/api/productsAPI/useProductDetail'
 import useRecommendProducts from '@/hooks/api/productsAPI/useRecommendProducts'
-import useGetReviews from '@/hooks/api/reviewAPI/useGetReviews'
+import useLoadMoreReviews from '@/hooks/api/reviewAPI/useLoadMoreReviews'
 import { sheet } from '@/store/sheet-slice/sheet-slice'
 import type { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
 import { IReviewDetailData } from '@/types/getReviewDetailData.type'
@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
 import Description from './components/description'
+import LoadMoreButton from './components/load-more-button'
 import PhotoReviewsSheet from './components/photo-reviews-sheet'
 import ProductBasicInfo from './components/product-basic-info'
 import ProductInfo from './components/product-info'
@@ -28,8 +29,8 @@ function ProductsDetail() {
   const dispatch = useDispatch()
   const { productDetail, isProductDetailSuccess, isLoading } =
     useProductDetail(productId)
-  const [page, setPage] = useState(0)
-  const { reviews, totalElements } = useGetReviews(productId, page)
+  const { reviews, totalElements, handleLoadMoreReviews } =
+    useLoadMoreReviews(productId)
   const [isHamburgerClicked, setIsHamburgerClicked] = useState(false)
 
   const {
@@ -68,10 +69,6 @@ function ProductsDetail() {
     dispatch(sheet({ name: 'photo-reviews-sheet', status: true, text: '' }))
   }, [dispatch])
 
-  const handleLoadMoreReviews = () => {
-    setPage((prevPage) => prevPage + 1)
-  }
-
   if (isLoading) {
     return <LoadingSpinner />
   }
@@ -85,12 +82,10 @@ function ProductsDetail() {
   const reviewData = reviews
     ? changeReviewData(reviews as IReviewDetailData[], productId, name, price)
     : []
-
   const reviewImg = reviewData.reduce<string[]>(
     (acc: string[], review) => acc.concat(review.reviewImages),
     [],
   )
-
   const remainingReviews = Math.max(totalElements - reviews.length, 0)
 
   if (isPhotoReviewsSheet) return <PhotoReviewsSheet reviewImg={reviewImg} />
@@ -103,7 +98,7 @@ function ProductsDetail() {
     imageUrl:
       'https://img8.yna.co.kr/etc/inner/KR/2018/01/17/AKR20180117116400007_02_i_P4.jpg',
     commentCount: reviewCount || 0,
-  } as const
+  }
 
   return (
     <>
@@ -129,11 +124,10 @@ function ProductsDetail() {
           handlePhotoReviewsClick={handlePhotoReviewsClick}
         />
         {remainingReviews !== 0 && (
-          <S.ButtonWrapper>
-            <S.LoadMoreButton onClick={handleLoadMoreReviews}>
-              {remainingReviews}개 리뷰 더보기
-            </S.LoadMoreButton>
-          </S.ButtonWrapper>
+          <LoadMoreButton
+            onClick={handleLoadMoreReviews}
+            remainingReviews={remainingReviews}
+          />
         )}
         <FooterReservation
           isBookmarked={true}
