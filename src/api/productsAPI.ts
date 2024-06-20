@@ -15,6 +15,14 @@ export const getAllProducts = (data: IGetProductsData) => {
     params,
   })
 }
+
+export const getTopProducts = () => {
+  return instance({
+    method: 'GET',
+    url: API_PRODUCTS.TOP_PRODUCTS,
+  })
+}
+
 export const postProduct = (data: IPostProduct) => {
   return instance({
     url: API_PRODUCTS.PRODUCTS,
