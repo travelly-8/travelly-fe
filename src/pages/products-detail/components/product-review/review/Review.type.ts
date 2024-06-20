@@ -21,6 +21,7 @@ export interface IProductDetail {
 
 export interface IProductInfoProps extends IProductBasicInfoProps {
   handleSheetDispatch: (name: keyof ISheetComponents) => void
+  onReviewClick: () => void
 }
 
 export interface IProductBasicInfoProps {
@@ -29,6 +30,7 @@ export interface IProductBasicInfoProps {
 
 export interface IReviewProps {
   productDetail: IProductDetail
+  id?: string
   reviewCnt: number
   reviewImg?: string[]
   reviewData: IReviewDetailData[]
