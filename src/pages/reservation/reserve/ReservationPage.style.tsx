@@ -129,7 +129,8 @@ export const PointInput = styled.input.attrs<IPointInputProps>(
   }
 
   &:focus {
-    border: 0.2rem solid var(--color-main);
+    border-color: var(--color-main);
+    outline: none;
   }
 `
 

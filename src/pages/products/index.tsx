@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 
 import useInfiniteCardsQuery from '@/hooks/api/productsAPI/useInfiniteCardsQuery'
 import useProductCardsParams from '@/hooks/api/productsAPI/useProductCardsParams'
@@ -20,7 +20,6 @@ const ProductsPage = () => {
   const dispatch = useDispatch()
   const cardsQueryData = useProductCardsParams()
 
-  const [isHamburgerClicked, setIsHamburgerClicked] = useState(false)
   const {
     data: cardData,
     hasNextPage,
@@ -61,9 +60,7 @@ const ProductsPage = () => {
 
   return (
     <>
-      <ProductHeader
-        hamburgerClick={() => setIsHamburgerClicked(!isHamburgerClicked)}
-      />
+      <ProductHeader />
       <S.PageContainer $isSearchSheet={isSearchSheet}>
         <AppBar
           totalElements={totalElements}

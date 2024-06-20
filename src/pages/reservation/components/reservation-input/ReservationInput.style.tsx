@@ -16,6 +16,7 @@ export const Input = styled.input`
   border-radius: 0.4rem;
   border: 1px solid var(--color-gray-light);
   background: var(--color-white);
+
   &::placeholder {
     color: var(--color-gray-light);
     font-size: 1.3rem;
@@ -23,8 +24,14 @@ export const Input = styled.input`
     font-weight: 500;
     line-height: normal;
   }
+
   &:disabled {
     background: var(--color-gray-bright_bg);
+  }
+
+  &:focus {
+    border-color: var(--color-main);
+    outline: none;
   }
 `
 export const InputWrapper = styled.div`
