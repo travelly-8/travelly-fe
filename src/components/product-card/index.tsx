@@ -1,7 +1,7 @@
 import { Fragment, useState } from 'react'
 
-import star from '@/assets/home/empty-star.svg'
 import defaultImage from '@/assets/login/airplane.png'
+import star from '@/assets/products-detail/star.svg'
 import { LOCALE_CODE_LIST } from '@/constants/FILTERING_BROWSING'
 import { registerRecentProducts } from '@/utils/registerLocalStorage'
 
