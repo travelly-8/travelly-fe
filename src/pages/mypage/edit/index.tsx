@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 
-import { getLogout } from '@/api/authAPI'
 import {
   getMemberProfile,
   putMemberNickname,
@@ -14,11 +13,10 @@ import logoutSvg from '@/assets/mypage/logout.svg'
 import purplePenSvg from '@/assets/mypage/purple-pen.svg'
 import { API_MEMBER } from '@/constants/API'
 import useGetMemberProfile from '@/hooks/api/memberAPI/useGetMemberProfile'
+import useLogout from '@/hooks/useLogout'
 import EditPasswordPage from '@/pages/mypage/components/edit-password'
-import { clearUser } from '@/store/auth-slice/auth-slice'
 import { sheet } from '@/store/sheet-slice/sheet-slice'
 import { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
-import { deleteTokens } from '@/utils/tokenStorage'
 
 import BlurSheet from '@components/blur-sheet'
 import BottomSheet from '@components/bottom-sheet'
@@ -33,6 +31,7 @@ import * as S from './MyPageEditPage.style'
 export default function MyPageEditPage() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const logout = useLogout()
   const sheetReducer = useSelector(
     (state: ISheetSliceState) => state.sheet.value,
   )
@@ -53,17 +52,7 @@ export default function MyPageEditPage() {
       id: 2,
       icon: logoutSvg,
       text: '로그아웃',
-      onClick: () => {
-        getLogout()
-          .then(() => {
-            deleteTokens()
-            dispatch(clearUser())
-            navigate('/')
-          })
-          .catch((err) => {
-            console.error(err)
-          })
-      },
+      onClick: () => logout(),
     },
   ]
 
