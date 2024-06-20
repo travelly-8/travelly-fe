@@ -1,12 +1,8 @@
-import { useEffect, useState } from 'react'
-
 import { getReviews } from '@/api/reviewAPI'
-import { IReviewDetailData } from '@/types/getReviewDetailData.type'
 
 import { useQuery } from '@tanstack/react-query'
 
 const useGetReviews = (productId: string | undefined, page: number) => {
-  const [reviews, setReviews] = useState<IReviewDetailData[]>([])
   const params = {
     page,
     size: 3,
@@ -16,14 +12,11 @@ const useGetReviews = (productId: string | undefined, page: number) => {
   const { data } = useQuery({
     queryKey: ['reviews', productId, page],
     queryFn: () => getReviews(Number(productId), params),
+    enabled: !!productId,
+    staleTime: 5 * 60 * 1000,
   })
 
-  useEffect(() => {
-    if (data) {
-      setReviews((prevReviews) => [...prevReviews, ...data.data.content])
-    }
-  }, [data])
-
+  const reviews = data?.data.content || []
   const totalElements = data?.data.totalElements || 0
 
   return { reviews, totalElements }

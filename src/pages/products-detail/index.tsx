@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect } from 'react'
 
 import useProductDetail from '@/hooks/api/productsAPI/useProductDetail'
 import useRecommendProducts from '@/hooks/api/productsAPI/useRecommendProducts'
@@ -29,9 +29,12 @@ function ProductsDetail() {
   const dispatch = useDispatch()
   const { productDetail, isProductDetailSuccess, isLoading } =
     useProductDetail(productId)
-  const { reviews, totalElements, handleLoadMoreReviews } =
+  const { reviews, totalElements, handleLoadMoreReviews, initializeReviews } =
     useLoadMoreReviews(productId)
-  const [isHamburgerClicked, setIsHamburgerClicked] = useState(false)
+
+  useEffect(() => {
+    initializeReviews()
+  }, [productId, initializeReviews])
 
   const {
     address = '',
@@ -102,9 +105,7 @@ function ProductsDetail() {
 
   return (
     <>
-      <ProductHeader
-        hamburgerClick={() => setIsHamburgerClicked(!isHamburgerClicked)}
-      />
+      <ProductHeader />
       <S.PageContainer
         $isSearchSheet={isSearchSheet}
         $isPhotoReviewsSheet={isPhotoReviewsSheet}
