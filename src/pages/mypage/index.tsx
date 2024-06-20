@@ -19,11 +19,11 @@ export default function MyPage() {
   const { role } = authState
   const { data: profileData, isLoading } = useGetProfileByRole(
     API_MEMBER.MY_PROFILE,
-    () => (role === 'travelly' ? getTravellyProfile() : getTravllerProfile()),
+    () => (role === 'travelly' ? getTravellyProfile() : getTravllerProfile()), // TODO: traveller 연결
   )
 
   const PRODUCT_MENU: Record<string, JSX.Element> = {
-    travelly: <MyProduct />, // TODO: 내 상품 데이터 전달
+    travelly: <MyProduct data={profileData?.products} />, // TODO: 내 상품 데이터 전달
     traveller: <RecentViewList />, // TODO: 최근 본 상품 데이터 전달
   }
   return (

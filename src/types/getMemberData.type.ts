@@ -1,3 +1,5 @@
+import { IProductCardData } from '@components/product-card/ProductCard.type'
+
 export interface IGetMemberProfileResponse {
   data: IGetMemberProfile
 }
@@ -24,15 +26,9 @@ export interface IGetTravellyProfile {
   products: IProducts[]
 }
 
-export interface IProducts {
-  id: number
-  name: string
-  address: string
+export interface IProducts extends IProductCardData {
   detailAddress: string
-  images: IImage[]
   price: number
-  rating: number
-  reviewCount: number
 }
 
 export interface IImage {

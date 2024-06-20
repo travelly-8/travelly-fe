@@ -11,6 +11,7 @@ const Dashboard = ({ data, role }: IDashboardProps) => {
     traveller: ['point', 'writeReview', 'booking'],
     travelly: ['point', 'getReview', 'getReservation'],
   }
+  console.log(data)
   const MENU_MAP: Record<string, IDashboard> = {
     point: {
       icon: walletIcon,
