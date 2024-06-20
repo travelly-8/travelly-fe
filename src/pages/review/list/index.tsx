@@ -1,15 +1,20 @@
+import { useState } from 'react'
+
 import { getMemberProfile } from '@/api/myAPI'
 import { API_MEMBER } from '@/constants/API'
 import { TABS } from '@/constants/REVIEW'
 import useGetMemberProfile from '@/hooks/api/memberAPI/useGetMemberProfile'
 import { RootState } from '@/store/store'
+
 import PageHeader from '@components/page-header'
 import ReviewProductCard from '@components/review-product-card'
-import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
+import { useLocation } from 'react-router-dom'
+
 import * as S from './ReviewList.style'
-import type { IProductDetail } from './ReviewList.type'
 import { SkeletonCircle, SkeletonText } from './Skeleton.style'
+
+import type { IProductDetail } from './ReviewList.type'
 
 const CARDS = (productDetail: IProductDetail) => ({
   후기: [
@@ -41,9 +46,8 @@ const CARDS = (productDetail: IProductDetail) => ({
 
 const ReviewList: React.FC = () => {
   const role = useSelector((state: RootState) => state.auth.role)
-  const productDetail = useSelector(
-    (state: RootState) => state.product.detail,
-  ) as IProductDetail
+  const location = useLocation()
+  const { productDetail } = location.state || {}
   const defaultTab = role === 'travelly' ? '받은 후기' : '후기'
   const [activeTab, setActiveTab] = useState(defaultTab)
 
@@ -54,7 +58,7 @@ const ReviewList: React.FC = () => {
   } = useGetMemberProfile(API_MEMBER.MY_PROFILE, () => getMemberProfile())
 
   const renderTabs = () => {
-    return TABS[role as keyof typeof TABS].map((tab: string) => (
+    return TABS[role as keyof typeof TABS]?.map((tab: string) => (
       <S.Tab
         key={tab}
         className={activeTab === tab ? 'active' : ''}
