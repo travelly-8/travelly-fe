@@ -21,6 +21,7 @@ const SearchInput = () => {
 
   const navigate = useNavigate()
   const onSubmit = (data: IFormData) => {
+    if (data.search === '') return
     registerRecentSearches(data.search)
     navigate(`/products/?input=${data.search}`)
   }

@@ -1,8 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 
+import { getTopKeyWords } from '@/api/productsAPI'
+import type { ITopKeyword } from '@/components/search-sheet/SearchSheet.type'
+import useGetTopKeyword from '@/hooks/api/productsAPI/useGetTopKeyword'
 import useScrollHandlers from '@/hooks/useScrollHandlers'
 import { sheet } from '@/store/sheet-slice/sheet-slice'
 import { registerRecentSearches } from '@/utils/registerLocalStorage'
+import shuffleArray from '@/utils/shuffleArray'
 
 import ProductCard from '@components/product-card'
 import RoundButton from '@components/round-button'
@@ -15,31 +19,6 @@ import PopularSearch from './PopularSearch'
 import * as S from './SearchSheet.style'
 
 import type { IProductCardData } from '@components/product-card/ProductCard.type'
-
-const recommendData = [
-  '부산',
-  '서울',
-  '제주',
-  '속초',
-  '인천 파라다이스 호텔',
-  '대전 성심당',
-]
-
-const popularData = {
-  time: '00:00',
-  items: [
-    { rank: 1, search: '부산', change: 'up' },
-    { rank: 2, search: '서울', change: 'down' },
-    { rank: 3, search: '제주', change: 'same' },
-    { rank: 4, search: '강릉', change: 'same' },
-    { rank: 5, search: '대구', change: 'up' },
-    { rank: 6, search: '대전', change: 'down' },
-    { rank: 7, search: '파주', change: 'up' },
-    { rank: 8, search: '수원', change: 'same' },
-    { rank: 9, search: '안산', change: 'up' },
-    { rank: 10, search: '안성', change: 'down' },
-  ],
-}
 
 const SearchSheet = () => {
   const [recentSearches, setRecentSearches] = useState<string[]>([])
@@ -78,6 +57,16 @@ const SearchSheet = () => {
   const scrollRecommendedSearchHandler = useScrollHandlers(recommendedSearchRef)
   const scrollRecentProductHandler = useScrollHandlers(recentProductRef)
 
+  const { data: topKeywordData } = useGetTopKeyword(
+    'topKeyword',
+    getTopKeyWords,
+  )
+  const changeArray = [...(topKeywordData?.data ?? [])]
+  const randTopKeywordData = shuffleArray(changeArray).slice(
+    0,
+    5,
+  ) as ITopKeyword[]
+
   return (
     <>
       <SheetHeader>
@@ -111,18 +100,21 @@ const SearchSheet = () => {
             ref={recommendedSearchRef}
             {...scrollRecommendedSearchHandler}
           >
-            {recommendData.map((data) => (
+            {randTopKeywordData?.map((data) => (
               <RoundButton.Gray
-                key={data}
+                key={data.keyword}
                 size="small"
-                onClick={() => handleBtnClick(data)}
+                onClick={() => handleBtnClick(data.keyword)}
               >
-                {data}
+                {data.keyword}
               </RoundButton.Gray>
             ))}
           </S.SearchWord>
         </S.SearchWordWrapper>
-        <PopularSearch popularData={popularData} />
+        <PopularSearch
+          popularData={topKeywordData?.data}
+          time={topKeywordData?.time}
+        />
         <S.RecentWatchProductWrapper>
           <S.RecentContentWrapper>
             <S.Label>최근 본 상품</S.Label>

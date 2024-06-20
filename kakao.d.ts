@@ -106,6 +106,8 @@ interface Window {
     Share: {
       sendDefault: (options: {
         objectType: string
+        address: string
+        addressTitle: string
         content: {
           title: string
           description: string
@@ -114,6 +116,9 @@ interface Window {
             mobileWebUrl: string
             webUrl: string
           }
+        }
+        social: {
+          commentCount: number
         }
         buttons?: Array<{
           title: string
