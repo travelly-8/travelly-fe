@@ -32,7 +32,7 @@ const Review: React.FC<IReviewProps> = ({
   const navigate = useNavigate()
 
   const handleHeaderClick = () => {
-    navigate('/review/list')
+    navigate('/review/list'), { state: { productDetail } }
   }
 
   const handleIconClick = (event: React.MouseEvent) => {

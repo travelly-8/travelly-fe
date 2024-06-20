@@ -13,14 +13,20 @@ const useLoadMoreReviews = (productId: string | undefined) => {
 
   const initializeReviews = useCallback(() => {
     setPage(0)
-    setReviews([])
   }, [])
+
+  useEffect(() => {
+    if (productId) {
+      setReviews([])
+      initializeReviews()
+    }
+  }, [productId, initializeReviews])
 
   useEffect(() => {
     if (fetchedReviews.length > 0) {
       setReviews((prevReviews) => [...prevReviews, ...fetchedReviews])
     }
-  }, [fetchedReviews, page])
+  }, [fetchedReviews])
 
   const handleLoadMoreReviews = () => {
     setPage((prevPage) => prevPage + 1)

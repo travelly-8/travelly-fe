@@ -14,6 +14,7 @@ const useGetReviews = (productId: string | undefined, page: number) => {
     queryFn: () => getReviews(Number(productId), params),
     enabled: !!productId,
     staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
   })
 
   const reviews = data?.data.content || []
