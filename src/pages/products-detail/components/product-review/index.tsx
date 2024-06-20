@@ -5,10 +5,12 @@ interface IProductReviewsProps {
   reviewData: IReviewDetailData[]
   handleSheetDispatch: (name: string) => void
   handlePhotoReviewsClick: () => void
+  totalElements: number
 }
 
 const ProductReviews = ({
   reviewData,
+  totalElements,
   handleSheetDispatch,
   handlePhotoReviewsClick,
 }: IProductReviewsProps) => {
@@ -19,7 +21,7 @@ const ProductReviews = ({
 
   return (
     <Review
-      reviewCnt={reviewData?.length}
+      reviewCnt={totalElements}
       reviewImg={reviewImg}
       reviewData={reviewData}
       onOrderClick={() => handleSheetDispatch('review-order-sheet')}
