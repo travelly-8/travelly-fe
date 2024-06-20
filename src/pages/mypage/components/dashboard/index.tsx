@@ -6,37 +6,36 @@ import { formatWithCommas } from '@/utils/formatWIthCommas'
 import * as S from './Dashboard.style'
 import { IDashboard, IDashboardProps } from './Dashboard.type'
 
-const Dashboard = ({ data }: IDashboardProps) => {
-  const { role, coin, reviews } = data
+const Dashboard = ({ data, role }: IDashboardProps) => {
   const USER_MAP: Record<string, string[]> = {
-    traveler: ['point', 'writeReview', 'booking'],
+    traveller: ['point', 'writeReview', 'booking'],
     travelly: ['point', 'getReview', 'getReservation'],
   }
   const MENU_MAP: Record<string, IDashboard> = {
     point: {
       icon: walletIcon,
       title: '포인트',
-      value: coin,
+      value: data.point,
     },
     getReview: {
       icon: reviewIcon,
       title: '받은 리뷰',
-      value: reviews.length,
+      value: data.notResponseCount,
     },
     writeReview: {
       icon: reviewIcon,
       title: '리뷰',
-      value: reviews.length,
+      value: data.remainReviewCount,
     },
     getReservation: {
       icon: calendarIcon,
       title: '예약 관리',
-      value: 1000,
+      value: data.newReservationCount,
     },
     booking: {
       icon: calendarIcon,
       title: '예약',
-      value: 1000,
+      value: data.notPassedReservations,
     },
   }
 
