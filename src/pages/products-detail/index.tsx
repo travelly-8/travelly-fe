@@ -15,7 +15,7 @@ import { changeReviewData } from '@/utils/changeReviewData'
 import FooterReservation from '@components/footer-reservation'
 import ProductHeader from '@components/product-header'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import Description from './components/description'
 import LoadMoreButton from './components/load-more-button'
@@ -30,6 +30,7 @@ import * as S from './ProductsDetail.style'
 function ProductsDetail() {
   const { productId } = useParams<{ productId: string }>()
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const { productDetail, isProductDetailSuccess, isPending } =
     useProductDetail(productId)
   const [sort, setSort] = useState<string>('new')
@@ -37,18 +38,6 @@ function ProductsDetail() {
     productId,
     sort,
   })
-
-  const [isHamburgerClicked, setIsHamburgerClicked] = useState(false)
-  const [isReservation, setIsReservation] = useState(false)
-
-  const { returnData: reservationData, status } = useGetReservationInfo(
-    'my-reservation',
-    getMyReservation,
-  )
-  useEffect(() => {
-    initializeReviews()
-  }, [productId, initializeReviews])
-
   const [isHamburgerClicked, setIsHamburgerClicked] = useState(false)
   const [isReservation, setIsReservation] = useState(false)
 
@@ -66,6 +55,11 @@ function ProductsDetail() {
     }
   }, [status, productId])
   const buttonType = isReservation ? 'cancelPayment' : 'reservation'
+
+  const handleCancelConfirmClick = () => {
+    navigate(`/reservation-detail/${productId}`)
+  }
+
   const {
     address = '',
     cityCode = '',
@@ -177,6 +171,7 @@ function ProductsDetail() {
           price={price}
           buttontype={buttonType}
           productId={productId}
+          onPayCancelClick={handleCancelConfirmClick}
         />
         <SheetRenderer
           shareSheetProps={shareSheetProps}
