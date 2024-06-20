@@ -1,9 +1,12 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
+import { getMyReservation } from '@/api/reservation'
 import useProductDetail from '@/hooks/api/productsAPI/useProductDetail'
 import useRecommendProducts from '@/hooks/api/productsAPI/useRecommendProducts'
+import useGetReservationInfo from '@/hooks/api/reserveAPI/useGetReservationInfo'
 import useLoadMoreReviews from '@/hooks/api/reviewAPI/useLoadMoreReviews'
 import NoProductPage from '@/pages/error/NoProductPage'
+import PhotoReviewsSheet from '@/pages/products-detail/components/photo-reviews-sheet'
 import { sheet } from '@/store/sheet-slice/sheet-slice'
 import type { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
 import { IReviewDetailData } from '@/types/getReviewDetailData.type'
@@ -16,7 +19,6 @@ import { useParams } from 'react-router-dom'
 
 import Description from './components/description'
 import LoadMoreButton from './components/load-more-button'
-import PhotoReviewsSheet from './components/photo-reviews-sheet'
 import ProductBasicInfo from './components/product-basic-info'
 import ProductInfo from './components/product-info'
 import ProductReviews from './components/product-review'
@@ -36,6 +38,34 @@ function ProductsDetail() {
     sort,
   })
 
+  const [isHamburgerClicked, setIsHamburgerClicked] = useState(false)
+  const [isReservation, setIsReservation] = useState(false)
+
+  const { returnData: reservationData, status } = useGetReservationInfo(
+    'my-reservation',
+    getMyReservation,
+  )
+  useEffect(() => {
+    initializeReviews()
+  }, [productId, initializeReviews])
+
+  const [isHamburgerClicked, setIsHamburgerClicked] = useState(false)
+  const [isReservation, setIsReservation] = useState(false)
+
+  const { returnData: reservationData, status } = useGetReservationInfo(
+    'my-reservation',
+    getMyReservation,
+  )
+  useEffect(() => {
+    if (status === 'success') {
+      reservationData.forEach((data) => {
+        if (data.productId === Number(productId)) {
+          setIsReservation(true)
+        }
+      })
+    }
+  }, [status, productId])
+  const buttonType = isReservation ? 'cancelPayment' : 'reservation'
   const {
     address = '',
     cityCode = '',
@@ -145,7 +175,7 @@ function ProductsDetail() {
           isBookmarked={true}
           isReservationProduct={true}
           price={price}
-          buttontype="reservation"
+          buttontype={buttonType}
           productId={productId}
         />
         <SheetRenderer

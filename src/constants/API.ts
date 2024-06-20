@@ -37,3 +37,8 @@ export const API_REVIEW = Object.freeze({
     `/comment/${reviewId}/${commentId}`,
   REVIEWS: (productId: number) => `/review/product/${productId}`,
 })
+
+export const API_RESERVATION = Object.freeze({
+  RESERVATION: (productId: number) => `/reservation/${productId}`,
+  RESERVATION_MY: '/reservation/my',
+})
