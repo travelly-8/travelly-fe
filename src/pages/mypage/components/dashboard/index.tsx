@@ -3,15 +3,18 @@ import reviewIcon from '@/assets/mypage/review.svg'
 import walletIcon from '@/assets/mypage/wallet.svg'
 import { formatWithCommas } from '@/utils/formatWIthCommas'
 
+import { useNavigate } from 'react-router-dom'
+
 import * as S from './Dashboard.style'
 import { IDashboard, IDashboardProps } from './Dashboard.type'
 
 const Dashboard = ({ data, role }: IDashboardProps) => {
+  const navigate = useNavigate()
   const USER_MAP: Record<string, string[]> = {
     traveller: ['point', 'writeReview', 'booking'],
     travelly: ['point', 'getReview', 'getReservation'],
   }
-  console.log(data)
+
   const MENU_MAP: Record<string, IDashboard> = {
     point: {
       icon: walletIcon,
@@ -40,13 +43,19 @@ const Dashboard = ({ data, role }: IDashboardProps) => {
     },
   }
 
+  const moveTo = (menu: string) => {
+    if (menu === 'getReview') {
+      navigate('/review/list')
+    }
+  }
+
   return (
     <S.Background>
       <S.Wrapper>
         {USER_MAP[role].map((menu) => {
           return (
-            <S.MenuWrapper key={menu}>
-              <S.Icon src={MENU_MAP[menu].icon} alt="포인트" />
+            <S.MenuWrapper key={menu} onClick={() => moveTo(menu)}>
+              <S.Icon src={MENU_MAP[menu].icon} alt={MENU_MAP[menu].title} />
               <S.DashTitle>{MENU_MAP[menu].title}</S.DashTitle>
               <S.DashNumber>
                 {formatWithCommas(MENU_MAP[menu].value)}

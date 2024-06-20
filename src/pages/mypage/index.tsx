@@ -17,13 +17,13 @@ import * as S from './Mypage.style'
 export default function MyPage() {
   const authState = useSelector((state: RootState) => state.auth)
   const { role } = authState
-  const { data: profileData, isLoading } = useGetProfileByRole(
+  const { data, isLoading } = useGetProfileByRole(
     API_MEMBER.MY_PROFILE,
     () => (role === 'travelly' ? getTravellyProfile() : getTravllerProfile()), // TODO: traveller 연결
   )
 
   const PRODUCT_MENU: Record<string, JSX.Element> = {
-    travelly: <MyProduct data={profileData?.products} />, // TODO: 내 상품 데이터 전달
+    travelly: <MyProduct data={data?.products} />,
     traveller: <RecentViewList />, // TODO: 최근 본 상품 데이터 전달
   }
   return (
@@ -34,10 +34,10 @@ export default function MyPage() {
           <S.Bell src={bellIcon} alt="알림" />
         </S.Content>
       </PageHeader>
-      {!isLoading && profileData && <ProfileTab data={profileData} />}
-      {!isLoading && profileData && role && (
+      {!isLoading && data && <ProfileTab data={data} />}
+      {!isLoading && data && role && (
         <>
-          <Dashboard data={profileData} role={role} />
+          <Dashboard data={data} role={role} />
           <S.CardListWrapper>{PRODUCT_MENU[role]}</S.CardListWrapper>
         </>
       )}
