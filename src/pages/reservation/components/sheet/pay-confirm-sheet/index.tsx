@@ -22,7 +22,7 @@ const PayConfirmSheet = () => {
     try {
       await postReservation(reservationInfo.productId, rest as IReservationData)
       alert('예약이 완료되었습니다.')
-      navigate('/')
+      navigate('/reseravtion-list')
     } catch (error) {
       alert('예약에 실패했습니다.')
     }

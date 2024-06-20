@@ -1,9 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 
-import { getMyReservation } from '@/api/reservation'
 import useProductDetail from '@/hooks/api/productsAPI/useProductDetail'
 import useRecommendProducts from '@/hooks/api/productsAPI/useRecommendProducts'
-import useGetReservationInfo from '@/hooks/api/reserveAPI/useGetReservationInfo'
 import useLoadMoreReviews from '@/hooks/api/reviewAPI/useLoadMoreReviews'
 import NoProductPage from '@/pages/error/NoProductPage'
 import PhotoReviewsSheet from '@/pages/products-detail/components/photo-reviews-sheet'
@@ -40,25 +38,6 @@ function ProductsDetail() {
   })
   const [isHamburgerClicked, setIsHamburgerClicked] = useState(false)
   const [isReservation, setIsReservation] = useState(false)
-
-  const { returnData: reservationData, status } = useGetReservationInfo(
-    'my-reservation',
-    getMyReservation,
-  )
-  useEffect(() => {
-    if (status === 'success') {
-      reservationData.forEach((data) => {
-        if (data.productId === Number(productId)) {
-          setIsReservation(true)
-        }
-      })
-    }
-  }, [status, productId])
-  const buttonType = isReservation ? 'cancelPayment' : 'reservation'
-
-  const handleCancelConfirmClick = () => {
-    navigate(`/reservation-detail/${productId}`)
-  }
 
   const {
     address = '',
@@ -169,9 +148,8 @@ function ProductsDetail() {
           isBookmarked={true}
           isReservationProduct={true}
           price={price}
-          buttontype={buttonType}
+          buttontype="reservation"
           productId={productId}
-          onPayCancelClick={handleCancelConfirmClick}
         />
         <SheetRenderer
           shareSheetProps={shareSheetProps}
