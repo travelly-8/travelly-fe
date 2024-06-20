@@ -44,6 +44,7 @@ function ProductCard({ cardData, size, bookmark = true }: IProductCardProps) {
   const district = address?.split(' ')[1]
   const price = ticketDto && ticketDto.length > 0 ? ticketDto[0].price : null
   const formattedPrice = price?.toLocaleString()
+  const formattedRating = +rating.toFixed(1)
   const image = images && images.length > 0 ? images[0].url : defaultImage
 
   return (
@@ -68,7 +69,7 @@ function ProductCard({ cardData, size, bookmark = true }: IProductCardProps) {
             </S.PriceWrapper>
             <S.Review size={size}>
               <S.Star src={star} />
-              <S.ReviewPoint>{rating}</S.ReviewPoint>
+              <S.ReviewPoint>{formattedRating}</S.ReviewPoint>
               <S.ReviewCount>({reviewCount})</S.ReviewCount>
             </S.Review>
           </Fragment>

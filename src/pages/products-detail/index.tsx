@@ -119,6 +119,7 @@ function ProductsDetail() {
         <RecommendCard cards={recommendProducts} />
 
         <ProductReviews
+          productDetail={productDetail}
           reviewData={reviewData}
           totalElements={totalElements}
           handleSheetDispatch={handleSheetDispatch}

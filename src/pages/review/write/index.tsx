@@ -3,19 +3,18 @@ import { useEffect, useRef, useState } from 'react'
 import { postReview } from '@/api/reviewAPI'
 import CameraImg from '@/assets/review/camera.svg'
 import Rating from '@/pages/review/components/rating'
-import { RootState } from '@/store/store'
 
 import FooterButton from '@components/footer-button'
 import PageHeader from '@components/page-header'
 import ReviewProductCard from '@components/review-product-card'
-import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import * as S from './ReviewWritePage.style'
 
 export default function ReviewWritePage() {
   const navigate = useNavigate()
-  const productDetail = useSelector((state: RootState) => state.product.detail)
+  const location = useLocation()
+  const { productDetail } = location.state || {}
   const [numOfPhotos, setNumOfPhotos] = useState(0)
   const [numOfText, setNumOfText] = useState(0)
   const [rating, setRating] = useState(0)

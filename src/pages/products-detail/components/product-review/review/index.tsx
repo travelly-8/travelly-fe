@@ -4,11 +4,9 @@ import edit from '@/assets/products-detail/edit.svg'
 import sort from '@/assets/products-detail/sort.svg'
 import ReviewImages from '@/pages/products-detail/components/product-review/review/ReviewImages'
 import ReviewPage from '@/pages/products-detail/components/product-review/review/ReviewPage.tsx'
-import { RootState } from '@/store/store'
 import { IReviewDetailData } from '@/types/getReviewDetailData.type.ts'
 
 import CheckBox from '@components/check-box'
-import { useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 
 import * as S from './Review.style'
@@ -16,6 +14,7 @@ import * as S from './Review.style'
 import type { IReviewProps } from './Review.type'
 
 const Review: React.FC<IReviewProps> = ({
+  productDetail,
   reviewCnt,
   reviewImg,
   reviewData,
@@ -29,8 +28,6 @@ const Review: React.FC<IReviewProps> = ({
   const handleSetGetAccountChecked = (isChecked: boolean) => {
     setIsRecentVisitChecked(isChecked)
   }
-
-  const productDetail = useSelector((state: RootState) => state.product.detail)
 
   const navigate = useNavigate()
 

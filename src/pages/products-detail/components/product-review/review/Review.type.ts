@@ -28,6 +28,7 @@ export interface IProductBasicInfoProps {
 }
 
 export interface IReviewProps {
+  productDetail: IProductDetail
   reviewCnt: number
   reviewImg?: string[]
   reviewData: IReviewDetailData[]
