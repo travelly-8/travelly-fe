@@ -34,6 +34,7 @@ export default function MyPage() {
           <S.Bell src={bellIcon} alt="알림" />
         </S.Content>
       </PageHeader>
+      {/* TODO: 로딩 스켈레톤 처리 */}
       {!isLoading && data && <ProfileTab data={data} />}
       {!isLoading && data && role && (
         <>
