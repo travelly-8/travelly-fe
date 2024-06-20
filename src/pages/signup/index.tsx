@@ -1,7 +1,10 @@
+import { useEffect } from 'react'
+
 import bubble from '@/assets/signup/bubble.png'
 import google from '@/assets/signup/google.png'
 import naver from '@/assets/signup/naver.svg'
 import signup from '@/assets/signup/signup.png'
+import useLogout from '@/hooks/useLogout'
 
 import PageHeader from '@components/page-header'
 import RectangleButton from '@components/rectangle-button'
@@ -11,6 +14,7 @@ import * as S from './SignupStartPage.style'
 
 export default function SignupStartPage() {
   const navigate = useNavigate()
+  const logout = useLogout()
 
   const handleNaverLogin = () => {
     const clientId = 'Ka9kJLyk9psbYa8p1OGf'
@@ -31,6 +35,12 @@ export default function SignupStartPage() {
     const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=${clientId}&redirect_uri=${redirectURI}&scope=profile email`
     window.location.href = googleAuthUrl
   }
+
+  useEffect(() => {
+    const isRelogin = sessionStorage.getItem('relogin')
+
+    isRelogin && logout()
+  }, [])
 
   return (
     <>
