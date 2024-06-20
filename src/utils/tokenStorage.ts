@@ -25,7 +25,15 @@ export const refreshAccessToken = async () => {
     saveTokens(newAccessToken, refreshToken)
     return newAccessToken
   } catch (error) {
-    throw new Error('Failed to refresh access token')
+    if (axios.isAxiosError(error)) {
+      if (error.response?.status === 401) {
+        alert('다시 로그인해주세요!')
+        sessionStorage.setItem('relogin', 'true')
+        window.location.pathname = '/signup/start'
+      }
+    } else {
+      console.error('Unexpected error', error)
+    }
   }
 }
 
