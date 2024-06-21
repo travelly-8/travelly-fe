@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import * as S from './PageHeader.style'
 
 interface IPageHeader {
-  children: ReactNode
+  children?: ReactNode
   border?: boolean
 }
 
