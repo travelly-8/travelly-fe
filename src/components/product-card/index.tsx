@@ -22,8 +22,8 @@ function ProductCard({ cardData, size, bookmark = true }: IProductCardProps) {
     ticketDto,
     rating,
     reviewCount,
-    detailAddress = '',
-    price = 0,
+    detailAddress,
+    price,
   }: IProducts = cardData
   const navigate = useNavigate()
 
@@ -43,7 +43,7 @@ function ProductCard({ cardData, size, bookmark = true }: IProductCardProps) {
     setIsBookmarked(!isBookmarked)
   }
 
-  const city = LOCALE_CODE_LIST[cityCode]
+  const city = cityCode ? LOCALE_CODE_LIST[cityCode] : address.split(' ')[0]
   const district = address?.split(' ')[1]
   const ticketPrice =
     ticketDto && ticketDto.length > 0 ? ticketDto[0].price : price
