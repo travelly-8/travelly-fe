@@ -18,7 +18,7 @@ const useLoadMoreReviews = ({ productId, sort }: IUseLoadMoreReviewsParams) => {
     return data
   }
 
-  const { data, isFetchingNextPage, fetchNextPage } = useInfiniteQuery({
+  const { data, fetchNextPage } = useInfiniteQuery({
     queryKey: ['reviews', productId, sort],
     queryFn: getQueryFn,
     getNextPageParam: (lastPage) => {
@@ -36,7 +36,6 @@ const useLoadMoreReviews = ({ productId, sort }: IUseLoadMoreReviewsParams) => {
   return {
     reviews,
     totalElements,
-    isFetchingNextPage,
     handleLoadMoreReviews: fetchNextPage,
   }
 }
