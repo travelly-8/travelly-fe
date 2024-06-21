@@ -17,6 +17,7 @@ const useLogout = () => {
       deleteTokens()
       dispatch(clearUser())
       sessionStorage.removeItem('relogin')
+      localStorage.clear()
       navigate('/')
     } catch (err) {
       console.error(err)
