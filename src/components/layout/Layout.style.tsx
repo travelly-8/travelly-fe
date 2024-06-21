@@ -14,6 +14,7 @@ export const Wrapper = styled.div`
   height: 100vh;
   background-color: var(--color-white);
   position: relative;
+  overflow: hidden;
 
   @media screen and (max-width: 767px) {
     width: 100%;
