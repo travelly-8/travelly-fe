@@ -3,6 +3,7 @@ import { useCallback, useEffect } from 'react'
 import useProductDetail from '@/hooks/api/productsAPI/useProductDetail'
 import useRecommendProducts from '@/hooks/api/productsAPI/useRecommendProducts'
 import useLoadMoreReviews from '@/hooks/api/reviewAPI/useLoadMoreReviews'
+import NoProductPage from '@/pages/error/NoProductPage'
 import { sheet } from '@/store/sheet-slice/sheet-slice'
 import type { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
 import { IReviewDetailData } from '@/types/getReviewDetailData.type'
@@ -78,7 +79,7 @@ function ProductsDetail() {
   }
 
   if (!productDetail || !productId) {
-    return null
+    return <NoProductPage />
   }
 
   const price = ticketDto[0]?.price
