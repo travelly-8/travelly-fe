@@ -1,21 +1,29 @@
+import { getTravellyProfile, getTravllerProfile } from '@/api/myAPI'
 import bellIcon from '@/assets/mypage/bell.svg'
+import { API_MEMBER } from '@/constants/API'
+import useGetProfileByRole from '@/hooks/api/memberAPI/useGetProfileByRole'
+import { RootState } from '@/store/store'
 
 import FooterNavigation from '@components/footer-navigation'
 import PageHeader from '@components/page-header'
+import { useSelector } from 'react-redux'
 
 import Dashboard from './components/dashboard'
 import MyProduct from './components/my-product'
 import ProfileTab from './components/profile-tab'
 import RecentViewList from './components/recent-view-list'
-import dummyData from './dummyData.json'
 import * as S from './Mypage.style'
 
 export default function MyPage() {
-  // TODO : '/my' api 연결
-  const { email, nickname, coin, imageUrl, role, reviews } = dummyData
+  const authState = useSelector((state: RootState) => state.auth)
+  const { role } = authState
+  const { data, isLoading } = useGetProfileByRole(
+    API_MEMBER.MY_PROFILE,
+    () => (role === 'travelly' ? getTravellyProfile() : getTravllerProfile()), // TODO: traveller 연결
+  )
 
   const PRODUCT_MENU: Record<string, JSX.Element> = {
-    travelly: <MyProduct />, // TODO: 내 상품 데이터 전달
+    travelly: <MyProduct data={data?.products} />,
     traveller: <RecentViewList />, // TODO: 최근 본 상품 데이터 전달
   }
   return (
@@ -26,9 +34,14 @@ export default function MyPage() {
           <S.Bell src={bellIcon} alt="알림" />
         </S.Content>
       </PageHeader>
-      <ProfileTab data={{ email, nickname, imageUrl }} />
-      <Dashboard data={{ role, coin, reviews }} />
-      <S.CardListWrapper>{PRODUCT_MENU[role]}</S.CardListWrapper>
+      {/* TODO: 로딩 스켈레톤 처리 */}
+      {!isLoading && data && <ProfileTab data={data} />}
+      {!isLoading && data && role && (
+        <>
+          <Dashboard data={data} role={role} />
+          <S.CardListWrapper>{PRODUCT_MENU[role]}</S.CardListWrapper>
+        </>
+      )}
       <S.FooterWrapper>
         <FooterNavigation />
       </S.FooterWrapper>

@@ -4,6 +4,8 @@ import GlobalStyles from '@/styles/GlobalStyles'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import AuthCallback from './pages/auth'
+import BookmarkPage from './pages/bookmark'
+import ChatPage from './pages/chat'
 import HomePage from './pages/home'
 import LoginPage from './pages/login/login'
 import SelectPlanPage from './pages/login/select-plan'
@@ -66,6 +68,9 @@ export default function AppRouter() {
           path="/reservation-detail/:productId"
           element={<ReservedDetailPage />}
         />
+        {/* 찜, 커뮤니티 대체 페이지 */}
+        <Route path="/chat" element={<ChatPage />} />
+        <Route path="/bookmark" element={<BookmarkPage />} />
       </Routes>
     </BrowserRouter>
   )
