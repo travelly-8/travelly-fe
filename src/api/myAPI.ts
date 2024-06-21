@@ -21,10 +21,15 @@ export const getTravellyProfile = () => {
   })
 }
 
-export const getTravllerProfile = () => {
+interface RecentProduct {
+  productId: number
+}
+
+export const postTravellerProfile = (data: RecentProduct[]) => {
   return instance({
-    method: 'GET',
+    method: 'POST',
     url: API_MEMBER.MY_TRAVELLER,
+    data: data,
   })
 }
 
