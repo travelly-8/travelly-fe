@@ -4,8 +4,6 @@ import {
   IPutMemberNewPassword,
 } from '@/types/putMemberData.type'
 
-import qs from 'qs'
-
 import fileInstance from './fileInstance'
 import instance from './instance'
 
@@ -27,16 +25,11 @@ interface RecentProduct {
   productId: number
 }
 
-export const getTravellerProfile = (data: RecentProduct[]) => {
-  const params = { recentProducts: data }
-
-  // qs.stringify를 사용하여 쿼리 문자열 생성
-  const serializedParams = qs.stringify(params, { arrayFormat: 'indices' })
-  console.log(params, serializedParams)
+export const postTravellerProfile = (data: RecentProduct[]) => {
   return instance({
-    method: 'GET',
-    url: `${API_MEMBER.MY_TRAVELLER}?${serializedParams}`,
-    // params: { recentProducts: data },
+    method: 'POST',
+    url: API_MEMBER.MY_TRAVELLER,
+    data: data,
   })
 }
 
