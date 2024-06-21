@@ -1,5 +1,6 @@
 interface IReviewListCardProps {
   id: number | undefined
+  productId: number | undefined
   productName: string | undefined
   productImages: IImage[]
   buyerName: string | undefined
