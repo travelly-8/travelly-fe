@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
+import { postProductImage } from '@/api/productsAPI'
 import { postReview } from '@/api/reviewAPI'
 import CameraImg from '@/assets/review/camera.svg'
 import Rating from '@/pages/review/components/rating'
@@ -22,6 +23,7 @@ export default function ReviewWritePage() {
   const [images, setImages] = useState<File[]>([])
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [isButtonDisabled, setIsButtonDisabled] = useState(true)
+  const [imageUrlList, setImageUrlList] = useState([])
 
   useEffect(() => {
     if (content.length >= 20 && rating > 0) {
@@ -31,11 +33,29 @@ export default function ReviewWritePage() {
     }
   }, [content, rating])
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     if (event.target.files) {
       const fileArray = Array.from(event.target.files)
       setImages((prevImages) => [...prevImages, ...fileArray])
       setNumOfPhotos((prev) => prev + fileArray.length)
+
+      const files = event.target.files
+      if (files && files.length > 0) {
+        const formData = new FormData()
+
+        Array.from(files).forEach((file) => {
+          formData.append('images', file, file.name)
+        })
+
+        try {
+          const response = await postProductImage(formData)
+          setImageUrlList(response.data)
+        } catch (err) {
+          console.error(err)
+        }
+      }
     }
   }
 
@@ -59,7 +79,7 @@ export default function ReviewWritePage() {
     const { id: productId } = productDetail
 
     const reviewData = {
-      images,
+      images: imageUrlList,
       review: {
         rating,
         content,

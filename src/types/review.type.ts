@@ -1,8 +1,8 @@
 export interface IPostReview {
-  images: File[]
+  images: string[]
   review: {
-    rating: number
     content: string
+    rating: number
   }
 }
 

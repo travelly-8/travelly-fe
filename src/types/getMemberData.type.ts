@@ -1,5 +1,7 @@
 import { IProductCardData } from '@components/product-card/ProductCard.type'
 
+import { IOperationDays } from './postProductData.type'
+
 export interface IGetMemberProfileResponse {
   data: IGetMemberProfile
 }
@@ -51,3 +53,33 @@ export interface IGetTravellerProfile {
 }
 
 export type ProfileByRoleType = IGetTravellerProfile & IGetTravellyProfile
+
+export interface IGetTravellyReviewResponse {
+  data: IGetTravellyReview
+}
+
+export interface IGetTravellyReview {
+  nickname: string
+  email: string
+  imageUrl: string
+  reviewWithProducts: IReviewWithProduct[]
+  commentWithProducts: ICommentWithProduct[]
+}
+
+export interface IReviewWithProduct {
+  productId: number
+  productName: string
+  images: IImage[]
+  reviewId: number
+  reviewerName: string
+  createdDate: string
+}
+
+export interface ICommentWithProduct {
+  productId: number
+  productName: string
+  productPrice: number
+  images: IImage[]
+  operationDays: IOperationDays[]
+  reviewId: number
+}
