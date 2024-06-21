@@ -1,4 +1,4 @@
-import { getTravellyProfile, getTravllerProfile } from '@/api/myAPI'
+import { getTravellerProfile, getTravellyProfile } from '@/api/myAPI'
 import bellIcon from '@/assets/mypage/bell.svg'
 import { API_MEMBER } from '@/constants/API'
 import useGetProfileByRole from '@/hooks/api/memberAPI/useGetProfileByRole'
@@ -17,10 +17,22 @@ import * as S from './Mypage.style'
 export default function MyPage() {
   const authState = useSelector((state: RootState) => state.auth)
   const { role } = authState
+  const recentProducts = localStorage.getItem('recentProducts')
+  const dummy = [{ productId: 23 }, { productId: 24 }]
   const { data, isLoading } = useGetProfileByRole(
-    API_MEMBER.MY_PROFILE,
-    () => (role === 'travelly' ? getTravellyProfile() : getTravllerProfile()), // TODO: traveller 연결
+    role === 'travelly' ? API_MEMBER.MY_TRAVELLY : API_MEMBER.MY_TRAVELLY,
+    () =>
+      role === 'travelly' ? getTravellyProfile() : getTravellerProfile(dummy), // TODO: traveller 연결
   )
+  console.log(role, data)
+
+  getTravellerProfile(dummy)
+    .then((response) => {
+      console.log(response.data)
+    })
+    .catch((error) => {
+      console.error(error)
+    })
 
   const PRODUCT_MENU: Record<string, JSX.Element> = {
     travelly: <MyProduct data={data?.products} />,
