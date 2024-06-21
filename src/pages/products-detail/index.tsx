@@ -28,6 +28,7 @@ import * as S from './ProductsDetail.style'
 function ProductsDetail() {
   const { productId } = useParams<{ productId: string }>()
   const dispatch = useDispatch()
+
   const { productDetail, isProductDetailSuccess, isPending } =
     useProductDetail(productId)
   const [sort, setSort] = useState<string>('new')

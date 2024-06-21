@@ -9,7 +9,6 @@ import CancellationPolicy from '@/pages/reservation/components/cancellation-poli
 import ReservationDateSection from '@/pages/reservation/components/reservation-date-section'
 import ReservationInput from '@/pages/reservation/components/reservation-input'
 import type { IReservationInputState } from '@/pages/reservation/components/reservation-input/Reservation.type'
-import type { IPaySheet } from '@/pages/reservation/components/sheet/PaySheet.type'
 import TicketCountSection from '@/pages/reservation/components/ticket-count-section'
 import { IPersonnelSliceState } from '@/store/personnel-slice/personnel-slice.type'
 import { reservation } from '@/store/reservation-slice/reservation-slice'
@@ -170,11 +169,6 @@ function ReservationPage() {
     setIsRadioChecked(!isRadioChecked)
   }
 
-  const payConfirmProps: IPaySheet = {
-    userPoint: 1000,
-    productPoint: 1000,
-  }
-
   const calendarProps = {
     control: control,
     reset: reset,
@@ -317,10 +311,7 @@ function ReservationPage() {
         onPayConfirmClick={handlePayConfirmClick}
         onSubmit={handleSubmit(onSubmit)}
       />
-      <SheetRenderer
-        payConfirmProps={payConfirmProps}
-        calendarProps={calendarProps}
-      />
+      <SheetRenderer calendarProps={calendarProps} />
     </>
   )
 }
