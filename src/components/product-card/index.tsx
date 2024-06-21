@@ -3,13 +3,14 @@ import { Fragment, useState } from 'react'
 import defaultImage from '@/assets/login/airplane.png'
 import star from '@/assets/products-detail/star.svg'
 import { LOCALE_CODE_LIST } from '@/constants/FILTERING_BROWSING'
+import { IProducts } from '@/types/getMemberData.type'
 import { registerRecentProducts } from '@/utils/registerLocalStorage'
 
 import BookmarkButton from '@components/bookmark-button'
 import { useNavigate } from 'react-router-dom'
 
 import * as S from './ProductCard.style'
-import { IProductCardData, IProductCardProps } from './ProductCard.type'
+import { IProductCardProps } from './ProductCard.type'
 
 function ProductCard({ cardData, size, bookmark = true }: IProductCardProps) {
   const {
@@ -21,7 +22,9 @@ function ProductCard({ cardData, size, bookmark = true }: IProductCardProps) {
     ticketDto,
     rating,
     reviewCount,
-  }: IProductCardData = cardData
+    detailAddress = '',
+    price = 0,
+  }: IProducts = cardData
   const navigate = useNavigate()
 
   const handleClick = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
@@ -42,8 +45,9 @@ function ProductCard({ cardData, size, bookmark = true }: IProductCardProps) {
 
   const city = LOCALE_CODE_LIST[cityCode]
   const district = address?.split(' ')[1]
-  const price = ticketDto && ticketDto.length > 0 ? ticketDto[0].price : null
-  const formattedPrice = price?.toLocaleString()
+  const ticketPrice =
+    ticketDto && ticketDto.length > 0 ? ticketDto[0].price : price
+  const formattedPrice = ticketPrice?.toLocaleString()
   const formattedRating = +rating.toFixed(1)
   const image = images && images.length > 0 ? images[0].url : defaultImage
 

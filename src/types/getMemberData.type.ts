@@ -27,8 +27,8 @@ export interface IGetTravellyProfile {
 }
 
 export interface IProducts extends IProductCardData {
-  detailAddress: string
-  price: number
+  detailAddress?: string
+  price?: number
 }
 
 export interface IImage {

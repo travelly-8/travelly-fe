@@ -1,5 +1,7 @@
+import { IProducts } from '@/types/getMemberData.type'
+
 export interface IProductCardProps {
-  cardData: IProductCardData
+  cardData: IProducts & IProductCardData
   size: 'sm' | 'bg' | 'summary'
   bookmark?: boolean
 }
