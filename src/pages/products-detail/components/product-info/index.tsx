@@ -6,6 +6,7 @@ import { IProductInfoProps } from '../product-review/review/Review.type'
 function ProductInfo({
   productDetail,
   handleSheetDispatch,
+  onReviewClick,
 }: IProductInfoProps) {
   const {
     name = '',
@@ -31,6 +32,7 @@ function ProductInfo({
       reviewCnt={reviewCount}
       imageArray={imageArray}
       onShareClick={() => handleSheetDispatch('share-sheet')}
+      onReviewClick={onReviewClick}
     />
   )
 }

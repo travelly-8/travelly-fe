@@ -1,10 +1,11 @@
 import { useRef, useState } from 'react'
 
-import { getAllProducts } from '@/api/productsAPI'
+import { getAllProducts, getTopProducts } from '@/api/productsAPI'
 import star2 from '@/assets/home/star2.svg'
 import trophy from '@/assets/home/trophy.svg'
 import { API_PRODUCTS } from '@/constants/API'
 import useGetAllProducts from '@/hooks/api/productsAPI/useGetProductsQuery'
+import useGetTopProductsQuery from '@/hooks/api/productsAPI/useGetTopProductsQuery.ts'
 import useProductCardsParams from '@/hooks/api/productsAPI/useProductCardsParams'
 import useScrollHandlers from '@/hooks/useScrollHandlers'
 import type { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
@@ -12,11 +13,12 @@ import type { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
 import FooterNavigation from '@components/footer-navigation'
 import Header from '@components/header'
 import ProductCard from '@components/product-card'
+import { IProductCardData } from '@components/product-card/ProductCard.type'
 import ProductCardSkeleton from '@components/product-card/ProductCardSkeleton'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-import * as S from './HomePage.style'
+import * as S from './HomePage.style.tsx'
 
 import type { ISizeProps } from '@components/product-card/ProductCard.style'
 
@@ -37,14 +39,25 @@ function HomePage() {
   const { data, isPending } = useGetAllProducts(API_PRODUCTS.PRODUCTS, () =>
     getAllProducts(cardsQueryData),
   )
-  //TODO: 인기상품, 추천상품 논의 후 나중에 적용
-  const cardsContents = data?.content
 
-  const renderProductCards = (size: ISizeProps['size']) =>
+  const { data: topProducts } = useGetTopProductsQuery(
+    API_PRODUCTS.TOP_PRODUCTS,
+    () => getTopProducts(),
+  )
+  //TODO: 추천상품 논의 후 나중에 적용
+  const allProductsData = data?.content
+  const topProductsData = topProducts
+
+  const cardsContents = {
+    all: allProductsData,
+    top: topProductsData,
+  }
+
+  const renderProductCards = (size: ISizeProps['size'], type: 'top' | 'all') =>
     isPending ? (
       <ProductCardSkeleton count={6} size={size} />
     ) : (
-      cardsContents?.map((cardData) => (
+      cardsContents[type]?.map((cardData: IProductCardData) => (
         <ProductCard key={cardData.id} cardData={cardData} size={size} />
       ))
     )
@@ -65,7 +78,7 @@ function HomePage() {
           </S.SectionTitleWrapper>
           <S.SectionContentsWrapper>
             <S.CardWrapper ref={popularProductRef} {...scrollPopularHandlers}>
-              {renderProductCards('sm')}
+              {renderProductCards('sm', 'top')}
             </S.CardWrapper>
           </S.SectionContentsWrapper>
         </S.ProductsSection>
@@ -79,7 +92,7 @@ function HomePage() {
               ref={recommendProductRef}
               {...scrollRecommendHandlers}
             >
-              {renderProductCards('sm')}
+              {renderProductCards('sm', 'all')}
             </S.CardWrapper>
           </S.SectionContentsWrapper>
         </S.ProductsSection>
@@ -90,7 +103,7 @@ function HomePage() {
               더보기
             </S.ShowAllProducts>
           </S.ALLTitleWrapper>
-          <S.AllCardWrapper>{renderProductCards('bg')}</S.AllCardWrapper>
+          <S.AllCardWrapper>{renderProductCards('bg', 'all')}</S.AllCardWrapper>
         </S.AllProductsSection>
         <FooterNavigation />
       </S.PageContainer>

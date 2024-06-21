@@ -108,6 +108,10 @@ function ProductsDetail() {
     commentCount: reviewCount || 0,
   }
 
+  const scrollToReview = () => {
+    document?.getElementById('review')?.scrollIntoView({ behavior: 'smooth' })
+  }
+
   return (
     <>
       <ProductHeader />
@@ -118,12 +122,14 @@ function ProductsDetail() {
         <ProductInfo
           productDetail={productDetail}
           handleSheetDispatch={handleSheetDispatch}
+          onReviewClick={scrollToReview}
         />
         <ProductBasicInfo productDetail={productDetail} />
         <Description description={description} />
         <RecommendCard cards={recommendProducts} />
         <ProductReviews
           productDetail={productDetail}
+          id="review"
           reviewData={reviewData}
           totalElements={totalElements}
           handleSheetDispatch={handleSheetDispatch}
