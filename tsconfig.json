@@ -29,6 +29,7 @@
 
     "types": []
   },
-  "include": ["src", "**/*.ts", "**/*.tsx", "vite.config.ts"],
+  "include": ["src", "**/*.ts", "**/*.tsx"],
+  "exclude": ["vite.config.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
