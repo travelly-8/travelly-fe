@@ -12,6 +12,11 @@ const ReviewPage: React.FC<IReviewPageProps> = ({
   onEditClick,
   canComment = true,
 }) => {
+  const kebabClick = (event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
+    event.stopPropagation()
+    onEditClick()
+  }
+
   return (
     <S.ReviewContent>
       <S.ProfileHeader>
@@ -25,7 +30,7 @@ const ReviewPage: React.FC<IReviewPageProps> = ({
         <S.ProfileNameWrapper>
           <S.ProfileHeaderWrapper>
             <S.BlackText>{reviewData.reviewUserNickname}</S.BlackText>
-            <S.EditKebab onClick={onEditClick} />
+            <S.EditKebab onClick={kebabClick} />
           </S.ProfileHeaderWrapper>
           <S.RatingWrapper>
             <Rating readOnly score={reviewData.rating} />

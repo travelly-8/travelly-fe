@@ -185,3 +185,7 @@ export const ListButton = styled.button`
   width: 100%;
   cursor: pointer;
 `
+
+export const ReviewPageWrapper = styled.div`
+  cursor: pointer;
+`
