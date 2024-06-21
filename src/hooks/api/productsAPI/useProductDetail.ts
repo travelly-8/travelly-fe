@@ -6,7 +6,7 @@ const useProductDetail = (productId: string | undefined) => {
   const {
     data,
     isSuccess: isProductDetailSuccess,
-    isLoading,
+    isPending,
   } = useQuery({
     queryKey: ['products-detail', productId],
     queryFn: () => getProductDetail(Number(productId)),
@@ -14,7 +14,7 @@ const useProductDetail = (productId: string | undefined) => {
 
   const productDetail = data?.data
 
-  return { productDetail, isProductDetailSuccess, isLoading }
+  return { productDetail, isProductDetailSuccess, isPending }
 }
 
 export default useProductDetail
