@@ -1,4 +1,4 @@
-import { getTravellyProfile, getTravllerProfile } from '@/api/myAPI'
+import { getTravellyProfile, postTravellerProfile } from '@/api/myAPI'
 import bellIcon from '@/assets/mypage/bell.svg'
 import { API_MEMBER } from '@/constants/API'
 import useGetProfileByRole from '@/hooks/api/memberAPI/useGetProfileByRole'
@@ -6,6 +6,7 @@ import { RootState } from '@/store/store'
 
 import FooterNavigation from '@components/footer-navigation'
 import PageHeader from '@components/page-header'
+import { IProductCardData } from '@components/product-card/ProductCard.type'
 import { useSelector } from 'react-redux'
 
 import Dashboard from './components/dashboard'
@@ -14,17 +15,32 @@ import ProfileTab from './components/profile-tab'
 import RecentViewList from './components/recent-view-list'
 import * as S from './Mypage.style'
 
+function formatRecentProdcuts(data: IProductCardData[]) {
+  return data.map((elem) => {
+    return {
+      productId: elem.id,
+    }
+  })
+}
+
 export default function MyPage() {
   const authState = useSelector((state: RootState) => state.auth)
   const { role } = authState
+  const recentProducts = localStorage.getItem('recentProducts')
+  const formattedRecentProducts = recentProducts
+    ? formatRecentProdcuts(JSON.parse(recentProducts))
+    : []
   const { data, isLoading } = useGetProfileByRole(
-    API_MEMBER.MY_PROFILE,
-    () => (role === 'travelly' ? getTravellyProfile() : getTravllerProfile()), // TODO: traveller 연결
+    role === 'travelly' ? API_MEMBER.MY_TRAVELLY : API_MEMBER.MY_TRAVELLY,
+    () =>
+      role === 'travelly'
+        ? getTravellyProfile()
+        : postTravellerProfile(formattedRecentProducts),
   )
 
   const PRODUCT_MENU: Record<string, JSX.Element> = {
     travelly: <MyProduct data={data?.products} />,
-    traveller: <RecentViewList />, // TODO: 최근 본 상품 데이터 전달
+    traveller: <RecentViewList data={data?.recentProducts} />,
   }
   return (
     <S.Wrapper>
