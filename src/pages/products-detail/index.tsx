@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react'
+import { useCallback, useState } from 'react'
 
 import useProductDetail from '@/hooks/api/productsAPI/useProductDetail'
 import useRecommendProducts from '@/hooks/api/productsAPI/useRecommendProducts'
@@ -28,14 +28,13 @@ import * as S from './ProductsDetail.style'
 function ProductsDetail() {
   const { productId } = useParams<{ productId: string }>()
   const dispatch = useDispatch()
-  const { productDetail, isProductDetailSuccess, isLoading } =
+  const { productDetail, isProductDetailSuccess, isPending } =
     useProductDetail(productId)
-  const { reviews, totalElements, handleLoadMoreReviews, initializeReviews } =
-    useLoadMoreReviews(productId)
-
-  useEffect(() => {
-    initializeReviews()
-  }, [productId, initializeReviews])
+  const [sort, setSort] = useState<string>('new')
+  const { reviews, totalElements, handleLoadMoreReviews } = useLoadMoreReviews({
+    productId,
+    sort,
+  })
 
   const {
     address = '',
@@ -70,11 +69,16 @@ function ProductsDetail() {
     [dispatch],
   )
 
+  const handleSort = (order: string) => {
+    setSort(order)
+    dispatch(sheet({ name: '', status: false, text: '' }))
+  }
+
   const handlePhotoReviewsClick = useCallback(() => {
     dispatch(sheet({ name: 'photo-reviews-sheet', status: true, text: '' }))
   }, [dispatch])
 
-  if (isLoading) {
+  if (isPending) {
     return <LoadingSpinner />
   }
 
@@ -118,7 +122,6 @@ function ProductsDetail() {
         <ProductBasicInfo productDetail={productDetail} />
         <Description description={description} />
         <RecommendCard cards={recommendProducts} />
-
         <ProductReviews
           productDetail={productDetail}
           reviewData={reviewData}
@@ -139,7 +142,10 @@ function ProductsDetail() {
           buttontype="reservation"
           productId={productId}
         />
-        <SheetRenderer shareSheetProps={shareSheetProps} />
+        <SheetRenderer
+          shareSheetProps={shareSheetProps}
+          reviewOrderSheetProps={{ handleSort }}
+        />
       </S.PageContainer>
     </>
   )

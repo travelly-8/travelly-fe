@@ -34,9 +34,16 @@ export const REVERSED_LOCALE_CODE_LIST: { [key: string]: string } =
     Object.entries(LOCALE_CODE_LIST).map(([key, value]) => [value, key]),
   )
 
-export const SORT: { [key: string]: string } = {
+export const CARD_SORT: { [key: string]: string } = {
   최신순: 'Newest',
   '리뷰 많은 순': 'MostReviews',
   평점순: 'HighestRating',
   '낮은 가격순': 'LowestPrice',
 } as const
+
+export const REVIEW_SORT: { [key: string]: string } = {
+  최신순: 'new',
+  '오래된 순': 'old',
+  '별점 낮은 순': 'lowRating',
+  '별점 높은 순': 'highRating',
+}

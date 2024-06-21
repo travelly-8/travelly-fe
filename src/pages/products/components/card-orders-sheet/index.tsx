@@ -1,4 +1,4 @@
-import { SORT } from '@/constants/FILTERING_BROWSING'
+import { CARD_SORT } from '@/constants/FILTERING_BROWSING'
 import { sheet } from '@/store/sheet-slice/sheet-slice'
 
 import GrabSheet from '@components/grab-sheet'
@@ -14,14 +14,14 @@ function CardOrdersSheet() {
   const currentPath = location.pathname
   const searchParams = new URLSearchParams(location.search)
 
-  const handleClickOrder = (orderKey: keyof typeof SORT) => {
-    const orderValue = SORT[orderKey]
+  const handleClickOrder = (orderKey: keyof typeof CARD_SORT) => {
+    const orderValue = CARD_SORT[orderKey]
     searchParams.set('sort', orderValue)
     navigate(`${currentPath}?${searchParams.toString()}`)
     dispatch(sheet({ name: 'card-order-sheet', status: false }))
   }
 
-  const orderKeys = Object.keys(SORT) as Array<keyof typeof SORT>
+  const orderKeys = Object.keys(CARD_SORT) as Array<keyof typeof CARD_SORT>
 
   return (
     <GrabSheet name="card-order-sheet">

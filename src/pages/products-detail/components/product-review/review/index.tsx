@@ -7,7 +7,7 @@ import ReviewPage from '@/pages/products-detail/components/product-review/review
 import { IReviewDetailData } from '@/types/getReviewDetailData.type.ts'
 
 import CheckBox from '@components/check-box'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import * as S from './Review.style'
 
@@ -23,7 +23,6 @@ const Review: React.FC<IReviewProps> = ({
   onPhotoReviewsClick,
 }) => {
   const [isRecentVisitChecked, setIsRecentVisitChecked] = useState(false)
-  const [isPictureChecked, setIsPictureChecked] = useState(false)
 
   const handleSetGetAccountChecked = (isChecked: boolean) => {
     setIsRecentVisitChecked(isChecked)
@@ -38,6 +37,15 @@ const Review: React.FC<IReviewProps> = ({
   const handleIconClick = (event: React.MouseEvent) => {
     event.stopPropagation()
     navigate('/review/write', { state: { productDetail } })
+  }
+
+  const handleNavigation = (
+    event: React.MouseEvent,
+    productId: string,
+    reviewId: number,
+  ) => {
+    event.stopPropagation()
+    navigate(`/review/${productId}/${reviewId}`)
   }
 
   return (
@@ -84,12 +92,14 @@ const Review: React.FC<IReviewProps> = ({
       </S.ReviewHeader>
 
       {reviewData?.map((data: IReviewDetailData) => (
-        <Link
+        <S.ReviewPageWrapper
           key={data.reviewId}
-          to={`/review/${data.productId}/${data.reviewId}`}
+          onClick={(event) =>
+            handleNavigation(event, data.productId, data.reviewId)
+          }
         >
           <ReviewPage reviewData={data} onEditClick={onEditClick} />
-        </Link>
+        </S.ReviewPageWrapper>
       ))}
     </S.ReviewContainer>
   )

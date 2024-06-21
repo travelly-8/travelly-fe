@@ -2,11 +2,15 @@ import { getReviews } from '@/api/reviewAPI'
 
 import { useQuery } from '@tanstack/react-query'
 
-const useGetReviews = (productId: string | undefined, page: number) => {
+const useGetReviews = (
+  productId: string | undefined,
+  page: number,
+  sort: string,
+) => {
   const params = {
     page,
     size: 3,
-    sort: 'createdDate',
+    sort: 'new',
   }
 
   const { data } = useQuery({
