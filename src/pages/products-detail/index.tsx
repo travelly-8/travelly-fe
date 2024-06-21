@@ -1,10 +1,9 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 
 import useProductDetail from '@/hooks/api/productsAPI/useProductDetail'
 import useRecommendProducts from '@/hooks/api/productsAPI/useRecommendProducts'
 import useLoadMoreReviews from '@/hooks/api/reviewAPI/useLoadMoreReviews'
 import NoProductPage from '@/pages/error/NoProductPage'
-import PhotoReviewsSheet from '@/pages/products-detail/components/photo-reviews-sheet'
 import { sheet } from '@/store/sheet-slice/sheet-slice'
 import type { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
 import { IReviewDetailData } from '@/types/getReviewDetailData.type'
@@ -13,10 +12,11 @@ import { changeReviewData } from '@/utils/changeReviewData'
 import FooterReservation from '@components/footer-reservation'
 import ProductHeader from '@components/product-header'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 import Description from './components/description'
 import LoadMoreButton from './components/load-more-button'
+import PhotoReviewsSheet from './components/photo-reviews-sheet'
 import ProductBasicInfo from './components/product-basic-info'
 import ProductInfo from './components/product-info'
 import ProductReviews from './components/product-review'
@@ -28,7 +28,7 @@ import * as S from './ProductsDetail.style'
 function ProductsDetail() {
   const { productId } = useParams<{ productId: string }>()
   const dispatch = useDispatch()
-  const navigate = useNavigate()
+
   const { productDetail, isProductDetailSuccess, isPending } =
     useProductDetail(productId)
   const [sort, setSort] = useState<string>('new')
@@ -36,8 +36,6 @@ function ProductsDetail() {
     productId,
     sort,
   })
-  const [isHamburgerClicked, setIsHamburgerClicked] = useState(false)
-  const [isReservation, setIsReservation] = useState(false)
 
   const {
     address = '',
