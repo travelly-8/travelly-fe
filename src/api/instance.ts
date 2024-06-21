@@ -32,6 +32,12 @@ instance.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config
 
+    const SERVER_ERROR_STATUS = [500, 501, 502, 503, 504]
+
+    if (error.response && SERVER_ERROR_STATUS.includes(error.response.status)) {
+      window.location.replace('/server-error')
+    }
+
     if (
       error.response &&
       error.response.status === 401 &&
