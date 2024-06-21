@@ -1,21 +1,18 @@
+import { REVIEW_SORT } from '@/constants/FILTERING_BROWSING'
+
 import GrabSheet from '@components/grab-sheet'
 
 import * as S from './ReviewOrderSheet.style'
 
-const ORDER = [
-  '최신순',
-  '별점 높은 순',
-  '별점 낮은 순',
-  '추천 많은 순',
-] as const
+const orderKeys = Object.keys(REVIEW_SORT) as Array<keyof typeof REVIEW_SORT>
 
 function ReviewOrderSheet() {
   return (
     <GrabSheet name="review-order-sheet">
-      {ORDER.map((order, idx) => (
+      {orderKeys.map((order, idx) => (
         <S.OrderWrapper key={order}>
           <S.Order>{order}</S.Order>
-          {idx !== ORDER.length - 1 && <S.Divider />}
+          {idx !== orderKeys.length - 1 && <S.Divider />}
         </S.OrderWrapper>
       ))}
     </GrabSheet>
