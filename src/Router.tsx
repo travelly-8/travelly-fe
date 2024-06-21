@@ -4,6 +4,9 @@ import GlobalStyles from '@/styles/GlobalStyles'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import AuthCallback from './pages/auth'
+import Error404Page from './pages/error/Error404Page'
+import Error500Page from './pages/error/Error500Page'
+import ErrorBoundary from './pages/error/ErrorBoundary'
 import HomePage from './pages/home'
 import LoginPage from './pages/login/login'
 import SelectPlanPage from './pages/login/select-plan'
@@ -27,46 +30,54 @@ import SplashRouter from './router/SplashRouter'
 
 export default function AppRouter() {
   return (
-    <BrowserRouter>
-      <GlobalStyles />
-      <Routes>
-        {/* 홈 */}
-        <Route element={<SplashRouter />}>
-          <Route path="/" element={<HomePage />} />
-        </Route>
-        {/* 상품 */}
-        <Route path="/products" element={<ProductsPage />} />
-        <Route path="/products/:productId" element={<ProductsDetail />} />
-        <Route path="/products/create" element={<ProductCreatePage />} />
-        {/* 로그인, 회원가입 */}
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup/start" element={<SignupStartPage />} />
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/signup/end" element={<SignupEndPage />} />
-        <Route element={<SelectPlanRouter />}>
-          <Route path="/select-plan" element={<SelectPlanPage />} />
-        </Route>
-        <Route path="/auth/callback/:platform" element={<AuthCallback />} />
-        {/* 마이페이지 */}
-        <Route path="/mypage" element={<MyPage />} />
-        <Route path="/mypage/edit" element={<MyPageEditPage />} />
-        <Route path="/mypage/my-product-list" element={<MyProductListPage />} />
-        <Route path="/exit" element={<ExitPage />} />
-        <Route path="/goodbye" element={<GoodbyePage />} />
-        {/* 리뷰 */}
-        <Route path="/review/write" element={<ReviewWritePage />} />
-        <Route
-          path="/review/:productId/:reviewId"
-          element={<ReviewDetailPage />}
-        />
-        <Route path="/review/list" element={<ReviewList />} />
-        {/* 예약 */}
-        <Route path="/reservation/:productId" element={<ReservationPage />} />
-        <Route
-          path="/reservation-detail/:productId"
-          element={<ReservedDetailPage />}
-        />
-      </Routes>
-    </BrowserRouter>
+    <ErrorBoundary>
+      <BrowserRouter>
+        <GlobalStyles />
+        <Routes>
+          {/* 홈 */}
+          <Route element={<SplashRouter />}>
+            <Route path="/" element={<HomePage />} />
+          </Route>
+          {/* 상품 */}
+          <Route path="/products" element={<ProductsPage />} />
+          <Route path="/products/:productId" element={<ProductsDetail />} />
+          <Route path="/products/create" element={<ProductCreatePage />} />
+          {/* 로그인, 회원가입 */}
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup/start" element={<SignupStartPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/signup/end" element={<SignupEndPage />} />
+          <Route element={<SelectPlanRouter />}>
+            <Route path="/select-plan" element={<SelectPlanPage />} />
+          </Route>
+          <Route path="/auth/callback/:platform" element={<AuthCallback />} />
+          {/* 마이페이지 */}
+          <Route path="/mypage" element={<MyPage />} />
+          <Route path="/mypage/edit" element={<MyPageEditPage />} />
+          <Route
+            path="/mypage/my-product-list"
+            element={<MyProductListPage />}
+          />
+          <Route path="/exit" element={<ExitPage />} />
+          <Route path="/goodbye" element={<GoodbyePage />} />
+          {/* 리뷰 */}
+          <Route path="/review/write" element={<ReviewWritePage />} />
+          <Route
+            path="/review/:productId/:reviewId"
+            element={<ReviewDetailPage />}
+          />
+          <Route path="/review/list" element={<ReviewList />} />
+          {/* 예약 */}
+          <Route path="/reservation/:productId" element={<ReservationPage />} />
+          <Route
+            path="/reservation-detail/:productId"
+            element={<ReservedDetailPage />}
+          />
+          {/* 에러 */}
+          <Route path="*" element={<Error404Page />} />
+          <Route path="/server-error" element={<Error500Page />} />
+        </Routes>
+      </BrowserRouter>
+    </ErrorBoundary>
   )
 }
