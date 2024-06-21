@@ -74,12 +74,12 @@ function ProductsDetail() {
     dispatch(sheet({ name: 'photo-reviews-sheet', status: true, text: '' }))
   }, [dispatch])
 
-  if (!productDetail || !productId) {
-    return <NoProductPage />
-  }
-
   if (isLoading) {
     return <LoadingSpinner />
+  }
+
+  if (!productDetail || !productId) {
+    return <NoProductPage />
   }
 
   const price = ticketDto[0]?.price
