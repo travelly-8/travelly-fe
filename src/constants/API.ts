@@ -15,6 +15,7 @@ export const API_MEMBER = Object.freeze({
   MY_PROFILE_IMG: '/my/profile/image',
   MY_PROFILE_IMG_RESET: '/my/profile/image/default',
   MY_PASSWORD: '/my/profile/password',
+  MY_TRAVELLY_REVIEW: '/my/travelly/review',
 })
 
 export const API_AUTH = Object.freeze({

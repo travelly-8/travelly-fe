@@ -8,9 +8,6 @@ const instance = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-  // paramsSerializer: (params) => {
-  //   return qs.stringify(params, { arrayFormat: 'brackets' })
-  // },
 })
 
 const noAuthRequiredEndpoints: string[] = [API_AUTH.SIGNUP, API_AUTH.LOGIN]

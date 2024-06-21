@@ -11,30 +11,32 @@ const ReviewProductCard: React.FC<IReviewProductCardProps> = ({
 }) => {
   const navigate = useNavigate()
   const location = useLocation()
+
   if (!productDetail) return null
 
-  const { id, name, ticketDto, createdDate, images } = productDetail
-  const price = ticketDto?.[0]?.price || '가격 정보 없음'
+  const { productId, productName, createdDate, images, reviewerName } =
+    productDetail
   const imageUrl = images?.[0]?.url || '이미지 없음'
 
   const handleArrowClick = () => {
-    navigate(`/products/${id}`)
+    navigate(`/products/${productId}`)
   }
   const isReservation =
     matchPath('/reservation/:productId', location.pathname) !== null
   const reviewDate = isReservation
     ? createdDate
     : new Date(createdDate).toLocaleDateString()
+
   return (
     <S.Wrapper>
       <S.ContentWrapper>
         <S.Img src={imageUrl} alt="상품 이미지" />
         <S.DetailWrapper>
-          <S.ProductName>{name}</S.ProductName>
+          <S.ProductName>{productName}</S.ProductName>
           <S.PriceAndDateWrapper>
-            <S.Price>{price}원</S.Price>
+            <S.Price>작성자 : {reviewerName}</S.Price>
             <S.Bar>|</S.Bar>
-            <S.Date>{reviewDate}</S.Date>
+            <S.Date>작성일 : {reviewDate}</S.Date>
           </S.PriceAndDateWrapper>
         </S.DetailWrapper>
       </S.ContentWrapper>
