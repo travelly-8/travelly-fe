@@ -1,59 +1,19 @@
+import { getTravellyProfile } from '@/api/myAPI'
 import SearchIcon from '@/assets/common/search.svg'
+import { API_MEMBER } from '@/constants/API'
+import useGetProfileByRole from '@/hooks/api/memberAPI/useGetProfileByRole'
 import AppBar from '@/pages/products/components/app-bar'
 
 import PageHeader from '@components/page-header'
 import ProductCard from '@components/product-card'
-import { IProductCardData } from '@components/product-card/ProductCard.type'
 
 import * as S from './MyProductListPage.style'
 
-const dummyCardDataList: IProductCardData[] = [
-  {
-    id: 1,
-    images: [
-      {
-        url: 'url',
-        order: 1,
-      },
-    ],
-    name: '상품명',
-    cityCode: 'cityCode',
-    address: 'address',
-    ticketDto: [
-      {
-        name: 'name',
-        price: 1000,
-        description: 'desc',
-      },
-    ],
-    rating: 1,
-    reviewCount: 1,
-  },
-  {
-    id: 2,
-    images: [
-      {
-        url: 'url',
-        order: 1,
-      },
-    ],
-    name: '상품명',
-    cityCode: 'cityCode',
-    address: 'address',
-    ticketDto: [
-      {
-        name: 'name',
-        price: 1000,
-        description: 'desc',
-      },
-    ],
-    rating: 1,
-    reviewCount: 1,
-  },
-]
-
 export default function MyProductListPage() {
-  //TODO: 내 상품 리스트 API 연결
+  const { data, isLoading } = useGetProfileByRole(API_MEMBER.MY_PROFILE, () =>
+    getTravellyProfile(),
+  )
+
   return (
     <S.Wrapper>
       <PageHeader>
@@ -62,13 +22,13 @@ export default function MyProductListPage() {
           <S.SearchIcon src={SearchIcon} alt="검색" />
         </S.Content>
       </PageHeader>
-      <AppBar totalElements={0} onOrderClick={() => {}} />
+      <AppBar totalElements={data?.products.length} onOrderClick={() => {}} />
       <S.CardWrapper>
-        {dummyCardDataList.map((data) => {
+        {data?.products.map((elem) => {
           return (
             <ProductCard
-              key={data.id}
-              cardData={data}
+              key={elem.id}
+              cardData={elem}
               size="sm"
               bookmark={false}
             />

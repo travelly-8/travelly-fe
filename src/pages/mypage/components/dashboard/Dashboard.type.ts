@@ -1,3 +1,6 @@
+import { ProfileByRoleType } from '@/types/getMemberData.type'
+import { LoginUserRoleType } from '@/types/userRole.type'
+
 export interface IReviews {
   content: string
   rating: number
@@ -6,11 +9,8 @@ export interface IReviews {
 }
 
 export interface IDashboardProps {
-  data: {
-    role: string
-    coin: number
-    reviews: IReviews[]
-  }
+  data: ProfileByRoleType
+  role: LoginUserRoleType
 }
 
 export interface IDashboard {

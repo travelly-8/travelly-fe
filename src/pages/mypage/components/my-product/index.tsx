@@ -1,10 +1,11 @@
+import { IProducts } from '@/types/getMemberData.type'
+
 import ProductCard from '@components/product-card'
-import { IProductCardData } from '@components/product-card/ProductCard.type'
 import { Link } from 'react-router-dom'
 
 import * as S from './MyProduct.style'
 
-const MyProduct = ({ data }: { data?: IProductCardData[] }) => {
+const MyProduct = ({ data }: { data?: IProducts[] }) => {
   return (
     <S.Wrapper>
       <S.TitleWrapper>

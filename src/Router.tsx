@@ -4,6 +4,8 @@ import GlobalStyles from '@/styles/GlobalStyles'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import AuthCallback from './pages/auth'
+import BookmarkPage from './pages/bookmark'
+import ChatPage from './pages/chat'
 import Error404Page from './pages/error/Error404Page'
 import Error500Page from './pages/error/Error500Page'
 import HomePage from './pages/home'
@@ -71,6 +73,9 @@ export default function AppRouter() {
         {/* 에러 */}
         <Route path="*" element={<Error404Page />} />
         <Route path="/server-error" element={<Error500Page />} />
+        {/* 찜, 커뮤니티 대체 페이지 */}
+        <Route path="/chat" element={<ChatPage />} />
+        <Route path="/bookmark" element={<BookmarkPage />} />
       </Routes>
     </BrowserRouter>
   )

@@ -85,8 +85,8 @@ const ReviewList: React.FC = () => {
           <>
             <SkeletonCircle />
             <S.ProfileInfo>
-              <SkeletonText style={{ width: '100px' }} />
-              <SkeletonText style={{ width: '150px' }} />
+              <SkeletonText style={{ width: '10rem' }} />
+              <SkeletonText style={{ width: '15rem' }} />
             </S.ProfileInfo>
           </>
         ) : (

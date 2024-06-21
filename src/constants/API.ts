@@ -8,8 +8,9 @@ export const API_PRODUCTS = Object.freeze({
 })
 
 export const API_MEMBER = Object.freeze({
-  MY: '/my',
   MY_PROFILE: '/my/profile',
+  MY_TRAVELLY: '/my/travelly',
+  MY_TRAVELLER: '/my/traveller',
   MY_NICKNAME: (nickname: string) => `/my/profile?nickname=${nickname}`,
   MY_PROFILE_IMG: '/my/profile/image',
   MY_PROFILE_IMG_RESET: '/my/profile/image/default',
