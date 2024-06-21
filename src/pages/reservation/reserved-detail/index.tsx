@@ -1,5 +1,7 @@
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
 
+import { getReservationDetail } from '@/api/reservation.ts'
+import useGetReservationDetail from '@/hooks/api/reserveAPI/useGetReservationDetail.ts'
 import SheetRenderer from '@/pages/products-detail/components/sheet-renderer'
 import { ISheetComponents } from '@/pages/products-detail/ProductsDetail.type.ts'
 import CancellationPolicy from '@/pages/reservation/components/cancellation-policy'
@@ -7,16 +9,21 @@ import ReservationInput from '@/pages/reservation/components/reservation-input'
 import { IPaySheet } from '@/pages/reservation/components/sheet/PaySheet.type.ts'
 import TicketCountSection from '@/pages/reservation/components/ticket-count-section'
 import { sheet } from '@/store/sheet-slice/sheet-slice.ts'
+import { makeKorLocale } from '@/utils/makeKORLocale.ts'
 
 import FooterReservation from '@components/footer-reservation'
 import PageHeader from '@components/page-header'
 import { useDispatch } from 'react-redux'
+import { useParams } from 'react-router-dom'
 
 import * as S from './ReservedDetailPage.syles.tsx'
-import { ProductCard, ProductImage } from './ReservedDetailPage.syles.tsx'
+
+import ReviewListCard from '@components/review-list-card/index.tsx'
 
 function ReservedDetailPage() {
   const dispatch = useDispatch()
+  const { reservationId } = useParams()
+  const [isCancelPolicyChecked, setIsCancelPolicyChecked] = useState(false)
 
   const handleSheetDispatch = useCallback(
     (name: keyof ISheetComponents) => {
@@ -25,9 +32,30 @@ function ReservedDetailPage() {
     [dispatch],
   )
 
+  const handleSetCancellationPolicyChecked = (isChecked: boolean) => {
+    setIsCancelPolicyChecked(isChecked)
+  }
+
+  const handlePayConfirmClick = () => {
+    if (isCancelPolicyChecked) {
+      handleSheetDispatch('pay-cancel-sheet')
+    } else {
+      dispatch(sheet({ name: 'pay-cancel-sheet', status: false, text: '' }))
+      alert('취소 정책에 동의해주세요.')
+    }
+  }
+
+  const { returnData: reservationData } = useGetReservationDetail(
+    `reservation-detail:${reservationId}`,
+    () => getReservationDetail(Number(reservationId)),
+  )
+  const defaultValues = {
+    name: reservationData?.buyerName || '',
+    phone: reservationData?.phone || '',
+    email: reservationData?.email || '',
+  }
   const payCancelProps: IPaySheet = {
-    userPoint: 1000,
-    productPoint: 1000,
+    productPoint: reservationData?.totalPrice,
   }
   return (
     <>
@@ -35,22 +63,22 @@ function ReservedDetailPage() {
         <S.HeaderTitle>상품 예약 상세</S.HeaderTitle>
       </PageHeader>
       <S.PageContainer>
-        <ProductCard>
-          <ProductImage src="https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp" />
-          <S.ProductText>
-            <S.ProductName>상품명</S.ProductName>
-            <div>
-              <S.ProductPrice>000,000원</S.ProductPrice>
-              <S.ProductDate> | 24.00.00~24.00.00</S.ProductDate>
-            </div>
-          </S.ProductText>
-        </ProductCard>
+        <ReviewListCard
+          key={reservationData?.id}
+          id={reservationData?.id}
+          productName={reservationData?.productName}
+          productId={reservationData?.productId}
+          productImages={reservationData?.productImages ?? []}
+          buyerName={reservationData?.buyerName}
+          date={reservationData?.date}
+          totalPrice={reservationData?.totalPrice}
+        />
         <S.Section>
-          <ReservationInput disabled={true} />
+          <ReservationInput disabled={true} defaultValues={defaultValues} />
           <TicketCountSection isInput={false} />
           <S.SheetItem $underline={false}>
             <S.ItemKey>예약 날짜</S.ItemKey>
-            <S.ItemValue $primary={false}>24.00.00</S.ItemValue>
+            <S.ItemValue $primary={false}>{reservationData?.date}</S.ItemValue>
           </S.SheetItem>
         </S.Section>
         <S.Section>
@@ -60,17 +88,21 @@ function ReservedDetailPage() {
           </S.SheetItem>
           <S.SheetItem $underline={false}>
             <S.ItemKey>총 결제 금액</S.ItemKey>
-            <S.ItemValue $primary={true}>10,000</S.ItemValue>
+            <S.ItemValue $primary={true}>
+              {makeKorLocale(reservationData?.totalPrice ?? 0)}
+            </S.ItemValue>
           </S.SheetItem>
         </S.Section>
-        <CancellationPolicy />
+        <CancellationPolicy
+          setCancellationPolicyChecked={handleSetCancellationPolicyChecked}
+        />
       </S.PageContainer>
       <FooterReservation
         isBookmarked={true}
         isReservationProduct={true}
         price={0}
         buttontype="cancelPayment"
-        onPayCancelClick={() => handleSheetDispatch('pay-cancel-sheet')}
+        onPayCancelClick={handlePayConfirmClick}
       />
       <SheetRenderer payCancelProps={payCancelProps} />
     </>
