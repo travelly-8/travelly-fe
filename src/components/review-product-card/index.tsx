@@ -14,7 +14,7 @@ const ReviewProductCard: React.FC<IReviewProductCardProps> = ({
 
   if (!productDetail) return null
 
-  const { productId, productName, createdDate, images, reviewerName } =
+  const { productId, productName, name, createdDate, images, reviewerName } =
     productDetail
   const imageUrl = images?.[0]?.url || '이미지 없음'
 
@@ -32,7 +32,7 @@ const ReviewProductCard: React.FC<IReviewProductCardProps> = ({
       <S.ContentWrapper>
         <S.Img src={imageUrl} alt="상품 이미지" />
         <S.DetailWrapper>
-          <S.ProductName>{productName}</S.ProductName>
+          <S.ProductName>{productName || name}</S.ProductName>
           <S.PriceAndDateWrapper>
             <S.Price>작성자 : {reviewerName}</S.Price>
             <S.Bar>|</S.Bar>
