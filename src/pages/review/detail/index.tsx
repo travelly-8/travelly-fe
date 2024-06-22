@@ -1,13 +1,13 @@
 import { useState } from 'react'
 
 import { getReviewDetail, postComment } from '@/api/reviewAPI'
+import useProductDetail from '@/hooks/api/productsAPI/useProductDetail'
 import ReviewPage from '@/pages/products-detail/components/product-review/review/ReviewPage.tsx'
 import CommentCard from '@/pages/review/components/comment-card'
 import { comment } from '@/store/comment-slice/comment-slice'
 import { ICommentSliceState } from '@/store/comment-slice/comment-slice.type'
 import { sheet } from '@/store/sheet-slice/sheet-slice'
 import type { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
-import { RootState } from '@/store/store'
 import { ICommentData } from '@/types/getReviewDetailData.type'
 
 import BottomSheet from '@components/bottom-sheet'
@@ -32,7 +32,10 @@ export default function ReviewDetailPage() {
   const sheetReducer = useSelector(
     (state: ISheetSliceState) => state.sheet.value,
   )
-  const productDetail = useSelector((state: RootState) => state.product.detail)
+  // const productDetail = useSelector((state: RootState) => state.product.detail)
+  const { productDetail, isProductDetailSuccess, isPending } =
+    useProductDetail(productId)
+
   const commentReducer = useSelector(
     (state: ICommentSliceState) => state.comment.value,
   )
