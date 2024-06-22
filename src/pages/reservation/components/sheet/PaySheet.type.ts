@@ -1,4 +1,4 @@
 export interface IPaySheet {
-  userPoint: number
-  productPoint: number
+  userPoint?: number
+  productPoint?: number
 }

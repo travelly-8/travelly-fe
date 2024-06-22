@@ -3,9 +3,11 @@ import { IProductImages } from '@components/product-card/ProductCard.type'
 export interface IGetProductResponse {
   data: IGetProductData
 }
+
 export interface IGetProductData {
   content: IProduct[]
 }
+
 export interface IProduct {
   id: number
   name: string
@@ -36,6 +38,7 @@ interface IOperationDays {
   date: string
   operationDayHours: IOperationDayHours[]
 }
+
 interface IOperationDayHours {
   startTime: string
   endTime: string

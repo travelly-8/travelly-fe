@@ -5,6 +5,7 @@ export const API_PRODUCTS = Object.freeze({
   PRODUCTS_IMAGE: '/products/upload',
   PRODUCTS_DETAIL: (productId: number | undefined) => `/products/${productId}`,
   TOP_KEYWORDS: '/products/top-keywords',
+  TOP_PRODUCTS: '/products/top-products',
 })
 
 export const API_MEMBER = Object.freeze({
@@ -36,4 +37,13 @@ export const API_REVIEW = Object.freeze({
   COMMENT: (reviewId: number, commentId: number) =>
     `/comment/${reviewId}/${commentId}`,
   REVIEWS: (productId: number) => `/review/product/${productId}`,
+})
+
+export const API_RESERVATION = Object.freeze({
+  RESERVATION: (productId: number) => `/reservation/${productId}`,
+  RESERVATION_MY: '/reservation/my',
+  RESERVATION_DETAIL: (reservationId: number) =>
+    `/reservation/${reservationId}`,
+  RESERVATION_CANCEL: (reservationId: number) =>
+    `/reservation/${reservationId}/cancel`,
 })

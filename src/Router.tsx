@@ -20,6 +20,7 @@ import ProductsPage from './pages/products'
 import ProductCreatePage from './pages/products-create'
 import ProductsDetail from './pages/products-detail'
 import ReservationPage from './pages/reservation/reserve'
+import ReservedListPage from './pages/reservation/reserved-list'
 import ReviewDetailPage from './pages/review/detail'
 import ReviewList from './pages/review/list'
 import ReviewWritePage from './pages/review/write'
@@ -67,9 +68,10 @@ export default function AppRouter() {
         {/* 예약 */}
         <Route path="/reservation/:productId" element={<ReservationPage />} />
         <Route
-          path="/reservation-detail/:productId"
+          path="/reservation-detail/:reservationId"
           element={<ReservedDetailPage />}
         />
+        <Route path="/reservation-list" element={<ReservedListPage />} />
         {/* 에러 */}
         <Route path="*" element={<Error404Page />} />
         <Route path="/server-error" element={<Error500Page />} />

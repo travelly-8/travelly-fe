@@ -14,8 +14,21 @@ const ReviewProductCard: React.FC<IReviewProductCardProps> = ({
 
   if (!productDetail) return null
 
-  const { productId, productName, name, createdDate, images, reviewerName } =
-    productDetail
+  const {
+    productId,
+    productName,
+    name,
+    createdDate,
+    images,
+    reviewerName,
+    totalPrice,
+    ticketDto,
+  } = productDetail
+  const price =
+    ticketDto?.[0]?.price || totalPrice
+      ? ticketDto?.[0]?.price || totalPrice
+      : '가격 정보 없음'
+
   const imageUrl = images?.[0]?.url || '이미지 없음'
 
   const handleArrowClick = () => {

@@ -15,6 +15,7 @@ import type { IReviewProps } from './Review.type'
 
 const Review: React.FC<IReviewProps> = ({
   productDetail,
+  id,
   reviewCnt,
   reviewImg,
   reviewData,
@@ -49,7 +50,7 @@ const Review: React.FC<IReviewProps> = ({
   }
 
   return (
-    <S.ReviewContainer>
+    <S.ReviewContainer id={id}>
       <S.ReviewHeader>
         <S.ReviewTitle onClick={handleHeaderClick}>
           <S.ReviewCntWrapper>

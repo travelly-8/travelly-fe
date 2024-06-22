@@ -4,6 +4,7 @@ import { IReviewDetailData } from '@/types/getReviewDetailData.type'
 import { IProductDetail } from './review/Review.type'
 
 interface IProductReviewsProps {
+  id?: string
   productDetail: IProductDetail
   reviewData: IReviewDetailData[]
   handleSheetDispatch: (name: string) => void
@@ -13,6 +14,7 @@ interface IProductReviewsProps {
 
 const ProductReviews = ({
   productDetail,
+  id,
   reviewData,
   totalElements,
   handleSheetDispatch,
@@ -25,8 +27,9 @@ const ProductReviews = ({
 
   return (
     <Review
-      productDetail={productDetail}
+      id={id}
       reviewCnt={totalElements}
+      productDetail={productDetail}
       reviewImg={reviewImg}
       reviewData={reviewData}
       onOrderClick={() => handleSheetDispatch('review-order-sheet')}
