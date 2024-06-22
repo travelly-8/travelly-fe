@@ -15,6 +15,7 @@ import MyProductListPage from './pages/mypage/my-product-list'
 import ProductsPage from './pages/products'
 import ProductCreatePage from './pages/products-create'
 import ProductsDetail from './pages/products-detail'
+import Recovery from './pages/recovery'
 import ReservationPage from './pages/reservation/reserve'
 import ReviewDetailPage from './pages/review/detail'
 import ReviewList from './pages/review/list'
@@ -66,6 +67,7 @@ export default function AppRouter() {
           path="/reservation-detail/:productId"
           element={<ReservedDetailPage />}
         />
+        <Route path="/test" element={<Recovery />} />
       </Routes>
     </BrowserRouter>
   )

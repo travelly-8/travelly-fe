@@ -32,7 +32,7 @@ export const Textarea = styled.textarea`
   width: 32rem;
   height: 14rem;
   outline: none;
-  border: 1px solid var(--color-gray-light);
+  border: 0.1rem solid var(--color-gray-light);
   border-radius: 0.5rem;
   padding: 1rem;
   resize: none;
