@@ -23,10 +23,10 @@ export const Wrapper = styled.div<IWrapper>`
   position: fixed;
   bottom: 0;
 
-  @media screen and (max-width: 767px) {
+  @media (max-width: 767px) {
     width: 100%;
   }
-  @media screen and (min-width: 768px) {
+  @media (min-width: 768px) {
     width: 360px;
   }
 
