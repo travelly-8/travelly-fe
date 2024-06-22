@@ -57,7 +57,7 @@ const ReservationInput: React.FC<IReservationInputProps> = ({
           {errors?.email && <S.Error>{errors.email.message as string}</S.Error>}
         </S.InputWrapper>
       </S.InputContainer>
-    </form> // 버튼은 작동 확인 위한 임시버튼
+    </form>
   )
 }
 

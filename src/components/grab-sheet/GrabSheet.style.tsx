@@ -21,7 +21,7 @@ export const SheetBackground = styled.div`
 `
 
 export const Container = styled.div<{ $align?: string }>`
-  position: absolute;
+  position: fixed;
   bottom: 0;
   display: flex;
   flex-direction: column;
@@ -34,6 +34,13 @@ export const Container = styled.div<{ $align?: string }>`
   z-index: 1000;
 
   animation: ${slideUp} 0.4s ease-out;
+
+  @media (max-width: 767px) {
+    width: 100%;
+  }
+  @media (min-width: 768px) {
+    width: 360px;
+  }
 `
 
 export const GrabHandle = styled.div`

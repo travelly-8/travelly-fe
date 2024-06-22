@@ -15,7 +15,11 @@ import CalendarInput from '@components/calendar-input'
 import FooterButton from '@components/footer-button'
 import FooterNavigation from '@components/footer-navigation'
 import Input from '@components/input'
-import { StyledInput, StyledInputWrapper } from '@components/input/Input.style'
+import {
+  CurrencyUnit,
+  StyledInput,
+  StyledInputWrapper,
+} from '@components/input/Input.style'
 import PageHeader from '@components/page-header'
 import RoundButton from '@components/round-button'
 import SheetHeader from '@components/sheet-header'
@@ -61,6 +65,7 @@ export default function ProductCreatePage() {
     null,
   )
   const [photo, setPhoto] = useState<string | null>(null)
+  const [quantity, setQuantity] = useState<number | null>(null)
 
   // 에러
   const [companyNameError, setCompanyNameError] =
@@ -86,6 +91,7 @@ export default function ProductCreatePage() {
       addressData,
       detailAddressData,
       photo,
+      quantity,
     ].every((field) => Boolean(field))
   }
 
@@ -138,7 +144,8 @@ export default function ProductCreatePage() {
       !date ||
       !addressData?.roadAddress ||
       !description ||
-      !detailAddressData
+      !detailAddressData ||
+      !quantity
     )
       return
 
@@ -159,7 +166,7 @@ export default function ProductCreatePage() {
       homepage: data.homepageUrl,
       cityCode:
         REVERSED_LOCALE_CODE_LIST[addressData?.roadAddress?.split(' ')[0]],
-      quantity: 100, // TODO: 디자인 누락
+      quantity,
       tickets: [
         // TODO: 디자인 누락
         {
@@ -326,6 +333,17 @@ export default function ProductCreatePage() {
             )}
           />
         </S.InputWrapper>
+        <S.AddressWrapper>
+          <S.SectionTitle>상품 수량</S.SectionTitle>
+          <StyledInputWrapper>
+            <StyledInput
+              type="number"
+              placeholder="00,000,000"
+              onChange={(e) => setQuantity(+e.target.value)}
+            />
+            <CurrencyUnit>개</CurrencyUnit>
+          </StyledInputWrapper>
+        </S.AddressWrapper>
         <S.AddressWrapper>
           <S.SectionTitle>주소 입력</S.SectionTitle>
           {addressData && (

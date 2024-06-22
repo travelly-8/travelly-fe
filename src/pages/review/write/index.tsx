@@ -31,11 +31,20 @@ export default function ReviewWritePage() {
     }
   }, [content, rating])
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const formData = useRef(new FormData())
+
+  const handleImageChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     if (event.target.files) {
       const fileArray = Array.from(event.target.files)
-      setImages((prevImages) => [...prevImages, ...fileArray])
-      setNumOfPhotos((prev) => prev + fileArray.length)
+      setImages(fileArray)
+      setNumOfPhotos(fileArray.length)
+
+      const files = event.target.files
+      for (let i = 0; i < files.length; i++) {
+        formData.current.append('images', files[i])
+      }
     }
   }
 
@@ -59,15 +68,17 @@ export default function ReviewWritePage() {
     const { id: productId } = productDetail
 
     const reviewData = {
-      images,
-      review: {
-        rating,
-        content,
-      },
+      rating,
+      content,
     }
 
+    formData.current.append(
+      'review',
+      new Blob([JSON.stringify(reviewData)], { type: 'application/json' }),
+    )
+
     try {
-      await postReview(productId, reviewData)
+      await postReview(productId, formData.current)
       alert('리뷰가 성공적으로 등록되었습니다.')
       navigate(`/products/${productId}`)
     } catch (error) {
@@ -102,7 +113,7 @@ export default function ReviewWritePage() {
               style={{ display: 'none' }}
               ref={fileInputRef}
             />
-            <S.PhotoNum>{numOfPhotos}/3</S.PhotoNum>
+            <S.PhotoNum>{numOfPhotos}/1</S.PhotoNum>
           </S.CameraWrapper>
           <S.CommentWrapper>
             <S.Textarea

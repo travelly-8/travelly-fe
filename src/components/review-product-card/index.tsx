@@ -1,6 +1,14 @@
+import { getReviewDetail } from '@/api/reviewAPI'
 import ArrowRight from '@/assets/common/arrow-right.svg'
+import { API_REVIEW } from '@/constants/API'
+import useGetReviewDetail from '@/hooks/api/reviewAPI/useGetReviewDetail'
 
-import { matchPath, useLocation, useNavigate } from 'react-router-dom'
+import {
+  matchPath,
+  useLocation,
+  useNavigate,
+  useParams,
+} from 'react-router-dom'
 
 import * as S from './ReviewProductCard.style'
 import { IReviewProductCardProps } from './ReviewProductCard.type'
@@ -9,32 +17,54 @@ const ReviewProductCard: React.FC<IReviewProductCardProps> = ({
   productDetail,
   isCommentMode,
 }) => {
+  const { productId = 1, reviewId = 1 } = useParams()
   const navigate = useNavigate()
   const location = useLocation()
+  const { data } = useGetReviewDetail(
+    API_REVIEW.REVIEW_DETAIL(+productId, +reviewId),
+    () => getReviewDetail(Number(productId), Number(productId)),
+  )
+
   if (!productDetail) return null
 
-  const { id, name, ticketDto, createdDate, images } = productDetail
-  const price = ticketDto?.[0]?.price || '가격 정보 없음'
-  const imageUrl = images?.[0]?.url || '이미지 없음'
+  const {
+    id,
+    productName,
+    name,
+    createdDate,
+    images,
+    reviewerName,
+    totalPrice,
+    ticketDto,
+  } = productDetail
+  const price =
+    ticketDto?.[0]?.price || totalPrice
+      ? ticketDto?.[0]?.price || totalPrice
+      : '가격 정보 없음'
 
   const handleArrowClick = () => {
-    navigate(`/products/${id}`)
+    navigate(`/products/${data?.productId || productDetail.productId}`)
   }
   const isReservation =
     matchPath('/reservation/:productId', location.pathname) !== null
   const reviewDate = isReservation
     ? createdDate
     : new Date(createdDate).toLocaleDateString()
+
   return (
     <S.Wrapper>
       <S.ContentWrapper>
-        <S.Img src={imageUrl} alt="상품 이미지" />
+        <S.Img src={productDetail?.images[0].url} alt="상품 이미지" />
         <S.DetailWrapper>
-          <S.ProductName>{name}</S.ProductName>
+          <S.ProductName>{data?.productName}</S.ProductName>
           <S.PriceAndDateWrapper>
-            <S.Price>{price}원</S.Price>
+            <S.Price>
+              작성자 : {data?.reviewUserNickname || productDetail.reviewerName}
+            </S.Price>
             <S.Bar>|</S.Bar>
-            <S.Date>{reviewDate}</S.Date>
+            <S.Date>
+              작성일 : {data?.reviewDate || productDetail.createdDate}
+            </S.Date>
           </S.PriceAndDateWrapper>
         </S.DetailWrapper>
       </S.ContentWrapper>
