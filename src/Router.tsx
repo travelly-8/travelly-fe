@@ -52,6 +52,7 @@ export default function AppRouter() {
         <Route element={<SelectPlanRouter />}>
           <Route path="/select-plan" element={<SelectPlanPage />} />
         </Route>
+        <Route path="/find" element={<Recovery />} />
         <Route path="/auth/callback/:platform" element={<AuthCallback />} />
         {/* 마이페이지 */}
         <Route path="/mypage" element={<MyPage />} />
@@ -72,7 +73,6 @@ export default function AppRouter() {
           path="/reservation-detail/:productId"
           element={<ReservedDetailPage />}
         />
-        <Route path="/test" element={<Recovery />} />
         <Route path="/reseravtion-list" element={<ReservedListPage />} />
         {/* 에러 */}
         <Route path="*" element={<Error404Page />} />
