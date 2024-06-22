@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Container = styled.footer`
-  position: sticky;
+  position: fixed;
   bottom: 0;
   display: flex;
   padding: 0.8rem 2rem;
@@ -11,4 +11,11 @@ export const Container = styled.footer`
   background-color: var(--color-white);
   border-radius: 1rem 1rem 0 0;
   border-top: 0.1rem solid var(--color-gray-light);
+
+  @media screen and (max-width: 767px) {
+    width: 100%;
+  }
+  @media screen and (min-width: 768px) {
+    width: 360px;
+  }
 `
