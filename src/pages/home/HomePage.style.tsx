@@ -6,7 +6,7 @@ export const PageContainer = styled.main<{
 }>`
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 100dvh;
   background-color: var(--color-white);
   display: ${({ $isSheet }) => ($isSheet ? 'none' : 'block')};
 
