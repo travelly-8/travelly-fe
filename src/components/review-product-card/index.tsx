@@ -17,12 +17,12 @@ const ReviewProductCard: React.FC<IReviewProductCardProps> = ({
   productDetail,
   isCommentMode,
 }) => {
-  const { productId = 0, reviewId = 0 } = useParams()
+  const { productId = 1, reviewId = 1 } = useParams()
   const navigate = useNavigate()
   const location = useLocation()
   const { data } = useGetReviewDetail(
     API_REVIEW.REVIEW_DETAIL(+productId, +reviewId),
-    () => getReviewDetail(+productId, +reviewId),
+    () => getReviewDetail(Number(productId), Number(productId)),
   )
 
   if (!productDetail) return null
@@ -43,7 +43,7 @@ const ReviewProductCard: React.FC<IReviewProductCardProps> = ({
       : '가격 정보 없음'
 
   const handleArrowClick = () => {
-    navigate(`/products/${data?.productId}`)
+    navigate(`/products/${data?.productId || productDetail.productId}`)
   }
   const isReservation =
     matchPath('/reservation/:productId', location.pathname) !== null
@@ -58,9 +58,13 @@ const ReviewProductCard: React.FC<IReviewProductCardProps> = ({
         <S.DetailWrapper>
           <S.ProductName>{data?.productName}</S.ProductName>
           <S.PriceAndDateWrapper>
-            <S.Price>작성자 : {data?.reviewUserNickname}</S.Price>
+            <S.Price>
+              작성자 : {data?.reviewUserNickname || productDetail.reviewerName}
+            </S.Price>
             <S.Bar>|</S.Bar>
-            <S.Date>작성일 : {data?.reviewDate}</S.Date>
+            <S.Date>
+              작성일 : {data?.reviewDate || productDetail.createdDate}
+            </S.Date>
           </S.PriceAndDateWrapper>
         </S.DetailWrapper>
       </S.ContentWrapper>
