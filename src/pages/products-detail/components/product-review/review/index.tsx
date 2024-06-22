@@ -1,17 +1,21 @@
+import { useState } from 'react'
+
 import edit from '@/assets/products-detail/edit.svg'
 import sort from '@/assets/products-detail/sort.svg'
-import ReviewPage from '@/pages/products-detail/components/review/ReviewPage.tsx'
-import { RootState } from '@/store/store'
+import ReviewImages from '@/pages/products-detail/components/product-review/review/ReviewImages'
+import ReviewPage from '@/pages/products-detail/components/product-review/review/ReviewPage.tsx'
 import { IReviewDetailData } from '@/types/getReviewDetailData.type.ts'
 
-import { useSelector } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
+import CheckBox from '@components/check-box'
+import { useNavigate } from 'react-router-dom'
 
 import * as S from './Review.style'
 
 import type { IReviewProps } from './Review.type'
 
 const Review: React.FC<IReviewProps> = ({
+  productDetail,
+  id,
   reviewCnt,
   reviewImg,
   reviewData,
@@ -19,13 +23,16 @@ const Review: React.FC<IReviewProps> = ({
   onEditClick,
   onPhotoReviewsClick,
 }) => {
-  const productDetail = useSelector((state: RootState) => state.product.detail)
+  const [isRecentVisitChecked, setIsRecentVisitChecked] = useState(false)
 
-  const reviewImgCnt = reviewImg?.length
+  const handleSetGetAccountChecked = (isChecked: boolean) => {
+    setIsRecentVisitChecked(isChecked)
+  }
+
   const navigate = useNavigate()
 
   const handleHeaderClick = () => {
-    navigate('/review/list')
+    navigate('/review/list'), { state: { productDetail } }
   }
 
   const handleIconClick = (event: React.MouseEvent) => {
@@ -33,8 +40,17 @@ const Review: React.FC<IReviewProps> = ({
     navigate('/review/write', { state: { productDetail } })
   }
 
+  const handleNavigation = (
+    event: React.MouseEvent,
+    productId: string,
+    reviewId: number,
+  ) => {
+    event.stopPropagation()
+    navigate(`/review/${productId}/${reviewId}`)
+  }
+
   return (
-    <S.ReviewContainer>
+    <S.ReviewContainer id={id}>
       <S.ReviewHeader>
         <S.ReviewTitle onClick={handleHeaderClick}>
           <S.ReviewCntWrapper>
@@ -46,12 +62,16 @@ const Review: React.FC<IReviewProps> = ({
         <S.ReviewCheckBox>
           <S.CheckBox>
             <S.CheckBoxWrapper>
-              <S.InputCheckBox type="checkbox" id="recent" name="recent" />
-              <S.BlackText>최근 방문</S.BlackText>
+              <CheckBox
+                text="최근 방문"
+                onChange={handleSetGetAccountChecked}
+              />
             </S.CheckBoxWrapper>
             <S.CheckBoxWrapper>
-              <S.InputCheckBox type="checkbox" id="pic/vid" name="pic/vid" />
-              <S.BlackText>사진/동영상</S.BlackText>
+              <CheckBox
+                text="사진/동영상"
+                onChange={handleSetGetAccountChecked}
+              />
             </S.CheckBoxWrapper>
           </S.CheckBox>
           <S.SortWrapper onClick={onOrderClick}>
@@ -59,37 +79,28 @@ const Review: React.FC<IReviewProps> = ({
             <S.IconSort src={sort} alt="정렬" />
           </S.SortWrapper>
         </S.ReviewCheckBox>
-        {reviewImgCnt > 0 ? (
+        {reviewCnt > 0 ? (
           <S.ReviewImgContainer>
-            {reviewImgCnt <= 3 ? (
-              reviewImg.map((photo) => (
-                <S.ReviewImg key={photo} src={photo} alt="리뷰 이미지" />
-              ))
-            ) : (
-              <>
-                <S.ReviewImg src={reviewImg[0]} alt="리뷰 이미지" />
-                <S.ReviewImg src={reviewImg[1]} alt="리뷰 이미지" />
-                <S.LastReviewImg onClick={onPhotoReviewsClick}>
-                  <S.ReviewImg src={reviewImg[2]} alt="리뷰 이미지" />
-                  <S.ReviewImgBackground>
-                    +{reviewImgCnt - 2}
-                  </S.ReviewImgBackground>
-                </S.LastReviewImg>
-              </>
-            )}
+            <ReviewImages
+              reviewCnt={reviewCnt}
+              reviewImg={reviewImg}
+              onPhotoReviewsClick={onPhotoReviewsClick}
+            />
           </S.ReviewImgContainer>
         ) : (
           <S.GrayText>아직 리뷰가 없습니다.</S.GrayText>
         )}
       </S.ReviewHeader>
 
-      {reviewData.map((data: IReviewDetailData) => (
-        <Link
+      {reviewData?.map((data: IReviewDetailData) => (
+        <S.ReviewPageWrapper
           key={data.reviewId}
-          to={`/review/${data.productId}/${data.reviewId}`}
+          onClick={(event) =>
+            handleNavigation(event, data.productId, data.reviewId)
+          }
         >
           <ReviewPage reviewData={data} onEditClick={onEditClick} />
-        </Link>
+        </S.ReviewPageWrapper>
       ))}
     </S.ReviewContainer>
   )

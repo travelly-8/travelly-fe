@@ -18,7 +18,6 @@ export const HeaderTitle = styled.h1`
 export const ProfileSection = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 4.8rem;
   height: 9rem;
   align-self: stretch;
   margin-left: 2rem;

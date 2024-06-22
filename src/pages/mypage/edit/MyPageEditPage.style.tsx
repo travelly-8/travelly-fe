@@ -48,11 +48,11 @@ export const PenImg = styled.img`
 export const NicknameWrapper = styled.div`
   margin-top: 0.8rem;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  position: relative;
   width: 100%;
+  gap: 0.8rem;
 `
 export const Nickname = styled.span`
   color: var(--color-black);
@@ -65,10 +65,6 @@ export const Edit = styled.span`
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.8rem; /* 180% */
-  position: relative;
-  left: 4rem;
-  top: -2.1rem;
-  margin-bottom: -2rem;
   cursor: pointer;
 `
 
@@ -83,6 +79,13 @@ export const FooterWrapper = styled.div`
   width: 100%;
   position: fixed;
   bottom: 0%;
+
+  @media screen and (max-width: 767px) {
+    width: 100%;
+  }
+  @media screen and (min-width: 768px) {
+    width: 360px;
+  }
 `
 
 export const MenuWrapper = styled.div`
@@ -171,4 +174,9 @@ export const NewNicknameInput = styled.input`
   &:focus {
     outline: none;
   }
+`
+export const EmptyBlock = styled.div`
+  display: flex;
+  width: 1rem;
+  height: 1rem;
 `

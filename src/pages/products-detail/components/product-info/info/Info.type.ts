@@ -8,4 +8,5 @@ export interface IInfoProps {
   reviewCnt: number
   imageArray: string[]
   onShareClick: () => void
+  onReviewClick: () => void
 }

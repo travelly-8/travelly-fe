@@ -1,14 +1,11 @@
 export interface IPopularSearchProps {
-  popularData: IPopularData
+  popularData?: ITopKeyword[]
+  time?: string
 }
 
-interface IPopularData {
-  time: string
-  items: IPopularItem[]
-}
-
-interface IPopularItem {
-  rank: number
-  search: string
-  change: string
+export interface ITopKeyword {
+  keyword: string
+  currentRank: number
+  previousRank: number
+  rankChange: number
 }

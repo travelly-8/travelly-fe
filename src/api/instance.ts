@@ -8,6 +8,9 @@ const instance = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  // paramsSerializer: (params) => {
+  //   return qs.stringify(params, { arrayFormat: 'brackets' })
+  // },
 })
 
 const noAuthRequiredEndpoints: string[] = [API_AUTH.SIGNUP, API_AUTH.LOGIN]
@@ -31,6 +34,12 @@ instance.interceptors.response.use(
   },
   async (error) => {
     const originalRequest = error.config
+
+    const SERVER_ERROR_STATUS = [500, 501, 502, 503, 504]
+
+    if (error.response && SERVER_ERROR_STATUS.includes(error.response.status)) {
+      window.location.replace('/server-error')
+    }
 
     if (
       error.response &&

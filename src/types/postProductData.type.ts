@@ -3,22 +3,28 @@ export interface IPutProductDetail {
   data: IPostProduct
 }
 
+export interface IImages {
+  url: string
+  order: number
+}
 export interface IPostProduct {
   name: string
+  companyName: string
   type: string
   description: string
-  imageUrl: string
+  images: IImages[]
   address: string
   detailAddress: string
   phoneNumber: string
   homepage: string
   cityCode: string
   quantity: number
-  ticketPrice: ITicketPrice
+  tickets: ITicketPrice[]
   operationDays: IOperationDays[]
 }
 interface ITicketPrice {
-  [ticketName: string]: number
+  name: string
+  price: number
 }
 
 export interface IOperationDays {

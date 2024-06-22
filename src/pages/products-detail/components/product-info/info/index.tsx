@@ -18,6 +18,7 @@ const Info: React.FC<IInfoProps> = ({
   reviewCnt,
   imageArray,
   onShareClick,
+  onReviewClick,
 }) => {
   const { firstDate, lastDate } = getDateArray(sellingDate)
   const formatDate =
@@ -50,7 +51,7 @@ const Info: React.FC<IInfoProps> = ({
           <S.Icon src={StarIcon} alt="위치 아이콘" />
           <S.Review>
             <S.BlackTextS>{`${rating} (${reviewCnt})`}</S.BlackTextS>
-            <S.GrayText>리뷰보기&gt;</S.GrayText>
+            <S.GrayText onClick={onReviewClick}>리뷰보기&gt;</S.GrayText>
           </S.Review>
         </S.LocationWrapper>
       </S.DescriptionContainer>

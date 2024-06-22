@@ -129,7 +129,8 @@ export const PointInput = styled.input.attrs<IPointInputProps>(
   }
 
   &:focus {
-    border: 0.2rem solid var(--color-main);
+    border-color: var(--color-main);
+    outline: none;
   }
 `
 
@@ -167,4 +168,11 @@ export const AllAmount = styled.span`
   color: var(--color-black);
   font-size: 1.3rem;
   font-weight: 600;
+`
+export const Wrapper = styled.div``
+
+export const Error = styled.span`
+  color: var(--color-caution);
+  font-size: 1.2rem;
+  line-height: normal;
 `

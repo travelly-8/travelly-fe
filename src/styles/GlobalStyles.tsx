@@ -25,6 +25,7 @@ const GlobalStyles = createGlobalStyle`
     --color-gray-bright: #EDEDED;
     --color-caution: #CD0000;
     --color-gray-bright_bg:#F5F5F5;
+    --color-green: #2DB400;
   }
 
   *, 
@@ -42,6 +43,7 @@ const GlobalStyles = createGlobalStyle`
   body {
     font-family: 'Pretendard', sans-serif;
     cursor: default;
+    overflow: hidden;
   }
 
   a {

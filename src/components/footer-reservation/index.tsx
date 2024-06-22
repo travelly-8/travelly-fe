@@ -17,10 +17,13 @@ const buttonText = {
 const FooterReservation = ({
   isBookmarked: initialBookmarked,
   isReservationProduct,
-  discount,
   price,
   buttontype,
   productId,
+  cancelPolicyChecked = true,
+  personnelInfoChecked = true,
+  reasonableDate = true,
+  calendarChecked = true,
   onPayConfirmClick,
   onPayCancelClick,
   onSubmit,
@@ -33,14 +36,26 @@ const FooterReservation = ({
     if (buttontype === 'reservation' && accessToken) {
       navigate(`/reservation/${productId}`)
     } else if (buttontype === 'reservation' && !accessToken) {
-      navigate('/login')
-    } else if (buttontype === 'payment' && onPayConfirmClick && onSubmit) {
+      navigate('/signup/start')
+    } else if (
+      buttontype === 'payment' &&
+      onPayConfirmClick &&
+      onSubmit &&
+      buttonActive
+    ) {
       onSubmit()
       onPayConfirmClick()
     } else if (buttontype === 'cancelPayment' && onPayCancelClick) {
       onPayCancelClick()
     }
   }
+
+  const buttonActive =
+    accessToken &&
+    cancelPolicyChecked &&
+    personnelInfoChecked &&
+    reasonableDate &&
+    calendarChecked
 
   return (
     <S.FooterContainer>
@@ -57,11 +72,10 @@ const FooterReservation = ({
         <S.RightSection $buttontype={buttontype}>
           {isReservationProduct && (
             <S.Text>
-              <S.DiscountText>{discount}%</S.DiscountText>
               <S.PriceText>{price?.toLocaleString('ko-KR')} 포인트</S.PriceText>
             </S.Text>
           )}
-          {accessToken ? (
+          {buttonActive ? (
             <RoundButton.Primary onClick={handleButtonClick}>
               {buttonText[buttontype]}
             </RoundButton.Primary>

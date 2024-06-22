@@ -8,6 +8,7 @@ export const Wrapper = styled.div`
   width: 100%;
   height: 100vh;
   background-color: var(--color-white);
+  z-index: 20;
 `
 export const Title = styled.h1`
   color: var(--color-black);

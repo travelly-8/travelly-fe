@@ -1,92 +1,59 @@
-import { getAllProducts, getProductDetail } from '@/api/productsAPI'
-import { LOCALE_CODE_LIST } from '@/constants/FILTERING_BROWSING'
-import PhotoReviewsSheet from '@/pages/products-detail/components/photo-reviews-sheet'
-import Review from '@/pages/products-detail/components/review'
-import { setProductDetail } from '@/store/product-slice/product-slice'
+import { useCallback, useState } from 'react'
+
+import useProductDetail from '@/hooks/api/productsAPI/useProductDetail'
+import useRecommendProducts from '@/hooks/api/productsAPI/useRecommendProducts'
+import useLoadMoreReviews from '@/hooks/api/reviewAPI/useLoadMoreReviews'
+import NoProductPage from '@/pages/error/NoProductPage'
 import { sheet } from '@/store/sheet-slice/sheet-slice'
 import type { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
-import { RootState } from '@/store/store'
+import { IReviewDetailData } from '@/types/getReviewDetailData.type'
+import { changeReviewData } from '@/utils/changeReviewData'
+
 import FooterReservation from '@components/footer-reservation'
-import { IProductCardData } from '@components/product-card/ProductCard.type'
 import ProductHeader from '@components/product-header'
-import { useQuery } from '@tanstack/react-query'
-import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import * as S from './ProductsDetail.style'
-import type { ISheetComponents } from './ProductsDetail.type'
-import BasicInfo from './components/basic-info'
+
 import Description from './components/description'
-import Info from './components/info'
+import LoadMoreButton from './components/load-more-button'
+import PhotoReviewsSheet from './components/photo-reviews-sheet'
+import ProductBasicInfo from './components/product-basic-info'
+import ProductInfo from './components/product-info'
+import ProductReviews from './components/product-review'
 import RecommendCard from './components/recommend-card'
 import SheetRenderer from './components/sheet-renderer'
+import LoadingSpinner from './LoadingSpinner'
+import * as S from './ProductsDetail.style'
 
 function ProductsDetail() {
-  const { productId } = useParams()
+  const { productId } = useParams<{ productId: string }>()
   const dispatch = useDispatch()
 
-  const { data: productDetailQuery, isSuccess: isProductDetailSuccess } =
-    useQuery({
-      queryKey: ['products-detail', productId],
-      queryFn: ({ queryKey }) => getProductDetail(Number(queryKey[1])),
-    })
+  const { productDetail, isProductDetailSuccess, isPending } =
+    useProductDetail(productId)
+  const [sort, setSort] = useState<string>('new')
+  const { reviews, totalElements, handleLoadMoreReviews } = useLoadMoreReviews({
+    productId,
+    sort,
+  })
 
-  useEffect(() => {
-    if (productDetailQuery?.data) {
-      dispatch(setProductDetail(productDetailQuery.data))
-    }
-  }, [productDetailQuery, dispatch])
-
-  const productDetail = useSelector((state: RootState) => state.product.detail)
   const {
     address = '',
     cityCode = '',
     detailAddress = '',
-    homepage = '',
-    images,
     name = '',
-    operationDays,
     description = '',
-    rating = 0,
     reviewCount = 0,
-    phoneNumber = '',
+    images = [],
     ticketDto = [],
-    reviews = [],
   } = productDetail || {}
 
-  const distanceRecommendQueryData = {
-    page: 0,
-    size: 5,
-    keyword: address.split(' ')[1],
-    cityCode: cityCode,
-  }
-  const { data: distanceRecommendProductQuery } = useQuery({
-    queryKey: ['recommend-products', 'distance'],
-    queryFn: () => getAllProducts(distanceRecommendQueryData),
-    enabled: isProductDetailSuccess,
+  const recommendProducts = useRecommendProducts({
+    productId,
+    address,
+    cityCode,
+    isProductDetailSuccess,
   })
-  const distanceRecommendProductData =
-    distanceRecommendProductQuery?.data.content.filter(
-      (product: IProductCardData) => product.id.toString() !== productId,
-    )
-
-  const ratingRecommendQueryData = {
-    page: 0,
-    size: 5,
-    sort: 'HighestRating',
-  }
-  const { data: ratingRecommendQuery } = useQuery({
-    queryKey: ['recommend-products', 'highestRating'],
-    queryFn: () => getAllProducts(ratingRecommendQueryData),
-  })
-  const ratingRecommendProductData = ratingRecommendQuery?.data.content.filter(
-    (product: IProductCardData) => product.id.toString() !== productId,
-  )
-
-  const city = LOCALE_CODE_LIST[cityCode]
-  const district = address?.split(' ')[1]
-  const price = ticketDto[0]?.price
-  const imageArray = images?.map((item) => item.url) || []
 
   const sheetReducer = useSelector(
     (state: ISheetSliceState) => state.sheet.value,
@@ -96,38 +63,40 @@ function ProductsDetail() {
   const isPhotoReviewsSheet =
     sheetReducer.status && sheetReducer.name === 'photo-reviews-sheet'
 
-  const [isHamburgerClicked, setIsHamburgerClicked] = useState(false)
-
   const handleSheetDispatch = useCallback(
-    (name: keyof ISheetComponents) => {
+    (name: string) => {
       dispatch(sheet({ name, status: true, text: '' }))
     },
     [dispatch],
   )
 
-  const handlePhotoReviewsClick = () => {
-    dispatch(sheet({ name: 'photo-reviews-sheet', status: true, text: '' }))
+  const handleSort = (order: string) => {
+    setSort(order)
+    dispatch(sheet({ name: '', status: false, text: '' }))
   }
 
-  const reviewData = reviews?.map((reviewItem) => ({
-    productId: productId,
-    productName: name,
-    productPrice: price,
-    reviewId: reviewItem.reviewId,
-    reviewImages: reviewItem.reviewImages,
-    reviewUserNickname: reviewItem.reviewUserNickname,
-    reviewUserImage: reviewItem.reviewUserImage,
-    rating: reviewItem.rating,
-    reviewDate: reviewItem.reviewDate,
-    reviewContent: reviewItem.reviewContent,
-    comments: reviews,
-    likeCnt: reviewItem.likeCount,
-  }))
+  const handlePhotoReviewsClick = useCallback(() => {
+    dispatch(sheet({ name: 'photo-reviews-sheet', status: true, text: '' }))
+  }, [dispatch])
 
-  const reviewImg = reviewData?.reduce(
+  if (isPending) {
+    return <LoadingSpinner />
+  }
+
+  if (!productDetail || !productId) {
+    return <NoProductPage />
+  }
+
+  const price = ticketDto[0]?.price
+
+  const reviewData = reviews
+    ? changeReviewData(reviews as IReviewDetailData[], productId, name, price)
+    : []
+  const reviewImg = reviewData.reduce<string[]>(
     (acc: string[], review) => acc.concat(review.reviewImages),
     [],
   )
+  const remainingReviews = Math.max(totalElements - reviews.length, 0)
 
   if (isPhotoReviewsSheet) return <PhotoReviewsSheet reviewImg={reviewImg} />
 
@@ -136,62 +105,54 @@ function ProductsDetail() {
     addressTitle: detailAddress || '',
     title: name || '',
     description: description || '',
-    imageUrl:
-      'https://img8.yna.co.kr/etc/inner/KR/2018/01/17/AKR20180117116400007_02_i_P4.jpg',
+    imageUrl: images[0]?.url,
     commentCount: reviewCount || 0,
-  } as const
+  }
+
+  const scrollToReview = () => {
+    document?.getElementById('review')?.scrollIntoView({ behavior: 'smooth' })
+  }
 
   return (
     <>
-      <ProductHeader
-        hamburgerClick={() => setIsHamburgerClicked(!isHamburgerClicked)}
-      />
+      <ProductHeader />
       <S.PageContainer
         $isSearchSheet={isSearchSheet}
         $isPhotoReviewsSheet={isPhotoReviewsSheet}
       >
-        <Info
-          productName={name}
-          sellingDate={operationDays}
-          address={`${city} ${district}`}
-          rating={rating}
-          reviewCnt={reviewData?.length}
-          imageArray={imageArray}
-          onShareClick={() => handleSheetDispatch('share-sheet')}
+        <ProductInfo
+          productDetail={productDetail}
+          handleSheetDispatch={handleSheetDispatch}
+          onReviewClick={scrollToReview}
         />
-        <BasicInfo
-          address={address}
-          detailAddress={detailAddress}
-          companyName="트래블리"
-          phoneNumber={phoneNumber}
-          website={homepage}
-        />
-        <Description />
-        <RecommendCard
-          cards={
-            distanceRecommendProductData?.length > 0
-              ? distanceRecommendProductData
-              : ratingRecommendProductData
-          }
-        />
-
-        <Review
-          reviewCnt={reviewData?.length}
-          reviewImg={reviewImg}
+        <ProductBasicInfo productDetail={productDetail} />
+        <Description description={description} />
+        <RecommendCard cards={recommendProducts} />
+        <ProductReviews
+          productDetail={productDetail}
+          id="review"
           reviewData={reviewData}
-          onOrderClick={() => handleSheetDispatch('review-order-sheet')}
-          onEditClick={() => handleSheetDispatch('edit-sheet')}
-          onPhotoReviewsClick={handlePhotoReviewsClick}
+          totalElements={totalElements}
+          handleSheetDispatch={handleSheetDispatch}
+          handlePhotoReviewsClick={handlePhotoReviewsClick}
         />
+        {remainingReviews !== 0 && (
+          <LoadMoreButton
+            onClick={handleLoadMoreReviews}
+            remainingReviews={remainingReviews}
+          />
+        )}
         <FooterReservation
           isBookmarked={true}
           isReservationProduct={true}
-          discount={0}
           price={price}
           buttontype="reservation"
           productId={productId}
         />
-        <SheetRenderer shareSheetProps={shareSheetProps} />
+        <SheetRenderer
+          shareSheetProps={shareSheetProps}
+          reviewOrderSheetProps={{ handleSort }}
+        />
       </S.PageContainer>
     </>
   )

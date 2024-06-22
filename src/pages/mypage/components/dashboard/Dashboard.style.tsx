@@ -27,6 +27,7 @@ export const MenuWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  cursor: pointer;
 `
 
 export const Icon = styled.img`

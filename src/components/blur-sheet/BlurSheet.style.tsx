@@ -4,6 +4,8 @@ export const Wrapper = styled.div`
   width: 100%;
   height: 100vh;
   position: absolute;
+  top: -10;
+  z-index: 20;
 `
 export const Background = styled.div`
   background: rgba(0, 0, 0, 0.8);
@@ -18,6 +20,7 @@ export const Background = styled.div`
 export const Content = styled.div`
   display: flex;
   justify-content: space-between;
+  width: 100%;
 `
 
 export const Title = styled.h1`

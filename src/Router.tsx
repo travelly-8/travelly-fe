@@ -4,6 +4,10 @@ import GlobalStyles from '@/styles/GlobalStyles'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import AuthCallback from './pages/auth'
+import BookmarkPage from './pages/bookmark'
+import ChatPage from './pages/chat'
+import Error404Page from './pages/error/Error404Page'
+import Error500Page from './pages/error/Error500Page'
 import HomePage from './pages/home'
 import LoginPage from './pages/login/login'
 import SelectPlanPage from './pages/login/select-plan'
@@ -17,6 +21,7 @@ import ProductCreatePage from './pages/products-create'
 import ProductsDetail from './pages/products-detail'
 import Recovery from './pages/recovery'
 import ReservationPage from './pages/reservation/reserve'
+import ReservedListPage from './pages/reservation/reserved-list'
 import ReviewDetailPage from './pages/review/detail'
 import ReviewList from './pages/review/list'
 import ReviewWritePage from './pages/review/write'
@@ -68,6 +73,13 @@ export default function AppRouter() {
           element={<ReservedDetailPage />}
         />
         <Route path="/test" element={<Recovery />} />
+        <Route path="/reseravtion-list" element={<ReservedListPage />} />
+        {/* 에러 */}
+        <Route path="*" element={<Error404Page />} />
+        <Route path="/server-error" element={<Error500Page />} />
+        {/* 찜, 커뮤니티 대체 페이지 */}
+        <Route path="/chat" element={<ChatPage />} />
+        <Route path="/bookmark" element={<BookmarkPage />} />
       </Routes>
     </BrowserRouter>
   )

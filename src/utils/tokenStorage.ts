@@ -21,11 +21,19 @@ export const refreshAccessToken = async () => {
 
   try {
     const response = await axios.post(API_AUTH.REISSUE, { refreshToken })
-    const { accessToken, refreshToken: newRefreshToken } = response.data.token
-    saveTokens(accessToken, newRefreshToken)
-    return accessToken
+    const newAccessToken = response.data.accessToken
+    saveTokens(newAccessToken, refreshToken)
+    return newAccessToken
   } catch (error) {
-    throw new Error('Failed to refresh access token')
+    if (axios.isAxiosError(error)) {
+      if (error.response?.status === 401) {
+        alert('다시 로그인해주세요!')
+        sessionStorage.setItem('relogin', 'true')
+        window.location.pathname = '/signup/start'
+      }
+    } else {
+      console.error('Unexpected error', error)
+    }
   }
 }
 

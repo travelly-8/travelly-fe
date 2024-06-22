@@ -89,7 +89,6 @@ export const IconSort = styled.img`
 export const ReviewImgContainer = styled.div`
   display: flex;
   width: 100%;
-  height: 9.7rem;
   gap: 1.5rem;
 `
 export const ReviewImgBackground = styled.div`
@@ -184,5 +183,9 @@ export const IconS = styled.img`
 export const ListButton = styled.button`
   display: flex;
   width: 100%;
+  cursor: pointer;
+`
+
+export const ReviewPageWrapper = styled.div`
   cursor: pointer;
 `

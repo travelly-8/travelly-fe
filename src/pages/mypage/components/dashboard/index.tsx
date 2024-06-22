@@ -3,41 +3,50 @@ import reviewIcon from '@/assets/mypage/review.svg'
 import walletIcon from '@/assets/mypage/wallet.svg'
 import { formatWithCommas } from '@/utils/formatWIthCommas'
 
+import { useNavigate } from 'react-router-dom'
+
 import * as S from './Dashboard.style'
 import { IDashboard, IDashboardProps } from './Dashboard.type'
 
-const Dashboard = ({ data }: IDashboardProps) => {
-  const { role, coin, reviews } = data
+const Dashboard = ({ data, role }: IDashboardProps) => {
+  const navigate = useNavigate()
   const USER_MAP: Record<string, string[]> = {
-    traveler: ['point', 'writeReview', 'booking'],
+    traveller: ['point', 'writeReview', 'booking'],
     travelly: ['point', 'getReview', 'getReservation'],
   }
+
   const MENU_MAP: Record<string, IDashboard> = {
     point: {
       icon: walletIcon,
       title: '포인트',
-      value: coin,
+      value: data.point,
     },
     getReview: {
       icon: reviewIcon,
       title: '받은 리뷰',
-      value: reviews.length,
+      value: data.notResponseCount,
     },
     writeReview: {
       icon: reviewIcon,
       title: '리뷰',
-      value: reviews.length,
+      value: data.remainReviewCount,
     },
     getReservation: {
       icon: calendarIcon,
       title: '예약 관리',
-      value: 1000,
+      value: data.newReservationCount,
     },
     booking: {
       icon: calendarIcon,
       title: '예약',
-      value: 1000,
+      value: data.notPassedReservations,
     },
+  }
+
+  const moveTo = (menu: string) => {
+    if (menu === 'getReview') {
+      navigate('/review/list')
+    }
   }
 
   return (
@@ -45,8 +54,8 @@ const Dashboard = ({ data }: IDashboardProps) => {
       <S.Wrapper>
         {USER_MAP[role].map((menu) => {
           return (
-            <S.MenuWrapper key={menu}>
-              <S.Icon src={MENU_MAP[menu].icon} alt="포인트" />
+            <S.MenuWrapper key={menu} onClick={() => moveTo(menu)}>
+              <S.Icon src={MENU_MAP[menu].icon} alt={MENU_MAP[menu].title} />
               <S.DashTitle>{MENU_MAP[menu].title}</S.DashTitle>
               <S.DashNumber>
                 {formatWithCommas(MENU_MAP[menu].value)}

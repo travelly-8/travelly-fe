@@ -5,9 +5,12 @@ export interface IButtonType {
 export interface IFooter extends IButtonType {
   isBookmarked: boolean
   isReservationProduct: boolean
-  discount?: number
   price?: number
   productId?: string
+  cancelPolicyChecked?: boolean
+  personnelInfoChecked?: boolean
+  reasonableDate?: boolean
+  calendarChecked?: boolean
   onPayConfirmClick?: () => void
   onPayCancelClick?: () => void
   onSubmit?: () => void

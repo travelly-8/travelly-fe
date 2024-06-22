@@ -1,18 +1,11 @@
 import arrowRightIcon from '@/assets/common/arrow-right.svg'
+import { ProfileByRoleType } from '@/types/getMemberData.type'
 
 import { useNavigate } from 'react-router-dom'
 
 import * as S from './ProfileTab.style'
 
-interface IProfileTab {
-  data: {
-    email: string
-    nickname: string
-    imageUrl: string
-  }
-}
-
-const ProfileTab = ({ data }: IProfileTab) => {
+const ProfileTab = ({ data }: { data: ProfileByRoleType }) => {
   const { email, nickname, imageUrl } = data
   const navigate = useNavigate()
 

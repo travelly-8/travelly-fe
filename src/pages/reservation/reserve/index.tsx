@@ -9,10 +9,11 @@ import CancellationPolicy from '@/pages/reservation/components/cancellation-poli
 import ReservationDateSection from '@/pages/reservation/components/reservation-date-section'
 import ReservationInput from '@/pages/reservation/components/reservation-input'
 import type { IReservationInputState } from '@/pages/reservation/components/reservation-input/Reservation.type'
-import type { IPaySheet } from '@/pages/reservation/components/sheet/PaySheet.type'
 import TicketCountSection from '@/pages/reservation/components/ticket-count-section'
 import { IPersonnelSliceState } from '@/store/personnel-slice/personnel-slice.type'
+import { reservation } from '@/store/reservation-slice/reservation-slice'
 import { sheet } from '@/store/sheet-slice/sheet-slice'
+import dateValueBetween from '@/utils/dateValueBetween'
 
 import CheckBox from '@components/check-box'
 import FooterReservation from '@components/footer-reservation'
@@ -26,23 +27,24 @@ import { useParams } from 'react-router-dom'
 
 import * as S from './ReservationPage.style'
 
-interface ITicketCounts {
-  [key: string]: number
-}
 interface ITicketDto {
   id: number
   name: string
   price: number
   description: string
 }
+interface IPostTicketDto {
+  ticketId: number
+  quantity: number
+}
 interface IReservationData {
+  productId: number
   name: string
   phone: string | undefined
   email: string
-  personnel: ITicketCounts
+  ticketDtos: IPostTicketDto[]
   date: string
-  promotionCode: string
-  totlaPrice: number
+  ticketPrice: number
 }
 
 function ReservationPage() {
@@ -56,7 +58,7 @@ function ReservationPage() {
   } = useForm<IReservationInputState>()
 
   const onSubmit = () => {
-    console.log(reservationInfo) // 임시 예약 api 호출?
+    dispatch(reservation(reservationInfo))
   }
 
   const nameRegister = register('name', { required: '예약자명을 입력해주세요' })
@@ -91,10 +93,15 @@ function ReservationPage() {
   const [isCancelPolicyChecked, setIsCancelPolicyChecked] = useState(false)
   const [isGetAccountChecked, setIsGetAccountChecked] = useState(false)
   const [userInfo, setUserInfo] = useState<IReservationInputState>()
+  const [calendarCnt, setCalendarCnt] = useState<number>(0)
   const [promotionCode, setPromotionCode] = useState<string>('')
   const [reservationInfo, setReservationInfo] = useState<IReservationData>()
   const handleSetGetAccountChecked = (isChecked: boolean) => {
     setIsGetAccountChecked(isChecked)
+  }
+
+  const handleCalendarClick = () => {
+    setCalendarCnt(calendarCnt + 1)
   }
 
   const { data: memberProfile } = useGetMemberProfile(
@@ -149,14 +156,12 @@ function ReservationPage() {
   )
   const ticketPrice =
     ticketDto && personnel
-      ? ticketDto.reduce((acc: number, ticket: ITicketDto) => {
-          for (const personnelType in personnel) {
-            if (ticket.name === personnelType) {
-              acc += ticket.price * personnel[personnelType]
-              break
-            }
+      ? ticketDto.reduce((totalPrice: number, ticket: ITicketDto) => {
+          const personnelCount = personnel[ticket.name]
+          if (personnelCount) {
+            return totalPrice + ticket.price * personnelCount
           }
-          return acc
+          return totalPrice
         }, 0)
       : 0
 
@@ -164,14 +169,10 @@ function ReservationPage() {
     setIsRadioChecked(!isRadioChecked)
   }
 
-  const payConfirmProps: IPaySheet = {
-    userPoint: 1000,
-    productPoint: 1000,
-  }
-
   const calendarProps = {
     control: control,
     reset: reset,
+    operationDays: operationDays,
   }
 
   const len = operationDays ? operationDays.length : 1
@@ -181,20 +182,44 @@ function ReservationPage() {
     name: name,
     images: images,
     createdDate: operationDays
-      ? `${format(operationDays[0]?.date, 'yyyy.MM.dd')} - ${format(operationDays[len - 1]?.date, 'yyyy.MM.dd')}`
+      ? `${format(operationDays[len - 1]?.date, 'yyyy.MM.dd')} - ${format(operationDays[0]?.date, 'yyyy.MM.dd')}`
       : '일정 정보 없음',
     ticketDto: ticketDto,
   }
+  const currentTime = new Date()
+  const currentYear = currentTime.getFullYear()
+  const currentDay = currentTime.getDate()
+  const currentMonth = currentTime.getMonth() + 1
+
+  const reasonableDate = dateValueBetween(
+    dateValue,
+    operationDays
+      ? operationDays[len - 1]?.date
+      : `${currentYear}.${currentMonth}.${currentDay}`,
+    operationDays
+      ? operationDays[0]?.date
+      : `${currentYear}.${currentMonth}.${currentDay}`,
+  )
 
   useEffect(() => {
+    const ticketDtos = Object.keys(personnel).map((key) => {
+      const matchedTicket = ticketDto?.find(
+        (ticket: ITicketDto) => ticket.name === key,
+      )
+      return {
+        ticketId: matchedTicket?.id,
+        quantity: personnel[key],
+      }
+    })
+
     setReservationInfo({
+      productId: Number(productId),
       name: nameValue,
       phone: phoneValue,
       email: emailValue,
-      personnel: personnel,
-      date: dateValue,
-      promotionCode: promotionCode,
-      totlaPrice: ticketPrice,
+      ticketDtos: ticketDtos,
+      date: format(dateValue, 'yyyy-MM-dd'),
+      ticketPrice: ticketPrice,
     })
   }, [
     nameValue,
@@ -202,7 +227,8 @@ function ReservationPage() {
     emailValue,
     personnel,
     dateValue,
-    promotionCode,
+    productId,
+    ticketDto,
     ticketPrice,
   ])
 
@@ -235,10 +261,13 @@ function ReservationPage() {
         />
         <S.TicketInfo>
           <TicketCountSection ticketDto={ticketDto} isInput />
-          <ReservationDateSection
-            onCalendarClick={() => handleSheetDispatch('calendar-sheet')}
-            value={dateValue}
-          />
+          <S.Wrapper onClick={handleCalendarClick}>
+            <ReservationDateSection
+              onCalendarClick={() => handleSheetDispatch('calendar-sheet')}
+              value={dateValue}
+            />
+            {calendarCnt === 0 && <S.Error>예약할 날짜를 선택해주세요</S.Error>}
+          </S.Wrapper>
         </S.TicketInfo>
         <S.PayOptions>
           <S.PayOptionHeader>결제 방법</S.PayOptionHeader>
@@ -274,15 +303,15 @@ function ReservationPage() {
         isBookmarked={true}
         isReservationProduct={true}
         price={ticketPrice}
-        discount={0}
         buttontype="payment"
+        cancelPolicyChecked={isCancelPolicyChecked}
+        personnelInfoChecked={ticketPrice !== 0}
+        reasonableDate={reasonableDate}
+        calendarChecked={calendarCnt !== 0}
         onPayConfirmClick={handlePayConfirmClick}
         onSubmit={handleSubmit(onSubmit)}
       />
-      <SheetRenderer
-        payConfirmProps={payConfirmProps}
-        calendarProps={calendarProps}
-      />
+      <SheetRenderer calendarProps={calendarProps} />
     </>
   )
 }

@@ -1,4 +1,13 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
+
+const slideUp = keyframes`
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+`
 
 export const SheetBackground = styled.div`
   position: absolute;
@@ -23,6 +32,8 @@ export const Container = styled.div<{ $align?: string }>`
   border-radius: 1rem 1rem 0 0;
   background-color: var(--color-white);
   z-index: 1000;
+
+  animation: ${slideUp} 0.4s ease-out;
 `
 
 export const GrabHandle = styled.div`

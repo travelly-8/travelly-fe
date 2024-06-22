@@ -2,12 +2,16 @@ export const BASE_URL = 'https://travellykr.shop'
 
 export const API_PRODUCTS = Object.freeze({
   PRODUCTS: '/products/',
+  PRODUCTS_IMAGE: '/products/upload',
   PRODUCTS_DETAIL: (productId: number | undefined) => `/products/${productId}`,
+  TOP_KEYWORDS: '/products/top-keywords',
+  TOP_PRODUCTS: '/products/top-products',
 })
 
 export const API_MEMBER = Object.freeze({
-  MY: '/my',
   MY_PROFILE: '/my/profile',
+  MY_TRAVELLY: '/my/travelly',
+  MY_TRAVELLER: '/my/traveller',
   MY_NICKNAME: (nickname: string) => `/my/profile?nickname=${nickname}`,
   MY_PROFILE_IMG: '/my/profile/image',
   MY_PROFILE_IMG_RESET: '/my/profile/image/default',
@@ -31,4 +35,10 @@ export const API_REVIEW = Object.freeze({
     `/review/${productId}/${reviewId}`,
   COMMENT: (reviewId: number, commentId: number) =>
     `/comment/${reviewId}/${commentId}`,
+  REVIEWS: (productId: number) => `/review/product/${productId}`,
+})
+
+export const API_RESERVATION = Object.freeze({
+  RESERVATION: (productId: number) => `/reservation/${productId}`,
+  RESERVATION_MY: '/reservation/my',
 })

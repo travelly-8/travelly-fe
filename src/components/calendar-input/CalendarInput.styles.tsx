@@ -111,4 +111,8 @@ export const StyleCalendar = styled(Calendar)`
   .react-calendar__tile--active:enabled:focus {
     background-color: var(--color-main);
   }
+  .operation-day {
+    background-color: var(--color-green);
+    border-radius: 0.7rem;
+  }
 `

@@ -12,6 +12,11 @@ const ReviewPage: React.FC<IReviewPageProps> = ({
   onEditClick,
   canComment = true,
 }) => {
+  const kebabClick = (event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
+    event.stopPropagation()
+    onEditClick()
+  }
+
   return (
     <S.ReviewContent>
       <S.ProfileHeader>
@@ -19,13 +24,13 @@ const ReviewPage: React.FC<IReviewPageProps> = ({
           src={reviewData.reviewUserImage || defaultUser}
           alt="프로필 이미지"
           onError={(e) => {
-            e.target.src = defaultUser
+            if (e.target instanceof HTMLImageElement) e.target.src = defaultUser
           }}
         />
         <S.ProfileNameWrapper>
           <S.ProfileHeaderWrapper>
             <S.BlackText>{reviewData.reviewUserNickname}</S.BlackText>
-            <S.EditKebab onClick={onEditClick} />
+            <S.EditKebab onClick={kebabClick} />
           </S.ProfileHeaderWrapper>
           <S.RatingWrapper>
             <Rating readOnly score={reviewData.rating} />
@@ -53,7 +58,7 @@ const ReviewPage: React.FC<IReviewPageProps> = ({
           <S.LikeCommentWrapper>
             <S.IconS src={comment} alt="댓글" />
             <S.GrayText>댓글 </S.GrayText>
-            <S.BlackText>{reviewData.comments.length}</S.BlackText>
+            <S.BlackText>{reviewData.comments?.length}</S.BlackText>
           </S.LikeCommentWrapper>
         )}
       </S.LikeComment>

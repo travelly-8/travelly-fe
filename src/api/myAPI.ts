@@ -7,17 +7,29 @@ import {
 import fileInstance from './fileInstance'
 import instance from './instance'
 
-export const getMember = () => {
-  return instance({
-    method: 'GET',
-    url: API_MEMBER.MY,
-  })
-}
-
 export const getMemberProfile = () => {
   return instance({
     method: 'GET',
     url: API_MEMBER.MY_PROFILE,
+  })
+}
+
+export const getTravellyProfile = () => {
+  return instance({
+    method: 'GET',
+    url: API_MEMBER.MY_TRAVELLY,
+  })
+}
+
+interface RecentProduct {
+  productId: number
+}
+
+export const postTravellerProfile = (data: RecentProduct[]) => {
+  return instance({
+    method: 'POST',
+    url: API_MEMBER.MY_TRAVELLER,
+    data: data,
   })
 }
 
