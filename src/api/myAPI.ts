@@ -62,3 +62,10 @@ export const putMemberProfileImageReset = () => {
     url: API_MEMBER.MY_PROFILE_IMG_RESET,
   })
 }
+
+export const getTravellyReview = () => {
+  return instance({
+    method: 'GET',
+    url: API_MEMBER.MY_TRAVELLY_REVIEW,
+  })
+}

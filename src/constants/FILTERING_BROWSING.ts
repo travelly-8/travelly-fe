@@ -25,7 +25,7 @@ export const LOCALE_CODE_LIST: { [key: string]: string } = {
   7: '울산',
   16: '전남',
   15: '전북특별자치도',
-  5: '광주',
+  5: '광주광역시',
   17: '제주특별자치도',
 } as const
 
