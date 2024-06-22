@@ -17,3 +17,17 @@ export const getMyReservation = () => {
     url: API_RESERVATION.RESERVATION_MY,
   })
 }
+
+export const getReservationDetail = (reservationId: number) => {
+  return instance({
+    method: 'GET',
+    url: API_RESERVATION.RESERVATION_DETAIL(reservationId),
+  })
+}
+
+export const cancelReservation = (reservationId: number) => {
+  return instance({
+    method: 'PATCH',
+    url: API_RESERVATION.RESERVATION_CANCEL(reservationId),
+  })
+}

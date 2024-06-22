@@ -41,4 +41,8 @@ export const API_REVIEW = Object.freeze({
 export const API_RESERVATION = Object.freeze({
   RESERVATION: (productId: number) => `/reservation/${productId}`,
   RESERVATION_MY: '/reservation/my',
+  RESERVATION_DETAIL: (reservationId: number) =>
+    `/reservation/${reservationId}`,
+  RESERVATION_CANCEL: (reservationId: number) =>
+    `/reservation/${reservationId}/cancel`,
 })

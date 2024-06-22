@@ -68,10 +68,10 @@ export default function AppRouter() {
         {/* 예약 */}
         <Route path="/reservation/:productId" element={<ReservationPage />} />
         <Route
-          path="/reservation-detail/:productId"
+          path="/reservation-detail/:reservationId"
           element={<ReservedDetailPage />}
         />
-        <Route path="/reseravtion-list" element={<ReservedListPage />} />
+        <Route path="/reservation-list" element={<ReservedListPage />} />
         {/* 에러 */}
         <Route path="*" element={<Error404Page />} />
         <Route path="/server-error" element={<Error500Page />} />

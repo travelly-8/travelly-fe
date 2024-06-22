@@ -13,8 +13,12 @@ const ReviewProductCard: React.FC<IReviewProductCardProps> = ({
   const location = useLocation()
   if (!productDetail) return null
 
-  const { id, name, ticketDto, createdDate, images } = productDetail
-  const price = ticketDto?.[0]?.price || '가격 정보 없음'
+  const { id, name, ticketDto, createdDate, images, totalPrice } = productDetail
+  const price =
+    ticketDto?.[0]?.price || totalPrice
+      ? ticketDto?.[0]?.price || totalPrice
+      : '가격 정보 없음'
+
   const imageUrl = images?.[0]?.url || '이미지 없음'
 
   const handleArrowClick = () => {
