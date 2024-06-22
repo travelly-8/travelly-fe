@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
 
-import { postProductImage } from '@/api/productsAPI'
 import { postReview } from '@/api/reviewAPI'
 import CameraImg from '@/assets/review/camera.svg'
 import Rating from '@/pages/review/components/rating'
@@ -23,7 +22,6 @@ export default function ReviewWritePage() {
   const [images, setImages] = useState<File[]>([])
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [isButtonDisabled, setIsButtonDisabled] = useState(true)
-  const [imageUrlList, setImageUrlList] = useState([])
 
   useEffect(() => {
     if (content.length >= 20 && rating > 0) {
@@ -33,28 +31,19 @@ export default function ReviewWritePage() {
     }
   }, [content, rating])
 
+  const formData = useRef(new FormData())
+
   const handleImageChange = async (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     if (event.target.files) {
       const fileArray = Array.from(event.target.files)
-      setImages((prevImages) => [...prevImages, ...fileArray])
-      setNumOfPhotos((prev) => prev + fileArray.length)
+      setImages(fileArray)
+      setNumOfPhotos(fileArray.length)
 
       const files = event.target.files
-      if (files && files.length > 0) {
-        const formData = new FormData()
-
-        Array.from(files).forEach((file) => {
-          formData.append('images', file, file.name)
-        })
-
-        try {
-          const response = await postProductImage(formData)
-          setImageUrlList(response.data)
-        } catch (err) {
-          console.error(err)
-        }
+      for (let i = 0; i < files.length; i++) {
+        formData.current.append('images', files[i])
       }
     }
   }
@@ -79,15 +68,17 @@ export default function ReviewWritePage() {
     const { id: productId } = productDetail
 
     const reviewData = {
-      images: imageUrlList,
-      review: {
-        rating,
-        content,
-      },
+      rating,
+      content,
     }
 
+    formData.current.append(
+      'review',
+      new Blob([JSON.stringify(reviewData)], { type: 'application/json' }),
+    )
+
     try {
-      await postReview(productId, reviewData)
+      await postReview(productId, formData.current)
       alert('리뷰가 성공적으로 등록되었습니다.')
       navigate(`/products/${productId}`)
     } catch (error) {
@@ -122,7 +113,7 @@ export default function ReviewWritePage() {
               style={{ display: 'none' }}
               ref={fileInputRef}
             />
-            <S.PhotoNum>{numOfPhotos}/3</S.PhotoNum>
+            <S.PhotoNum>{numOfPhotos}/1</S.PhotoNum>
           </S.CameraWrapper>
           <S.CommentWrapper>
             <S.Textarea
