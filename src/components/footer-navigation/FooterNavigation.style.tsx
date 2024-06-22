@@ -12,10 +12,10 @@ export const Container = styled.footer`
   border-radius: 1rem 1rem 0 0;
   border-top: 0.1rem solid var(--color-gray-light);
 
-  @media screen and (max-width: 767px) {
+  @media (max-width: 767px) {
     width: 100%;
   }
-  @media screen and (min-width: 768px) {
+  @media (min-width: 768px) {
     width: 360px;
   }
 `
