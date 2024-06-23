@@ -1,5 +1,5 @@
-import kakao from '@/assets/products-detail/kakao-icon.svg'
-import link from '@/assets/products-detail/link-icon.svg'
+// import kakao from '@/assets/products-detail/kakao-icon.svg'
+// import link from '@/assets/products-detail/link-icon.svg'
 
 import styled from 'styled-components'
 
@@ -17,20 +17,22 @@ export const ShareWrapper = styled.div`
   gap: 1.2rem;
 `
 
-export const KakaoIcon = styled.span`
+export const KakaoIcon = styled.img`
   width: 2.4rem;
   height: 2.4rem;
-  background-image: url(${kakao});
 `
-export const LinkIcon = styled.span`
-  width: 1.2rem;
-  height: 1.2rem;
+export const LinkIconWrapper = styled.div`
+  width: 2.4rem;
+  height: 2.4rem;
   padding: 1.2rem;
-  background-image: url(${link});
-  background-repeat: no-repeat;
-  background-position: center;
   border: 1px solid var(--color-gray-light);
   border-radius: 50%;
+`
+
+export const LinkIcon = styled.img`
+  width: 1.2rem;
+  height: 1.2rem;
+  transform: translate(-50%, -50%);
 `
 
 export const Share = styled.p`
