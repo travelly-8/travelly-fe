@@ -1,5 +1,7 @@
 import { useEffect } from 'react'
 
+import kakao from '@/assets/products-detail/kakao-icon.svg'
+import link from '@/assets/products-detail/link-icon.svg'
 import shareMessage from '@/utils/kakaoShare'
 
 import GrabSheet from '@components/grab-sheet'
@@ -44,12 +46,14 @@ function ShareSheet({
             )
           }
         >
-          <S.KakaoIcon />
+          <S.KakaoIcon src={kakao} />
           <S.Share>카카오톡으로 공유하기</S.Share>
         </S.ShareWrapper>
         <S.Divider />
         <S.ShareWrapper onClick={copyUrl}>
-          <S.LinkIcon />
+          <S.LinkIconWrapper>
+            <S.LinkIcon src={link} />
+          </S.LinkIconWrapper>
           <S.Share>링크 복사하기</S.Share>
         </S.ShareWrapper>
       </S.Wrapper>
