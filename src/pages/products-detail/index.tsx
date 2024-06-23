@@ -136,10 +136,7 @@ function ProductsDetail() {
           handlePhotoReviewsClick={handlePhotoReviewsClick}
         />
         {remainingReviews !== 0 && (
-          <LoadMoreButton
-            onClick={handleLoadMoreReviews}
-            remainingReviews={remainingReviews}
-          />
+          <LoadMoreButton onClick={handleLoadMoreReviews} />
         )}
         <FooterReservation
           isBookmarked={true}
