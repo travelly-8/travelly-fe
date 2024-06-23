@@ -12,8 +12,6 @@ function ReservedListPage() {
     getMyReservation,
   )
 
-  console.log(reservationData)
-
   const filterData = reservationData?.filter(
     (data) => data.status === 'ACCEPTED' || data.status === 'PENDING',
   )
