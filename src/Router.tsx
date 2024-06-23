@@ -19,6 +19,7 @@ import MyProductListPage from './pages/mypage/my-product-list'
 import ProductsPage from './pages/products'
 import ProductCreatePage from './pages/products-create'
 import ProductsDetail from './pages/products-detail'
+import Recovery from './pages/recovery'
 import ReservationPage from './pages/reservation/reserve'
 import ReservedListPage from './pages/reservation/reserved-list'
 import ReviewDetailPage from './pages/review/detail'
@@ -51,6 +52,7 @@ export default function AppRouter() {
         <Route element={<SelectPlanRouter />}>
           <Route path="/select-plan" element={<SelectPlanPage />} />
         </Route>
+        <Route path="/find" element={<Recovery />} />
         <Route path="/auth/callback/:platform" element={<AuthCallback />} />
         {/* 마이페이지 */}
         <Route path="/mypage" element={<MyPage />} />

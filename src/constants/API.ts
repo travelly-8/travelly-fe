@@ -26,6 +26,7 @@ export const API_AUTH = Object.freeze({
   SOCIALLOGIN: (registrationId: string) => `/auth/login/${registrationId}`,
   REISSUE: `${BASE_URL}/auth/login/reissue`,
   FINDID: '/auth/login/find',
+  FINDPASSWORD: '/auth/login/find/password',
   LOGOUT: '/auth/logout',
   LEAVE: '/auth/leave',
 })
