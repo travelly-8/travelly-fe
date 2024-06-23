@@ -46,9 +46,15 @@ export const getFindId = (nickname: string) => {
   return instance({
     method: 'GET',
     url: API_AUTH.FINDID,
-    params: {
-      nickname: nickname,
-    },
+    params: { nickname },
+  })
+}
+
+export const postFindPassword = (nickname: string, email: string) => {
+  return instance({
+    method: 'POST',
+    url: API_AUTH.FINDPASSWORD,
+    data: { nickname, email },
   })
 }
 
