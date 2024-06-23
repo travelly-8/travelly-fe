@@ -38,7 +38,7 @@ const useKakaoMap = ({ address, detailAddress }: IUseKakaoMapProps) => {
                   parseFloat(result[0].x),
                 )
 
-                const imageSrc = '/src/assets/products-detail/marker.svg'
+                const imageSrc = '/marker.svg'
                 const imageSize = new window.kakao.maps.Size(25, 32)
                 const imageOption = {
                   offset: new window.kakao.maps.Point(12.5, 16),
