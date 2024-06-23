@@ -42,6 +42,10 @@ export default function SignupStartPage() {
     isRelogin && logout()
   }, [])
 
+  const handleFindClick = () => {
+    navigate('/find')
+  }
+
   return (
     <>
       <PageHeader border={false}>
@@ -60,7 +64,7 @@ export default function SignupStartPage() {
           <S.Sns src={google} alt="구글" onClick={handleGoogleLogin} />
         </S.StartSNS>
         <S.OtherWay>
-          <S.Find>
+          <S.Find onClick={handleFindClick}>
             이메일&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;비밀번호 찾기
           </S.Find>
           <S.EmailLogin>

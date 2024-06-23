@@ -33,6 +33,7 @@ interface IProductImage {
 
 interface ITicket {
   id: number
+  name: string
   quantity: number
   price: number
 }

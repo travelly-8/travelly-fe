@@ -1,7 +1,11 @@
+import { useEffect, useState } from 'react'
+
+import { getMemberProfile } from '@/api/myAPI.ts'
 import defaultUser from '@/assets/common/default-user.svg'
 import comment from '@/assets/products-detail/comment.svg'
 import like from '@/assets/products-detail/like.svg'
 import Rating from '@/pages/review/components/rating'
+import { IGetMemberProfile } from '@/types/getMemberData.type.ts'
 
 import * as S from './Review.style'
 
@@ -12,10 +16,26 @@ const ReviewPage: React.FC<IReviewPageProps> = ({
   onEditClick,
   canComment = true,
 }) => {
+  const [myInfo, setMyInfo] = useState<IGetMemberProfile>()
+
   const kebabClick = (event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
     event.stopPropagation()
     onEditClick()
   }
+
+  const getMyInfo = async () => {
+    const res = await getMemberProfile()
+    const data = res.data
+    setMyInfo(data)
+  }
+
+  useEffect(() => {
+    if (localStorage.getItem('accessToken')) {
+      getMyInfo()
+    }
+  }, [])
+
+  const isMyReview = reviewData.reviewUserNickname === myInfo?.nickname
 
   return (
     <S.ReviewContent>
@@ -30,7 +50,7 @@ const ReviewPage: React.FC<IReviewPageProps> = ({
         <S.ProfileNameWrapper>
           <S.ProfileHeaderWrapper>
             <S.BlackText>{reviewData.reviewUserNickname}</S.BlackText>
-            <S.EditKebab onClick={kebabClick} />
+            {isMyReview && <S.EditKebab onClick={kebabClick} />}
           </S.ProfileHeaderWrapper>
           <S.RatingWrapper>
             <Rating readOnly score={reviewData.rating} />

@@ -74,6 +74,7 @@ export const SheetItem = styled.div<{ $underline: boolean }>`
 
 export const ItemKey = styled.div`
   font-size: 1.4rem;
+  color: var(--color-black);
 `
 
 export const ItemValue = styled.div<{ $primary: boolean }>`

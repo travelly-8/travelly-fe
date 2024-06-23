@@ -36,13 +36,14 @@ export const TicketType = styled.span`
 
 export const TicketCount = styled.div`
   display: flex;
+  font-size: 1.4rem;
   align-items: center;
   gap: 0.8rem;
+  color: var(--color-black);
 `
 
 export const Count = styled.span`
   color: var(--color-black);
-  font-size: 1.4rem;
   font-weight: 500;
   line-height: 2.38rem;
 `

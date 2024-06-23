@@ -1,11 +1,12 @@
 import { API_REVIEW } from '@/constants/API'
 import type { IPostCommentData } from '@/types/postCommentData.type'
-import type { IGetReviews, IPostReview } from '@/types/review.type'
+import type { IGetReviews } from '@/types/review.type'
 
+import fileInstance from './fileInstance'
 import instance from './instance'
 
-export const postReview = (productId: number, data: IPostReview) => {
-  return instance({
+export const postReview = (productId: number, data: FormData) => {
+  return fileInstance({
     method: 'POST',
     url: API_REVIEW.POST_REVIEW(productId),
     data,
