@@ -5,6 +5,10 @@ import Rating from '@/pages/review/components/rating'
 
 import * as S from './Review.style'
 
+import { getMemberProfile } from '@/api/myAPI.ts'
+import useGetMemberProfile from '@/hooks/api/memberAPI/useGetMemberProfile.ts'
+import { IReservationInputState } from '@/pages/reservation/components/reservation-input/Reservation.type.ts'
+import { useState } from 'react'
 import type { IReviewPageProps } from './Review.type'
 
 const ReviewPage: React.FC<IReviewPageProps> = ({
@@ -12,10 +16,19 @@ const ReviewPage: React.FC<IReviewPageProps> = ({
   onEditClick,
   canComment = true,
 }) => {
+  const [userInfo, setUserInfo] = useState<IReservationInputState>()
+
   const kebabClick = (event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
     event.stopPropagation()
     onEditClick()
   }
+
+  const { data: memberProfile } = useGetMemberProfile(
+    'member-profile',
+    getMemberProfile,
+  )
+
+  const isMyReview = reviewData.reviewUserNickname === memberProfile?.nickname
 
   return (
     <S.ReviewContent>
@@ -30,7 +43,7 @@ const ReviewPage: React.FC<IReviewPageProps> = ({
         <S.ProfileNameWrapper>
           <S.ProfileHeaderWrapper>
             <S.BlackText>{reviewData.reviewUserNickname}</S.BlackText>
-            <S.EditKebab onClick={kebabClick} />
+            {isMyReview && <S.EditKebab onClick={kebabClick} />}
           </S.ProfileHeaderWrapper>
           <S.RatingWrapper>
             <Rating readOnly score={reviewData.rating} />
