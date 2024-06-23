@@ -72,3 +72,10 @@ const createParams = (data: IGetProductsData) => {
   })
   return params
 }
+
+export const deleteProduct = (productId: number) => {
+  return instance({
+    method: 'DELETE',
+    url: API_PRODUCTS.PRODUCTS_DETAIL(productId),
+  })
+}
