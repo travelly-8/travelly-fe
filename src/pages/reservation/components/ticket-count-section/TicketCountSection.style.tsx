@@ -39,6 +39,7 @@ export const TicketCount = styled.div`
   font-size: 1.4rem;
   align-items: center;
   gap: 0.8rem;
+  color: var(--color-black);
 `
 
 export const Count = styled.span`
