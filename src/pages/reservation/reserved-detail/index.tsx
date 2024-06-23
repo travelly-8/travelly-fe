@@ -16,7 +16,7 @@ import PageHeader from '@components/page-header'
 import { useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
-import * as S from './ReservedDetailPage.syles.tsx'
+import * as S from './ReservedDetailPage.styles.tsx'
 
 import ReviewListCard from '@components/review-list-card/index.tsx'
 
@@ -49,6 +49,7 @@ function ReservedDetailPage() {
     `reservation-detail:${reservationId}`,
     () => getReservationDetail(Number(reservationId)),
   )
+
   const defaultValues = {
     name: reservationData?.buyerName || '',
     phone: reservationData?.phone || '',
@@ -57,6 +58,9 @@ function ReservedDetailPage() {
   const payCancelProps: IPaySheet = {
     productPoint: reservationData?.totalPrice,
   }
+
+  const reservedTickets = reservationData?.tickets
+
   return (
     <>
       <PageHeader>
@@ -75,7 +79,10 @@ function ReservedDetailPage() {
         />
         <S.Section>
           <ReservationInput disabled={true} defaultValues={defaultValues} />
-          <TicketCountSection isInput={false} />
+          <TicketCountSection
+            isInput={false}
+            reservedTickets={reservedTickets}
+          />
           <S.SheetItem $underline={false}>
             <S.ItemKey>예약 날짜</S.ItemKey>
             <S.ItemValue $primary={false}>{reservationData?.date}</S.ItemValue>

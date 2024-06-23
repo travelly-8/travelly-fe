@@ -4,25 +4,23 @@ import { personnel } from '@/store/personnel-slice/personnel-slice'
 
 import { useDispatch } from 'react-redux'
 
+import ReserveTicket from './ReserveTicket'
 import * as S from './TicketCountSection.style'
 
-interface ITicketCounts {
-  [key: string]: number
-}
-
-interface ITicketDto {
-  id: number
-  name: string
-  price: number
-  description: string
-}
+import type {
+  IReservedTickets,
+  ITicketCounts,
+  ITicketDto,
+} from './TicketCountSection.type'
 
 function TicketCountSection({
   isInput = true,
   ticketDto,
+  reservedTickets,
 }: {
   isInput: boolean
   ticketDto?: ITicketDto[]
+  reservedTickets?: IReservedTickets[]
 }) {
   const dispatch = useDispatch()
 
@@ -56,26 +54,12 @@ function TicketCountSection({
     <S.SectionWrapper>
       <S.Title>인원</S.Title>
       <S.TicketCountWrapper>
-        {ticketDto?.map((ticketType) => (
-          <S.Ticket key={ticketType.id}>
-            <S.TicketType>{ticketType.name}</S.TicketType>
-            <S.TicketCount>
-              {isInput ? (
-                <>
-                  <S.MinusButton
-                    onClick={() => handleDecrease(ticketType.name)}
-                  />
-                  <S.Count>{ticketCounts[ticketType.name] ?? 0}개</S.Count>
-                  <S.PlusButton
-                    onClick={() => handleIncrease(ticketType.name)}
-                  />
-                </>
-              ) : (
-                <S.Count>{ticketCounts[ticketType.name] ?? 0}개</S.Count>
-              )}
-            </S.TicketCount>
-          </S.Ticket>
-        ))}
+        <ReserveTicket
+          ticketDto={ticketDto}
+          ticketCounts={ticketCounts}
+          handleIncrease={handleIncrease}
+          handleDecrease={handleDecrease}
+        />
       </S.TicketCountWrapper>
     </S.SectionWrapper>
   )
