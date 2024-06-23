@@ -3,11 +3,12 @@ import { useCallback, useState } from 'react'
 import { getReservationDetail } from '@/api/reservation.ts'
 import useGetReservationDetail from '@/hooks/api/reserveAPI/useGetReservationDetail.ts'
 import SheetRenderer from '@/pages/products-detail/components/sheet-renderer'
-import { ISheetComponents } from '@/pages/products-detail/ProductsDetail.type.ts'
+import type { ISheetComponents } from '@/pages/products-detail/ProductsDetail.type.ts'
 import CancellationPolicy from '@/pages/reservation/components/cancellation-policy'
 import ReservationInput from '@/pages/reservation/components/reservation-input'
-import { IPaySheet } from '@/pages/reservation/components/sheet/PaySheet.type.ts'
+import type { IPaySheet } from '@/pages/reservation/components/sheet/PaySheet.type.ts'
 import TicketCountSection from '@/pages/reservation/components/ticket-count-section'
+import type { IReservedTickets } from '@/pages/reservation/components/ticket-count-section/TicketCountSection.type.ts'
 import { sheet } from '@/store/sheet-slice/sheet-slice.ts'
 import { makeKorLocale } from '@/utils/makeKORLocale.ts'
 
@@ -16,7 +17,7 @@ import PageHeader from '@components/page-header'
 import { useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
-import * as S from './ReservedDetailPage.syles.tsx'
+import * as S from './ReservedDetailPage.styles.tsx'
 
 import ReviewListCard from '@components/review-list-card/index.tsx'
 
@@ -49,6 +50,7 @@ function ReservedDetailPage() {
     `reservation-detail:${reservationId}`,
     () => getReservationDetail(Number(reservationId)),
   )
+
   const defaultValues = {
     name: reservationData?.buyerName || '',
     phone: reservationData?.phone || '',
@@ -57,6 +59,10 @@ function ReservedDetailPage() {
   const payCancelProps: IPaySheet = {
     productPoint: reservationData?.totalPrice,
   }
+
+  const reservedTickets: IReservedTickets[] | undefined =
+    reservationData?.tickets
+
   return (
     <>
       <PageHeader>
@@ -75,7 +81,10 @@ function ReservedDetailPage() {
         />
         <S.Section>
           <ReservationInput disabled={true} defaultValues={defaultValues} />
-          <TicketCountSection isInput={false} />
+          <TicketCountSection
+            isInput={false}
+            reservedTickets={reservedTickets}
+          />
           <S.SheetItem $underline={false}>
             <S.ItemKey>예약 날짜</S.ItemKey>
             <S.ItemValue $primary={false}>{reservationData?.date}</S.ItemValue>

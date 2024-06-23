@@ -1,5 +1,6 @@
 import { getReviewDetail } from '@/api/reviewAPI'
 import ArrowRight from '@/assets/common/arrow-right.svg'
+import defaultImage from '@/assets/login/airplane.png'
 import { API_REVIEW } from '@/constants/API'
 import useGetReviewDetail from '@/hooks/api/reviewAPI/useGetReviewDetail'
 
@@ -17,22 +18,25 @@ const ReviewProductCard: React.FC<IReviewProductCardProps> = ({
   productDetail,
   isCommentMode,
 }) => {
-  const { productId = 1, reviewId = 1 } = useParams()
+  const { productId, reviewId } = useParams()
   const navigate = useNavigate()
   const location = useLocation()
   const { data } = useGetReviewDetail(
-    API_REVIEW.REVIEW_DETAIL(+productId, +reviewId),
-    () => getReviewDetail(Number(productId), Number(productId)),
+    productId && reviewId
+      ? API_REVIEW.REVIEW_DETAIL(+productId, +reviewId)
+      : '',
+    () =>
+      productId && reviewId
+        ? getReviewDetail(Number(productId), Number(reviewId))
+        : Promise.reject('Invalid IDs'),
   )
-
-  if (!productDetail) return null
 
   const {
     id,
     productName,
     name,
     createdDate,
-    images,
+    images = defaultImage,
     reviewerName,
     totalPrice,
     ticketDto,
@@ -43,7 +47,7 @@ const ReviewProductCard: React.FC<IReviewProductCardProps> = ({
       : '가격 정보 없음'
 
   const handleArrowClick = () => {
-    navigate(`/products/${data?.productId || productDetail.productId}`)
+    navigate(`/products/${data?.productId || id}`)
   }
   const isReservation =
     matchPath('/reservation/:productId', location.pathname) !== null
@@ -54,17 +58,15 @@ const ReviewProductCard: React.FC<IReviewProductCardProps> = ({
   return (
     <S.Wrapper>
       <S.ContentWrapper>
-        <S.Img src={productDetail?.images[0].url} alt="상품 이미지" />
+        <S.Img src={images[0]?.url} alt="상품 이미지" />
         <S.DetailWrapper>
-          <S.ProductName>{data?.productName}</S.ProductName>
+          <S.ProductName>{name}</S.ProductName>
           <S.PriceAndDateWrapper>
             <S.Price>
-              작성자 : {data?.reviewUserNickname || productDetail.reviewerName}
+              작성자 : {data?.reviewUserNickname || reviewerName}
             </S.Price>
             <S.Bar>|</S.Bar>
-            <S.Date>
-              작성일 : {data?.reviewDate || productDetail.createdDate}
-            </S.Date>
+            <S.Date>작성일 : {reviewDate || createdDate}</S.Date>
           </S.PriceAndDateWrapper>
         </S.DetailWrapper>
       </S.ContentWrapper>
