@@ -3,11 +3,12 @@ import { useCallback, useState } from 'react'
 import { getReservationDetail } from '@/api/reservation.ts'
 import useGetReservationDetail from '@/hooks/api/reserveAPI/useGetReservationDetail.ts'
 import SheetRenderer from '@/pages/products-detail/components/sheet-renderer'
-import { ISheetComponents } from '@/pages/products-detail/ProductsDetail.type.ts'
+import type { ISheetComponents } from '@/pages/products-detail/ProductsDetail.type.ts'
 import CancellationPolicy from '@/pages/reservation/components/cancellation-policy'
 import ReservationInput from '@/pages/reservation/components/reservation-input'
-import { IPaySheet } from '@/pages/reservation/components/sheet/PaySheet.type.ts'
+import type { IPaySheet } from '@/pages/reservation/components/sheet/PaySheet.type.ts'
 import TicketCountSection from '@/pages/reservation/components/ticket-count-section'
+import type { IReservedTickets } from '@/pages/reservation/components/ticket-count-section/TicketCountSection.type.ts'
 import { sheet } from '@/store/sheet-slice/sheet-slice.ts'
 import { makeKorLocale } from '@/utils/makeKORLocale.ts'
 
@@ -59,7 +60,8 @@ function ReservedDetailPage() {
     productPoint: reservationData?.totalPrice,
   }
 
-  const reservedTickets = reservationData?.tickets
+  const reservedTickets: IReservedTickets[] | undefined =
+    reservationData?.tickets
 
   return (
     <>

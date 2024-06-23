@@ -15,3 +15,20 @@ export interface IReservedTickets {
   price: number
   quantity: number
 }
+
+export interface IReserveTicketProps {
+  ticketDto: ITicketDto[] | undefined
+  ticketCounts: ITicketCounts
+  handleIncrease: (ticketType: string) => void
+  handleDecrease: (ticketType: string) => void
+}
+
+export interface ITicketCountSection {
+  isInput: boolean
+  ticketDto?: ITicketDto[]
+  reservedTickets?: IReservedTickets[]
+}
+
+export interface IReservedTicketsProps {
+  reservedTickets: IReservedTickets[] | undefined
+}
