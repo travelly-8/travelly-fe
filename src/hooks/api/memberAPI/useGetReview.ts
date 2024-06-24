@@ -2,7 +2,7 @@ import { IGetTravellyReviewResponse } from '@/types/getMemberData.type'
 
 import { useQuery } from '@tanstack/react-query'
 
-function useGetTravellyReview(
+function useGetReview(
   queryKey: string,
   queryFn: () => Promise<IGetTravellyReviewResponse>,
 ) {
@@ -15,4 +15,4 @@ function useGetTravellyReview(
   })
 }
 
-export default useGetTravellyReview
+export default useGetReview

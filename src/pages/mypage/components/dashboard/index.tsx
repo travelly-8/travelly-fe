@@ -45,6 +45,9 @@ const Dashboard = ({ data, role }: IDashboardProps) => {
 
   const moveTo = (menu: string) => {
     switch (menu) {
+      case 'writeReview':
+        navigate('/review/list')
+        break
       case 'getReview':
         navigate('/review/list')
         break
