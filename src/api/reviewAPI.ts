@@ -39,3 +39,10 @@ export const getReviews = (productId: number, params: IGetReviews) => {
     params,
   })
 }
+
+export const deleteReview = (reviewId: number) => {
+  return instance({
+    method: 'DELETE',
+    url: API_REVIEW.DELETE_REVIEW(reviewId),
+  })
+}

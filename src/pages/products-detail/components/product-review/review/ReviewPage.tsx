@@ -15,12 +15,14 @@ const ReviewPage: React.FC<IReviewPageProps> = ({
   reviewData,
   onEditClick,
   canComment = true,
+  setReviewForEdit,
 }) => {
   const [myInfo, setMyInfo] = useState<IGetMemberProfile>()
 
   const kebabClick = (event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
     event.stopPropagation()
     onEditClick()
+    setReviewForEdit && setReviewForEdit(reviewData.reviewId)
   }
 
   const getMyInfo = async () => {

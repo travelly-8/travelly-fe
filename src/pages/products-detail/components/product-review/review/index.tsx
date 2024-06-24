@@ -22,6 +22,7 @@ const Review: React.FC<IReviewProps> = ({
   onOrderClick,
   onEditClick,
   onPhotoReviewsClick,
+  setReviewForEdit,
 }) => {
   const [isRecentVisitChecked, setIsRecentVisitChecked] = useState(false)
 
@@ -99,7 +100,11 @@ const Review: React.FC<IReviewProps> = ({
             handleNavigation(event, data.productId, data.reviewId)
           }
         >
-          <ReviewPage reviewData={data} onEditClick={onEditClick} />
+          <ReviewPage
+            reviewData={data}
+            onEditClick={onEditClick}
+            setReviewForEdit={setReviewForEdit}
+          />
         </S.ReviewPageWrapper>
       ))}
     </S.ReviewContainer>

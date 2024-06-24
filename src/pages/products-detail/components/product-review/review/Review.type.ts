@@ -37,12 +37,14 @@ export interface IReviewProps {
   onOrderClick: () => void
   onEditClick: () => void
   onPhotoReviewsClick?: () => void
+  setReviewForEdit?: (editId: number) => void
 }
 
 export interface IReviewPageProps {
   reviewData: IReviewDetailData
   onEditClick: () => void
   canComment?: boolean
+  setReviewForEdit?: (editId: number) => void
 }
 
 export interface IReviewData {

@@ -35,6 +35,7 @@ function ProductsDetail() {
     productId,
     sort,
   })
+  const [reviewForEdit, setReviewForEdit] = useState(0)
 
   const {
     address = '',
@@ -108,6 +109,10 @@ function ProductsDetail() {
     commentCount: reviewCount || 0,
   }
 
+  const editSheetProps = {
+    editId: reviewForEdit,
+  }
+
   const scrollToReview = () => {
     document?.getElementById('review')?.scrollIntoView({ behavior: 'smooth' })
   }
@@ -134,6 +139,7 @@ function ProductsDetail() {
           totalElements={totalElements}
           handleSheetDispatch={handleSheetDispatch}
           handlePhotoReviewsClick={handlePhotoReviewsClick}
+          setReviewForEdit={setReviewForEdit}
         />
         {remainingReviews !== 0 && (
           <LoadMoreButton
@@ -151,6 +157,7 @@ function ProductsDetail() {
         <SheetRenderer
           shareSheetProps={shareSheetProps}
           reviewOrderSheetProps={{ handleSort }}
+          editSheetProps={editSheetProps}
         />
       </S.PageContainer>
     </>

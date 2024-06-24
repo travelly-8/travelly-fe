@@ -10,6 +10,7 @@ interface IProductReviewsProps {
   handleSheetDispatch: (name: string) => void
   handlePhotoReviewsClick: () => void
   totalElements: number
+  setReviewForEdit?: (editId: number) => void
 }
 
 const ProductReviews = ({
@@ -19,6 +20,7 @@ const ProductReviews = ({
   totalElements,
   handleSheetDispatch,
   handlePhotoReviewsClick,
+  setReviewForEdit,
 }: IProductReviewsProps) => {
   const reviewImg = reviewData?.reduce<string[]>(
     (acc, review) => acc.concat(review.reviewImages),
@@ -35,6 +37,7 @@ const ProductReviews = ({
       onOrderClick={() => handleSheetDispatch('review-order-sheet')}
       onEditClick={() => handleSheetDispatch('edit-sheet')}
       onPhotoReviewsClick={handlePhotoReviewsClick}
+      setReviewForEdit={setReviewForEdit}
     />
   )
 }
