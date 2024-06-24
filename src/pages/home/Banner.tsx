@@ -32,7 +32,7 @@ const SlideImage = styled.img`
 
 const CustomIndicator = styled.div`
   position: absolute;
-  bottom: 1rem;
+  bottom: 1.5rem;
   right: 1rem;
   font-size: 1.2rem;
   background-color: var(--color-black);
