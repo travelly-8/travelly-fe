@@ -1,3 +1,8 @@
+import BubbleLeft from '@/assets/login/bubble-left.svg'
+import BubbleRight from '@/assets/login/bubble-right.svg'
+import LocationIcon from '@/assets/login/location.png'
+import PassportIcon from '@/assets/login/passport.png'
+
 import * as S from './Bubble.style.tsx'
 
 import type { IBubbleMap } from './Bubble.type.ts'
@@ -11,7 +16,8 @@ const Bubble = ({ bubbleType }: { bubbleType: 'traveller' | 'travelly' }) => {
           상품을 구매하는 <span>구매자</span> 회원입니다.
         </p>
       ),
-      icon: 'passport',
+      icon: PassportIcon,
+      bubbleIcon: BubbleLeft,
       bubbleDirection: 'left',
     },
     travelly: {
@@ -21,7 +27,8 @@ const Bubble = ({ bubbleType }: { bubbleType: 'traveller' | 'travelly' }) => {
           상품을 판매하는 <span>판매자</span> 회원입니다.
         </p>
       ),
-      icon: 'location',
+      icon: LocationIcon,
+      bubbleIcon: BubbleRight,
       bubbleDirection: 'right',
     },
   }
@@ -30,14 +37,10 @@ const Bubble = ({ bubbleType }: { bubbleType: 'traveller' | 'travelly' }) => {
 
   return (
     <S.BubbleWrapper dir={data.bubbleDirection}>
-      <S.Bubble
-        dir={data.bubbleDirection}
-        src={`/src/assets/login/bubble-${data.bubbleDirection}.svg`}
-        alt="말풍선"
-      />
+      <S.Bubble dir={data.bubbleDirection} src={data.bubbleIcon} alt="말풍선" />
       <S.BubbleTextWrapper>
         <S.BubbleTitleWrapper>
-          <S.Icon src={`/src/assets/login/${data.icon}.png`} alt="트래블러" />
+          <S.Icon src={data.icon} alt="트래블러" />
           <h1>{data.title}</h1>
         </S.BubbleTitleWrapper>
         {data.text}
