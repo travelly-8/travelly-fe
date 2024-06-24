@@ -47,4 +47,5 @@ export const API_RESERVATION = Object.freeze({
     `/reservation/${reservationId}`,
   RESERVATION_CANCEL: (reservationId: number) =>
     `/reservation/${reservationId}/cancel`,
+  RESERVATION_MANAGE: '/reservation/my/products',
 })
