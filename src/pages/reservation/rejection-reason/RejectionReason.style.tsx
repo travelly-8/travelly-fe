@@ -12,8 +12,9 @@ export const Title = styled.h1`
   font-weight: 700;
   margin-left: 2rem;
 `
+
 export const InfoWrapper = styled.div`
-  margin: 2rem 0;
+  margin: 3rem 0;
   box-shadow: 0 0.3rem 0.2rem var(--color-gray-light);
 `
 
@@ -41,4 +42,12 @@ export const Textarea = styled.textarea`
     font-size: 1rem;
     vertical-align: top;
   }
+`
+
+export const ButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin-bottom: 2rem;
+  height: 25vh;
 `

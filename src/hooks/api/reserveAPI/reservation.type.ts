@@ -74,6 +74,10 @@ export interface IManageDetailResponse {
   productPrice: number
   operationDays: IOperationDays[]
   reservations: IReservation[]
+  buyerName: string
+  date: string
+  email: string
+  phone: string
 }
 
 export interface IReservation {
