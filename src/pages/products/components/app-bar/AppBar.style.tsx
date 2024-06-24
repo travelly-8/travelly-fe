@@ -37,23 +37,13 @@ export const OrderFilterWrapper = styled.div`
 
 export const Order = styled.span`
   display: flex;
+  justify-content: space-between;
   align-items: center;
   color: var(--color-gray-middle);
   font-size: 1.2rem;
   line-height: 1.8rem;
   cursor: pointer;
-
-  &::after {
-    content: '';
-    display: inline-block;
-    width: 0.7rem;
-    height: 0.5rem;
-    margin-left: 0.8rem;
-    background-image: url('/src/assets/products/down-arrow.svg');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-  }
+  gap: 0.5rem;
 `
 
 export const Filter = styled.div`

@@ -1,5 +1,3 @@
-import kebab from '@/assets/common/kebab.svg'
-
 import styled from 'styled-components'
 
 export const ReviewContainer = styled.div`
@@ -59,10 +57,9 @@ export const BlackText = styled.label`
   font-size: 1.2rem;
   line-height: 1.8rem;
 `
-export const EditKebab = styled.span`
+export const EditKebab = styled.img`
   width: 2.4rem;
   height: 2.4rem;
-  background-image: url(${kebab});
   cursor: pointer;
 `
 export const CheckBoxWrapper = styled.div`

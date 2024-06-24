@@ -48,16 +48,6 @@ export const StyleCalendar = styled(Calendar)`
     background-color: transparent;
   }
 
-  .react-calendar__navigation__prev-button {
-    background: url('/src/assets/home/previous.svg') no-repeat center;
-    color: transparent;
-  }
-
-  .react-calendar__navigation__next-button {
-    background: url('/src/assets/home/next.svg') no-repeat center;
-    color: transparent;
-  }
-
   .react-calendar__navigation button:disabled {
     background-color: #e8e8e8;
   }
@@ -111,6 +101,7 @@ export const StyleCalendar = styled(Calendar)`
   .react-calendar__tile--active:enabled:focus {
     background-color: var(--color-main);
   }
+
   .operation-day {
     background-color: var(--color-green);
     border-radius: 0.7rem;
