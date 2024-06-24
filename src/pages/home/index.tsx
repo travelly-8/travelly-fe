@@ -18,6 +18,7 @@ import ProductCardSkeleton from '@components/product-card/ProductCardSkeleton'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
+import Banner from './Banner.tsx'
 import * as S from './HomePage.style.tsx'
 
 import type { ISizeProps } from '@components/product-card/ProductCard.style'
@@ -71,6 +72,7 @@ function HomePage() {
         $isHamburgerClicked={isHamburgerClicked}
         $isSheet={sheetReducer.status}
       >
+        <Banner />
         <S.ProductsSection>
           <S.SectionTitleWrapper>
             <S.SectionTitleIcon src={trophy} />
