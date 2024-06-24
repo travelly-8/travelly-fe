@@ -21,7 +21,7 @@ import * as S from './ReviewDetailPage.style'
 export default function ReviewDetailPage() {
   const { productId, reviewId } = useParams()
   const location = useLocation()
-  const { productDetail } = location.state || {}
+  const { productDetail, reviewData: reviews } = location.state || {}
   const parsedProductId = productId ? Number(productId) : 0
   const parsedReviewId = reviewId ? Number(reviewId) : 0
   const { data: reviewData, refetch } = useQuery({
@@ -60,6 +60,10 @@ export default function ReviewDetailPage() {
       })
   }
 
+  const selectedReview = reviews?.find(
+    (review: { reviewId: number }) => review.reviewId === Number(reviewId),
+  )
+
   return (
     <>
       <PageHeader>
@@ -69,11 +73,11 @@ export default function ReviewDetailPage() {
         <ReviewProductCard
           productDetail={productDetail}
           isReviewList={true}
-          reviewData={reviewData?.data}
+          reviewData={selectedReview}
         />
         {reviewData && (
           <ReviewPage
-            reviewData={reviewData.data}
+            reviewData={selectedReview}
             onEditClick={() => {}}
             canComment={false}
           />
