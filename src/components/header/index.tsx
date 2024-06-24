@@ -61,7 +61,11 @@ const Header: React.FC<IHeaderProps> = ({ hamburgerClick }) => {
             alt="search"
             onClick={() => handleSearchClick()}
           />
-          <S.Icon src={alarmIcon} alt="alarm" />
+          <S.Icon
+            src={alarmIcon}
+            alt="alarm"
+            onClick={() => navigate('/notification')}
+          />
           <S.Icon
             src={hamburgerImg}
             alt="hamburger"

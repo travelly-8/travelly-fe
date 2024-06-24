@@ -16,6 +16,7 @@ import MyPageEditPage from './pages/mypage/edit'
 import ExitPage from './pages/mypage/exit'
 import GoodbyePage from './pages/mypage/good-bye'
 import MyProductListPage from './pages/mypage/my-product-list'
+import NotiPage from './pages/noti'
 import ProductsPage from './pages/products'
 import ProductCreatePage from './pages/products-create'
 import ProductsDetail from './pages/products-detail'
@@ -60,6 +61,7 @@ export default function AppRouter() {
         <Route path="/mypage/my-product-list" element={<MyProductListPage />} />
         <Route path="/exit" element={<ExitPage />} />
         <Route path="/goodbye" element={<GoodbyePage />} />
+        <Route path="/notification" element={<NotiPage />} />
         {/* 리뷰 */}
         <Route path="/review/write" element={<ReviewWritePage />} />
         <Route
