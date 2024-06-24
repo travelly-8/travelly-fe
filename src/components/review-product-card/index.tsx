@@ -2,13 +2,13 @@ import ArrowRight from '@/assets/common/arrow-right-lightgray.svg'
 import { getDateArray } from '@/utils/formatDate'
 
 import { format } from 'date-fns'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { matchPath, useLocation, useNavigate } from 'react-router-dom'
 
 import * as S from './ReviewProductCard.style'
 import { IReviewProductCardProps } from './ReviewProductCard.type'
 
 const ReviewProductCard: React.FC<IReviewProductCardProps> = ({
-  reviewId,
+  reviewData,
   productDetail,
   isCommentMode,
   isReviewList,
@@ -16,22 +16,10 @@ const ReviewProductCard: React.FC<IReviewProductCardProps> = ({
   const navigate = useNavigate()
   const location = useLocation()
 
-  console.log(productDetail)
-  const {
-    productId,
-    productName,
-    images,
-    operationDays,
-    ticketDto,
-    reviewerName,
-  } = productDetail || {}
+  const { productId, name, images, operationDays, ticketDto } =
+    productDetail || {}
 
-  // const { data } = useGetReviewDetail(
-  //   API_REVIEW.REVIEW_DETAIL(+productId, +reviewId),
-  //   () => getReviewDetail(Number(productId), Number(reviewId)),
-  // )
-
-  // const price = ticketDto[0]?.price
+  const price = ticketDto[0]?.price
 
   const { firstDate, lastDate } = getDateArray(operationDays)
   const formatDate =
@@ -43,28 +31,27 @@ const ReviewProductCard: React.FC<IReviewProductCardProps> = ({
     navigate(`/products/${productId}`)
   }
 
-  // const isReservation =
-  //   matchPath('/reservation/:productId', location.pathname) !== null
-
-  // const reviewDate = isReservation
-  //   ? createdDate
-  //   : new Date(createdDate).toLocaleDateString()
+  const isReservation =
+    matchPath('/reservation/:productId', location.pathname) !== null
 
   return (
     <S.Wrapper>
       <S.ContentWrapper>
         <S.Img src={images[0]?.url} alt="상품 이미지" />
         <S.DetailWrapper>
-          <S.ProductName>{productName}</S.ProductName>
+          <S.ProductName>{name}</S.ProductName>
           <S.PriceAndDateWrapper>
             <S.Price>
-              {/* {!isReviewList
+              {!isReviewList
                 ? `${price?.toLocaleString('ko-KR') || '가격 정보 없음'}원`
-                : `작성자: 익명`} */}
-              {`작성자 : ${reviewerName}`}
+                : `작성자: ${reviewData?.reviewUserNickname}`}
             </S.Price>
             <S.Bar>|</S.Bar>
-            <S.Date>{!isReviewList ? `${formatDate}` : `작성일:`}</S.Date>
+            <S.Date>
+              {!isReviewList
+                ? `${formatDate}`
+                : `작성일: ${reviewData?.reviewDate}`}
+            </S.Date>
           </S.PriceAndDateWrapper>
         </S.DetailWrapper>
       </S.ContentWrapper>

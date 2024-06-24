@@ -24,7 +24,6 @@ export default function ReviewDetailPage() {
   const { productDetail } = location.state || {}
   const parsedProductId = productId ? Number(productId) : 0
   const parsedReviewId = reviewId ? Number(reviewId) : 0
-
   const { data: reviewData, refetch } = useQuery({
     queryKey: ['review-detail'],
     queryFn: () => getReviewDetail(parsedProductId, parsedReviewId),
@@ -67,7 +66,11 @@ export default function ReviewDetailPage() {
         <S.HeaderTitle>후기 상세</S.HeaderTitle>
       </PageHeader>
       <S.Wrapper>
-        <ReviewProductCard productDetail={productDetail} />
+        <ReviewProductCard
+          productDetail={productDetail}
+          isReviewList={true}
+          reviewData={reviewData?.data}
+        />
         {reviewData && (
           <ReviewPage
             reviewData={reviewData.data}

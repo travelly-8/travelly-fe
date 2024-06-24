@@ -51,7 +51,8 @@ export interface IReviewData {
   name: string
   profileImage: string
   rating: number
-  reviewDay: string
+  reviewUserNickname: string
+  reviewDate: string
   reviewText: string
   commentCnt: number
   likeCnt: number
