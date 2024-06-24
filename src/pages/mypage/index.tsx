@@ -16,7 +16,7 @@ import ProfileTab from './components/profile-tab'
 import RecentViewList from './components/recent-view-list'
 import * as S from './Mypage.style'
 
-function formatRecentProdcuts(data: IProductCardData[]) {
+function formatRecentProducts(data: IProductCardData[]) {
   return data.map((elem) => {
     return {
       productId: elem.id,
@@ -30,7 +30,7 @@ export default function MyPage() {
   const { role } = authState
   const recentProducts = localStorage.getItem('recentProducts')
   const formattedRecentProducts = recentProducts
-    ? formatRecentProdcuts(JSON.parse(recentProducts))
+    ? formatRecentProducts(JSON.parse(recentProducts))
     : []
   const { data, isLoading } = useGetProfileByRole(
     role === 'travelly' ? API_MEMBER.MY_TRAVELLY : API_MEMBER.MY_TRAVELLY,
