@@ -39,3 +39,10 @@ export const getMyReservationManage = () => {
     url: API_RESERVATION.RESERVATION_MANAGE,
   })
 }
+
+export const getMyReservationManageDetail = (productId: number) => {
+  return instance({
+    method: 'GET',
+    url: API_RESERVATION.RESERVATION_MANAGE_DETAIL(productId),
+  })
+}
