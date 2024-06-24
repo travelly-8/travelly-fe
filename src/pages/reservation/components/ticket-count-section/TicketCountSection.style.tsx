@@ -1,6 +1,3 @@
-import minus from '@/assets/reservation/minus.svg'
-import plus from '@/assets/reservation/plus.svg'
-
 import styled from 'styled-components'
 
 export const SectionWrapper = styled.section`
@@ -48,14 +45,14 @@ export const Count = styled.span`
   line-height: 2.38rem;
 `
 
-export const MinusButton = styled.button`
+export const MinusButton = styled.img`
   width: 2.4rem;
   height: 2.4rem;
-  background-image: url(${minus});
+  cursor: pointer;
 `
 
-export const PlusButton = styled.button`
+export const PlusButton = styled.img`
   width: 2.4rem;
   height: 2.4rem;
-  background-image: url(${plus});
+  cursor: pointer;
 `
