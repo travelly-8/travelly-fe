@@ -1,14 +1,14 @@
+import { useEffect, useState } from 'react'
+
+import { getMemberProfile } from '@/api/myAPI.ts'
 import defaultUser from '@/assets/common/default-user.svg'
 import comment from '@/assets/products-detail/comment.svg'
 import like from '@/assets/products-detail/like.svg'
 import Rating from '@/pages/review/components/rating'
+import { IGetMemberProfile } from '@/types/getMemberData.type.ts'
 
 import * as S from './Review.style'
 
-import { getMemberProfile } from '@/api/myAPI.ts'
-import useGetMemberProfile from '@/hooks/api/memberAPI/useGetMemberProfile.ts'
-import { IReservationInputState } from '@/pages/reservation/components/reservation-input/Reservation.type.ts'
-import { useState } from 'react'
 import type { IReviewPageProps } from './Review.type'
 
 const ReviewPage: React.FC<IReviewPageProps> = ({
@@ -16,19 +16,26 @@ const ReviewPage: React.FC<IReviewPageProps> = ({
   onEditClick,
   canComment = true,
 }) => {
-  const [userInfo, setUserInfo] = useState<IReservationInputState>()
+  const [myInfo, setMyInfo] = useState<IGetMemberProfile>()
 
   const kebabClick = (event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
     event.stopPropagation()
     onEditClick()
   }
 
-  const { data: memberProfile } = useGetMemberProfile(
-    'member-profile',
-    getMemberProfile,
-  )
+  const getMyInfo = async () => {
+    const res = await getMemberProfile()
+    const data = res.data
+    setMyInfo(data)
+  }
 
-  const isMyReview = reviewData.reviewUserNickname === memberProfile?.nickname
+  useEffect(() => {
+    if (localStorage.getItem('accessToken')) {
+      getMyInfo()
+    }
+  }, [])
+
+  const isMyReview = reviewData.reviewUserNickname === myInfo?.nickname
 
   return (
     <S.ReviewContent>
@@ -78,5 +85,4 @@ const ReviewPage: React.FC<IReviewPageProps> = ({
     </S.ReviewContent>
   )
 }
-
 export default ReviewPage

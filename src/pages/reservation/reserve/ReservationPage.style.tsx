@@ -5,7 +5,7 @@ interface IPointInputProps {
 }
 
 export const PageContainer = styled.div`
-  padding: 0 2rem 0;
+  padding: 0 2rem 6rem;
 
   overflow-y: scroll;
   scrollbar-width: none;
