@@ -1,13 +1,13 @@
 import styled from 'styled-components'
 
-export const Wrapper = styled.div<{ isReplying: boolean }>`
+export const Wrapper = styled.div<{ $isReplying: boolean }>`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
   padding: 0.8rem 2rem;
   background: ${(props) =>
-    props.isReplying ? 'var(--color-gray-bright)' : 'transparent'};
+    props.$isReplying ? 'var(--color-gray-bright)' : 'transparent'};
 `
 export const CommentWrapper = styled.div`
   display: flex;

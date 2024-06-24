@@ -46,7 +46,7 @@ const CommentCard: React.FC<ICommentCardProps> = ({ data }) => {
   }
   return (
     <>
-      <S.Wrapper isReplying={isReplying}>
+      <S.Wrapper $isReplying={isReplying}>
         <S.CommentWrapper>
           <S.Content>
             <S.ProfileImg src={commentUserImage} onError={handleImageError} />
@@ -80,7 +80,7 @@ const CommentCard: React.FC<ICommentCardProps> = ({ data }) => {
       <S.ReplyWrapper>
         {childrenComments?.map((data) => {
           return (
-            <S.Wrapper key={data.commentId} isReplying={false}>
+            <S.Wrapper key={data.commentId} $isReplying={false}>
               <S.CommentWrapper>
                 <S.Content>
                   <S.ProfileImg

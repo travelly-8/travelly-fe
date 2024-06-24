@@ -46,7 +46,9 @@ const Review: React.FC<IReviewProps> = ({
     reviewId: number,
   ) => {
     event.stopPropagation()
-    navigate(`/review/${productId}/${reviewId}`, { state: { productDetail } })
+    navigate(`/review/${productId}/${reviewId}`, {
+      state: { productDetail, reviewData },
+    })
   }
 
   return (

@@ -21,10 +21,9 @@ import * as S from './ReviewDetailPage.style'
 export default function ReviewDetailPage() {
   const { productId, reviewId } = useParams()
   const location = useLocation()
-  const { productDetail } = location.state || {}
+  const { productDetail, reviewData: reviews } = location.state || {}
   const parsedProductId = productId ? Number(productId) : 0
   const parsedReviewId = reviewId ? Number(reviewId) : 0
-
   const { data: reviewData, refetch } = useQuery({
     queryKey: ['review-detail'],
     queryFn: () => getReviewDetail(parsedProductId, parsedReviewId),
@@ -61,16 +60,24 @@ export default function ReviewDetailPage() {
       })
   }
 
+  const selectedReview = reviews?.find(
+    (review: { reviewId: number }) => review.reviewId === Number(reviewId),
+  )
+
   return (
     <>
       <PageHeader>
         <S.HeaderTitle>후기 상세</S.HeaderTitle>
       </PageHeader>
       <S.Wrapper>
-        <ReviewProductCard productDetail={productDetail} />
+        <ReviewProductCard
+          productDetail={productDetail}
+          isReviewList={true}
+          reviewData={selectedReview}
+        />
         {reviewData && (
           <ReviewPage
-            reviewData={reviewData.data}
+            reviewData={selectedReview}
             onEditClick={() => {}}
             canComment={false}
           />
