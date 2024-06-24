@@ -1,5 +1,4 @@
 import ArrowRight from '@/assets/common/arrow-right-lightgray.svg'
-import defaultImage from '@/assets/login/airplane.png'
 import { getDateArray } from '@/utils/formatDate'
 
 import { format } from 'date-fns'
@@ -9,7 +8,6 @@ import * as S from './ReviewProductCard.style'
 import { IReviewProductCardProps } from './ReviewProductCard.type'
 
 const ReviewProductCard: React.FC<IReviewProductCardProps> = ({
-  productId,
   reviewId,
   productDetail,
   isCommentMode,
@@ -17,17 +15,19 @@ const ReviewProductCard: React.FC<IReviewProductCardProps> = ({
 }) => {
   const navigate = useNavigate()
   const location = useLocation()
+
+  const {
+    id: productId,
+    name,
+    images,
+    operationDays,
+    ticketDto,
+  } = productDetail || {}
+
   // const { data } = useGetReviewDetail(
   //   API_REVIEW.REVIEW_DETAIL(+productId, +reviewId),
   //   () => getReviewDetail(Number(productId), Number(reviewId)),
   // )
-
-  const {
-    name = '',
-    images = defaultImage,
-    operationDays,
-    ticketDto,
-  } = productDetail || {}
 
   const price = ticketDto[0]?.price
 
@@ -37,9 +37,9 @@ const ReviewProductCard: React.FC<IReviewProductCardProps> = ({
       ? `${format(firstDate, 'yyyy.MM.dd')}~${format(lastDate, 'yyyy.MM.dd')}`
       : 'N/A'
 
-  // const handleArrowClick = () => {
-  //   navigate(`/products/${data?.productId || id}`)
-  // }
+  const handleArrowClick = () => {
+    navigate(`/products/${productId}`)
+  }
 
   // const isReservation =
   //   matchPath('/reservation/:productId', location.pathname) !== null
@@ -61,7 +61,7 @@ const ReviewProductCard: React.FC<IReviewProductCardProps> = ({
                 : `작성자: 익명`}
             </S.Price>
             <S.Bar>|</S.Bar>
-            <S.Date>{formatDate}</S.Date>
+            <S.Date>{!isReviewList ? `${formatDate}` : `작성일:`}</S.Date>
           </S.PriceAndDateWrapper>
         </S.DetailWrapper>
       </S.ContentWrapper>
@@ -71,7 +71,7 @@ const ReviewProductCard: React.FC<IReviewProductCardProps> = ({
         <S.Arrow
           src={ArrowRight}
           alt="상세 페이지"
-          // onClick={handleArrowClick}
+          onClick={handleArrowClick}
         />
       )}
     </S.Wrapper>
