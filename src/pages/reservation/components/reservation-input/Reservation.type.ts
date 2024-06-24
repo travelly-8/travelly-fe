@@ -3,6 +3,7 @@ import {
   SubmitHandler,
   UseFormHandleSubmit,
   UseFormRegisterReturn,
+  UseFormSetValue,
 } from 'react-hook-form'
 
 export interface IReservationInputProps {
@@ -14,6 +15,7 @@ export interface IReservationInputProps {
   onSubmit?: SubmitHandler<IReservationInputState>
   disabled?: boolean
   defaultValues?: IReservationInputState
+  setValue?: UseFormSetValue<Omit<IReservationInputState, 'date'>>
 }
 
 export interface IReservationInputState {

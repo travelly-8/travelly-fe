@@ -52,6 +52,7 @@ function ReservationPage() {
     watch,
     control,
     reset,
+    setValue,
   } = useForm<IReservationInputState>()
 
   const onSubmit = () => {
@@ -234,6 +235,7 @@ function ReservationPage() {
           handleSubmit={handleSubmit}
           onSubmit={onSubmit}
           defaultValues={isGetAccountChecked ? userInfo : undefined}
+          setValue={setValue}
         />
         <S.TicketInfo>
           <TicketCountSection ticketDto={ticketDto} isInput />
