@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 import useProductDetail from '@/hooks/api/productsAPI/useProductDetail'
 import useRecommendProducts from '@/hooks/api/productsAPI/useRecommendProducts'
@@ -6,9 +6,11 @@ import useLoadMoreReviews from '@/hooks/api/reviewAPI/useLoadMoreReviews'
 import NoProductPage from '@/pages/error/NoProductPage'
 import { sheet } from '@/store/sheet-slice/sheet-slice'
 import type { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
+import { RootState } from '@/store/store'
 import { IReviewDetailData } from '@/types/getReviewDetailData.type'
 import { changeReviewData } from '@/utils/changeReviewData'
 
+import FooterEditDelete from '@components/footer-edit-delete'
 import FooterReservation from '@components/footer-reservation'
 import ProductHeader from '@components/product-header'
 import { useDispatch, useSelector } from 'react-redux'
@@ -28,6 +30,7 @@ import * as S from './ProductsDetail.style'
 function ProductsDetail() {
   const { productId } = useParams<{ productId: string }>()
   const dispatch = useDispatch()
+  const { role, nickname } = useSelector((state: RootState) => state.auth)
   const { productDetail, isProductDetailSuccess, isPending } =
     useProductDetail(productId)
   const [sort, setSort] = useState<string>('new')
@@ -35,6 +38,14 @@ function ProductsDetail() {
     productId,
     sort,
   })
+  const [isOwner, setIsOwner] = useState(false)
+
+  useEffect(() => {
+    if (!productDetail || !productDetail.sellerName) return
+    if (role === 'travelly' && productDetail?.sellerName === nickname) {
+      setIsOwner(true)
+    }
+  }, [role, productDetail])
 
   const {
     address = '',
@@ -141,13 +152,18 @@ function ProductsDetail() {
             remainingReviews={remainingReviews}
           />
         )}
-        <FooterReservation
-          isBookmarked={true}
-          isReservationProduct={true}
-          price={price}
-          buttontype="reservation"
-          productId={productId}
-        />
+        {isOwner ? (
+          <FooterEditDelete price={price} productId={+productId} />
+        ) : (
+          <FooterReservation
+            isBookmarked={true}
+            isReservationProduct={true}
+            price={price}
+            buttontype="reservation"
+            productId={productId}
+          />
+        )}
+
         <SheetRenderer
           shareSheetProps={shareSheetProps}
           reviewOrderSheetProps={{ handleSort }}
