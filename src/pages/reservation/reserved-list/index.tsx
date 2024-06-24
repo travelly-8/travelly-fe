@@ -22,18 +22,22 @@ function ReservedListPage() {
         <S.HeaderTitle>상품 예약하기</S.HeaderTitle>
       </PageHeader>
       <S.PageContainer>
-        {filterData?.map((data) => (
-          <ReviewListCard
-            key={data.id}
-            id={data.id}
-            productName={data.productName}
-            productId={data.productId}
-            productImages={data.productImages}
-            buyerName={data.buyerName}
-            date={data.date}
-            totalPrice={data.totalPrice}
-          />
-        ))}
+        {filterData.length === 0 ? (
+          <p>예약한 상품이 없어요</p>
+        ) : (
+          filterData?.map((data) => (
+            <ReviewListCard
+              key={data.id}
+              id={data.id}
+              productName={data.productName}
+              productId={data.productId}
+              productImages={data.productImages}
+              buyerName={data.buyerName}
+              date={data.date}
+              totalPrice={data.totalPrice}
+            />
+          ))
+        )}
       </S.PageContainer>
     </>
   )
