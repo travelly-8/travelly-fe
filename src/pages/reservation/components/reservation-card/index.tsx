@@ -4,14 +4,8 @@ import { formatWithCommas } from '@/utils/formatWIthCommas'
 import * as S from './ReservationCard.style'
 
 const ReservationCard = ({ data }: { data: IReservationManageResponse }) => {
-  const {
-    productName,
-    price,
-    date,
-    reservationCount,
-    pendingReservationCount,
-    productImages,
-  } = data
+  const { productName, price, date, pendingReservationCount, productImages } =
+    data
 
   return (
     <S.Wrapper>

@@ -53,6 +53,8 @@ const ReviewList: React.FC = () => {
     ))
   }
 
+  console.log(displayData)
+
   const renderCards = () => {
     // TODO: 작성한 댓글 데이터 있을 때 정상적으로 잘 나타나는지 확인 필요
     const COMMENT_LIST = ['댓글', '작성한 댓글']
@@ -62,7 +64,7 @@ const ReviewList: React.FC = () => {
       return (
         <ReviewProductCard
           key={product.productId}
-          productDetail={productDetail}
+          productDetail={product}
           isCommentMode={isCommentMode}
         />
       )

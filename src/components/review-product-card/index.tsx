@@ -16,12 +16,14 @@ const ReviewProductCard: React.FC<IReviewProductCardProps> = ({
   const navigate = useNavigate()
   const location = useLocation()
 
+  console.log(productDetail)
   const {
-    id: productId,
-    name,
+    productId,
+    productName,
     images,
     operationDays,
     ticketDto,
+    reviewerName,
   } = productDetail || {}
 
   // const { data } = useGetReviewDetail(
@@ -29,7 +31,7 @@ const ReviewProductCard: React.FC<IReviewProductCardProps> = ({
   //   () => getReviewDetail(Number(productId), Number(reviewId)),
   // )
 
-  const price = ticketDto[0]?.price
+  // const price = ticketDto[0]?.price
 
   const { firstDate, lastDate } = getDateArray(operationDays)
   const formatDate =
@@ -53,12 +55,13 @@ const ReviewProductCard: React.FC<IReviewProductCardProps> = ({
       <S.ContentWrapper>
         <S.Img src={images[0]?.url} alt="상품 이미지" />
         <S.DetailWrapper>
-          <S.ProductName>{name}</S.ProductName>
+          <S.ProductName>{productName}</S.ProductName>
           <S.PriceAndDateWrapper>
             <S.Price>
-              {!isReviewList
+              {/* {!isReviewList
                 ? `${price?.toLocaleString('ko-KR') || '가격 정보 없음'}원`
-                : `작성자: 익명`}
+                : `작성자: 익명`} */}
+              {`작성자 : ${reviewerName}`}
             </S.Price>
             <S.Bar>|</S.Bar>
             <S.Date>{!isReviewList ? `${formatDate}` : `작성일:`}</S.Date>
