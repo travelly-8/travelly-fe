@@ -2,6 +2,7 @@ export interface IBubbleInfo {
   title: string
   text: JSX.Element
   icon: string
+  bubbleIcon: string
   bubbleDirection: 'left' | 'right'
 }
 
