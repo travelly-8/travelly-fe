@@ -18,3 +18,8 @@ export const Title = styled.h1`
   font-size: 1.8rem;
   font-weight: 700;
 `
+
+export const CardWrapper = styled.div`
+  width: 100%;
+  padding: 0 2rem;
+`

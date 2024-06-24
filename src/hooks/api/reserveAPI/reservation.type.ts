@@ -57,4 +57,5 @@ export interface IReservationManageResponse {
   date: string
   reservationCount: number
   pendingReservationCount: number
+  productImages: IImage[]
 }
