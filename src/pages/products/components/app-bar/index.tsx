@@ -4,6 +4,8 @@ import * as S from './AppBar.style'
 
 import type { IAppBarProps } from './AppBar.type'
 
+import arrowIcon from '@/assets/products/down-arrow.svg'
+
 const AppBar = ({
   totalElements,
   onOrderClick,
@@ -16,7 +18,9 @@ const AppBar = ({
         <S.ProductCount>({totalElements}개)</S.ProductCount>
       </S.ProductInfo>
       <S.OrderFilterWrapper>
-        <S.Order onClick={onOrderClick}>정렬</S.Order>
+        <S.Order onClick={onOrderClick}>
+          정렬 <img src={arrowIcon} alt="정렬" />
+        </S.Order>
         {onFilterClick && (
           <S.Filter onClick={onFilterClick}>
             <img src={filter} alt="필터" />

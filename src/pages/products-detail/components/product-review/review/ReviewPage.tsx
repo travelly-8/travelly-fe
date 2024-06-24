@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { getMemberProfile } from '@/api/myAPI.ts'
 import defaultUser from '@/assets/common/default-user.svg'
+import kebab from '@/assets/common/kebab.svg'
 import comment from '@/assets/products-detail/comment.svg'
 import like from '@/assets/products-detail/like.svg'
 import Rating from '@/pages/review/components/rating'
@@ -50,7 +51,13 @@ const ReviewPage: React.FC<IReviewPageProps> = ({
         <S.ProfileNameWrapper>
           <S.ProfileHeaderWrapper>
             <S.BlackText>{reviewData.reviewUserNickname}</S.BlackText>
-            {isMyReview && <S.EditKebab onClick={kebabClick} />}
+            {isMyReview && (
+              <S.EditKebab
+                src={kebab}
+                alt="리뷰 수정/삭제"
+                onClick={kebabClick}
+              />
+            )}
           </S.ProfileHeaderWrapper>
           <S.RatingWrapper>
             <Rating readOnly score={reviewData.rating} />
