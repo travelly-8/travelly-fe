@@ -23,6 +23,7 @@ import ProductsDetail from './pages/products-detail'
 import Recovery from './pages/recovery'
 import ManageDetailPage from './pages/reservation/manage-detail'
 import ManageReservationPage from './pages/reservation/manage-list'
+import RejectionReason from './pages/reservation/rejection-reason'
 import ReservationPage from './pages/reservation/reserve'
 import ReservedListPage from './pages/reservation/reserved-list'
 import ReviewDetailPage from './pages/review/detail'
@@ -76,6 +77,10 @@ export default function AppRouter() {
         <Route
           path="/reservation-detail/:reservationId"
           element={<ReservedDetailPage />}
+        />
+        <Route
+          path="/rejection-reason/:reservationId"
+          element={<RejectionReason />}
         />
         <Route path="/reservation-list" element={<ReservedListPage />} />
         <Route

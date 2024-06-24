@@ -46,3 +46,18 @@ export const getMyReservationManageDetail = (productId: number) => {
     url: API_RESERVATION.RESERVATION_MANAGE_DETAIL(productId),
   })
 }
+
+export const acceptReservation = (reservationId: number) => {
+  return instance({
+    method: 'PATCH',
+    url: API_RESERVATION.RESERVATION_ACCEPT(reservationId),
+  })
+}
+
+export const rejectReservation = (reservationId: number, reason: string) => {
+  return instance({
+    method: 'PATCH',
+    url: API_RESERVATION.RESERVATION_REJECT(reservationId),
+    data: { reason },
+  })
+}

@@ -23,7 +23,13 @@ export const CardWrapper = styled.div`
   width: 100%;
   padding: 0 2rem;
 `
-export const TicektWrapper = styled.div`
+export const TicketWrapper = styled.div`
   width: 100%;
   background-color: var(--color-gray-bright);
+`
+
+export const ReservationCardContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `
