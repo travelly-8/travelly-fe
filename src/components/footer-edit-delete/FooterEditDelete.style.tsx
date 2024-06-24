@@ -2,9 +2,15 @@ import BookmarkButton from '@components/bookmark-button'
 import styled from 'styled-components'
 
 export const FooterContainer = styled.footer`
-  position: sticky;
+  position: fixed;
   z-index: 100;
   bottom: 0;
+  @media (max-width: 767px) {
+    width: 100%;
+  }
+  @media (min-width: 768px) {
+    width: 360px;
+  }
 `
 
 export const Wrapper = styled.div`

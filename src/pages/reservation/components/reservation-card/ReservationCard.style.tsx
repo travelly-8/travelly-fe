@@ -8,6 +8,7 @@ export const Wrapper = styled.div`
   width: 100%;
   padding: 1.6rem 0;
   border-bottom: 0.1rem solid var(--color-gray-light);
+  cursor: pointer;
 
   img {
     width: 6.1rem;
