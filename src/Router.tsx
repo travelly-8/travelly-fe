@@ -23,6 +23,7 @@ import Recovery from './pages/recovery'
 import ReservationPage from './pages/reservation/reserve'
 import ReservedListPage from './pages/reservation/reserved-list'
 import ReviewDetailPage from './pages/review/detail'
+import ReviewEditPage from './pages/review/edit'
 import ReviewList from './pages/review/list'
 import ReviewWritePage from './pages/review/write'
 import SignupStartPage from './pages/signup'
@@ -67,6 +68,10 @@ export default function AppRouter() {
           element={<ReviewDetailPage />}
         />
         <Route path="/review/list" element={<ReviewList />} />
+        <Route
+          path="/review/edit/:productId/:reviewId"
+          element={<ReviewEditPage />}
+        />
         {/* 예약 */}
         <Route path="/reservation/:productId" element={<ReservationPage />} />
         <Route

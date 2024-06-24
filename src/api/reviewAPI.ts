@@ -46,3 +46,11 @@ export const deleteReview = (reviewId: number) => {
     url: API_REVIEW.DELETE_REVIEW(reviewId),
   })
 }
+
+export const updateReview = (reviewId: number, data: FormData) => {
+  return instance({
+    method: 'PUT',
+    url: API_REVIEW.UPDATE_REVIEW(reviewId),
+    data,
+  })
+}

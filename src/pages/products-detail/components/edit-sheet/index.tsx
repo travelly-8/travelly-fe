@@ -4,7 +4,7 @@ import { deleteReview } from '@/api/reviewAPI'
 import { sheet } from '@/store/sheet-slice/sheet-slice'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useDispatch } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import * as S from './EditSheet.styles'
 
 const ACTION = ['수정', '삭제'] as const
@@ -16,6 +16,7 @@ export type IEditSheet = {
 function EditSheet({ editId }: IEditSheet) {
   const { productId } = useParams<{ productId: string }>()
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const mutation = useMutation({
     mutationFn: (reviewId: number) => deleteReview(reviewId),
@@ -25,6 +26,7 @@ function EditSheet({ editId }: IEditSheet) {
 
   const handleActionClick = (action: string) => {
     if (action === '수정') {
+      navigate(`/review/edit/${productId}/${editId}`)
     }
     if (action === '삭제') {
       mutation.mutate(+editId, {
@@ -40,6 +42,7 @@ function EditSheet({ editId }: IEditSheet) {
         },
       })
     }
+    dispatch(sheet({ name: 'edit-sheet', status: false }))
   }
 
   return (
