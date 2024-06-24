@@ -52,7 +52,10 @@ export default function MyPageEditPage() {
       id: 2,
       icon: logoutSvg,
       text: '로그아웃',
-      onClick: () => logout(),
+      onClick: () => {
+        logout()
+        navigate('/')
+      },
     },
   ]
 
@@ -145,7 +148,7 @@ export default function MyPageEditPage() {
           }
         }).map((menu) => {
           return (
-            <S.Menu key={menu.id} idx={menu.id}>
+            <S.Menu key={menu.id} $idx={menu.id}>
               <HorizontalMenu
                 icon={menu.icon}
                 text={menu.text}

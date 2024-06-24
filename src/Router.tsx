@@ -16,10 +16,13 @@ import MyPageEditPage from './pages/mypage/edit'
 import ExitPage from './pages/mypage/exit'
 import GoodbyePage from './pages/mypage/good-bye'
 import MyProductListPage from './pages/mypage/my-product-list'
+import NotiPage from './pages/noti'
 import ProductsPage from './pages/products'
 import ProductCreatePage from './pages/products-create'
 import ProductsDetail from './pages/products-detail'
 import Recovery from './pages/recovery'
+import ManageDetailPage from './pages/reservation/manage-detail'
+import ManageReservationPage from './pages/reservation/manage-list'
 import ReservationPage from './pages/reservation/reserve'
 import ReservedListPage from './pages/reservation/reserved-list'
 import ReviewDetailPage from './pages/review/detail'
@@ -60,6 +63,7 @@ export default function AppRouter() {
         <Route path="/mypage/my-product-list" element={<MyProductListPage />} />
         <Route path="/exit" element={<ExitPage />} />
         <Route path="/goodbye" element={<GoodbyePage />} />
+        <Route path="/notification" element={<NotiPage />} />
         {/* 리뷰 */}
         <Route path="/review/write" element={<ReviewWritePage />} />
         <Route
@@ -74,6 +78,14 @@ export default function AppRouter() {
           element={<ReservedDetailPage />}
         />
         <Route path="/reservation-list" element={<ReservedListPage />} />
+        <Route
+          path="/manage-reservations"
+          element={<ManageReservationPage />}
+        />
+        <Route
+          path="/manage-reservations/:productId"
+          element={<ManageDetailPage />}
+        />
         {/* 에러 */}
         <Route path="*" element={<Error404Page />} />
         <Route path="/server-error" element={<Error500Page />} />

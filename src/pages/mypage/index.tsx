@@ -8,6 +8,7 @@ import FooterNavigation from '@components/footer-navigation'
 import PageHeader from '@components/page-header'
 import { IProductCardData } from '@components/product-card/ProductCard.type'
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 import Dashboard from './components/dashboard'
 import MyProduct from './components/my-product'
@@ -15,7 +16,7 @@ import ProfileTab from './components/profile-tab'
 import RecentViewList from './components/recent-view-list'
 import * as S from './Mypage.style'
 
-function formatRecentProdcuts(data: IProductCardData[]) {
+function formatRecentProducts(data: IProductCardData[]) {
   return data.map((elem) => {
     return {
       productId: elem.id,
@@ -24,11 +25,12 @@ function formatRecentProdcuts(data: IProductCardData[]) {
 }
 
 export default function MyPage() {
+  const navigate = useNavigate()
   const authState = useSelector((state: RootState) => state.auth)
   const { role } = authState
   const recentProducts = localStorage.getItem('recentProducts')
   const formattedRecentProducts = recentProducts
-    ? formatRecentProdcuts(JSON.parse(recentProducts))
+    ? formatRecentProducts(JSON.parse(recentProducts))
     : []
   const { data, isLoading } = useGetProfileByRole(
     role === 'travelly' ? API_MEMBER.MY_TRAVELLY : API_MEMBER.MY_TRAVELLY,
@@ -47,7 +49,11 @@ export default function MyPage() {
       <PageHeader border={false}>
         <S.Content>
           <S.Title>마이페이지</S.Title>
-          <S.Bell src={bellIcon} alt="알림" />
+          <S.Bell
+            src={bellIcon}
+            alt="알림"
+            onClick={() => navigate('/notification')}
+          />
         </S.Content>
       </PageHeader>
       {/* TODO: 로딩 스켈레톤 처리 */}

@@ -7,6 +7,7 @@ export const PageContainer = styled.main<{
   background-color: var(--color-white);
   display: ${({ $isSearchSheet, $isPhotoReviewsSheet }) =>
     $isSearchSheet || $isPhotoReviewsSheet ? 'none' : 'block'};
+  padding-bottom: 6rem;
 
   overflow-y: scroll;
   scrollbar-width: none;
@@ -21,7 +22,7 @@ export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 2.4rem 2rem 5.4rem;
+  padding: 1.2rem 2rem 5.4rem;
 `
 
 export const LoadMoreButton = styled.div`

@@ -32,7 +32,7 @@ const Review: React.FC<IReviewProps> = ({
   const navigate = useNavigate()
 
   const handleHeaderClick = () => {
-    navigate('/review/list'), { state: { productDetail } }
+    navigate('/review/list')
   }
 
   const handleIconClick = (event: React.MouseEvent) => {
@@ -46,7 +46,7 @@ const Review: React.FC<IReviewProps> = ({
     reviewId: number,
   ) => {
     event.stopPropagation()
-    navigate(`/review/${productId}/${reviewId}`)
+    navigate(`/review/${productId}/${reviewId}`, { state: { productDetail } })
   }
 
   return (

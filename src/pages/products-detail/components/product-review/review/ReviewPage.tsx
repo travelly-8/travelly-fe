@@ -85,5 +85,4 @@ const ReviewPage: React.FC<IReviewPageProps> = ({
     </S.ReviewContent>
   )
 }
-
 export default ReviewPage

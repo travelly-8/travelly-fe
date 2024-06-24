@@ -15,6 +15,7 @@ const buttonText = {
 } as const
 
 const FooterReservation = ({
+  productDetail,
   isBookmarked: initialBookmarked,
   isReservationProduct,
   price,
@@ -34,7 +35,7 @@ const FooterReservation = ({
 
   const handleButtonClick = () => {
     if (buttontype === 'reservation' && accessToken) {
-      navigate(`/reservation/${productId}`)
+      navigate(`/reservation/${productId}`, { state: { productDetail } })
     } else if (buttontype === 'reservation' && !accessToken) {
       navigate('/signup/start')
     } else if (
@@ -54,7 +55,6 @@ const FooterReservation = ({
     accessToken &&
     cancelPolicyChecked &&
     personnelInfoChecked &&
-    reasonableDate &&
     calendarChecked
 
   return (

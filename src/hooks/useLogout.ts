@@ -5,11 +5,9 @@ import { clearUser } from '@/store/auth-slice/auth-slice'
 import { deleteTokens } from '@/utils/tokenStorage'
 
 import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
 
 const useLogout = () => {
   const dispatch = useDispatch()
-  const navigate = useNavigate()
 
   const logout = useCallback(async () => {
     try {
@@ -18,11 +16,10 @@ const useLogout = () => {
       dispatch(clearUser())
       sessionStorage.removeItem('relogin')
       localStorage.clear()
-      navigate('/')
     } catch (err) {
       console.error(err)
     }
-  }, [dispatch, navigate])
+  }, [dispatch])
 
   return logout
 }

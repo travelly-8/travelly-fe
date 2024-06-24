@@ -44,3 +44,18 @@ type ReservationStatusType =
   | 'ACCEPTED'
   | 'CANCELED'
   | 'EXPIRED'
+
+// (판매자) 예약 관리
+export interface IReservationManageData {
+  data: IReservationManageResponse[]
+}
+
+export interface IReservationManageResponse {
+  productId: number
+  productName: string
+  price: number
+  date: string
+  reservationCount: number
+  pendingReservationCount: number
+  productImages: IImage[]
+}

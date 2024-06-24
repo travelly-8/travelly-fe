@@ -17,6 +17,7 @@ export const API_MEMBER = Object.freeze({
   MY_PROFILE_IMG_RESET: '/my/profile/image/default',
   MY_PASSWORD: '/my/profile/password',
   MY_TRAVELLY_REVIEW: '/my/travelly/review',
+  MY_TRAVELLER_REVIEW: '/my/travelly/review',
 })
 
 export const API_AUTH = Object.freeze({
@@ -47,4 +48,5 @@ export const API_RESERVATION = Object.freeze({
     `/reservation/${reservationId}`,
   RESERVATION_CANCEL: (reservationId: number) =>
     `/reservation/${reservationId}/cancel`,
+  RESERVATION_MANAGE: '/reservation/my/products',
 })

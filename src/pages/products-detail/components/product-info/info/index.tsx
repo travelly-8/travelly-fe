@@ -23,7 +23,7 @@ const Info: React.FC<IInfoProps> = ({
   const { firstDate, lastDate } = getDateArray(sellingDate)
   const formatDate =
     firstDate && lastDate
-      ? `${format(firstDate, 'yyyy.MM.dd')}~${format(lastDate, 'yyyy.MM.dd')}`
+      ? `${format(lastDate, 'yyyy.MM.dd')}~${format(firstDate, 'yyyy.MM.dd')}`
       : 'N/A'
   const add = address.split(' ')
 

@@ -17,6 +17,7 @@ export interface IProductDetail {
   phoneNumber: string
   ticketDto: { price: number }[]
   reviews: IReviewDetailData
+  productId?: number
 }
 
 export interface IProductInfoProps extends IProductBasicInfoProps {

@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 
 import { getMemberProfile } from '@/api/myAPI'
-import { getProductDetail } from '@/api/productsAPI'
 import useGetMemberProfile from '@/hooks/api/memberAPI/useGetMemberProfile'
 import SheetRenderer from '@/pages/products-detail/components/sheet-renderer'
 import { ISheetComponents } from '@/pages/products-detail/ProductsDetail.type'
@@ -13,17 +12,15 @@ import TicketCountSection from '@/pages/reservation/components/ticket-count-sect
 import { IPersonnelSliceState } from '@/store/personnel-slice/personnel-slice.type'
 import { reservation } from '@/store/reservation-slice/reservation-slice'
 import { sheet } from '@/store/sheet-slice/sheet-slice'
-import dateValueBetween from '@/utils/dateValueBetween'
 
 import CheckBox from '@components/check-box'
 import FooterReservation from '@components/footer-reservation'
 import PageHeader from '@components/page-header'
 import ReviewProductCard from '@components/review-product-card'
-import { useQuery } from '@tanstack/react-query'
 import { format } from 'date-fns'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 
 import * as S from './ReservationPage.style'
 
@@ -55,6 +52,7 @@ function ReservationPage() {
     watch,
     control,
     reset,
+    setValue,
   } = useForm<IReservationInputState>()
 
   const onSubmit = () => {
@@ -125,14 +123,12 @@ function ReservationPage() {
     setPromotionCode(e.target.value)
   }
 
+  const location = useLocation()
+  const { productDetail } = location.state || {}
+
   const { productId } = useParams()
 
-  const { data: productDetail } = useQuery({
-    queryKey: ['products-detail', productId],
-    queryFn: ({ queryKey }) => getProductDetail(Number(queryKey[1])),
-  })
-
-  const { name, images, ticketDto, operationDays } = productDetail?.data || {} // merge되면 변경
+  const { ticketDto, operationDays } = productDetail || {} // merge되면 변경
 
   const isError = isNameValid || isPhoneValid || isEmailValid
 
@@ -177,29 +173,10 @@ function ReservationPage() {
 
   const len = operationDays ? operationDays.length : 1
 
-  const reviewProductCardProps = {
-    id: productId,
-    name: name,
-    images: images,
-    createdDate: operationDays
-      ? `${format(operationDays[len - 1]?.date, 'yyyy.MM.dd')} - ${format(operationDays[0]?.date, 'yyyy.MM.dd')}`
-      : '일정 정보 없음',
-    ticketDto: ticketDto,
-  }
   const currentTime = new Date()
   const currentYear = currentTime.getFullYear()
   const currentDay = currentTime.getDate()
   const currentMonth = currentTime.getMonth() + 1
-
-  const reasonableDate = dateValueBetween(
-    dateValue,
-    operationDays
-      ? operationDays[len - 1]?.date
-      : `${currentYear}.${currentMonth}.${currentDay}`,
-    operationDays
-      ? operationDays[0]?.date
-      : `${currentYear}.${currentMonth}.${currentDay}`,
-  )
 
   useEffect(() => {
     const ticketDtos = Object.keys(personnel).map((key) => {
@@ -240,7 +217,7 @@ function ReservationPage() {
       <S.PageContainer>
         <S.CardWrapper>
           <ReviewProductCard
-            productDetail={reviewProductCardProps}
+            productDetail={productDetail}
             isCommentMode={false}
           />
         </S.CardWrapper>
@@ -258,6 +235,7 @@ function ReservationPage() {
           handleSubmit={handleSubmit}
           onSubmit={onSubmit}
           defaultValues={isGetAccountChecked ? userInfo : undefined}
+          setValue={setValue}
         />
         <S.TicketInfo>
           <TicketCountSection ticketDto={ticketDto} isInput />
@@ -306,7 +284,6 @@ function ReservationPage() {
         buttontype="payment"
         cancelPolicyChecked={isCancelPolicyChecked}
         personnelInfoChecked={ticketPrice !== 0}
-        reasonableDate={reasonableDate}
         calendarChecked={calendarCnt !== 0}
         onPayConfirmClick={handlePayConfirmClick}
         onSubmit={handleSubmit(onSubmit)}

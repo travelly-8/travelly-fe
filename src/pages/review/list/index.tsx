@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { getTravellyReview } from '@/api/myAPI'
 import { API_MEMBER } from '@/constants/API'
 import { TABS } from '@/constants/REVIEW'
-import useGetTravellyReview from '@/hooks/api/memberAPI/useGetTravellyReview'
+import useGetReview from '@/hooks/api/memberAPI/useGetReview'
 import { RootState } from '@/store/store'
 
 import PageHeader from '@components/page-header'
@@ -19,10 +19,15 @@ const ReviewList: React.FC = () => {
   const location = useLocation()
   const { productDetail } = location.state || {}
   const defaultTab = role === 'travelly' ? '받은 후기' : '후기'
-  const { data, isLoading, status } = useGetTravellyReview(
-    API_MEMBER.MY_TRAVELLY_REVIEW,
-    () => getTravellyReview(),
+  const reviewEndpoint =
+    role === 'travelly'
+      ? API_MEMBER.MY_TRAVELLY_REVIEW
+      : API_MEMBER.MY_TRAVELLER_REVIEW
+  const { data, isLoading, status } = useGetReview(
+    reviewEndpoint,
+    getTravellyReview,
   )
+
   const [activeTab, setActiveTab] = useState(defaultTab)
   const [displayData, setDisplayData] = useState<any>(null)
 
@@ -52,10 +57,12 @@ const ReviewList: React.FC = () => {
     ))
   }
 
+  console.log(displayData)
+
   const renderCards = () => {
     // TODO: 작성한 댓글 데이터 있을 때 정상적으로 잘 나타나는지 확인 필요
-    const COMMET_LIST = ['댓글', '작성한 댓글']
-    const isCommentMode = COMMET_LIST.includes(activeTab)
+    const COMMENT_LIST = ['댓글', '작성한 댓글']
+    const isCommentMode = COMMENT_LIST.includes(activeTab)
 
     return displayData?.map((product: any) => {
       return (

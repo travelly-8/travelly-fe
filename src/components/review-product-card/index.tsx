@@ -1,72 +1,70 @@
-import { getReviewDetail } from '@/api/reviewAPI'
-import ArrowRight from '@/assets/common/arrow-right.svg'
-import defaultImage from '@/assets/login/airplane.png'
-import { API_REVIEW } from '@/constants/API'
-import useGetReviewDetail from '@/hooks/api/reviewAPI/useGetReviewDetail'
+import ArrowRight from '@/assets/common/arrow-right-lightgray.svg'
+import { getDateArray } from '@/utils/formatDate'
 
-import {
-  matchPath,
-  useLocation,
-  useNavigate,
-  useParams,
-} from 'react-router-dom'
+import { format } from 'date-fns'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import * as S from './ReviewProductCard.style'
 import { IReviewProductCardProps } from './ReviewProductCard.type'
 
 const ReviewProductCard: React.FC<IReviewProductCardProps> = ({
+  reviewId,
   productDetail,
   isCommentMode,
+  isReviewList,
 }) => {
-  const { productId, reviewId } = useParams()
   const navigate = useNavigate()
   const location = useLocation()
-  const { data } = useGetReviewDetail(
-    productId && reviewId
-      ? API_REVIEW.REVIEW_DETAIL(+productId, +reviewId)
-      : '',
-    () =>
-      productId && reviewId
-        ? getReviewDetail(Number(productId), Number(reviewId))
-        : Promise.reject('Invalid IDs'),
-  )
 
+  console.log(productDetail)
   const {
-    id,
+    productId,
     productName,
-    name,
-    createdDate,
-    images = defaultImage,
-    reviewerName,
-    totalPrice,
+    images,
+    operationDays,
     ticketDto,
-  } = productDetail
-  const price =
-    ticketDto?.[0]?.price || totalPrice
-      ? ticketDto?.[0]?.price || totalPrice
-      : '가격 정보 없음'
+    reviewerName,
+  } = productDetail || {}
+
+  // const { data } = useGetReviewDetail(
+  //   API_REVIEW.REVIEW_DETAIL(+productId, +reviewId),
+  //   () => getReviewDetail(Number(productId), Number(reviewId)),
+  // )
+
+  // const price = ticketDto[0]?.price
+
+  const { firstDate, lastDate } = getDateArray(operationDays)
+  const formatDate =
+    firstDate && lastDate
+      ? `${format(lastDate, 'yyyy.MM.dd')}~${format(firstDate, 'yyyy.MM.dd')}`
+      : 'N/A'
 
   const handleArrowClick = () => {
-    navigate(`/products/${data?.productId || id}`)
+    navigate(`/products/${productId}`)
   }
-  const isReservation =
-    matchPath('/reservation/:productId', location.pathname) !== null
-  const reviewDate = isReservation
-    ? createdDate
-    : new Date(createdDate).toLocaleDateString()
+
+  // const isReservation =
+  //   matchPath('/reservation/:productId', location.pathname) !== null
+
+  // const reviewDate = isReservation
+  //   ? createdDate
+  //   : new Date(createdDate).toLocaleDateString()
 
   return (
     <S.Wrapper>
       <S.ContentWrapper>
         <S.Img src={images[0]?.url} alt="상품 이미지" />
         <S.DetailWrapper>
-          <S.ProductName>{name}</S.ProductName>
+          <S.ProductName>{productName}</S.ProductName>
           <S.PriceAndDateWrapper>
             <S.Price>
-              작성자 : {data?.reviewUserNickname || reviewerName}
+              {/* {!isReviewList
+                ? `${price?.toLocaleString('ko-KR') || '가격 정보 없음'}원`
+                : `작성자: 익명`} */}
+              {`작성자 : ${reviewerName}`}
             </S.Price>
             <S.Bar>|</S.Bar>
-            <S.Date>작성일 : {reviewDate || createdDate}</S.Date>
+            <S.Date>{!isReviewList ? `${formatDate}` : `작성일:`}</S.Date>
           </S.PriceAndDateWrapper>
         </S.DetailWrapper>
       </S.ContentWrapper>

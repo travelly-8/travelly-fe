@@ -33,7 +33,7 @@ export const AllProductsSection = styled.section`
   flex-direction: column;
   gap: 1rem;
   margin-top: 4rem;
-  padding: 0 2rem 2rem 2rem;
+  padding: 0 2rem 8rem 2rem;
 `
 
 export const SectionTitleWrapper = styled.div`
@@ -100,4 +100,13 @@ export const AllCardWrapper = styled.div`
   row-gap: 2.4rem;
   column-gap: 1.6rem;
   width: 100%;
+`
+
+export const BannerWrapper = styled.header`
+  width: 100%;
+`
+
+export const BannerImage = styled.img`
+  width: 100%;
+  height: 15.4rem;
 `
