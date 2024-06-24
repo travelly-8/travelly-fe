@@ -33,7 +33,7 @@ export const AllProductsSection = styled.section`
   flex-direction: column;
   gap: 1rem;
   margin-top: 4rem;
-  padding: 0 2rem 2rem 2rem;
+  padding: 0 2rem 8rem 2rem;
 `
 
 export const SectionTitleWrapper = styled.div`

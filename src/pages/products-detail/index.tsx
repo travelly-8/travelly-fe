@@ -147,10 +147,7 @@ function ProductsDetail() {
           handlePhotoReviewsClick={handlePhotoReviewsClick}
         />
         {remainingReviews !== 0 && (
-          <LoadMoreButton
-            onClick={handleLoadMoreReviews}
-            remainingReviews={remainingReviews}
-          />
+          <LoadMoreButton onClick={handleLoadMoreReviews} />
         )}
         {isOwner ? (
           <FooterEditDelete price={price} productId={+productId} />
@@ -161,6 +158,7 @@ function ProductsDetail() {
             price={price}
             buttontype="reservation"
             productId={productId}
+            productDetail={productDetail}
           />
         )}
 

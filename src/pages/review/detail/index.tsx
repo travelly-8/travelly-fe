@@ -1,7 +1,6 @@
 import { useState } from 'react'
 
 import { getReviewDetail, postComment } from '@/api/reviewAPI'
-import useProductDetail from '@/hooks/api/productsAPI/useProductDetail'
 import ReviewPage from '@/pages/products-detail/components/product-review/review/ReviewPage.tsx'
 import CommentCard from '@/pages/review/components/comment-card'
 import { comment } from '@/store/comment-slice/comment-slice'
@@ -15,12 +14,14 @@ import PageHeader from '@components/page-header'
 import ReviewProductCard from '@components/review-product-card'
 import { useQuery } from '@tanstack/react-query'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 
 import * as S from './ReviewDetailPage.style'
 
 export default function ReviewDetailPage() {
   const { productId, reviewId } = useParams()
+  const location = useLocation()
+  const { productDetail } = location.state || {}
   const parsedProductId = productId ? Number(productId) : 0
   const parsedReviewId = reviewId ? Number(reviewId) : 0
 
@@ -32,9 +33,6 @@ export default function ReviewDetailPage() {
   const sheetReducer = useSelector(
     (state: ISheetSliceState) => state.sheet.value,
   )
-  // const productDetail = useSelector((state: RootState) => state.product.detail)
-  const { productDetail, isProductDetailSuccess, isPending } =
-    useProductDetail(productId)
 
   const commentReducer = useSelector(
     (state: ICommentSliceState) => state.comment.value,

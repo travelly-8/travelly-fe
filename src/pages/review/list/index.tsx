@@ -23,6 +23,7 @@ const ReviewList: React.FC = () => {
     API_MEMBER.MY_TRAVELLY_REVIEW,
     () => getTravellyReview(),
   )
+
   const [activeTab, setActiveTab] = useState(defaultTab)
   const [displayData, setDisplayData] = useState<any>(null)
 
@@ -54,14 +55,14 @@ const ReviewList: React.FC = () => {
 
   const renderCards = () => {
     // TODO: 작성한 댓글 데이터 있을 때 정상적으로 잘 나타나는지 확인 필요
-    const COMMET_LIST = ['댓글', '작성한 댓글']
-    const isCommentMode = COMMET_LIST.includes(activeTab)
+    const COMMENT_LIST = ['댓글', '작성한 댓글']
+    const isCommentMode = COMMENT_LIST.includes(activeTab)
 
     return displayData?.map((product: any) => {
       return (
         <ReviewProductCard
           key={product.productId}
-          productDetail={product}
+          productDetail={productDetail}
           isCommentMode={isCommentMode}
         />
       )
