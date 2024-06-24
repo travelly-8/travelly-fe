@@ -1,3 +1,6 @@
+import minus from '@/assets/reservation/minus.svg'
+import plus from '@/assets/reservation/plus.svg'
+
 import * as S from './TicketCountSection.style'
 import { IReserveTicketProps } from './TicketCountSection.type'
 
@@ -11,9 +14,15 @@ const ReserveTicket = ({
     <S.Ticket key={ticketType.id}>
       <S.TicketType>{ticketType.name}</S.TicketType>
       <S.TicketCount>
-        <S.MinusButton onClick={() => handleDecrease(ticketType.name)} />
+        <S.MinusButton
+          src={minus}
+          onClick={() => handleDecrease(ticketType.name)}
+        />
         <S.Count>{ticketCounts[ticketType.name] ?? 0}개</S.Count>
-        <S.PlusButton onClick={() => handleIncrease(ticketType.name)} />
+        <S.PlusButton
+          src={plus}
+          onClick={() => handleIncrease(ticketType.name)}
+        />
       </S.TicketCount>
     </S.Ticket>
   ))
