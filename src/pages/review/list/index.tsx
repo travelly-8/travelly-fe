@@ -12,7 +12,6 @@ import { useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 
 import * as S from './ReviewList.style'
-import { SkeletonCircle, SkeletonText } from './Skeleton.style'
 
 const ReviewList: React.FC = () => {
   const role = useSelector((state: RootState) => state.auth.role)
@@ -80,7 +79,8 @@ const ReviewList: React.FC = () => {
       <PageHeader>
         <S.HeaderTitle>후기</S.HeaderTitle>
       </PageHeader>
-      <S.ProfileSection>
+      준비 중
+      {/* <S.ProfileSection>
         {status === 'pending' ? (
           <>
             <SkeletonCircle />
@@ -102,7 +102,7 @@ const ReviewList: React.FC = () => {
       <S.BodyContainer>
         <S.Tabs>{renderTabs()}</S.Tabs>
         <S.CardContainer>{displayData && renderCards()}</S.CardContainer>
-      </S.BodyContainer>
+      </S.BodyContainer> */}
     </S.Container>
   )
 }
