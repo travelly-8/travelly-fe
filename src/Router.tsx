@@ -21,6 +21,8 @@ import ProductsPage from './pages/products'
 import ProductCreatePage from './pages/products-create'
 import ProductsDetail from './pages/products-detail'
 import Recovery from './pages/recovery'
+import ManageDetailPage from './pages/reservation/manage-detail'
+import ManageReservationPage from './pages/reservation/manage-list'
 import ReservationPage from './pages/reservation/reserve'
 import ReservedListPage from './pages/reservation/reserved-list'
 import ReviewDetailPage from './pages/review/detail'
@@ -76,6 +78,14 @@ export default function AppRouter() {
           element={<ReservedDetailPage />}
         />
         <Route path="/reservation-list" element={<ReservedListPage />} />
+        <Route
+          path="/manage-reservations"
+          element={<ManageReservationPage />}
+        />
+        <Route
+          path="/manage-reservations/:productId"
+          element={<ManageDetailPage />}
+        />
         {/* 에러 */}
         <Route path="*" element={<Error404Page />} />
         <Route path="/server-error" element={<Error500Page />} />

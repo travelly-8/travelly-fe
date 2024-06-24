@@ -31,3 +31,11 @@ export const cancelReservation = (reservationId: number) => {
     url: API_RESERVATION.RESERVATION_CANCEL(reservationId),
   })
 }
+
+// 판매자
+export const getMyReservationManage = () => {
+  return instance({
+    method: 'GET',
+    url: API_RESERVATION.RESERVATION_MANAGE,
+  })
+}

@@ -101,3 +101,12 @@ export const AllCardWrapper = styled.div`
   column-gap: 1.6rem;
   width: 100%;
 `
+
+export const BannerWrapper = styled.header`
+  width: 100%;
+`
+
+export const BannerImage = styled.img`
+  width: 100%;
+  height: 15.4rem;
+`

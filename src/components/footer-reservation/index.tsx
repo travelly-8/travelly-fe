@@ -55,7 +55,6 @@ const FooterReservation = ({
     accessToken &&
     cancelPolicyChecked &&
     personnelInfoChecked &&
-    reasonableDate &&
     calendarChecked
 
   return (
