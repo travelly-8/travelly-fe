@@ -1,3 +1,5 @@
+import { IOperationDays } from '@components/calendar-input/CalendarInput.type'
+
 export interface IReservationData {
   data: IReservationResponse[]
 }
@@ -58,4 +60,33 @@ export interface IReservationManageResponse {
   reservationCount: number
   pendingReservationCount: number
   productImages: IImage[]
+}
+
+// (판매자) 예약 관리 상세
+export interface IManageDetailData {
+  data: IManageDetailResponse
+}
+
+export interface IManageDetailResponse {
+  productId: number
+  productName: string
+  productImages: IImage[]
+  productPrice: number
+  operationDays: IOperationDays[]
+  reservations: IReservation[]
+}
+
+export interface IReservation {
+  id: number
+  productId: number
+  productName: string
+  productImages: IImage[]
+  buyerName: string
+  phone: string
+  email: string
+  date: string
+  tickets: ITicket[]
+  totalPrice: number
+  status: ReservationStatusType
+  rejectReason: string
 }
