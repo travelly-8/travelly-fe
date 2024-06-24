@@ -6,6 +6,7 @@ import hamburgerIcon from '@/assets/common/hamburger.svg'
 import searchIcon from '@/assets/common/search.svg'
 import { sheet } from '@/store/sheet-slice/sheet-slice.ts'
 import type { ISheetSliceState } from '@/store/sheet-slice/sheet-slice.type'
+import { RootState } from '@/store/store'
 
 import CategorySection from '@components/category-section'
 import SearchSheet from '@components/search-sheet'
@@ -23,6 +24,8 @@ const Header: React.FC<IHeaderProps> = ({ hamburgerClick }) => {
   const sheetReducer = useSelector(
     (state: ISheetSliceState) => state.sheet.value,
   )
+  const authState = useSelector((state: RootState) => state.auth)
+  const { role } = authState
 
   useEffect(() => {
     dispatch(sheet({ name: 'home-sheet', status: false, text: '' }))
@@ -61,7 +64,13 @@ const Header: React.FC<IHeaderProps> = ({ hamburgerClick }) => {
             alt="search"
             onClick={() => handleSearchClick()}
           />
-          <S.Icon src={alarmIcon} alt="alarm" />
+          {role && (
+            <S.Icon
+              src={alarmIcon}
+              alt="alarm"
+              onClick={() => navigate('/notification')}
+            />
+          )}
           <S.Icon
             src={hamburgerImg}
             alt="hamburger"
