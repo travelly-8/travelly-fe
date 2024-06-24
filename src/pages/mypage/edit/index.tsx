@@ -52,7 +52,10 @@ export default function MyPageEditPage() {
       id: 2,
       icon: logoutSvg,
       text: '로그아웃',
-      onClick: () => logout(),
+      onClick: () => {
+        logout()
+        navigate('/')
+      },
     },
   ]
 
