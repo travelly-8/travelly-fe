@@ -104,7 +104,9 @@ export const AllCardWrapper = styled.div`
 
 export const BannerWrapper = styled.header`
   width: 100%;
-  height: 26.5rem;
 `
 
-export const BannerImage = styled.img``
+export const BannerImage = styled.img`
+  width: 100%;
+  height: 15.4rem;
+`
