@@ -61,7 +61,7 @@ const ReviewList: React.FC = () => {
       return (
         <ReviewProductCard
           key={product.productId}
-          productDetail={product}
+          productDetail={productDetail}
           isCommentMode={isCommentMode}
         />
       )

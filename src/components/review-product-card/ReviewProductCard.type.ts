@@ -1,4 +1,9 @@
+import { IProductDetail } from '@/store/product-slice/product-slice.type'
+
 export interface IReviewProductCardProps {
-  productDetail: any
+  productId?: string | undefined
+  reviewId?: string | undefined
+  productDetail: IProductDetail
   isCommentMode?: boolean
+  isReviewList?: boolean
 }
