@@ -41,7 +41,6 @@ const ReservationInput: React.FC<IReservationInputProps> = ({
             type="text"
             placeholder="예약자명"
             defaultValue={defaultValues ? defaultValues?.name : ''}
-            value={defaultValues ? defaultValues?.name : ''}
             disabled={isDisabled}
           />
           {errors?.name && <S.Error>{errors.name.message as string}</S.Error>}
@@ -53,7 +52,6 @@ const ReservationInput: React.FC<IReservationInputProps> = ({
             type="tel"
             placeholder="연락처"
             defaultValue={defaultValues ? defaultValues?.phone : ''}
-            value={defaultValues ? defaultValues?.phone : ''}
             disabled={disabled}
           />
           {errors?.phone && <S.Error>{errors.phone.message as string}</S.Error>}
@@ -65,7 +63,6 @@ const ReservationInput: React.FC<IReservationInputProps> = ({
             type="text"
             placeholder="이메일"
             defaultValue={defaultValues ? defaultValues?.email : ''}
-            value={defaultValues ? defaultValues?.email : ''}
             disabled={isDisabled}
           />
           {errors?.email && <S.Error>{errors.email.message as string}</S.Error>}
