@@ -51,6 +51,9 @@ const Dashboard = ({ data, role }: IDashboardProps) => {
       case 'booking':
         navigate('/reservation-list')
         break
+      case 'getReservation':
+        navigate('/manage-reservations')
+        break
     }
   }
 

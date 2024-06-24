@@ -21,6 +21,7 @@ import ProductsPage from './pages/products'
 import ProductCreatePage from './pages/products-create'
 import ProductsDetail from './pages/products-detail'
 import Recovery from './pages/recovery'
+import ManageReservationPage from './pages/reservation/manage'
 import ReservationPage from './pages/reservation/reserve'
 import ReservedListPage from './pages/reservation/reserved-list'
 import ReviewDetailPage from './pages/review/detail'
@@ -62,6 +63,10 @@ export default function AppRouter() {
         <Route path="/exit" element={<ExitPage />} />
         <Route path="/goodbye" element={<GoodbyePage />} />
         <Route path="/notification" element={<NotiPage />} />
+        <Route
+          path="/manage-reservations"
+          element={<ManageReservationPage />}
+        />
         {/* 리뷰 */}
         <Route path="/review/write" element={<ReviewWritePage />} />
         <Route
