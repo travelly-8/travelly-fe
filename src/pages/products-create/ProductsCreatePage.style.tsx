@@ -23,7 +23,7 @@ export const Title = styled.h1`
 `
 export const FooterWrapper = styled.div`
   position: fixed;
-  bottom: 0;
+  bottom: 6rem;
 
   @media screen and (max-width: 767px) {
     width: 100%;
