@@ -34,7 +34,7 @@ const ReviewProductCard: React.FC<IReviewProductCardProps> = ({
   const { firstDate, lastDate } = getDateArray(operationDays)
   const formatDate =
     firstDate && lastDate
-      ? `${format(firstDate, 'yyyy.MM.dd')}~${format(lastDate, 'yyyy.MM.dd')}`
+      ? `${format(lastDate, 'yyyy.MM.dd')}~${format(firstDate, 'yyyy.MM.dd')}`
       : 'N/A'
 
   const handleArrowClick = () => {

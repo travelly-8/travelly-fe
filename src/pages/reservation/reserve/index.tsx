@@ -12,7 +12,6 @@ import TicketCountSection from '@/pages/reservation/components/ticket-count-sect
 import { IPersonnelSliceState } from '@/store/personnel-slice/personnel-slice.type'
 import { reservation } from '@/store/reservation-slice/reservation-slice'
 import { sheet } from '@/store/sheet-slice/sheet-slice'
-import dateValueBetween from '@/utils/dateValueBetween'
 
 import CheckBox from '@components/check-box'
 import FooterReservation from '@components/footer-reservation'
@@ -178,16 +177,6 @@ function ReservationPage() {
   const currentDay = currentTime.getDate()
   const currentMonth = currentTime.getMonth() + 1
 
-  const reasonableDate = dateValueBetween(
-    dateValue,
-    operationDays
-      ? operationDays[len - 1]?.date
-      : `${currentYear}.${currentMonth}.${currentDay}`,
-    operationDays
-      ? operationDays[0]?.date
-      : `${currentYear}.${currentMonth}.${currentDay}`,
-  )
-
   useEffect(() => {
     const ticketDtos = Object.keys(personnel).map((key) => {
       const matchedTicket = ticketDto?.find(
@@ -293,7 +282,6 @@ function ReservationPage() {
         buttontype="payment"
         cancelPolicyChecked={isCancelPolicyChecked}
         personnelInfoChecked={ticketPrice !== 0}
-        reasonableDate={reasonableDate}
         calendarChecked={calendarCnt !== 0}
         onPayConfirmClick={handlePayConfirmClick}
         onSubmit={handleSubmit(onSubmit)}
