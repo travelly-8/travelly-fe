@@ -93,15 +93,15 @@ export const MenuWrapper = styled.div`
   margin: 5.6rem 2rem 0 2rem;
 `
 interface IMenu {
-  idx: number
+  $idx: number
 }
 
 export const Menu = styled.div<IMenu>`
   width: 100%;
   border-bottom: ${(props) =>
-    props.idx === 1 ? '0' : '0.1rem solid var(--color-gray-light)'};
+    props.$idx === 1 ? '0' : '0.1rem solid var(--color-gray-light)'};
   border-top: ${(props) =>
-    props.idx >= 1 ? '0.1rem solid var(--color-gray-light)' : '0'};
+    props.$idx >= 1 ? '0.1rem solid var(--color-gray-light)' : '0'};
 `
 export const ExitWrapper = styled.div`
   margin-top: 1.2rem;
